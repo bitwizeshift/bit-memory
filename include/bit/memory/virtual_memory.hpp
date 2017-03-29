@@ -185,7 +185,7 @@ namespace bit {
     /// This allocator reserves virtual memory pages up front, and commits
     /// them as they get requested.
     //////////////////////////////////////////////////////////////////////////
-    class virtual_block_allocator
+    class virtual_block_allocator final
     {
       //----------------------------------------------------------------------
       // Public Members

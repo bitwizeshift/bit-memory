@@ -63,6 +63,7 @@ set(headers
   include/bit/memory/memory.hpp
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
+  include/bit/memory/cached_block_allocator.hpp
   include/bit/memory/virtual_memory.hpp
 )
 
