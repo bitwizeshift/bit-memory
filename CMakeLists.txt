@@ -65,19 +65,23 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/cached_block_allocator.hpp
   include/bit/memory/virtual_memory.hpp
+  include/bit/memory/aligned_memory.hpp
 )
 
 if( WIN32 )
   set(memory_source_files
     src/bit/memory/win32/virtual_memory.cpp
+    src/bit/memory/win32/aligned_memory.cpp
   )
 elseif( UNIX )
   set(memory_source_files
     src/bit/memory/posix/virtual_memory.cpp
+    src/bit/memory/posix/aligned_memory.cpp
   )
 elseif( APPLE )
   set(memory_source_files
     src/bit/memory/posix/virtual_memory.cpp
+    src/bit/memory/posix/aligned_memory.cpp
   )
 else()
   message(FATAL_ERROR "unknown or unsupported target memory")
