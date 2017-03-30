@@ -361,4 +361,6 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
+#include "detail/debugging.inl"
+
 #endif /* BIT_MEMORY_DEBUGGING_HPP */
