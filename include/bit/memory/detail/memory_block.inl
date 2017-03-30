@@ -13,6 +13,13 @@ inline constexpr bit::memory::memory_block::memory_block()
 
 }
 
+inline constexpr bit::memory::memory_block::memory_block( nullblock_t )
+  noexcept
+  : memory_block()
+{
+
+}
+
 inline constexpr bit::memory::memory_block::memory_block( void* ptr, std::size_t size )
   noexcept
   : m_data(ptr),

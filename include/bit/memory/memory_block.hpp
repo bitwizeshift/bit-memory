@@ -15,6 +15,19 @@
 
 namespace bit {
   namespace memory {
+    namespace detail {
+      struct memory_block_arg{};
+    }
+
+    /// \brief An instance to represent null memory blocks
+#ifndef BIT_DOXYGEN_BUILD
+    inline void nullblock( detail::memory_block_arg& ){}
+#else
+    void nullblock( /* implementation defined */ );
+#endif
+
+    /// \brief The type of \ref nullblock
+    using nullblock_t = decltype(*nullblock);
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief Wrapper around a block of memory, containing both the size
@@ -31,6 +44,9 @@ namespace bit {
 
       /// \brief Constructs a memory block pointing to null with 0 size
       constexpr explicit memory_block() noexcept;
+
+      /// \copydoc memory_block()
+      constexpr memory_block( nullblock_t ) noexcept;
 
       /// \brief Constructs a memory_block at the specified memory address,
       ///        \p data, with the specified size \p size
