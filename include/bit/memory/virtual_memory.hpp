@@ -185,7 +185,7 @@ namespace bit {
     /// This allocator reserves virtual memory pages up front, and commits
     /// them as they get requested.
     //////////////////////////////////////////////////////////////////////////
-    class virtual_block_allocator final
+    class virtual_block_allocator
     {
       //----------------------------------------------------------------------
       // Public Members
@@ -232,6 +232,12 @@ namespace bit {
 
       memory_block_cache m_cache; ///< The head of the current virtual memory page list
     };
+
+    /// \brief Alias for cached_virtual_block_allocator.
+    ///
+    /// The virtual_block_allocator already keeps an internal cache, and so
+    /// there is no need to keep an explicit cache
+    using cached_virtual_block_allocator = virtual_block_allocator;
 
   } // namespace memory
 } // namespace bit

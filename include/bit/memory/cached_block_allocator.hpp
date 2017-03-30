@@ -43,8 +43,10 @@ namespace bit {
       template<typename...Args>
       explicit cached_block_allocator( Args&&...args );
 
-      /// Deleted copy constructor
-      cached_block_allocator( const cached_block_allocator& other ) = delete;
+      /// \brief Copy-constructs a cached_block_allocator from another one
+      ///
+      /// \param other the other allocator to copy
+      cached_block_allocator( const cached_block_allocator& other ) = default;
 
       /// \brief Move-constructs a cached_block_allocator from another one
       ///
@@ -55,8 +57,11 @@ namespace bit {
       ///        cached entries
       ~cached_block_allocator();
 
-      /// Deleted copy assignment operator
-      cached_block_allocator& operator=( const cached_block_allocator& other ) = delete;
+      /// \brief Copy-assigns a cached_block_allocator from another one
+      ///
+      /// \param other the other allocator to copy
+      /// \return a reference to \c (*this)
+      cached_block_allocator& operator=( const cached_block_allocator& other ) = default;
 
       /// \brief Move-assigns a cached_block_allocator from another one
       ///

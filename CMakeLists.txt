@@ -66,6 +66,7 @@ set(headers
   include/bit/memory/cached_block_allocator.hpp
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
+  include/bit/memory/debugging.hpp
 )
 
 if( WIN32 )
@@ -90,6 +91,7 @@ endif()
 set(source_files
   src/bit/memory/virtual_memory.cpp
   src/bit/memory/memory_block_cache.cpp
+  src/bit/memory/debugging.cpp
 
   # memory-specific
   ${memory_source_files}
