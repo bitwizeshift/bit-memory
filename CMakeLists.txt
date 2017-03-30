@@ -67,6 +67,8 @@ set(headers
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
   include/bit/memory/debugging.hpp
+  include/bit/memory/not_null.hpp
+  include/bit/memory/concepts.hpp
 )
 
 if( WIN32 )
