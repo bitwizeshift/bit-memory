@@ -69,6 +69,7 @@ set(headers
   include/bit/memory/debugging.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
+  include/bit/memory/static_memory.hpp
 )
 
 if( WIN32 )
