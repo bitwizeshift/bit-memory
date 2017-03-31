@@ -70,6 +70,7 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/static_memory.hpp
+  include/bit/memory/block_allocator.hpp
 )
 
 if( WIN32 )
