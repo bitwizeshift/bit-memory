@@ -90,12 +90,28 @@ inline void bit::memory::swap( memory_block& lhs, memory_block& rhs )
   lhs.swap(rhs);
 }
 
+//----------------------------------------------------------------------------
+
 inline bool bit::memory::operator == ( const memory_block& lhs,
                                        const memory_block& rhs )
   noexcept
 {
   return lhs.size() == rhs.size() && lhs.data() == rhs.data();
 }
+
+inline bool bit::memory::operator == ( nullblock_t, const memory_block& rhs )
+  noexcept
+{
+  return rhs.size() == 0 && rhs.data() == nullptr;
+}
+
+inline bool bit::memory::operator == ( const memory_block& lhs, nullblock_t )
+  noexcept
+{
+  return lhs.size() == 0 && lhs.data() == nullptr;
+}
+
+//----------------------------------------------------------------------------
 
 inline bool bit::memory::operator != ( const memory_block& lhs,
                                        const memory_block& rhs )
@@ -104,6 +120,16 @@ inline bool bit::memory::operator != ( const memory_block& lhs,
   return !(lhs==rhs);
 }
 
+inline bool bit::memory::operator != ( nullblock_t, const memory_block& rhs )
+  noexcept
+{
+  return !(nullblock==rhs);
+}
 
+inline bool bit::memory::operator != ( const memory_block& lhs, nullblock_t )
+  noexcept
+{
+  return !(lhs==nullblock);
+}
 
 #endif /* BIT_MEMORY_DETAIL_MEMORY_BLOCK_INL */
