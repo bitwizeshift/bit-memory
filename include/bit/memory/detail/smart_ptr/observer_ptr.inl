@@ -143,4 +143,166 @@ inline void bit::memory::swap( observer_ptr<T>& lhs, observer_ptr<T>& rhs )
   lhs.swap(rhs);
 }
 
+
+
+//----------------------------------------------------------------------------
+// Comparisons
+//----------------------------------------------------------------------------
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator==( const observer_ptr<T>& lhs,
+                                               const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() == rhs.get();
+}
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator!=( const observer_ptr<T>& lhs,
+                                               const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() == rhs.get();
+}
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator<( const observer_ptr<T>& lhs,
+                                              const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() < rhs.get();
+}
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator>( const observer_ptr<T>& lhs,
+                                              const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() > rhs.get();
+}
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator<=( const observer_ptr<T>& lhs,
+                                               const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() <= rhs.get();
+}
+
+template<typename T, typename U>
+inline constexpr bool bit::memory::operator>=( const observer_ptr<T>& lhs,
+                                               const observer_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() >= rhs.get();
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator==( std::nullptr_t,
+                                               const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr == rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator==( const observer_ptr<T>& lhs,
+                                               std::nullptr_t )
+  noexcept
+{
+  return lhs.get() == nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator!=( std::nullptr_t,
+                                               const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr != rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator!=( const observer_ptr<T>& lhs,
+                                               std::nullptr_t )
+  noexcept
+{
+  return lhs.get() != nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator<( std::nullptr_t,
+                                              const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr < rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator<( const observer_ptr<T>& lhs,
+                                              std::nullptr_t )
+  noexcept
+{
+  return lhs.get() < nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator>( std::nullptr_t,
+                                              const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr > rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator>( const observer_ptr<T>& lhs,
+                                              std::nullptr_t )
+  noexcept
+{
+  return lhs.get() > nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator<=( std::nullptr_t,
+                                               const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr <= rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator<=( const observer_ptr<T>& lhs,
+                                               std::nullptr_t )
+  noexcept
+{
+  return lhs.get() <= nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T>
+inline constexpr bool bit::memory::operator>=( std::nullptr_t,
+                                               const observer_ptr<T>& rhs )
+  noexcept
+{
+  return nullptr >= rhs.get();
+}
+
+template<typename T>
+inline constexpr bool bit::memory::operator>=( const observer_ptr<T>& lhs,
+                                               std::nullptr_t )
+  noexcept
+{
+  return lhs.get() >= nullptr;
+}
+
 #endif /* BIT_MEMORY_DETAIL_SMART_PTR_OBSERVER_PTR_INL */

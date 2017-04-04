@@ -155,6 +155,73 @@ namespace bit {
     template<typename T>
     void swap( observer_ptr<T>& lhs, observer_ptr<T>& rhs ) noexcept;
 
+    //------------------------------------------------------------------------
+    // Comparisons
+    //------------------------------------------------------------------------
+
+    template<typename T, typename U>
+    constexpr bool operator==( const observer_ptr<T>& lhs,
+                               const observer_ptr<U>& rhs ) noexcept;
+    template<typename T, typename U>
+    constexpr bool operator!=( const observer_ptr<T>& lhs,
+                               const observer_ptr<U>& rhs ) noexcept;
+    template<typename T, typename U>
+    constexpr bool operator<( const observer_ptr<T>& lhs,
+                              const observer_ptr<U>& rhs ) noexcept;
+    template<typename T, typename U>
+    constexpr bool operator>( const observer_ptr<T>& lhs,
+                              const observer_ptr<U>& rhs ) noexcept;
+    template<typename T, typename U>
+    constexpr bool operator<=( const observer_ptr<T>& lhs,
+                               const observer_ptr<U>& rhs ) noexcept;
+    template<typename T, typename U>
+    constexpr bool operator>=( const observer_ptr<T>& lhs,
+                               const observer_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
+
+    template<typename T>
+    constexpr bool operator==( std::nullptr_t,
+                               const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator==( const observer_ptr<T>& lhs,
+                               std::nullptr_t ) noexcept;
+
+    template<typename T>
+    constexpr bool operator!=( std::nullptr_t,
+                               const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator!=( const observer_ptr<T>& lhs,
+                               std::nullptr_t ) noexcept;
+
+    template<typename T>
+    constexpr bool operator<( std::nullptr_t,
+                              const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator<( const observer_ptr<T>& lhs,
+                              std::nullptr_t ) noexcept;
+
+    template<typename T>
+    constexpr bool operator>( std::nullptr_t,
+                              const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator>( const observer_ptr<T>& lhs,
+                              std::nullptr_t ) noexcept;
+
+    template<typename T>
+    constexpr bool operator<=( std::nullptr_t,
+                               const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator<=( const observer_ptr<T>& lhs,
+                               std::nullptr_t ) noexcept;
+
+    template<typename T>
+    constexpr bool operator>=( std::nullptr_t,
+                               const observer_ptr<T>& rhs ) noexcept;
+    template<typename T>
+    constexpr bool operator>=( const observer_ptr<T>& lhs,
+                               std::nullptr_t ) noexcept;
+
   } // namespace memory
 } // namespace bit
 
