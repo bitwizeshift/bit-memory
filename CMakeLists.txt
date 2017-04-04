@@ -71,6 +71,7 @@ set(headers
   include/bit/memory/concepts.hpp
   include/bit/memory/static_memory.hpp
   include/bit/memory/block_allocator.hpp
+  include/bit/memory/smart_ptr.hpp
 )
 
 if( WIN32 )
