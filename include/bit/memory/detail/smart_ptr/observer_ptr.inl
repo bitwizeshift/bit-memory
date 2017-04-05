@@ -143,6 +143,29 @@ inline void bit::memory::swap( observer_ptr<T>& lhs, observer_ptr<T>& rhs )
   lhs.swap(rhs);
 }
 
+template<typename T>
+inline constexpr bit::memory::observer_ptr<T>
+  bit::memory::make_observer( T* ptr )
+  noexcept
+{
+  return observer_ptr<T>( ptr );
+}
+
+template<typename Pointer>
+inline constexpr auto bit::memory::make_observer( const Pointer& ptr )
+  noexcept -> decltype( make_observer( ptr.get() ) )
+{
+  return make_observer( ptr.get() );
+}
+
+template<typename T, typename Pointer, std::enable_if<bit::memory::detail::is_ptr_observable<Pointer>::value>*>
+inline constexpr bit::memory::observer_ptr<T>
+  bit::memory::make_observer( const Pointer& ptr )
+  noexcept
+{
+  return observer_ptr<T>( ptr.get() );
+}
+
 //----------------------------------------------------------------------------
 // Comparisons
 //----------------------------------------------------------------------------

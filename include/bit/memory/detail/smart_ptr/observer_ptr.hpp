@@ -10,6 +10,25 @@
 
 namespace bit {
   namespace memory {
+    namespace detail {
+
+      template<typename T>
+      struct is_ptr_observable
+      {
+        template<typename U>
+        static auto test( U* t )
+          -> decltype(std::declval<const void*>() = t->get(), std::true_type{});
+
+        static auto test(...) -> std::false_type;
+
+        static constexpr bool value = decltype(test( std::declval<T*>() ))::value;
+      };
+
+      template<typename T>
+      using make_observer_element_type_t
+        = std::remove_pointer_t<std::decay_t<decltype(std::declval<T>().get())>>;
+
+    } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief A lightweight wrapper around a pointer type
@@ -154,6 +173,30 @@ namespace bit {
     /// \param rhs the right one to swap
     template<typename T>
     void swap( observer_ptr<T>& lhs, observer_ptr<T>& rhs ) noexcept;
+
+    /// \brief Makes an observer_ptr from a raw pointer
+    ///
+    /// \tparam optionally able to be specified to coerce the type
+    /// \param ptr the pointer
+    /// \return an observer_ptr
+    template<typename T>
+    constexpr observer_ptr<T> make_observer( T* ptr ) noexcept;
+
+    /// \brief Makes an observer_ptr from a smart pointer
+    ///
+    /// \param ptr the pointer
+    /// \return an observer_ptr
+    template<typename Pointer>
+    constexpr auto make_observer( const Pointer& ptr ) noexcept
+      -> decltype( make_observer( ptr.get() ) );
+
+    /// \brief Makes an observer_ptr from a smart pointer
+    ///
+    /// \tparam explicit type of the pointer
+    /// \param ptr the pointer
+    /// \return an observer_ptr
+    template<typename T, typename Pointer, std::enable_if<detail::is_ptr_observable<Pointer>::value>* = nullptr>
+    constexpr observer_ptr<T> make_observer( const Pointer& ptr ) noexcept;
 
     //------------------------------------------------------------------------
     // Comparisons
