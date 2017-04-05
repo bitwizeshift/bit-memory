@@ -15,7 +15,7 @@
 
 // IWYU pragma: begin_exports
 #include "detail/smart_ptr/observer_ptr.hpp"
-//#include "detail/smart_ptr/scoped_ptr.hpp"
+#include "detail/smart_ptr/scoped_ptr.hpp"
 // IWYU pragma: end_exports
 
 namespace bit {
