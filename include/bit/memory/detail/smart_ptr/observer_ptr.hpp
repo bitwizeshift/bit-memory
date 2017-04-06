@@ -140,12 +140,12 @@ namespace bit {
       /// \brief Dereferences the observer_ptr
       ///
       /// \return the underlying pointer
-      constexpr element_type* operator->() const noexcept;
+      constexpr pointer operator->() const noexcept;
 
       /// \brief Dereferences the observer_ptr
       ///
       /// \return the underlying reference
-      constexpr element_type& operator*() const noexcept;
+      constexpr std::add_lvalue_reference_t<T> operator*() const noexcept;
 
       //----------------------------------------------------------------------
       // Conversions
@@ -176,11 +176,19 @@ namespace bit {
 
     /// \brief Makes an observer_ptr from a raw pointer
     ///
-    /// \tparam optionally able to be specified to coerce the type
     /// \param ptr the pointer
     /// \return an observer_ptr
     template<typename T>
     constexpr observer_ptr<T> make_observer( T* ptr ) noexcept;
+
+    /// \brief Makes an observer_ptr from a raw pointer, and coerces it to
+    ///        the specified type
+    ///
+    /// \tparam T the type to convert to
+    /// \param ptr the pointer
+    /// \return an observer_ptr
+    template<typename T, typename U, std::enable_if_t<!std::is_same<T,U>::value && std::is_convertible<U*,T*>::value>* = nullptr>
+    constexpr observer_ptr<T> make_observer( U* ptr ) noexcept;
 
     /// \brief Makes an observer_ptr from a smart pointer
     ///
@@ -192,7 +200,7 @@ namespace bit {
 
     /// \brief Makes an observer_ptr from a smart pointer
     ///
-    /// \tparam explicit type of the pointer
+    /// \tparam T explicit type of the pointer
     /// \param ptr the pointer
     /// \return an observer_ptr
     template<typename T, typename Pointer, std::enable_if<detail::is_ptr_observable<Pointer>::value>* = nullptr>

@@ -1,7 +1,7 @@
 /**
  * \file smart_ptr.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains templates for various different smart pointers.
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */

@@ -105,7 +105,7 @@ inline constexpr bit::memory::observer_ptr<T>::operator bool()
 }
 
 template<typename T>
-inline constexpr typename bit::memory::observer_ptr<T>::element_type*
+inline constexpr typename bit::memory::observer_ptr<T>::pointer
   bit::memory::observer_ptr<T>::operator->()
   const noexcept
 {
@@ -113,7 +113,7 @@ inline constexpr typename bit::memory::observer_ptr<T>::element_type*
 }
 
 template<typename T>
-inline constexpr typename bit::memory::observer_ptr<T>::element_type&
+inline constexpr std::add_lvalue_reference_t<T>
   bit::memory::observer_ptr<T>::operator*()
   const noexcept
 {
@@ -150,6 +150,15 @@ inline constexpr bit::memory::observer_ptr<T>
 {
   return observer_ptr<T>( ptr );
 }
+
+template<typename T, typename U, std::enable_if_t<!std::is_same<T,U>::value && std::is_convertible<U*,T*>::value>*>
+inline constexpr bit::memory::observer_ptr<T>
+  bit::memory::make_observer( U* ptr )
+  noexcept
+{
+  return observer_ptr<T>( ptr );
+}
+
 
 template<typename Pointer>
 inline constexpr auto bit::memory::make_observer( const Pointer& ptr )
