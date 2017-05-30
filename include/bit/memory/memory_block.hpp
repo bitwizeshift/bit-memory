@@ -140,13 +140,13 @@ namespace bit {
     /// \param rhs the right block to swap
     void swap( memory_block& lhs, memory_block& rhs ) noexcept;
 
-    bool operator == ( const memory_block& lhs, const memory_block& rhs ) noexcept;
-    bool operator == ( nullblock_t, const memory_block& rhs ) noexcept;
-    bool operator == ( const memory_block& lhs, nullblock_t ) noexcept;
+    constexpr bool operator == ( const memory_block& lhs, const memory_block& rhs ) noexcept;
+    constexpr bool operator == ( nullblock_t, const memory_block& rhs ) noexcept;
+    constexpr bool operator == ( const memory_block& lhs, nullblock_t ) noexcept;
 
-    bool operator != ( const memory_block& lhs, const memory_block& rhs ) noexcept;
-    bool operator != ( nullblock_t, const memory_block& rhs ) noexcept;
-    bool operator != ( const memory_block& lhs, nullblock_t ) noexcept;
+    constexpr bool operator != ( const memory_block& lhs, const memory_block& rhs ) noexcept;
+    constexpr bool operator != ( nullblock_t, const memory_block& rhs ) noexcept;
+    constexpr bool operator != ( const memory_block& lhs, nullblock_t ) noexcept;
 
   } // namespace memory
 } // namespace bit

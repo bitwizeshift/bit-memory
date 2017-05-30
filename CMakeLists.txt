@@ -75,6 +75,7 @@ set(headers
   include/bit/memory/null_block_allocator.hpp
   include/bit/memory/null_allocator.hpp
   include/bit/memory/std_allocator_adapter.hpp
+  include/bit/memory/linear_allocator.hpp
 )
 
 if( WIN32 )
