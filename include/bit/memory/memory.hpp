@@ -10,6 +10,7 @@
 #define BIT_MEMORY_MEMORY_HPP
 
 #include <cstddef> // std::size_t
+#include <utility> // std::forward
 
 namespace bit {
   namespace memory {
@@ -31,6 +32,24 @@ namespace bit {
 
       } // inline namespace byte_literals
     } // inline namespace literals
+
+    /// \brief Constructs an instance of type \p T with the given \p args
+    ///        at the memory location specified in \p ptr
+    ///
+    /// \param ptr     The memory location to construct into
+    /// \param args... The arguments to supply to T's constructor
+    /// \return Pointer to the initialized memory (cast of \p ptr)
+    template<typename T, typename...Args>
+    T* uninitialized_construct_at( void* ptr, Args&&...args );
+
+    template<typename T>
+    T* uninitialized_construct_array_at( void* p, std::size_t n );
+
+    template<typename T>
+    void destroy_at( T* p );
+
+    template<typename T>
+    void destroy_array_at( T* p, std::size_t n );
 
   } // namespace memory
 } // namespace bit
