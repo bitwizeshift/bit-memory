@@ -111,6 +111,8 @@ namespace bit {
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     /// \tparam Offset The offset from the alignment
+    ///
+    /// \satisfies BlockAllocator
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size,std::size_t Align, std::size_t Offset>
     class aligned_offset_block_allocator
