@@ -22,6 +22,8 @@ namespace bit {
     ///
     /// This view is non-owning, and thus does not participate in the lifetime
     /// of a given allocator.
+    ///
+    /// \satisfies BlockAllocator
     //////////////////////////////////////////////////////////////////////////
     class block_allocator final
     {
@@ -90,13 +92,24 @@ namespace bit {
       using allocate_block_fn_t   = memory_block(*)( void* );
 
       //----------------------------------------------------------------------
+      // Private Static Functions
+      //----------------------------------------------------------------------
+    private:
+
+      template<typename BlockAllocator>
+      static owner<memory_block> allocate_block_function( void* instance );
+
+      template<typename BlockAllocator>
+      static void deallocate_block_function( void* instance, owner<memory_block> block );
+
+      //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
     private:
 
+      void*                 m_ptr;
       allocate_block_fn_t   m_allocate_block_fn;
       deallocate_block_fn_t m_deallocate_block_fn;
-      void*                 m_ptr;
 
     };
 
