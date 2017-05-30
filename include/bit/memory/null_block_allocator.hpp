@@ -38,6 +38,16 @@ namespace bit {
       void deallocate_block( owner<memory_block> block ) noexcept;
 
     };
+
+    //------------------------------------------------------------------------
+    // Utilities
+    //------------------------------------------------------------------------
+
+    /// \brief Gets a static null_block_allocator
+    ///
+    /// \return a reference to a null_block_allocator
+    null_block_allocator& null_block_allocator_instance() noexcept;
+
   } // namespace memory
 } // namespace bit
 
