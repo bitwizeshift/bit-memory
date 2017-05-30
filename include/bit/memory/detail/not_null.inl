@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 template<typename Ptr>
-template <typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>*>
+template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>*>
 inline constexpr bit::memory::not_null<Ptr>::not_null(U&& u)
   : m_pointer(std::forward<U>(u))
 {
@@ -14,9 +14,18 @@ inline constexpr bit::memory::not_null<Ptr>::not_null(U&& u)
 }
 
 template<typename Ptr>
-template <typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>*>
+template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>*>
 inline constexpr bit::memory::not_null<Ptr>::not_null(const not_null<U>& other)
   : not_null(other.get())
+{
+
+}
+
+template<typename Ptr>
+template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>*>
+inline constexpr bit::memory::not_null<Ptr>::not_null(not_null<U>&& other)
+  noexcept
+  : not_null(std::move(other.get()))
 {
 
 }

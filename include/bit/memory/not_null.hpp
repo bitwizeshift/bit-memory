@@ -49,14 +49,20 @@ namespace bit {
       ///        type
       ///
       /// \param u the type to instantiate the not_null from
-      template <typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>* = nullptr>
+      template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>* = nullptr>
       constexpr not_null(U&& u);
 
-      /// \brief
+      /// \brief Copy-constructs a not_null from another one
       ///
-      /// \param other
-      template <typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>* = nullptr>
+      /// \param other the other not_null to copy
+      template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>* = nullptr>
       constexpr not_null(const not_null<U>& other);
+
+      /// \brief Move-constructs a not_null from another one
+      ///
+      /// \param other the other not_null to move
+      template<typename U, std::enable_if_t<std::is_convertible<U, Ptr>::value>* = nullptr>
+      constexpr not_null(not_null<U>&& other) noexcept;
 
       /// \brief Default copy-construction
       ///
