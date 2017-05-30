@@ -31,6 +31,8 @@ namespace bit {
     ///
     /// \tparam Size the size of the static allocation
     /// \tparam Tag the type used for a tag
+    ///
+    /// \satisfies BlockAllocator
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size, typename Tag = void>
     class static_block_allocator
