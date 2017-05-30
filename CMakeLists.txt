@@ -102,6 +102,7 @@ set(source_files
   src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
   src/bit/memory/null_block_allocator.cpp
+  src/bit/memory/null_allocator.cpp
 
   # memory-specific
   ${memory_source_files}

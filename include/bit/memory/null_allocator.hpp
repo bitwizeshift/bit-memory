@@ -42,6 +42,15 @@ namespace bit {
       void deallocate( void* p, std::size_t n ) noexcept;
     };
 
+    //------------------------------------------------------------------------
+    // Utilities
+    //------------------------------------------------------------------------
+
+    /// \brief Gets a static null_allocator
+    ///
+    /// \return a reference to a null_allocator
+    null_allocator& null_allocator_instance() noexcept;
+
   } // namespace memory
 } // namespace bit
 
