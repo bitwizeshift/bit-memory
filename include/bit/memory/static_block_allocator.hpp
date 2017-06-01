@@ -1,13 +1,13 @@
 /**
- * \file static_memory.hpp
+ * \file static_block_allocator.hpp
  *
  * \brief This header contains the definition for an allocator that can only
  *        allocate a single static block
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_STATIC_MEMORY_HPP
-#define BIT_MEMORY_STATIC_MEMORY_HPP
+#ifndef BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
 
 #include "memory.hpp"       // owner
 #include "memory_block.hpp" // memory_block
@@ -50,7 +50,7 @@ namespace bit {
     public:
 
       /// \brief Constructs a static_block_allocator from another allocator
-      explicit static_block_allocator() noexcept;
+      static_block_allocator() noexcept;
 
       /// Deleted copy constructor
       static_block_allocator( const static_block_allocator& other ) = delete;
@@ -94,14 +94,13 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      static unsigned char storage[Size];
-
-      bool m_is_allocated; ///< is this block allocated?
+      static unsigned char s_storage[Size];
+      static bool s_is_allocated; ///< is this block allocated?
     };
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/static_memory.inl"
+#include "detail/static_block_allocator.inl"
 
-#endif /* BIT_MEMORY_STATIC_MEMORY_HPP */
+#endif /* BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP */

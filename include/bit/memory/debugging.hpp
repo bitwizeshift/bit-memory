@@ -144,7 +144,7 @@ namespace bit {
     /// \c debug_tag::allocated_block_byte, and deallocated blocks are tagged
     /// with the pattern \c debug_tag::freed_block_byte
     ///
-    /// \satisfies BlockAllocator requirements
+    /// \satisfies BlockAllocator
     //////////////////////////////////////////////////////////////////////////
     template<typename BlockAllocator>
     class debug_block_allocator
@@ -253,7 +253,7 @@ namespace bit {
     /// beginning fence is tagged with \c debug_tag::fence_start_byte , and
     /// the ending fence is tagged with \c debug_tag::fence_end_byte.
     ///
-    /// \satisfies Allocator requirements
+    /// \satisfies Allocator
     //////////////////////////////////////////////////////////////////////////
     template<typename Allocator>
     class debug_allocator
@@ -324,7 +324,7 @@ namespace bit {
       ///
       /// \param ptr the pointer to deallocate
       /// \param bytes the size of the allocation
-      void deallocate( void* ptr , std::size_t bytes );
+      void deallocate( void* ptr, std::size_t bytes );
 
       //----------------------------------------------------------------------
       // Private Member Types

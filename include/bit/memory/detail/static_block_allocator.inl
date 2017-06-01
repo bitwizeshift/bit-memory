@@ -1,5 +1,8 @@
-#ifndef BIT_MEMORY_DETAIL_STATIC_MEMORY_INL
-#define BIT_MEMORY_DETAIL_STATIC_MEMORY_INL
+#ifndef BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
+
+template<std::size_t Size, typename Tag>
+bool bit::memory::static_block_allocator<Size,Tag>::s_is_allocated = false;
 
 //----------------------------------------------------------------------------
 // Constructor
@@ -8,7 +11,6 @@
 template<std::size_t Size, typename Tag>
 bit::memory::static_block_allocator<Size,Tag>::static_block_allocator()
   noexcept
-  : m_is_allocated(false)
 {
 
 }
@@ -22,9 +24,9 @@ bit::memory::owner<bit::memory::memory_block>
   bit::memory::static_block_allocator<Size,Tag>::allocate_block()
   noexcept
 {
-  if( !m_is_allocated ) {
-    m_is_allocated = true;
-    return memory_block{ (void*) storage, Size };
+  if( !s_is_allocated ) {
+    s_is_allocated = true;
+    return memory_block{ (void*) s_storage, Size };
   }
   return nullblock;
 }
@@ -38,7 +40,7 @@ void bit::memory::static_block_allocator<Size,Tag>
 {
   // Only consider this deallocated if the deallocated block is the same block
   // that was originally allocated
-  m_is_allocated = !(memory_block{ (void*) storage, Size } == block);
+  s_is_allocated = !(memory_block{ (void*) s_storage, Size } == block);
 }
 
-#endif /* BIT_MEMORY_DETAIL_STATIC_MEMORY_INL */
+#endif /* BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL */

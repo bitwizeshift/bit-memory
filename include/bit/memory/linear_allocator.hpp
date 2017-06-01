@@ -33,6 +33,8 @@ namespace bit {
 
       explicit linear_allocator( memory_block block ) noexcept;
 
+      linear_allocator( nullblock_t ) = delete;
+
       linear_allocator( linear_allocator&& other ) noexcept = default;
 
       //----------------------------------------------------------------------
@@ -40,11 +42,11 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      void* allocate( std::size_t size, std::size_t align, std::size_t n );
+      void* allocate( std::size_t size, std::size_t align, std::size_t offset );
 
       //----------------------------------------------------------------------
 
-      void deallocate( void* p, std::size_t n );
+      void deallocate( void* p );
 
       //----------------------------------------------------------------------
       // Construction / Destruction

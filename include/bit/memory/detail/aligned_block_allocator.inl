@@ -1,5 +1,5 @@
-#ifndef MEMORY_DETAIL_ALIGNED_MEMORY_INL
-#define MEMORY_DETAIL_ALIGNED_MEMORY_INL
+#ifndef MEMORY_DETAIL_ALIGNED_BLOCK_ALLOCATOR_INL
+#define MEMORY_DETAIL_ALIGNED_BLOCK_ALLOCATOR_INL
 
 
 //============================================================================
@@ -57,4 +57,5 @@ inline void
 {
   aligned_offset_free( block.data() );
 }
-#endif /* MEMORY_DETAIL_ALIGNED_MEMORY_INL */
+
+#endif /* MEMORY_DETAIL_ALIGNED_BLOCK_ALLOCATOR_INL */

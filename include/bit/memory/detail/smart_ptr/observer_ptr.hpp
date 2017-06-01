@@ -206,6 +206,27 @@ namespace bit {
     template<typename T, typename Pointer, std::enable_if<detail::is_ptr_observable<Pointer>::value>* = nullptr>
     constexpr observer_ptr<T> make_observer( const Pointer& ptr ) noexcept;
 
+    inline namespace casts {
+
+      /// \brief Creates a new instance of observer_ptr whose stored pointer
+      ///        is the result of a static_cast
+      ///
+      /// \param ptr the pointer to static_cast
+      /// \return the result of a static_cast
+      template<typename T, typename U>
+      constexpr observer_ptr<T> static_pointer_cast( const observer_ptr<U>& ptr ) noexcept;
+
+      template<typename T, typename U>
+      constexpr observer_ptr<T> dynamic_pointer_cast( const observer_ptr<U>& ptr ) noexcept;
+
+      template<typename T, typename U>
+      constexpr observer_ptr<T> const_pointer_cast( const observer_ptr<U>& ptr ) noexcept;
+
+      template<typename T, typename U>
+      constexpr observer_ptr<T> reinterpret_pointer_cast( const observer_ptr<T>& ptr ) noexcept;
+
+    } // inline namespace casts
+
     //------------------------------------------------------------------------
     // Comparisons
     //------------------------------------------------------------------------
