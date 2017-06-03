@@ -7,8 +7,7 @@
 
 inline constexpr bit::memory::memory_block::memory_block()
   noexcept
-  : m_data(nullptr),
-    m_size(0)
+  : memory_block( nullptr, 0 )
 {
 
 }
@@ -22,11 +21,20 @@ inline constexpr bit::memory::memory_block::memory_block( nullblock_t )
 
 inline constexpr bit::memory::memory_block::memory_block( void* ptr, std::size_t size )
   noexcept
-  : m_data(ptr),
+  : memory_block(ptr,size,nullptr)
+{
+
+}
+
+inline constexpr bit::memory::memory_block::memory_block( void* ptr, std::size_t size, const void* origin )
+  noexcept
+  : m_origin(origin),
+    m_data(ptr),
     m_size(size)
 {
 
 }
+
 
 //----------------------------------------------------------------------------
 // Element Access
@@ -42,6 +50,12 @@ inline constexpr const void* bit::memory::memory_block::data()
   const noexcept
 {
   return m_data;
+}
+
+inline constexpr const void* bit::memory::memory_block::origin()
+  const noexcept
+{
+  return m_origin;
 }
 
 //----------------------------------------------------------------------------

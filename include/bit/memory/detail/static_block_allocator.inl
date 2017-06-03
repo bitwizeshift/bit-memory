@@ -26,7 +26,7 @@ bit::memory::owner<bit::memory::memory_block>
 {
   if( !s_is_allocated ) {
     s_is_allocated = true;
-    return memory_block{ (void*) s_storage, Size };
+    return memory_block{ (void*) s_storage, Size, this };
   }
   return nullblock;
 }

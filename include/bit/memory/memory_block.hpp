@@ -55,6 +55,14 @@ namespace bit {
       /// \param size The size of the memory block
       constexpr explicit memory_block( void* data, std::size_t size ) noexcept;
 
+      /// \brief Constructs a memory_block at the specified memory address,
+      ///        \p data, with the specified size \p size, and the \p origin
+      ///
+      /// \param data The memory address to start the block
+      /// \param size The size of the memory block
+      /// \param origin The place where this memroy block originates from
+      constexpr explicit memory_block( void* data, std::size_t size, const void* origin ) noexcept;
+
       /// \brief Copy-constructs a memory_block by copying another memory_block
       ///
       /// \param other the other memory_block to copy
@@ -92,6 +100,11 @@ namespace bit {
       /// \copydoc memory_block::data()
       constexpr const void* data() const noexcept;
 
+      /// \brief Retrieves the pointer to this blocks origin
+      ///
+      /// \return the pointer to the origin
+      constexpr const void* origin() const noexcept;
+
       //----------------------------------------------------------------------
       // Observers
       //----------------------------------------------------------------------
@@ -126,8 +139,9 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      void*       m_data; ///< Pointer to the start of the memory block
-      std::size_t m_size; ///< The size of the memory block
+      const void* m_origin; ///< The origin of this memory block
+      void*       m_data;   ///< Pointer to the start of the memory block
+      std::size_t m_size;   ///< The size of the memory block
     };
 
     //------------------------------------------------------------------------

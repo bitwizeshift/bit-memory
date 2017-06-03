@@ -16,7 +16,7 @@ inline bit::memory::memory_block
   allocate_block()
   noexcept
 {
-  return memory_block{ aligned_malloc(Size,Align), Size };
+  return memory_block{ aligned_malloc(Size,Align), Size, this };
 }
 
 //----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ inline bit::memory::memory_block
   allocate_block()
   noexcept
 {
-  return memory_block{ aligned_offset_malloc(Size,Align,Offset), Size };
+  return memory_block{ aligned_offset_malloc(Size,Align,Offset), Size, this };
 }
 
 //----------------------------------------------------------------------------

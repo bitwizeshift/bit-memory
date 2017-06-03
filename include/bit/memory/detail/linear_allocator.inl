@@ -26,15 +26,15 @@ inline void* bit::memory::linear_allocator
 {
   assert( size && "cannot allocate 0 bytes");
 
-  auto p = offset_align_forward( m_current, size, align, offset );
-  m_current = (static_cast<unsigned char*>(p) + size);
+//  auto p = offset_align_forward( m_current, size, align, offset );
+//  m_current = (static_cast<unsigned char*>(p) + size);
 
-  assert( m_block.contains( m_current ) );
-
-  return p;
+//  assert( m_block.contains( m_current ) );
+//
+//  return p;
 }
 
-inline void bit::memory::linear_allocator::deallocate( void* p )
+inline void bit::memory::linear_allocator::deallocate( void* p, std::size_t )
 {
   assert( m_block.contains( p ) );
 }

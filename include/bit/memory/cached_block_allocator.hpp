@@ -15,6 +15,7 @@
 #include "memory_block_cache.hpp" // memory_block_cache
 
 #include <utility> // std::forward
+#include <type_traits> // std::true_type, std::false_type
 
 namespace bit {
   namespace memory {
@@ -110,6 +111,12 @@ namespace bit {
 
       storage_type m_storage; ///< The underlying storage type
     };
+
+    template<typename T>
+    struct is_cached_block_allocator : std::false_type{};
+
+    template<typename T>
+    struct is_cached_block_allocator<cached_block_allocator<T>> : std::true_type{};
 
   } // namespace memory
 } // namespace bit

@@ -17,7 +17,7 @@ bit::memory::virtual_block_allocator
   auto ptr = (char*) virtual_memory_reserve( pages );
 
   for( auto i = 0; i < pages; ++i ) {
-    m_cache.store_block( memory_block(ptr, block_size) );
+    m_cache.store_block( memory_block(ptr, block_size, this) );
     ptr += block_size;
   }
 }
