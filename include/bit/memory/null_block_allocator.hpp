@@ -11,6 +11,7 @@
 
 #include "memory.hpp"
 #include "memory_block.hpp"
+#include "cached_block_allocator.hpp"
 
 namespace bit {
   namespace memory {
@@ -38,6 +39,8 @@ namespace bit {
       void deallocate_block( owner<memory_block> block ) noexcept;
 
     };
+
+    using cached_null_block_allocator = cached_block_allocator<null_block_allocator>;
 
     //------------------------------------------------------------------------
     // Utilities

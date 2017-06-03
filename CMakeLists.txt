@@ -74,6 +74,8 @@ set(headers
   include/bit/memory/aligned_memory.hpp
   # Block Allocators
   include/bit/memory/cached_block_allocator.hpp
+  include/bit/memory/debug_block_allocator.hpp
+  include/bit/memory/thread_safe_block_allocator.hpp
   include/bit/memory/virtual_block_allocator.hpp
   include/bit/memory/aligned_block_allocator.hpp
   include/bit/memory/null_block_allocator.hpp
@@ -83,7 +85,6 @@ set(headers
   include/bit/memory/fallback_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
   # Allocators
-  include/bit/memory/linear_allocator.hpp
   include/bit/memory/std_allocator_adapter.hpp
   include/bit/memory/null_allocator.hpp
 )
