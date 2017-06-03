@@ -68,6 +68,7 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/smart_ptr.hpp
+  include/bit/memory/alignment.hpp
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
@@ -77,6 +78,7 @@ set(headers
   include/bit/memory/aligned_block_allocator.hpp
   include/bit/memory/null_block_allocator.hpp
   include/bit/memory/static_block_allocator.hpp
+  include/bit/memory/malloc_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
   # Allocators
   include/bit/memory/linear_allocator.hpp
@@ -107,7 +109,11 @@ set(source_files
   src/bit/memory/virtual_memory.cpp
   src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
+  # Block Allocators
+  src/bit/memory/virtual_block_allocator.cpp
   src/bit/memory/null_block_allocator.cpp
+  src/bit/memory/malloc_block_allocator.cpp
+  # Allocators
   src/bit/memory/null_allocator.cpp
 
   # memory-specific
