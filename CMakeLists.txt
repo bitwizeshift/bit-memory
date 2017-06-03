@@ -79,6 +79,7 @@ set(headers
   include/bit/memory/null_block_allocator.hpp
   include/bit/memory/static_block_allocator.hpp
   include/bit/memory/malloc_block_allocator.hpp
+  include/bit/memory/new_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
   # Allocators
   include/bit/memory/linear_allocator.hpp
@@ -113,6 +114,7 @@ set(source_files
   src/bit/memory/virtual_block_allocator.cpp
   src/bit/memory/null_block_allocator.cpp
   src/bit/memory/malloc_block_allocator.cpp
+  src/bit/memory/new_block_allocator.cpp
   # Allocators
   src/bit/memory/null_allocator.cpp
 
