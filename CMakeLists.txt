@@ -80,6 +80,7 @@ set(headers
   include/bit/memory/static_block_allocator.hpp
   include/bit/memory/malloc_block_allocator.hpp
   include/bit/memory/new_block_allocator.hpp
+  include/bit/memory/fallback_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
   # Allocators
   include/bit/memory/linear_allocator.hpp
