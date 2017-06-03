@@ -18,12 +18,17 @@ namespace {
                               const void* ptr,
                               std::ptrdiff_t size );
 
+  void default_double_delete_handler( const bit::memory::allocator_info& info,
+                                      const void* ptr,
+                                      std::ptrdiff_t size );
+
   //--------------------------------------------------------------------------
   // Static Entries
   //--------------------------------------------------------------------------
 
   std::atomic<bit::memory::leak_handler_t>  g_leak_handler(default_leak_handler);
   std::atomic<bit::memory::stomp_handler_t> g_stomp_handler(default_stomp_handler);
+  std::atomic<bit::memory::double_delete_handler_t> g_double_delete_handler(default_double_delete_handler);
 }
 
 //----------------------------------------------------------------------------
@@ -81,6 +86,30 @@ void bit::memory::stomp_handler( const bit::memory::allocator_info& info,
 }
 
 //----------------------------------------------------------------------------
+// Double Delete handlers
+//----------------------------------------------------------------------------
+
+bit::memory::double_delete_handler_t
+  bit::memory::set_double_delete_handler(double_delete_handler_t f)
+  noexcept
+{
+  return g_double_delete_handler.exchange( f ? f : default_double_delete_handler );
+}
+
+bit::memory::double_delete_handler_t bit::memory::get_double_delete_handler()
+  noexcept
+{
+  return g_double_delete_handler;
+}
+
+void bit::memory::double_delete_handler( const allocator_info& info,
+                                         const void* ptr,
+                                         std::ptrdiff_t size )
+{
+  (*g_double_delete_handler)( info, ptr, size );
+}
+
+//----------------------------------------------------------------------------
 // Anonymous Definitions
 //----------------------------------------------------------------------------
 
@@ -101,6 +130,14 @@ namespace {
   {
     std::cerr << "stomp detected at address " << ptr << "\n"
               << size << " bytes overwritten.\n";
+  }
+
+  void default_double_delete_handler( const bit::memory::allocator_info& info,
+                                      const void* ptr,
+                                      std::ptrdiff_t size )
+  {
+    std::cerr << "double delete detected at address " << ptr << "\n"
+              << size << " bytes double-deleted.\n";
   }
 
 } // anonymous namespace

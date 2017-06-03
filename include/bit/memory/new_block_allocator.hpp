@@ -12,6 +12,8 @@
 
 #include "memory.hpp"
 #include "memory_block.hpp"
+#include "cached_block_allocator.hpp"
+#include "debug_block_allocator.hpp"
 
 namespace bit {
   namespace memory {
@@ -57,6 +59,10 @@ namespace bit {
 
       std::size_t m_size;
     };
+
+    using cached_new_block_allocator = cached_block_allocator<new_block_allocator>;
+    using debug_new_block_allocator  = debug_block_allocator<new_block_allocator>;
+    using cached_debug_new_block_allocator = cached_block_allocator<debug_block_allocator<new_block_allocator>>;
 
   } // namespace memory
 } // namespace bit

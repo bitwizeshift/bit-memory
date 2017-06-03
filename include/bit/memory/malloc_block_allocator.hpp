@@ -12,6 +12,8 @@
 
 #include "memory.hpp"
 #include "memory_block.hpp"
+#include "cached_block_allocator.hpp"
+#include "debug_block_allocator.hpp"
 
 namespace bit {
   namespace memory {
@@ -31,6 +33,8 @@ namespace bit {
 
       /// \brief Constructs a malloc_block_allocator that will distribute
       ///        blocks of the specified \p size
+      ///
+      /// \param size the size of each block allocation
       explicit malloc_block_allocator( std::size_t size ) noexcept;
 
       //----------------------------------------------------------------------
@@ -55,6 +59,10 @@ namespace bit {
 
       std::size_t m_size;
     };
+
+    using cached_malloc_block_allocator = cached_block_allocator<malloc_block_allocator>;
+    using debug_malloc_block_allocator  = debug_block_allocator<malloc_block_allocator>;
+    using cached_debug_malloc_block_allocator = cached_block_allocator<debug_block_allocator<malloc_block_allocator>>;
 
   } // namespace memory
 } // namespace bit

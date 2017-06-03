@@ -12,8 +12,8 @@
 
 #include "aligned_memory.hpp"
 #include "memory_block.hpp"
-#include "memory_block_cache.hpp"
 #include "cached_block_allocator.hpp"
+#include "debug_block_allocator.hpp"
 
 namespace bit {
   namespace memory {
@@ -64,6 +64,20 @@ namespace bit {
     template<std::size_t Size,std::size_t Align>
     using cached_aligned_block_allocator = cached_block_allocator<aligned_block_allocator<Size,Align>>;
 
+    /// \brief A debug version of aligned_block_allocator
+    ///
+    /// \tparam Size The size of the block
+    /// \tparam Align The alignment of block
+    template<std::size_t Size,std::size_t Align>
+    using debug_aligned_block_allocator  = debug_block_allocator<aligned_block_allocator<Size,Align>>;
+
+    /// \brief A cached/debug version of aligned_block_allocator
+    ///
+    /// \tparam Size The size of the block
+    /// \tparam Align The alignment of block
+    template<std::size_t Size,std::size_t Align>
+    using cached_debug_aligned_block_allocator = cached_block_allocator<debug_block_allocator<aligned_block_allocator<Size,Align>>>;
+
     //------------------------------------------------------------------------
 
     //////////////////////////////////////////////////////////////////////////
@@ -113,6 +127,22 @@ namespace bit {
     /// \tparam Offset The offset from the alignment
     template<std::size_t Size,std::size_t Align,std::size_t Offset>
     using cached_aligned_offset_block_allocator = cached_block_allocator<aligned_offset_block_allocator<Size,Align,Offset>>;
+
+    /// \brief A debug version of aligned_offset_block_allocator
+    ///
+    /// \tparam Size The size of the block
+    /// \tparam Align The alignment of block
+    /// \tparam Offset The offset from the alignment
+    template<std::size_t Size,std::size_t Align,std::size_t Offset>
+    using debug_aligned_offset_block_allocator  = debug_block_allocator<aligned_offset_block_allocator<Size,Align,Offset>>;
+
+    /// \brief A cached/debug version of aligned_offset_block_allocator
+    ///
+    /// \tparam Size The size of the block
+    /// \tparam Align The alignment of block
+    /// \tparam Offset The offset from the alignment
+    template<std::size_t Size,std::size_t Align,std::size_t Offset>
+    using cached_debug_aligned_offset_block_allocator = cached_block_allocator<debug_block_allocator<aligned_offset_block_allocator<Size,Align,Offset>>>;
 
   } // namespace memory
 } // namespace bit

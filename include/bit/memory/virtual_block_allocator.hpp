@@ -12,7 +12,7 @@
 #include "virtual_memory.hpp"
 #include "memory_block.hpp"
 #include "memory_block_cache.hpp"
-#include "cached_block_allocator.hpp"
+#include "debug_block_allocator.hpp"
 
 #include <cstddef> // std::size_t
 
@@ -75,11 +75,8 @@ namespace bit {
       memory_block_cache m_cache; ///< The head of the current virtual memory page list
     };
 
-    /// \brief Alias for cached_virtual_block_allocator.
-    ///
-    /// The virtual_block_allocator already keeps an internal cache, and so
-    /// there is no need to keep an explicit cache
-    using cached_virtual_block_allocator = virtual_block_allocator;
+    /// \brief A debug virtual block allocator.
+    using debug_virtual_block_allocator = debug_block_allocator<virtual_block_allocator>;
 
   } // namespace memory
 } // namespace bit

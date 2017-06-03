@@ -9,9 +9,11 @@
 #ifndef BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
 
-#include "memory.hpp"       // owner
-#include "memory_block.hpp" // memory_block
-#include <cstdlib>          // std::size_t
+#include "memory.hpp"
+#include "memory_block.hpp"
+#include "debug_block_allocator.hpp"
+
+#include <cstdlib> // std::size_t
 
 namespace bit {
   namespace memory {
@@ -97,6 +99,9 @@ namespace bit {
       static unsigned char s_storage[Size];
       static bool s_is_allocated; ///< is this block allocated?
     };
+
+    template<std::size_t Size, typename Tag = void>
+    using debug_static_block_allocator = debug_block_allocator<static_block_allocator<Size,Tag>>;
 
   } // namespace memory
 } // namespace bit
