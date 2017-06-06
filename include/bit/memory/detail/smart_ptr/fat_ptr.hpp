@@ -117,7 +117,7 @@ namespace bit {
       /// \brief Swaps this fat_ptr with the \p other
       ///
       /// \param other the other fat_ptr to swap
-      constexpr void swap( fat_ptr& other ) noexcept;
+      void swap( fat_ptr& other ) noexcept;
 
       //----------------------------------------------------------------------
       // Observers
@@ -271,6 +271,28 @@ namespace bit {
     };
 
     //------------------------------------------------------------------------
+    // Comparisons
+    //------------------------------------------------------------------------
+
+    template<typename T, typename U>
+    constexpr bool operator==( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    constexpr bool operator!=( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    constexpr bool operator<( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    constexpr bool operator>( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    constexpr bool operator<=( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    constexpr bool operator>=( const fat_ptr<T>& lhs, const fat_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
     // Utilities
     //------------------------------------------------------------------------
 
@@ -311,7 +333,8 @@ namespace bit {
       template<typename To, typename From>
       constexpr fat_ptr<To> reinterpret_pointer_cast( const fat_ptr<From>& other ) noexcept;
 
-    } // inline namespace
+    } // inline namespace casts
+
   } // namespace memory
 } // namespace bit
 

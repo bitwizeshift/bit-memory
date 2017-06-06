@@ -116,7 +116,7 @@ constexpr void bit::memory::fat_ptr<T>::reset( U* p, std::size_t n )
 }
 
 template<typename T>
-constexpr void bit::memory::fat_ptr<T>::swap( fat_ptr& other )
+inline void bit::memory::fat_ptr<T>::swap( fat_ptr& other )
   noexcept
 {
   using std::swap;
@@ -206,7 +206,68 @@ constexpr bit::memory::fat_ptr<T[]>::operator bool()
 }
 
 //----------------------------------------------------------------------------
+// Comparisons
+//----------------------------------------------------------------------------
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator==( const fat_ptr<T>& lhs,
+                                        const fat_ptr<U>& rhs )
+  noexcept
+{
+  return lhs.get() == rhs.get() && lhs.size() == rhs.size();
+}
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator!=( const fat_ptr<T>& lhs,
+                                        const fat_ptr<U>& rhs )
+  noexcept
+{
+  return !(lhs==rhs);
+}
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator<( const fat_ptr<T>& lhs,
+                                       const fat_ptr<U>& rhs )
+  noexcept
+{
+  return (lhs.get() == rhs.get() ? lhs.size() < rhs.size() : lhs.get() < rhs.get());
+}
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator>( const fat_ptr<T>& lhs,
+                                       const fat_ptr<U>& rhs )
+  noexcept
+{
+  return (rhs<lhs);
+}
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator<=( const fat_ptr<T>& lhs,
+                                        const fat_ptr<U>& rhs )
+  noexcept
+{
+  return !(rhs<lhs);
+}
+
+template<typename T, typename U>
+constexpr bool bit::memory::operator>=( const fat_ptr<T>& lhs,
+                                        const fat_ptr<U>& rhs )
+  noexcept
+{
+  return !(lhs<rhs);
+}
+
+//----------------------------------------------------------------------------
 // Utilities
+//----------------------------------------------------------------------------
+
+template<typename T>
+constexpr void bit::memory::swap( fat_ptr<T>& lhs, fat_ptr<T>& rhs )
+  noexcept
+{
+  lhs.swap(rhs);
+}
+
 //----------------------------------------------------------------------------
 
 template<typename To, typename From>
