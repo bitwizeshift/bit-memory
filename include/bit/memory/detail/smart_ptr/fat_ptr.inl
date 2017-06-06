@@ -262,7 +262,7 @@ constexpr bool bit::memory::operator>=( const fat_ptr<T>& lhs,
 //----------------------------------------------------------------------------
 
 template<typename T>
-constexpr void bit::memory::swap( fat_ptr<T>& lhs, fat_ptr<T>& rhs )
+void bit::memory::swap( fat_ptr<T>& lhs, fat_ptr<T>& rhs )
   noexcept
 {
   lhs.swap(rhs);

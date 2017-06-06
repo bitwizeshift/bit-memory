@@ -34,7 +34,8 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      using element_type = T; ///< The underlying element type
+      using element_type = T;  ///< The underlying element type
+      using pointer      = T*; ///< The pointer type
 
       //----------------------------------------------------------------------
       // Constructors / Assignment
