@@ -18,7 +18,16 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     /// \brief An offset pointer based on boost::offset_ptr
     ///
+    /// \note Like boost::offset_ptr, an offset value of '1' is used to
+    ///       represent nullptr internally, since it is unlikely for an offset
+    ///       of 1 to ever be valid. 0 is not used, since a self-assignment of
+    ///       an offset_ptr is a valid use-case.
+    ///       Since 8-bit pointers are exceedingly rare, it should be unlikely
+    ///       to ever have an issue with this. An offset of 1 would be pointing
+    ///       into the offset_ptr class.
+    ///
     /// \tparam T The underlying pointer element
+    /// \satisfies NullablePointer
     //////////////////////////////////////////////////////////////////////////
     template<typename T>
     class offset_ptr
@@ -47,7 +56,7 @@ namespace bit {
       ///
       /// \param p the pointer
       offset_ptr( pointer p ) noexcept;
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr( U* p ) noexcept;
       /// \}
 
@@ -64,13 +73,13 @@ namespace bit {
       /// \brief Copy-converts an offset_ptr from another offset_ptr
       ///
       /// \param other the other offset_ptr to copy
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr( const offset_ptr<U>& other ) noexcept;
 
       /// \brief Move-converts an offset_ptr from another offset_ptr
       ///
       /// \param other the other offset_ptr to move
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr( offset_ptr<U>&& other ) noexcept;
 
       //----------------------------------------------------------------------
@@ -81,7 +90,7 @@ namespace bit {
       /// \param p the pointer
       /// \return reference to \c (*this)
       offset_ptr& operator=( pointer p ) noexcept;
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr& operator=( U* p ) noexcept;
       /// \}
 
@@ -101,14 +110,14 @@ namespace bit {
       ///
       /// \param other the other offset_ptr to copy convert
       /// \return reference to \c (*this)
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr& operator=( const offset_ptr<U>& other ) noexcept;
 
       /// \brief Move-converts an offset_ptr from another offset_ptr
       ///
       /// \param other the other offset_ptr to move convert
       /// \return reference to \c (*this)
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       offset_ptr& operator=( offset_ptr<U>&& other ) noexcept;
 
       //----------------------------------------------------------------------
@@ -122,7 +131,7 @@ namespace bit {
       /// \brief Resets this offset_ptr to point to the new pointer \p p
       ///
       /// \param p the pointer
-      template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
+      template<typename U, typename = std::enable_if_t<std::is_convertible<U*,T*>::value>>
       void reset( U* p ) noexcept;
 
       /// \brief Swaps this offset_ptr with the \p other

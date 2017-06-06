@@ -55,7 +55,7 @@ template<typename T>
 template<typename U, typename>
 bit::memory::offset_ptr<T>::offset_ptr( const offset_ptr<U>& other )
   noexcept
-  : m_offset(other.m_offset)
+  : m_offset( calculate_offset(this,other.get()) )
 {
 
 }
@@ -64,7 +64,7 @@ template<typename T>
 template<typename U, typename>
 bit::memory::offset_ptr<T>::offset_ptr( offset_ptr<U>&& other )
   noexcept
-  : m_offset(other.m_offset)
+  : m_offset( calculate_offset(this,other.get()) )
 {
   other.reset();
 }
@@ -102,7 +102,7 @@ template<typename U, typename>
 bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( const offset_ptr<U>& other )
   noexcept
 {
-  m_offset = other.m_offset;
+  m_offset = calculate_offset(this,other.get());
   return (*this);
 }
 
@@ -111,7 +111,7 @@ template<typename U, typename>
 bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( offset_ptr<U>&& other )
   noexcept
 {
-  m_offset = other.m_offset;
+  m_offset = calculate_offset(this,other.get());
   other.reset();
   return (*this);
 }
@@ -189,7 +189,8 @@ std::ptrdiff_t bit::memory::offset_ptr<T>::calculate_offset( U* lhs, V* rhs )
   noexcept
 {
   using byte_t = const unsigned char;
-  return reinterpret_cast<byte_t*>(lhs) - reinterpret_cast<byte_t*>(rhs);
+  auto offset = reinterpret_cast<byte_t*>(lhs) - reinterpret_cast<byte_t*>(rhs);
+  return offset ? offset : 1;
 }
 
 template<typename T>
