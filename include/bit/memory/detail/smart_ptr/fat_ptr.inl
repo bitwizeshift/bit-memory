@@ -116,7 +116,7 @@ constexpr void bit::memory::fat_ptr<T>::reset( U* p, std::size_t n )
 }
 
 template<typename T>
-inline void bit::memory::fat_ptr<T>::swap( fat_ptr& other )
+void bit::memory::fat_ptr<T>::swap( fat_ptr& other )
   noexcept
 {
   using std::swap;

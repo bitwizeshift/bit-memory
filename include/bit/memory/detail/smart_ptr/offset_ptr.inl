@@ -44,6 +44,14 @@ bit::memory::offset_ptr<T>::offset_ptr( U* p )
 }
 
 template<typename T>
+bit::memory::offset_ptr<T>::offset_ptr( offset_ptr&& other )
+  noexcept
+  : m_offset(other.m_offset)
+{
+  other.reset();
+}
+
+template<typename T>
 template<typename U, typename>
 bit::memory::offset_ptr<T>::offset_ptr( const offset_ptr<U>& other )
   noexcept
@@ -58,7 +66,7 @@ bit::memory::offset_ptr<T>::offset_ptr( offset_ptr<U>&& other )
   noexcept
   : m_offset(other.m_offset)
 {
-
+  other.reset();
 }
 
 //----------------------------------------------------------------------------
@@ -77,6 +85,34 @@ bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( U* p )
   noexcept
 {
   reset( p );
+  return (*this);
+}
+
+template<typename T>
+bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( offset_ptr&& other )
+  noexcept
+{
+  m_offset = other.m_offset;
+  other.reset();
+  return (*this);
+}
+
+template<typename T>
+template<typename U, typename>
+bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( const offset_ptr<U>& other )
+  noexcept
+{
+  m_offset = other.m_offset;
+  return (*this);
+}
+
+template<typename T>
+template<typename U, typename>
+bit::memory::offset_ptr<T>& bit::memory::offset_ptr<T>::operator=( offset_ptr<U>&& other )
+  noexcept
+{
+  m_offset = other.m_offset;
+  other.reset();
   return (*this);
 }
 
@@ -187,12 +223,48 @@ inline bool bit::memory::operator == ( const offset_ptr<T>& lhs,
 }
 
 template<typename T, typename U>
+inline bool bit::memory::operator == ( const offset_ptr<T>& lhs,
+                                       const U* rhs )
+  noexcept
+{
+  return lhs.get() == rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator == ( const T* lhs,
+                                       const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs == rhs.get();
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T, typename U>
 inline bool bit::memory::operator != ( const offset_ptr<T>& lhs,
                                        const offset_ptr<U>& rhs )
   noexcept
 {
   return lhs.get() != rhs.get();
 }
+
+template<typename T, typename U>
+inline bool bit::memory::operator != ( const offset_ptr<T>& lhs,
+                                       const U* rhs )
+  noexcept
+{
+  return lhs.get() != rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator != ( const T* lhs,
+                                       const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs != rhs.get();
+}
+
+//----------------------------------------------------------------------------
 
 template<typename T, typename U>
 inline bool bit::memory::operator < ( const offset_ptr<T>& lhs,
@@ -203,12 +275,48 @@ inline bool bit::memory::operator < ( const offset_ptr<T>& lhs,
 }
 
 template<typename T, typename U>
+inline bool bit::memory::operator < ( const offset_ptr<T>& lhs,
+                                      const U* rhs )
+  noexcept
+{
+  return lhs.get() < rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator < ( const T* lhs,
+                                      const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs < rhs.get();
+}
+
+//----------------------------------------------------------------------------
+
+template<typename T, typename U>
 inline bool bit::memory::operator > ( const offset_ptr<T>& lhs,
                                       const offset_ptr<U>& rhs )
   noexcept
 {
   return lhs.get() > rhs.get();
 }
+
+template<typename T, typename U>
+inline bool bit::memory::operator > ( const offset_ptr<T>& lhs,
+                                      const U* rhs )
+  noexcept
+{
+  return lhs.get() > rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator > ( const T* lhs,
+                                      const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs > rhs.get();
+}
+
+//----------------------------------------------------------------------------
 
 template<typename T, typename U>
 inline bool bit::memory::operator <= ( const offset_ptr<T>& lhs,
@@ -219,11 +327,44 @@ inline bool bit::memory::operator <= ( const offset_ptr<T>& lhs,
 }
 
 template<typename T, typename U>
+inline bool bit::memory::operator <= ( const offset_ptr<T>& lhs,
+                                       const U* rhs )
+  noexcept
+{
+  return lhs.get() <= rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator <= ( const T* lhs,
+                                       const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs <= rhs.get();
+}
+//----------------------------------------------------------------------------
+
+template<typename T, typename U>
 inline bool bit::memory::operator >= ( const offset_ptr<T>& lhs,
                                        const offset_ptr<U>& rhs )
   noexcept
 {
   return lhs.get() >= rhs.get();
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator >= ( const offset_ptr<T>& lhs,
+                                       const U* rhs )
+  noexcept
+{
+  return lhs.get() >= rhs;
+}
+
+template<typename T, typename U>
+inline bool bit::memory::operator >= ( const T* lhs,
+                                       const offset_ptr<U>& rhs )
+  noexcept
+{
+  return lhs >= rhs.get();
 }
 
 //----------------------------------------------------------------------------

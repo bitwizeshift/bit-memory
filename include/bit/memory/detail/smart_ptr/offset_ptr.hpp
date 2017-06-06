@@ -16,8 +16,7 @@ namespace bit {
   namespace memory {
 
     //////////////////////////////////////////////////////////////////////////
-    /// \brief
-    ///
+    /// \brief An offset pointer based on boost::offset_ptr
     ///
     /// \tparam T The underlying pointer element
     //////////////////////////////////////////////////////////////////////////
@@ -37,38 +36,78 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      /// \brief
+      /// \{
+      /// \brief Constructs an offset_ptr pointing to nullptr
       offset_ptr() noexcept;
-
       offset_ptr( std::nullptr_t ) noexcept;
+      /// \}
 
+      /// \{
+      /// \brief Constructs an offset_ptr pointing to \p p
+      ///
+      /// \param p the pointer
       offset_ptr( pointer p ) noexcept;
-
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr( U* p ) noexcept;
+      /// \}
 
+      /// \brief Copy-constructs an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to copy
       offset_ptr( const offset_ptr& other ) noexcept = default;
-      offset_ptr( offset_ptr&& other ) noexcept = default;
 
+      /// \brief Move-constructs an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to move
+      offset_ptr( offset_ptr&& other ) noexcept;
+
+      /// \brief Copy-converts an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to copy
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr( const offset_ptr<U>& other ) noexcept;
 
+      /// \brief Move-converts an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to move
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr( offset_ptr<U>&& other ) noexcept;
 
       //----------------------------------------------------------------------
 
+      /// \{
+      /// \brief Assigns a new pointer \p p to this offset_ptr
+      ///
+      /// \param p the pointer
+      /// \return reference to \c (*this)
       offset_ptr& operator=( pointer p ) noexcept;
-
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr& operator=( U* p ) noexcept;
+      /// \}
 
+      /// \brief Copy-assigns an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to copy
+      /// \return reference to \c (*this)
       offset_ptr& operator=( const offset_ptr& other ) noexcept = default;
-      offset_ptr& operator=( offset_ptr&& other ) noexcept = default;
 
+      /// \brief Move-assigns an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to move
+      /// \return reference to \c (*this)
+      offset_ptr& operator=( offset_ptr&& other ) noexcept;
+
+      /// \brief Copy-converts an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to copy convert
+      /// \return reference to \c (*this)
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr& operator=( const offset_ptr<U>& other ) noexcept;
 
+      /// \brief Move-converts an offset_ptr from another offset_ptr
+      ///
+      /// \param other the other offset_ptr to move convert
+      /// \return reference to \c (*this)
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       offset_ptr& operator=( offset_ptr<U>&& other ) noexcept;
 
@@ -77,20 +116,18 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      /// \brief Resets this fat_ptr to a nullptr
+      /// \brief Resets this offset_ptr to a nullptr
       void reset() noexcept;
 
-      /// \brief Resets this fat_ptr to point to the new pointer \p p of size
-      ///        \p n
+      /// \brief Resets this offset_ptr to point to the new pointer \p p
       ///
       /// \param p the pointer
-      /// \param n the size of the allocation
       template<typename U, typename = std::enable_if_t<std::is_convertible<T*,U*>::value>>
       void reset( U* p ) noexcept;
 
-      /// \brief Swaps this fat_ptr with the \p other
+      /// \brief Swaps this offset_ptr with the \p other
       ///
-      /// \param other the other fat_ptr to swap
+      /// \param other the other offset_ptr to swap
       void swap( offset_ptr& other ) noexcept;
 
       //----------------------------------------------------------------------
@@ -136,11 +173,26 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
+      /// \brief Calculates the offset from \p lhs to \p rhs
+      ///
+      /// \param lhs the left pointer
+      /// \param rhs the right pointer
+      /// \return the offset, in bytes
       template<typename U, typename V>
       static std::ptrdiff_t calculate_offset( U* lhs, V* rhs ) noexcept;
 
+      /// \brief Calculates the address from the current offset
+      ///
+      /// \note This overload is the const variant
+      ///
+      /// \return the pointer to the entry
       T* calculate_address( std::true_type ) const noexcept;
 
+      /// \brief Calculates the address from the current offset
+      ///
+      /// \note This overload is the non-const variant
+      ///
+      /// \return the pointer to the entry
       T* calculate_address( std::false_type ) const noexcept;
     };
 
@@ -152,19 +204,65 @@ namespace bit {
     bool operator == ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
 
     template<typename T, typename U>
+    bool operator == ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator == ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
+
+    template<typename T, typename U>
     bool operator != ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator != ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator != ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
 
     template<typename T, typename U>
     bool operator < ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
 
     template<typename T, typename U>
+    bool operator < ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator < ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
+
+    template<typename T, typename U>
     bool operator > ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator > ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator > ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
 
     template<typename T, typename U>
     bool operator <= ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
 
     template<typename T, typename U>
+    bool operator <= ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator <= ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    //------------------------------------------------------------------------
+
+    template<typename T, typename U>
     bool operator >= ( const offset_ptr<T>& lhs, const offset_ptr<U>& rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator >= ( const offset_ptr<T>& lhs, const U* rhs ) noexcept;
+
+    template<typename T, typename U>
+    bool operator >= ( const T* lhs, const offset_ptr<U>& rhs ) noexcept;
 
     //------------------------------------------------------------------------
     // Utilities
