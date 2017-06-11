@@ -2,6 +2,21 @@
 
 #include <new> // ::new
 
+//----------------------------------------------------------------------------
+// Constructors
+//----------------------------------------------------------------------------
+
+bit::memory::new_block_allocator::new_block_allocator( std::size_t size )
+  noexcept
+  : m_size( size )
+{
+
+}
+
+//----------------------------------------------------------------------------
+// Block Allocations
+//----------------------------------------------------------------------------
+
 bit::memory::owner<bit::memory::memory_block>
   bit::memory::new_block_allocator::allocate_block()
 {
