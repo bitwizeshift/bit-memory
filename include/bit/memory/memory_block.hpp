@@ -95,10 +95,7 @@ namespace bit {
       /// \brief Retrieves the pointer to the data
       ///
       /// \return the pointer to the data
-      constexpr void* data() noexcept;
-
-      /// \copydoc memory_block::data()
-      constexpr const void* data() const noexcept;
+      constexpr void* data() const noexcept;
 
       /// \brief Retrieves the pointer to this blocks origin
       ///

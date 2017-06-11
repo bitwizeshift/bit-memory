@@ -23,7 +23,8 @@ namespace bit {
     /// \brief This block allocator is used for creating virtual memory blocks
     ///
     /// This allocator reserves virtual memory pages up front, and commits
-    /// them as they get requested.
+    /// them as they get requested. Any blocks that get deleted are simply
+    /// cached for later use, rather than being decommitted each time.
     ///
     /// \satisfies BlockAllocator
     //////////////////////////////////////////////////////////////////////////
@@ -72,7 +73,10 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      memory_block_cache m_cache; ///< The head of the current virtual memory page list
+      void*              m_memory;      ///< The virtual memory to access from
+      const std::size_t  m_pages;       ///< The total number of pages
+      std::ptrdiff_t     m_active_page; ///< The currently active page
+      memory_block_cache m_cache;       ///< Cache of already committed pages
     };
 
     /// \brief A debug virtual block allocator.

@@ -41,12 +41,6 @@ inline constexpr bit::memory::memory_block::memory_block( void* ptr, std::size_t
 //----------------------------------------------------------------------------
 
 inline constexpr void* bit::memory::memory_block::data()
-  noexcept
-{
-  return m_data;
-}
-
-inline constexpr const void* bit::memory::memory_block::data()
   const noexcept
 {
   return m_data;

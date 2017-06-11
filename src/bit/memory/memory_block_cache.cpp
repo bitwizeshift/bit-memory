@@ -100,7 +100,7 @@ bit::memory::memory_block_cache::memory_block_cache()
 bool bit::memory::memory_block_cache::empty()
   const noexcept
 {
-  return m_head.data();
+  return m_head.data() == nullptr;
 }
 
 //----------------------------------------------------------------------------
@@ -169,7 +169,7 @@ void bit::memory::memory_block_cache::steal_block( memory_block_cache& other )
 void bit::memory::memory_block_cache::store_block( owner<memory_block> block )
   noexcept
 {
-  if( m_head.data() ) {
+  if( !m_head.data() ) {
     (*static_cast<memory_block*>(block.data())) = m_head;
     m_head = block;
   } else {

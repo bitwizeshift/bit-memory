@@ -90,17 +90,17 @@ set(headers
 )
 
 if( WIN32 )
-  set(memory_source_files
+  set(platform_source_files
     src/bit/memory/win32/virtual_memory.cpp
     src/bit/memory/win32/aligned_memory.cpp
   )
 elseif( UNIX )
-  set(memory_source_files
+  set(platform_source_files
     src/bit/memory/posix/virtual_memory.cpp
     src/bit/memory/posix/aligned_memory.cpp
   )
 elseif( APPLE )
-  set(memory_source_files
+  set(platform_source_files
     src/bit/memory/posix/virtual_memory.cpp
     src/bit/memory/posix/aligned_memory.cpp
   )
@@ -121,7 +121,7 @@ set(source_files
   src/bit/memory/null_allocator.cpp
 
   # memory-specific
-  ${memory_source_files}
+  ${platform_source_files}
 )
 
 add_library(memory ${source_files})

@@ -42,9 +42,9 @@ void* bit::memory::virtual_memory_commit( void* memory, std::size_t n )
 
 // advise that the memory will be needed
 #if defined(MADV_WILLNEED)
-  madvise(memory, size, MADV_WILLNEED);
+  ::madvise(memory, size, MADV_WILLNEED);
 #elif defined(POSIX_MADV_WILLNEED)
-  posix_madvise(memory, size, POSIX_MADV_WILLNEED);
+  ::posix_madvise(memory, size, POSIX_MADV_WILLNEED);
 #endif
 
   return memory;
@@ -56,11 +56,11 @@ void bit::memory::virtual_memory_decommit( void* memory, std::size_t n )
   auto size = n * virtual_memory_page_size;
 
 #if defined(MADV_FREE)
-  madvise(memory, size, MADV_FREE);
+  ::madvise(memory, size, MADV_FREE);
 #elif defined(MADV_DONTNEED)
-  madvise(memory, size, MADV_DONTNEED);
+  ::madvise(memory, size, MADV_DONTNEED);
 #elif defined(POSIX_MADV_DONTNEED)
-  posix_madvise(memory, size, POSIX_MADV_DONTNEED);
+  ::posix_madvise(memory, size, POSIX_MADV_DONTNEED);
 #endif
 
   auto result = ::mprotect(memory, size, PROT_NONE);
