@@ -6,7 +6,7 @@ set(sources
       main.test.cpp
 
       bit/memory/null_block_allocator.test.cpp
-)
+        bit/memory/malloc_block_allocator.test.cpp)
 
 add_executable(memory_test ${sources})
 
