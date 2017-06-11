@@ -111,6 +111,7 @@ endif()
 set(source_files
   # Utilities
   src/bit/memory/memory_block_cache.cpp
+  src/bit/memory/alignment.cpp
   src/bit/memory/debugging.cpp
   # Memory Allocations
   src/bit/memory/virtual_memory.cpp
