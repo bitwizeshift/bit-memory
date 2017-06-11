@@ -2,12 +2,20 @@
 
 #include <cstdlib> // std::malloc
 
+//----------------------------------------------------------------------------
+// Constructors
+//----------------------------------------------------------------------------
+
 bit::memory::malloc_block_allocator::malloc_block_allocator( std::size_t n )
   noexcept
   : m_size(n)
 {
 
 }
+
+//----------------------------------------------------------------------------
+// Block Allocations
+//----------------------------------------------------------------------------
 
 bit::memory::owner<bit::memory::memory_block>
   bit::memory::malloc_block_allocator::allocate_block()
