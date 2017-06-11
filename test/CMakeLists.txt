@@ -9,14 +9,18 @@ if( WIN32 OR UNIX OR APPLE )
 endif()
 
 set(source_files
-      main.test.cpp
+  main.test.cpp
+  # Utilities
+  bit/memory/memory_block_cache.test.cpp
+  # Memory Allocations
 
-      bit/memory/null_block_allocator.test.cpp
-      bit/memory/malloc_block_allocator.test.cpp
-      bit/memory/new_block_allocator.test.cpp
-      # bit/memory/memory_block_cache.test.cpp
+  # Block Allocators
+  bit/memory/null_block_allocator.test.cpp
+  bit/memory/malloc_block_allocator.test.cpp
+  bit/memory/new_block_allocator.test.cpp
+  # Allocators
 
-      ${platform_source_files}
+  ${platform_source_files}
 )
 
 

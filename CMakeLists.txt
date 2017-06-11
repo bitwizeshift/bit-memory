@@ -109,9 +109,11 @@ else()
 endif()
 
 set(source_files
-  src/bit/memory/virtual_memory.cpp
+  # Utilities
   src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
+  # Memory Allocations
+  src/bit/memory/virtual_memory.cpp
   # Block Allocators
   src/bit/memory/virtual_block_allocator.cpp
   src/bit/memory/null_block_allocator.cpp
