@@ -8,7 +8,7 @@
 
 #include <bit/memory/virtual_memory.hpp>
 #include <bit/memory/virtual_block_allocator.hpp>
-#include <bit/memory/alignment.hpp>
+#include <bit/memory/memory.hpp>
 #include <bit/memory/debugging.hpp>
 
 #include <catch.hpp>

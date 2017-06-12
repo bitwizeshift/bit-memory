@@ -68,7 +68,6 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/smart_ptr.hpp
-  include/bit/memory/alignment.hpp
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
@@ -111,7 +110,6 @@ endif()
 set(source_files
   # Utilities
   src/bit/memory/memory_block_cache.cpp
-  src/bit/memory/alignment.cpp
   src/bit/memory/debugging.cpp
   # Memory Allocations
   src/bit/memory/virtual_memory.cpp

@@ -23,7 +23,6 @@ set(source_files
   ${platform_source_files}
 )
 
-
 add_executable(memory_test ${source_files})
 
 target_link_libraries(memory_test PRIVATE "bit::memory" "philsquared::Catch")
