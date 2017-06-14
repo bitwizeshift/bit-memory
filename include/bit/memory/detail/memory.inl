@@ -1,92 +1,9 @@
 #ifndef BIT_MEMORY_DETAIL_MEMORY_INL
 #define BIT_MEMORY_DETAIL_MEMORY_INL
 
-
-template<typename IntT, typename>
-inline constexpr bit::memory::byte bit::memory::operator<<(byte lhs, IntT shift)
-  noexcept
-{
-  return byte(static_cast<unsigned char>(lhs) << shift);
-}
-
-template<typename IntT, typename>
-inline constexpr bit::memory::byte bit::memory::operator>>(byte lhs, IntT shift)
-  noexcept
-{
-  return byte(static_cast<unsigned char>(lhs) >> shift);
-}
-
-inline constexpr bit::memory::byte bit::memory::operator|(byte lhs, byte rhs)
-  noexcept
-{
-  return byte(static_cast<unsigned char>(lhs) | static_cast<unsigned char>(rhs));
-}
-
-inline constexpr bit::memory::byte bit::memory::operator&(byte lhs, byte rhs)
-  noexcept
-{
-  return byte(static_cast<unsigned char>(lhs) & static_cast<unsigned char>(rhs));
-}
-
-
-inline constexpr bit::memory::byte bit::memory::operator^(byte lhs, byte rhs)
-  noexcept
-{
-  return byte(static_cast<unsigned char>(lhs) ^ static_cast<unsigned char>(rhs));
-}
-
-inline constexpr bit::memory::byte bit::memory::operator~(byte lhs)
-  noexcept
-{
-  return byte(~static_cast<unsigned char>(lhs));
-}
-
-//----------------------------------------------------------------------------
-//
-//----------------------------------------------------------------------------
-
-template<typename IntT, typename>
-inline constexpr bit::memory::byte& bit::memory::operator<<=(byte& lhs, IntT shift)
-  noexcept
-{
-  return lhs = byte(static_cast<unsigned char>(lhs) << shift);
-}
-
-template<typename IntT, typename>
-inline constexpr bit::memory::byte& bit::memory::operator>>=(byte& lhs, IntT shift)
-  noexcept
-{
-  return lhs = byte(static_cast<unsigned char>(lhs) >> shift);
-}
-
-inline bit::memory::byte& bit::memory::operator|=(byte& lhs, byte rhs)
-  noexcept
-{
-  return lhs = byte(static_cast<unsigned char>(lhs) | static_cast<unsigned char>(rhs));
-}
-
-inline bit::memory::byte& bit::memory::operator&=(byte& lhs, byte rhs)
-  noexcept
-{
-  return lhs = byte(static_cast<unsigned char>(lhs) & static_cast<unsigned char>(rhs));
-}
-
-inline bit::memory::byte& bit::memory::operator^=(byte& lhs, byte rhs)
-  noexcept
-{
-  return lhs = byte(static_cast<unsigned char>(lhs) ^ static_cast<unsigned char>(rhs));
-}
-
 //----------------------------------------------------------------------------
 // Byte Literals
 //----------------------------------------------------------------------------
-
-inline constexpr bit::memory::byte
-bit::memory::literals::byte_literals::operator ""_byte( unsigned long long b )
-  noexcept
-{
-  return static_cast<byte>(b);
-}
 
 inline constexpr std::size_t
   bit::memory::literals::byte_literals::operator ""_b( unsigned long long b )
@@ -116,6 +33,26 @@ inline constexpr std::size_t
   return b << 30;
 }
 
+//----------------------------------------------------------------------------
+// Pointer Manipulation
+//----------------------------------------------------------------------------
+
+inline std::uintptr_t bit::memory::to_address( void* ptr )
+noexcept
+{
+  return reinterpret_cast<std::uintptr_t>(ptr);
+}
+
+inline void* bit::memory::from_address( std::uintptr_t address )
+noexcept
+{
+  return reinterpret_cast<void*>(address);
+}
+
+//----------------------------------------------------------------------------
+// Construction
+//----------------------------------------------------------------------------
+
 template<typename T, typename...Args>
 inline T* bit::memory::uninitialized_construct_at( void* ptr, Args&&...args )
 {
@@ -134,6 +71,10 @@ inline T* bit::memory::uninitialized_construct_array_at( void* p,
   }
 }
 
+//----------------------------------------------------------------------------
+// Destruction
+//----------------------------------------------------------------------------
+
 template<typename T>
 inline void bit::memory::destroy_at( T* p )
 {
@@ -149,6 +90,63 @@ inline void bit::memory::destroy_array_at( T* p, std::size_t n )
   while( current != end ) {
     destroy_at(--current);
   }
+}
+
+//----------------------------------------------------------------------------
+// Nullability
+//----------------------------------------------------------------------------
+
+template<typename Ptr>
+inline constexpr auto bit::memory::is_null( Ptr&& ptr )
+  noexcept -> decltype( ptr==nullptr, bool() )
+{
+  return ptr == nullptr;
+}
+
+inline constexpr bool bit::memory::is_null( std::nullptr_t )
+  noexcept
+{
+  return true;
+}
+
+inline constexpr bool bit::memory::is_null( memory_block block )
+  noexcept
+{
+  return block == nullblock;
+}
+
+inline constexpr bool bit::memory::is_null( nullblock_t )
+  noexcept
+{
+  return true;
+}
+
+//----------------------------------------------------------------------------
+// Deltas
+//----------------------------------------------------------------------------
+
+inline std::size_t bit::memory::distance( const void* lhs, const void* rhs )
+  noexcept
+{
+  return (lhs > rhs) ? difference(lhs,rhs) : difference(rhs,lhs);
+}
+
+inline std::ptrdiff_t bit::memory::difference( const void* lhs, const void* rhs )
+  noexcept
+{
+  return static_cast<const byte*>(lhs) - static_cast<const byte*>(rhs);
+}
+
+inline void* bit::memory::advance( void* p, std::ptrdiff_t bytes )
+  noexcept
+{
+  return static_cast<byte*>(p) + bytes;
+}
+
+inline const void* bit::memory::advance( const void* p, std::ptrdiff_t bytes )
+  noexcept
+{
+  return static_cast<const byte*>(p) + bytes;
 }
 
 #endif /* BIT_MEMORY_DETAIL_MEMORY_INL */

@@ -9,58 +9,14 @@
 #ifndef BIT_MEMORY_MEMORY_HPP
 #define BIT_MEMORY_MEMORY_HPP
 
+#include "memory_block.hpp" // memory_block, nullblock
+
 #include <cstddef> // std::size_t
 #include <utility> // std::forward
-#include <cstdint> // std::uintN_t/std::intN_t
+#include <cstdint> // std::uintpr_t
 
 namespace bit {
   namespace memory {
-
-    enum class byte : unsigned char{};
-
-    //------------------------------------------------------------------------
-    // Operators
-    //------------------------------------------------------------------------
-
-#ifndef BIT_DOXYGEN_BUILD
-    template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
-#else
-    template<typename IntT>
-#endif
-    constexpr byte operator<<(byte lhs, IntT shift) noexcept;
-
-#ifndef BIT_DOXYGEN_BUILD
-    template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
-#else
-    template<typename IntT>
-#endif
-    constexpr byte operator>>(byte lhs, IntT shift) noexcept;
-    constexpr byte operator|(byte lhs, byte rhs) noexcept;
-    constexpr byte operator&(byte lhs, byte rhs) noexcept;
-    constexpr byte operator^(byte lhs, byte rhs) noexcept;
-    constexpr byte operator~(byte lhs) noexcept;
-
-    //------------------------------------------------------------------------
-
-#ifndef BIT_DOXYGEN_BUILD
-    template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
-#else
-    template<typename IntT>
-#endif
-    constexpr byte& operator<<=(byte& lhs, IntT shift) noexcept;
-
-#ifndef BIT_DOXYGEN_BUILD
-    template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
-#else
-    template<typename IntT>
-#endif
-    constexpr byte& operator>>=(byte& lhs, IntT shift) noexcept;
-
-    byte& operator|=(byte& lhs, byte rhs) noexcept;
-    byte& operator&=(byte& lhs, byte rhs) noexcept;
-    byte& operator^=(byte& lhs, byte rhs) noexcept;
-
-    //------------------------------------------------------------------------
 
     /// \brief Identity alias used for denoting ownership on API calls
     ///
@@ -69,10 +25,13 @@ namespace bit {
     template<typename T>
     using owner = T;
 
+    //------------------------------------------------------------------------
+    // Byte Literals
+    //------------------------------------------------------------------------
+
     inline namespace literals {
       inline namespace byte_literals {
 
-        constexpr byte operator ""_byte( unsigned long long b ) noexcept;
         constexpr std::size_t operator ""_b( unsigned long long b ) noexcept;
         constexpr std::size_t operator ""_kb( unsigned long long b ) noexcept;
         constexpr std::size_t operator ""_mb( unsigned long long b ) noexcept;
@@ -80,6 +39,28 @@ namespace bit {
 
       } // inline namespace byte_literals
     } // inline namespace literals
+
+    //------------------------------------------------------------------------
+    // Pointer Manipulation
+    //------------------------------------------------------------------------
+
+    /// \brief Converts a pointer \p ptr into an integral type representing
+    ///        the address
+    ///
+    /// \param ptr the pointer to convert to an integral value
+    /// \return the numeric address of the given pointer
+    std::uintptr_t to_address( void* ptr ) noexcept;
+
+    /// \brief Converts a numeric address \p address into a pointer pointing
+    ///        to the address location
+    ///
+    /// \param address the address value to convert to a pointer
+    /// \return the pointer pointing to the given address
+    void* from_address( std::uintptr_t address ) noexcept;
+
+    //------------------------------------------------------------------------
+    // Construction
+    //------------------------------------------------------------------------
 
     /// \brief Constructs an instance of type \p T with the given \p args
     ///        at the memory location specified in \p ptr
@@ -93,75 +74,88 @@ namespace bit {
     template<typename T>
     T* uninitialized_construct_array_at( void* p, std::size_t n );
 
+    //------------------------------------------------------------------------
+    // Destruction
+    //------------------------------------------------------------------------
+
     template<typename T>
     void destroy_at( T* p );
 
     template<typename T>
     void destroy_array_at( T* p, std::size_t n );
 
-    template<typename IntT>
-    struct packed_integral_type
-    {
-      //----------------------------------------------------------------------
-      // Public Member Types
-      //----------------------------------------------------------------------
-    public:
+    //------------------------------------------------------------------------
+    // Nullability
+    //------------------------------------------------------------------------
 
-      using int_type  = IntT;
-      using byte_type = unsigned char;
+    /// \brief Checks whether a given pointer is null
+    ///
+    /// \param ptr the pointer to check
+    /// \return \c true if the ptr is \c nullptr
+    template<typename Ptr>
+    constexpr auto is_null( Ptr&& ptr ) noexcept
+      -> decltype(ptr==nullptr, bool());
 
-      //----------------------------------------------------------------------
-      // Constructors / Assignment
-      //----------------------------------------------------------------------
-    public:
+    /// \brief Checks whether a given pointer is null
+    ///
+    /// This overload always returns \c true
+    ///
+    /// \return \c true
+    constexpr bool is_null( std::nullptr_t ) noexcept;
 
-      packed_integral_type( int_type i );
-      packed_integral_type( byte_type* b );
+    /// \brief Checks whether a given block is nullblock
+    ///
+    /// This overload always returns \c true
+    ///
+    /// \return \c true
+    constexpr bool is_null( memory_block block ) noexcept;
 
-      packed_integral_type( const packed_integral_type& other ) noexcept;
-      packed_integral_type( packed_integral_type&& other ) noexcept;
+    /// \brief Checks whether a given block is nullblock
+    ///
+    /// \param block the block to check
+    /// \return \c true if the block is \c nullblock
+    constexpr bool is_null( nullblock_t ) noexcept;
 
-      //----------------------------------------------------------------------
+    //------------------------------------------------------------------------
+    // Deltas
+    //------------------------------------------------------------------------
 
-      packed_integral_type& operator=( int_type i );
-      packed_integral_type& operator=( byte_type* b );
+    /// \brief Calculates the distance between two pointers
+    ///
+    /// The distance between to pointers is the absolute value of the difference
+    /// between two pointers
+    ///
+    /// \param lhs the left pointer
+    /// \param rhs the right pointer
+    /// \return the distance
+    std::size_t distance( const void* lhs, const void* rhs ) noexcept;
 
-      //----------------------------------------------------------------------
-      // Observers
-      //----------------------------------------------------------------------
-    public:
+    /// \brief Calculates the difference between two pointers
+    ///
+    /// The difference is identical to \c lhs - \c rhs
+    ///
+    /// \param lhs the left pointer
+    /// \param rhs the right pointer
+    /// \return the result of \c lhs - \c rhs
+    std::ptrdiff_t difference( const void* lhs, const void* rhs ) noexcept;
 
-      int_type as_int() noexcept;
-
-      byte_type const* as_bytes() const noexcept;
-
-      //----------------------------------------------------------------------
-      // Private Members
-      //----------------------------------------------------------------------
-    private:
-
-      union storage_type
-      {
-        byte_type  bytes[sizeof(IntT)];
-        byte_type* data;
-      };
-
-      byte_type* m_storage;
-      bool       m_is_internal;
-    };
-
-    using packed_uint8_t  = packed_integral_type<std::uint8_t>;
-    using packed_uint16_t = packed_integral_type<std::uint16_t>;
-    using packed_uint32_t = packed_integral_type<std::uint32_t>;
-    using packed_uint64_t = packed_integral_type<std::uint64_t>;
-
-    using packed_int8_t  = packed_integral_type<std::int8_t>;
-    using packed_int16_t = packed_integral_type<std::int16_t>;
-    using packed_int32_t = packed_integral_type<std::int32_t>;
-    using packed_int64_t = packed_integral_type<std::int64_t>;
+    /// \{
+    /// \brief Adjusts a pointer \p p by \p bytes
+    ///
+    /// \param p the pointer to adjust
+    /// \param bytes the bytes to adjust by
+    /// \return the pointer adjusted by \p bytes
+    void* advance( void* p, std::ptrdiff_t bytes ) noexcept;
+    const void* advance( const void* p, std::ptrdiff_t bytes ) noexcept;
+    /// \}
 
   } // namespace memory
 } // namespace bit
+
+// IWYU pragma: begin_exports
+#include "detail/memory/byte.hpp"
+#include "detail/memory/alignment.hpp"
+// IWYU pragma: end_exports
 
 #include "detail/memory.inl"
 
