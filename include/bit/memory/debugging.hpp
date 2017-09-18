@@ -77,13 +77,16 @@ namespace bit {
     //------------------------------------------------------------------------
 
     /// \brief The type used by the leak handler
-    using leak_handler_t = void (*)(const allocator_info&, const void*, std::ptrdiff_t);
+    using leak_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
 
     /// \brief The type used by the stomp handler
-    using stomp_handler_t = void (*)(const allocator_info&, const void*, std::ptrdiff_t);
+    using stomp_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
 
     /// \brief The type used by the double delete handler
-    using double_delete_handler_t = void (*)(const allocator_info&, const void*, std::ptrdiff_t);
+    using double_delete_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
+
+    /// \brief The type used by the out-of-memory handler
+    using out_of_memory_handler_t = void(*)(const allocator_info&, std::size_t );
 
     //------------------------------------------------------------------------
     // Leak Handler
@@ -161,6 +164,30 @@ namespace bit {
     /// \param ptr a pointer to the object that was double-deleted
     /// \param size the number of bytes double-deleted
     void double_delete_handler( const allocator_info& info, const void* ptr, std::ptrdiff_t size );
+
+    //------------------------------------------------------------------------
+    // Out-of-memory Handler
+    //------------------------------------------------------------------------
+
+    /// \brief Makes f the new global out-of-memory handler function and returns
+    ///        the previously installed memory::out_of_memory_handler.
+    ///
+    /// \param f the new handler
+    /// \return the old handler
+    out_of_memory_handler_t set_out_of_memory_handler(out_of_memory_handler_t f) noexcept;
+
+    /// \brief Gets the current out-of-memory handler
+    ///
+    /// \return the old handler
+    out_of_memory_handler_t get_out_of_memory_handler() noexcept;
+
+    /// \brief Handles out-of-memory requests
+    ///
+    /// This invokes the handler stored by \ref set_out_of_memory_handler
+    ///
+    /// \param info the allocator_info object
+    /// \param size the size of the memory request
+    void out_of_memory_handler( const allocator_info& info, std::size_t size );
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief A range of bytes for iterating all values for debugging

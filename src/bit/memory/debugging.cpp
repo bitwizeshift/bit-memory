@@ -2,12 +2,17 @@
 
 #include <atomic>
 #include <iostream>
+#include <cassert>
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Forward Declarations
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 namespace {
+
+  //---------------------------------------------------------------------------
+  // Default Handlers
+  //---------------------------------------------------------------------------
 
   void default_leak_handler( const bit::memory::allocator_info& info,
                              const void* ptr,
@@ -22,26 +27,30 @@ namespace {
                                       const void* ptr,
                                       std::ptrdiff_t size );
 
-  //--------------------------------------------------------------------------
-  // Static Entries
-  //--------------------------------------------------------------------------
+  void default_out_of_memory_handler( const bit::memory::allocator_info& info,
+                                      std::size_t size );
 
-  std::atomic<bit::memory::leak_handler_t>  g_leak_handler(default_leak_handler);
-  std::atomic<bit::memory::stomp_handler_t> g_stomp_handler(default_stomp_handler);
-  std::atomic<bit::memory::double_delete_handler_t> g_double_delete_handler(default_double_delete_handler);
+  //---------------------------------------------------------------------------
+  // Static Entries
+  //---------------------------------------------------------------------------
+
+  std::atomic<bit::memory::leak_handler_t>  g_leak_handler(&default_leak_handler);
+  std::atomic<bit::memory::stomp_handler_t> g_stomp_handler(&default_stomp_handler);
+  std::atomic<bit::memory::double_delete_handler_t> g_double_delete_handler(&default_double_delete_handler);
+  std::atomic<bit::memory::out_of_memory_handler_t> g_out_of_memory_handler(&default_out_of_memory_handler);
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Leak Handler
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 bit::memory::leak_handler_t bit::memory::set_leak_handler( leak_handler_t f )
   noexcept
 {
-  return g_leak_handler.exchange( f ? f : default_leak_handler );
+  return g_leak_handler.exchange( f ? f : &default_leak_handler );
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 bit::memory::leak_handler_t bit::memory::get_leak_handler()
   noexcept
@@ -49,7 +58,7 @@ bit::memory::leak_handler_t bit::memory::get_leak_handler()
   return g_leak_handler;
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 void bit::memory::leak_handler( const bit::memory::allocator_info& info,
                                 const void* ptr,
@@ -58,17 +67,17 @@ void bit::memory::leak_handler( const bit::memory::allocator_info& info,
   (*g_leak_handler)( info, ptr, size );
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Stomp Handler
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 bit::memory::stomp_handler_t bit::memory::set_stomp_handler( stomp_handler_t f )
   noexcept
 {
-  return g_stomp_handler.exchange( f ? f : default_stomp_handler );
+  return g_stomp_handler.exchange( f ? f : &default_stomp_handler );
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 bit::memory::stomp_handler_t bit::memory::get_stomp_handler()
   noexcept
@@ -76,7 +85,7 @@ bit::memory::stomp_handler_t bit::memory::get_stomp_handler()
   return g_stomp_handler;
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 void bit::memory::stomp_handler( const bit::memory::allocator_info& info,
                                  const void* ptr,
@@ -85,15 +94,15 @@ void bit::memory::stomp_handler( const bit::memory::allocator_info& info,
   (*g_stomp_handler)( info, ptr, size );
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Double Delete handlers
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 bit::memory::double_delete_handler_t
   bit::memory::set_double_delete_handler(double_delete_handler_t f)
   noexcept
 {
-  return g_double_delete_handler.exchange( f ? f : default_double_delete_handler );
+  return g_double_delete_handler.exchange( f ? f : &default_double_delete_handler );
 }
 
 bit::memory::double_delete_handler_t bit::memory::get_double_delete_handler()
@@ -109,9 +118,32 @@ void bit::memory::double_delete_handler( const allocator_info& info,
   (*g_double_delete_handler)( info, ptr, size );
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Out-of-memory handlers
+//-----------------------------------------------------------------------------
+
+bit::memory::out_of_memory_handler_t
+  bit::memory::set_out_of_memory_handler(out_of_memory_handler_t f)
+  noexcept
+{
+  return g_out_of_memory_handler.exchange( f ? f : &default_out_of_memory_handler );
+}
+
+bit::memory::out_of_memory_handler_t bit::memory::get_out_of_memory_handler()
+  noexcept
+{
+  return g_out_of_memory_handler;
+}
+
+void bit::memory::out_of_memory_handler( const allocator_info& info,
+                                         std::size_t size )
+{
+  (*g_out_of_memory_handler)( info, size );
+}
+
+//-----------------------------------------------------------------------------
 // Anonymous Definitions
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 namespace {
 
@@ -121,6 +153,8 @@ namespace {
   {
     std::cerr << "leak detected at address " << ptr << "\n"
               << size << " bytes leaked.\n";
+
+    assert(false);
   }
 
 
@@ -130,6 +164,8 @@ namespace {
   {
     std::cerr << "stomp detected at address " << ptr << "\n"
               << size << " bytes overwritten.\n";
+
+    assert(false);
   }
 
   void default_double_delete_handler( const bit::memory::allocator_info& info,
@@ -138,6 +174,19 @@ namespace {
   {
     std::cerr << "double delete detected at address " << ptr << "\n"
               << size << " bytes double-deleted.\n";
+
+    assert(false);
+  }
+
+  void default_out_of_memory_handler( const bit::memory::allocator_info& info,
+                                      std::size_t size )
+  {
+    std::cerr << "out of memory with allocator '"
+              << info.name()
+              << "' at address " << info.allocator() << ".\n"
+              << "requested allocation size: " << size << " bytes\n";
+
+    assert(false);
   }
 
 } // anonymous namespace
