@@ -12,6 +12,9 @@
 #include "debugging.hpp"      // out_of_memory_handler
 #include "aligned_memory.hpp" // aligned_malloc, aligned_free
 
+#include <type_traits> // std::true_type
+#include <cstddef>     // std::max_align_t
+
 namespace bit {
   namespace memory {
 
@@ -28,8 +31,9 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using is_always_equal = std::true_type;
-      using is_stateless    = std::true_type;
+      using is_always_equal   = std::true_type;
+      using is_stateless      = std::true_type;
+      using default_alignment = std::integral_constant<std::size_t,1>;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment

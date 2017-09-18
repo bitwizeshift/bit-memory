@@ -11,7 +11,8 @@
 
 #include "debugging.hpp" // out_of_memory_handler
 
-#include <cstdlib> // std::size_t
+#include <cstdlib>     // std::size_t
+#include <type_traits> // std::true_type
 
 namespace bit {
   namespace memory {
@@ -35,8 +36,9 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using is_always_equal = std::true_type;
-      using is_stateless    = std::true_type;
+      using is_always_equal   = std::true_type;
+      using is_stateless      = std::true_type;
+      using default_alignment = std::integral_constant<std::size_t,1>;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment

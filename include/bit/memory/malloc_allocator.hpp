@@ -12,6 +12,7 @@
 #include "debugging.hpp"
 
 #include <cstdlib>     // std::malloc, std::free, std::size_t
+#include <cstddef>     // std::max_align_t
 #include <type_traits> // std::true_type
 
 namespace bit {
@@ -34,6 +35,7 @@ namespace bit {
 
       using is_always_equal = std::true_type;
       using is_stateless    = std::true_type;
+      using default_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment

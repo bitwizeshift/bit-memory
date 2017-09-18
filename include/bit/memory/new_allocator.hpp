@@ -12,6 +12,7 @@
 #include "debugging.hpp" // out_of_memory_handler
 
 #include <cstdlib>     // std::size_t
+#include <cstddef>     // std::max_align_t
 #include <new>         // ::operator new, ::operator delete, std::nothrow
 #include <type_traits> // std::true_type
 
@@ -35,6 +36,7 @@ namespace bit {
 
       using is_always_equal = std::true_type;
       using is_stateless    = std::true_type;
+      using default_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment
