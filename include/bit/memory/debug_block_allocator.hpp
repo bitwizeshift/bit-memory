@@ -13,6 +13,8 @@
 #include "memory_block.hpp"
 #include "debugging.hpp"
 
+#include <algorithm> // std::fill, std::for_each
+
 namespace bit {
   namespace memory {
 

@@ -13,7 +13,6 @@
 #include "concepts.hpp"
 
 #include <cstddef>   // std::size_t
-#include <algorithm> // std::foreach
 
 namespace bit {
   namespace memory {
