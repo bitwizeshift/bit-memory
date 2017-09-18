@@ -96,6 +96,14 @@ namespace bit {
       void deallocate( void* p, std::size_t size );
     };
 
+    /// \{
+    /// \brief Compares equality between two malloc_allocators
+    ///
+    /// Two malloc_allocators are always considered the same
+    bool operator==( const new_allocator&, const new_allocator& ) noexcept;
+    bool operator!=( const new_allocator&, const new_allocator& ) noexcept;
+    /// \}
+
   } // namespace memory
 } // namespace bit
 

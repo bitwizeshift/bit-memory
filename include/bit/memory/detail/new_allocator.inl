@@ -29,4 +29,22 @@ inline void bit::memory::new_allocator::deallocate( void* p,
   ::operator delete(p);
 }
 
+//-----------------------------------------------------------------------------
+// Comparisons
+//-----------------------------------------------------------------------------
+
+inline bool bit::memory::operator==( const new_allocator&,
+                                     const new_allocator& )
+  noexcept
+{
+  return true;
+}
+
+inline bool bit::memory::operator!=( const new_allocator&,
+                                     const new_allocator& )
+  noexcept
+{
+  return false;
+}
+
 #endif /* BIT_MEMORY_DETAIL_NEW_ALLOCATOR_INL */
