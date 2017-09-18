@@ -74,6 +74,7 @@ set(headers
   include/bit/memory/aligned_memory.hpp
 
   # Raw Allocators
+  include/bit/memory/aligned_allocator.hpp
   include/bit/memory/malloc_allocator.hpp
   include/bit/memory/new_allocator.hpp
   include/bit/memory/null_allocator.hpp
@@ -90,7 +91,6 @@ set(headers
   include/bit/memory/new_block_allocator.hpp
   include/bit/memory/fallback_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
-  # Allocators
 
   # Adapters
   include/bit/memory/std_allocator_adapter.hpp
