@@ -75,6 +75,7 @@ set(headers
 
   # Raw Allocators
   include/bit/memory/malloc_allocator.hpp
+  include/bit/memory/new_allocator.hpp
   include/bit/memory/null_allocator.hpp
 
   # Block Allocators
