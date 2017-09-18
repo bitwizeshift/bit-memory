@@ -97,9 +97,9 @@ namespace bit {
     };
 
     /// \{
-    /// \brief Compares equality between two malloc_allocators
+    /// \brief Compares equality between two new_allocators
     ///
-    /// Two malloc_allocators are always considered the same
+    /// Two new_allocators are always considered the same
     bool operator==( const new_allocator&, const new_allocator& ) noexcept;
     bool operator!=( const new_allocator&, const new_allocator& ) noexcept;
     /// \}
