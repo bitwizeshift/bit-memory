@@ -68,9 +68,15 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/smart_ptr.hpp
+
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
+
+  # Raw Allocators
+  include/bit/memory/malloc_allocator.hpp
+  include/bit/memory/null_allocator.hpp
+
   # Block Allocators
   include/bit/memory/cached_block_allocator.hpp
   include/bit/memory/debug_block_allocator.hpp
@@ -84,8 +90,9 @@ set(headers
   include/bit/memory/fallback_block_allocator.hpp
   include/bit/memory/block_allocator.hpp
   # Allocators
+
+  # Adapters
   include/bit/memory/std_allocator_adapter.hpp
-  include/bit/memory/null_allocator.hpp
 )
 
 if( WIN32 )
