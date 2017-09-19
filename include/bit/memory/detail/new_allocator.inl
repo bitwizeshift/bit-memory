@@ -7,7 +7,7 @@ inline void* bit::memory::new_allocator::allocate( std::size_t size,
   auto p = try_allocate( size, align );
 
   if( p == nullptr ) {
-    out_of_memory_handler({"new_allocator",nullptr},size);
+    get_out_of_memory_handler()({"new_allocator",nullptr},size);
   }
   return p;
 }

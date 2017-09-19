@@ -14,7 +14,7 @@ inline void* bit::memory::null_allocator::allocate( std::size_t size,
 {
   (void) align;
 
-  out_of_memory_handler({"null_allocator",nullptr}, size);
+  get_out_of_memory_handler()({"null_allocator",nullptr}, size);
 
   return nullptr;
 }

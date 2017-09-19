@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_MALLOC_ALLOCATOR_HPP
 #define BIT_MEMORY_MALLOC_ALLOCATOR_HPP
 
-#include "debugging.hpp"
+#include "errors.hpp" // out_of_memory_handler
 
 #include <cstdlib>     // std::malloc, std::free, std::size_t
 #include <cstddef>     // std::max_align_t

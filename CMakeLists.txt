@@ -61,10 +61,12 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 
 set(headers
   # Utilities
+  include/bit/memory/allocator_info.hpp
+  include/bit/memory/debugging.hpp
+  include/bit/memory/errors.hpp
   include/bit/memory/memory.hpp
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
-  include/bit/memory/debugging.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/smart_ptr.hpp
@@ -119,6 +121,7 @@ set(source_files
   # Utilities
   src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
+  src/bit/memory/errors.cpp
   # Memory Allocations
   src/bit/memory/virtual_memory.cpp
   # Block Allocators

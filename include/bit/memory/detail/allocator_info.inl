@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_DEBUGGING_INL
-#define BIT_MEMORY_DETAIL_DEBUGGING_INL
+#ifndef BIT_MEMORY_DETAIL_ALLOCATOR_INFO_INL
+#define BIT_MEMORY_DETAIL_ALLOCATOR_INFO_INL
 
 //============================================================================
 // allocator_info
@@ -12,7 +12,7 @@
 inline bit::memory::allocator_info
   ::allocator_info( const char* name, const void* allocator )
   : m_name(name),
-    m_allocator(allocator)
+    m_address(allocator)
 {
 
 }
@@ -27,10 +27,10 @@ inline const char* bit::memory::allocator_info::name()
   return m_name;
 }
 
-inline const void* bit::memory::allocator_info::allocator()
+inline const void* bit::memory::allocator_info::address()
   const noexcept
 {
-  return m_allocator;
+  return m_address;
 }
 
 //----------------------------------------------------------------------------
@@ -41,7 +41,7 @@ inline bool bit::memory::operator==( const allocator_info& lhs,
                                      const allocator_info& rhs )
   noexcept
 {
-  return lhs.name() == rhs.name() && lhs.allocator() == rhs.allocator();
+  return lhs.name() == rhs.name() && lhs.address() == rhs.address();
 }
 
 inline bool bit::memory::operator!=( const allocator_info& lhs,
@@ -51,4 +51,7 @@ inline bool bit::memory::operator!=( const allocator_info& lhs,
   return !(lhs==rhs);
 }
 
-#endif /* BIT_MEMORY_DETAIL_DEBUGGING_INL */
+
+
+
+#endif /* BIT_MEMORY_DETAIL_ALLOCATOR_INFO_INL */

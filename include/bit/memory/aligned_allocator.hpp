@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ALIGNED_ALLOCATOR_HPP
 #define BIT_MEMORY_ALIGNED_ALLOCATOR_HPP
 
-#include "debugging.hpp"      // out_of_memory_handler
+#include "errors.hpp"         // out_of_memory_handler
 #include "aligned_memory.hpp" // aligned_malloc, aligned_free
 
 #include <type_traits> // std::true_type
