@@ -82,18 +82,19 @@ set(headers
   include/bit/memory/null_allocator.hpp
 
   # Block Allocators
-  include/bit/memory/block_allocators/cached_block_allocator.hpp
-  include/bit/memory/block_allocators/debug_block_allocator.hpp
-  include/bit/memory/block_allocators/synchronized_block_allocator.hpp
-  include/bit/memory/block_allocators/virtual_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_offset_block_allocator.hpp
-  include/bit/memory/block_allocators/null_block_allocator.hpp
-  include/bit/memory/block_allocators/static_block_allocator.hpp
+  include/bit/memory/block_allocators/block_allocator.hpp
+  include/bit/memory/block_allocators/cached_block_allocator.hpp
+  include/bit/memory/block_allocators/debug_block_allocator.hpp
+  include/bit/memory/block_allocators/fallback_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
-  include/bit/memory/block_allocators/fallback_block_allocator.hpp
-  include/bit/memory/block_allocators/block_allocator.hpp
+  include/bit/memory/block_allocators/null_block_allocator.hpp
+  include/bit/memory/block_allocators/static_aligned_block_allocator.hpp
+  include/bit/memory/block_allocators/static_block_allocator.hpp
+  include/bit/memory/block_allocators/synchronized_block_allocator.hpp
+  include/bit/memory/block_allocators/virtual_block_allocator.hpp
 
   # Streaming Allocators
 
