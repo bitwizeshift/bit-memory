@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_MALLOC_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_MALLOC_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_MALLOC_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_MALLOC_ALLOCATOR_INL
 
 //-----------------------------------------------------------------------------
 // Allocation / Deallocation
@@ -54,4 +54,4 @@ inline bool bit::memory::operator!=( const malloc_allocator&,
   return false;
 }
 
-#endif /* BIT_MEMORY_DETAIL_MALLOC_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_MALLOC_ALLOCATOR_INL */

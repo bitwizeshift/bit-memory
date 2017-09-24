@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_NULL_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_NULL_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_NULL_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_NULL_ALLOCATOR_INL
 
 //============================================================================
 // null_allocator
@@ -57,4 +57,4 @@ inline bool bit::memory::operator!=( const null_allocator&,
 }
 
 
-#endif /* BIT_MEMORY_DETAIL_NULL_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_NULL_ALLOCATOR_INL */

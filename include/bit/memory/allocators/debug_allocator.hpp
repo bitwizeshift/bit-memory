@@ -6,11 +6,11 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_DEBUG_ALLOCATOR_HPP
-#define BIT_MEMORY_DEBUG_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_DEBUG_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_DEBUG_ALLOCATOR_HPP
 
-#include "memory.hpp"
-#include "debugging.hpp"
+#include "../memory.hpp"
+#include "../debugging.hpp"
 
 namespace bit {
   namespace memory {
@@ -138,4 +138,4 @@ namespace bit {
 
 #include "detail/debug_allocator.inl"
 
-#endif /* BIT_MEMORY_DEBUG_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_DEBUG_ALLOCATOR_HPP */

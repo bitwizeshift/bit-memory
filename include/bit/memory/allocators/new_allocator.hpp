@@ -1,18 +1,19 @@
 /**
- * \file malloc_allocator.hpp
+ * \file new_allocator.hpp
  *
  * \brief This header contains the definition for the RawAllocator,
- *        malloc_allocator
+ *        new_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_MALLOC_ALLOCATOR_HPP
-#define BIT_MEMORY_MALLOC_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
 
-#include "errors.hpp" // out_of_memory_handler
+#include "../errors.hpp" // out_of_memory_handler
 
-#include <cstdlib>     // std::malloc, std::free, std::size_t
+#include <cstdlib>     // std::size_t
 #include <cstddef>     // std::max_align_t
+#include <new>         // ::operator new, ::operator delete, std::nothrow
 #include <type_traits> // std::true_type
 
 namespace bit {
@@ -20,13 +21,13 @@ namespace bit {
 
     ///////////////////////////////////////////////////////////////////////////
     /// \brief This stateless allocator performs all of its allocation calls
-    ///        using raw calls to 'malloc', and frees memory with 'free'
+    ///        using raw calls to 'new', and frees memory with 'delete'
     ///
     /// Any alignment requests are ignored
     ///
     /// \satisfies RawAllocator
     ///////////////////////////////////////////////////////////////////////////
-    class malloc_allocator
+    class new_allocator
     {
       //-----------------------------------------------------------------------
       // Public Static Members
@@ -42,30 +43,30 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Default-constructs a malloc_allocator
-      malloc_allocator() = default;
+      /// \brief Default-constructs a new_allocator
+      new_allocator() = default;
 
-      /// \brief Move-constructs a malloc_allocator from another allocator
+      /// \brief Move-constructs a new_allocator from another allocator
       ///
-      /// \param other the other malloc_allocator to move
-      malloc_allocator( malloc_allocator&& other ) noexcept = default;
+      /// \param other the other new_allocator to move
+      new_allocator( new_allocator&& other ) noexcept = default;
 
       // Deleted copy constructor
-      malloc_allocator( const malloc_allocator& other ) = delete;
+      new_allocator( const new_allocator& other ) = delete;
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns a malloc_allocator from another allocator
+      /// \brief Move-assigns a new_allocator from another allocator
       ///
       /// \param other the other allocator to move_assign
       /// \return reference to \c (*this)
-      malloc_allocator& operator=( malloc_allocator&& other ) noexcept = default;
+      new_allocator& operator=( new_allocator&& other ) noexcept = default;
 
       // Deleted copy assignment
-      malloc_allocator& operator=( const malloc_allocator& other ) = delete;
+      new_allocator& operator=( const new_allocator& other ) = delete;
 
       //-----------------------------------------------------------------------
-      // Allocations / Deallocation
+      // Allocations
       //-----------------------------------------------------------------------
     public:
 
@@ -98,18 +99,16 @@ namespace bit {
     };
 
     /// \{
-    /// \brief Compares equality between two malloc_allocators
+    /// \brief Compares equality between two new_allocators
     ///
-    /// Two malloc_allocators are always considered the same
-    bool operator==( const malloc_allocator& lhs,
-                     const malloc_allocator& rhs ) noexcept;
-    bool operator!=( const malloc_allocator& lhs,
-                     const malloc_allocator& rhs ) noexcept;
+    /// Two new_allocators are always considered the same
+    bool operator==( const new_allocator&, const new_allocator& ) noexcept;
+    bool operator!=( const new_allocator&, const new_allocator& ) noexcept;
     /// \}
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/malloc_allocator.inl"
+#include "detail/new_allocator.inl"
 
-#endif /* BIT_MEMORY_MALLOC_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP */

@@ -76,10 +76,10 @@ set(headers
   include/bit/memory/aligned_memory.hpp
 
   # Allocators
-  include/bit/memory/aligned_allocator.hpp
-  include/bit/memory/malloc_allocator.hpp
-  include/bit/memory/new_allocator.hpp
-  include/bit/memory/null_allocator.hpp
+  include/bit/memory/allocators/aligned_allocator.hpp
+  include/bit/memory/allocators/malloc_allocator.hpp
+  include/bit/memory/allocators/new_allocator.hpp
+  include/bit/memory/allocators/null_allocator.hpp
 
   # Block Allocators
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
@@ -134,7 +134,7 @@ set(source_files
   src/bit/memory/block_allocators/malloc_block_allocator.cpp
   src/bit/memory/block_allocators/new_block_allocator.cpp
   # Allocators
-  src/bit/memory/null_allocator.cpp
+  src/bit/memory/allocators/null_allocator.cpp
 
   # memory-specific
   ${platform_source_files}

@@ -6,10 +6,10 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_NULL_ALLOCATOR_HPP
-#define BIT_MEMORY_NULL_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 
-#include "errors.hpp" // out_of_memory_handler
+#include "../errors.hpp" // out_of_memory_handler
 
 #include <cstdlib>     // std::size_t
 #include <type_traits> // std::true_type
@@ -122,4 +122,4 @@ namespace bit {
 
 #include "detail/null_allocator.inl"
 
-#endif /* BIT_MEMORY_NULL_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP */

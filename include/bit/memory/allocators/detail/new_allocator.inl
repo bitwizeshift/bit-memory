@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_NEW_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_NEW_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_NEW_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_NEW_ALLOCATOR_INL
 
 inline void* bit::memory::new_allocator::allocate( std::size_t size,
                                                    std::size_t align )
@@ -47,4 +47,4 @@ inline bool bit::memory::operator!=( const new_allocator&,
   return false;
 }
 
-#endif /* BIT_MEMORY_DETAIL_NEW_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_NEW_ALLOCATOR_INL */

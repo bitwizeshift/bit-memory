@@ -6,11 +6,11 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALIGNED_ALLOCATOR_HPP
-#define BIT_MEMORY_ALIGNED_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_ALIGNED_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_ALIGNED_ALLOCATOR_HPP
 
-#include "errors.hpp"         // out_of_memory_handler
-#include "aligned_memory.hpp" // aligned_malloc, aligned_free
+#include "../errors.hpp"         // out_of_memory_handler
+#include "../aligned_memory.hpp" // aligned_malloc, aligned_free
 
 #include <type_traits> // std::true_type
 #include <cstddef>     // std::max_align_t
@@ -105,4 +105,4 @@ namespace bit {
 
 #include "detail/aligned_allocator.inl"
 
-#endif /* BIT_MEMORY_ALIGNED_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_ALIGNED_ALLOCATOR_HPP */

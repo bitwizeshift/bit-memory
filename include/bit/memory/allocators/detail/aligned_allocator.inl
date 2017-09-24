@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_ALIGNED_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_ALIGNED_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_ALIGNED_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_ALIGNED_ALLOCATOR_INL
 
 //-----------------------------------------------------------------------------
 // Allocations / Deallocation
@@ -49,4 +49,4 @@ inline bool bit::memory::operator!=( const aligned_allocator&,
   return false;
 }
 
-#endif /* BIT_MEMORY_DETAIL_ALIGNED_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ALIGNED_ALLOCATOR_INL */
