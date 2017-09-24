@@ -125,8 +125,9 @@ namespace {
                              const void* ptr,
                              std::ptrdiff_t size )
   {
-    std::cerr << "leak detected at address " << ptr << "\n"
-              << size << " bytes leaked.\n";
+    std::cerr << "leak discovered with allocator '"
+              << info.name() << "': "
+              << size << " bytes leaked at address " << ptr << "\n";
 
     assert(false);
   }
