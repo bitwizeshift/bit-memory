@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_NULL_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_NULL_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NULL_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NULL_BLOCK_ALLOCATOR_INL
 
 //----------------------------------------------------------------------------
 // Block Allocations
@@ -19,4 +19,4 @@ inline void bit::memory::null_block_allocator
   // Do nothing
 }
 
-#endif /* BIT_MEMORY_DETAIL_NULL_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NULL_BLOCK_ALLOCATOR_INL */

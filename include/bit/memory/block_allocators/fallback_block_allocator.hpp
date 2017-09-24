@@ -6,8 +6,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_FALLBACK_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_FALLBACK_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_FALLBACK_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_FALLBACK_BLOCK_ALLOCATOR_HPP
 
 #include "../memory.hpp"
 #include "../memory_block.hpp"
@@ -128,4 +128,4 @@ namespace bit {
 
 #include "detail/fallback_block_allocator.inl"
 
-#endif /* BIT_MEMORY_FALLBACK_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_FALLBACK_BLOCK_ALLOCATOR_HPP */

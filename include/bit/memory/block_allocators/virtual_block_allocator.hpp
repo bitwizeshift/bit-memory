@@ -6,8 +6,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_VIRTUAL_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_VIRTUAL_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP
 
 #include "../virtual_memory.hpp"
 #include "../memory_block.hpp"
@@ -85,4 +85,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_VIRTUAL_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP */

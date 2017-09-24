@@ -7,8 +7,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_CACHED_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_CACHED_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 
 #include "../memory.hpp"             // owner
 #include "../memory_block.hpp"       // memory_block
@@ -123,4 +123,4 @@ namespace bit {
 
 #include "detail/cached_block_allocator.inl"
 
-#endif /* BIT_MEMORY_CACHED_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP */

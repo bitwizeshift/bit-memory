@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_INL
 
 //============================================================================
 // block_allocator
@@ -55,4 +55,4 @@ inline void bit::memory::block_allocator
 {
   static_cast<BlockAllocator*>(instance)->deallocate_block( block );
 }
-#endif /* BIT_MEMORY_DETAIL_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_INL */

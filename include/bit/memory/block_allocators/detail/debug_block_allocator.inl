@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL
 
 //============================================================================
 // debug_block_allocator
@@ -80,4 +80,4 @@ void bit::memory::debug_block_allocator<BlockAllocator>
   m_storage.deallocate_block( block );
 }
 
-#endif /* BIT_MEMORY_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL */

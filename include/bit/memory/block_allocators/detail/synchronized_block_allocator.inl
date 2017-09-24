@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL
 
 //----------------------------------------------------------------------------
 // Constructors
@@ -43,4 +43,4 @@ void bit::memory::synchronized_block_allocator<BlockAllocator,BasicLockable>
   return detail::get<0>(*this).deallocate_block( block );
 }
 
-#endif /* BIT_MEMORY_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_SAFE_BLOCK_ALLOCATOR_INL */

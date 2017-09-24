@@ -7,8 +7,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_ALIGNED_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_ALIGNED_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
 
 #include "../aligned_memory.hpp"
 #include "../memory_block.hpp"
@@ -149,4 +149,4 @@ namespace bit {
 
 #include "detail/aligned_block_allocator.inl"
 
-#endif /* BIT_MEMORY_ALIGNED_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP */

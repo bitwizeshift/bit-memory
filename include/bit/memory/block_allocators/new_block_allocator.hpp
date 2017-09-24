@@ -7,8 +7,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_NEW_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_NEW_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_NEW_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_NEW_BLOCK_ALLOCATOR_HPP
 
 #include "../memory.hpp"
 #include "../memory_block.hpp"
@@ -67,4 +67,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_NEW_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_NEW_BLOCK_ALLOCATOR_HPP */

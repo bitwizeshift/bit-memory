@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STATIC_BLOCK_ALLOCATOR_INL
 
 template<std::size_t Size, typename Tag>
 bool bit::memory::static_block_allocator<Size,Tag>::s_is_allocated = false;
@@ -46,4 +46,4 @@ void bit::memory::static_block_allocator<Size,Tag>
   s_is_allocated = false;
 }
 
-#endif /* BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STATIC_BLOCK_ALLOCATOR_INL */

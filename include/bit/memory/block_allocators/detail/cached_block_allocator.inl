@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_CACHED_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_CACHED_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_CACHED_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_CACHED_BLOCK_ALLOCATOR_INL
 
 //----------------------------------------------------------------------------
 // Constructor / Destructor
@@ -46,4 +46,4 @@ inline void bit::memory::cached_block_allocator<BlockAllocator>
   m_storage.cache.store_block( std::move(block) );
 }
 
-#endif /* BIT_MEMORY_DETAIL_CACHED_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_CACHED_BLOCK_ALLOCATOR_INL */

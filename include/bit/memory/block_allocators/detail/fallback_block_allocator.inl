@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL
 
 //----------------------------------------------------------------------------
 // Constructors
@@ -89,4 +89,4 @@ inline void bit::memory::fallback_block_allocator<BlockAllocator0,BlockAllocator
 //  }
 }
 
-#endif /* BIT_MEMORY_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL */
