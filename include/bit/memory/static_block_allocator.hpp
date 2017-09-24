@@ -14,6 +14,7 @@
 #include "debug_block_allocator.hpp"
 
 #include <cstdlib> // std::size_t
+#include <cassert> // assert
 
 namespace bit {
   namespace memory {

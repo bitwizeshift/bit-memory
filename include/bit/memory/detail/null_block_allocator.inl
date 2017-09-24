@@ -9,7 +9,7 @@ inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::null_block_allocator::allocate_block()
   noexcept
 {
-  return memory_block{ nullptr, 0, this };
+  return memory_block{ nullptr, 0 };
 }
 
 inline void bit::memory::null_block_allocator

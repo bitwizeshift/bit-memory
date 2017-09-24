@@ -20,7 +20,10 @@ bit::memory::new_block_allocator::new_block_allocator( std::size_t size )
 bit::memory::owner<bit::memory::memory_block>
   bit::memory::new_block_allocator::allocate_block()
 {
-  return memory_block( ::operator new(m_size), m_size, this );
+  auto p = ::operator new(m_size,std::nothrow);
+
+  if( !p ) return nullblock;
+  return {p, m_size};
 }
 
 void bit::memory::new_block_allocator::deallocate_block( owner<memory_block> block )

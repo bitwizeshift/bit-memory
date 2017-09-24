@@ -70,11 +70,11 @@ template<std::size_t Idx, std::size_t...Idxs>
 inline void bit::memory::fallback_block_allocator<BlockAllocator0,BlockAllocatorN...>
   ::deallocate_block( owner<memory_block> block, std::index_sequence<Idx,Idxs...> )
 {
-  if( std::get<Idx>(m_storage) == block.origin() ) {
-    std::get<Idx>(m_storage)->deallocate_block( block );
-  } else {
-    deallocate_block( block, std::index_sequence<Idxs...>() );
-  }
+//  if( std::get<Idx>(m_storage) == block.origin() ) {
+//    std::get<Idx>(m_storage)->deallocate_block( block );
+//  } else {
+//    deallocate_block( block, std::index_sequence<Idxs...>() );
+//  }
 }
 
 //----------------------------------------------------------------------------
@@ -84,9 +84,9 @@ template<std::size_t Idx>
 inline void bit::memory::fallback_block_allocator<BlockAllocator0,BlockAllocatorN...>
   ::deallocate_block( owner<memory_block> block, std::index_sequence<Idx> )
 {
-  if( std::get<Idx>(m_storage) == block.origin() ) {
-    std::get<Idx>(m_storage)->deallocate_block( block );
-  }
+//  if( std::get<Idx>(m_storage) == block.origin() ) {
+//    std::get<Idx>(m_storage)->deallocate_block( block );
+//  }
 }
 
 #endif /* BIT_MEMORY_DETAIL_FALLBACK_BLOCK_ALLOCATOR_INL */

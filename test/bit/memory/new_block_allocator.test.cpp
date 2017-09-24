@@ -29,11 +29,6 @@ TEST_CASE("new_block_allocator::allocate_block()")
       REQUIRE( succeeds );
     }
 
-    SECTION("Origin points to the original block allocator")
-    {
-      REQUIRE( block.origin() == &block_allocator );
-    }
-
     SECTION("Size is specified by constructor")
     {
       REQUIRE( block.size() == block_size );

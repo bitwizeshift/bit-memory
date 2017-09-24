@@ -27,11 +27,6 @@ TEST_CASE("null_block_allocator::allocate_block()")
       auto succeeds = block == bit::memory::nullblock;
       REQUIRE( succeeds );
     }
-
-    SECTION("Origin points to the original block allocator")
-    {
-      REQUIRE( block.origin() == &block_allocator );
-    }
   }
 }
 

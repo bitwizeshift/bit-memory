@@ -26,7 +26,7 @@ bit::memory::owner<bit::memory::memory_block>
 {
   if( !s_is_allocated ) {
     s_is_allocated = true;
-    return memory_block{ (void*) s_storage, Size, this };
+    return { static_cast<void*>(s_storage), Size };
   }
   return nullblock;
 }
@@ -38,9 +38,12 @@ void bit::memory::static_block_allocator<Size,Tag>
   ::deallocate_block( owner<memory_block> block )
   noexcept
 {
+  const auto original_block = memory_block{ static_cast<void*>(s_storage), Size };
+  assert( original_block == block );
+
   // Only consider this deallocated if the deallocated block is the same block
   // that was originally allocated
-  s_is_allocated = !(memory_block{ (void*) s_storage, Size } == block);
+  s_is_allocated = false;
 }
 
 #endif /* BIT_MEMORY_DETAIL_STATIC_BLOCK_ALLOCATOR_INL */

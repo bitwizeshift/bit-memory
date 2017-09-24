@@ -32,8 +32,6 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     /// \brief Wrapper around a block of memory, containing both the size
     ///        and the address of the memory block.
-    ///
-    /// \ingroup memory
     //////////////////////////////////////////////////////////////////////////
     class memory_block
     {
@@ -43,7 +41,7 @@ namespace bit {
     public:
 
       /// \brief Constructs a memory block pointing to null with 0 size
-      constexpr explicit memory_block() noexcept;
+      constexpr memory_block() noexcept;
 
       /// \copydoc memory_block()
       constexpr memory_block( nullblock_t ) noexcept;
@@ -53,15 +51,7 @@ namespace bit {
       ///
       /// \param data The memory address to start the block
       /// \param size The size of the memory block
-      constexpr explicit memory_block( void* data, std::size_t size ) noexcept;
-
-      /// \brief Constructs a memory_block at the specified memory address,
-      ///        \p data, with the specified size \p size, and the \p origin
-      ///
-      /// \param data The memory address to start the block
-      /// \param size The size of the memory block
-      /// \param origin The place where this memroy block originates from
-      constexpr explicit memory_block( void* data, std::size_t size, const void* origin ) noexcept;
+      constexpr memory_block( void* data, std::size_t size ) noexcept;
 
       /// \brief Copy-constructs a memory_block by copying another memory_block
       ///
@@ -97,11 +87,6 @@ namespace bit {
       /// \return the pointer to the data
       constexpr void* data() const noexcept;
 
-      /// \brief Retrieves the pointer to this blocks origin
-      ///
-      /// \return the pointer to the origin
-      constexpr const void* origin() const noexcept;
-
       //----------------------------------------------------------------------
       // Observers
       //----------------------------------------------------------------------
@@ -136,7 +121,6 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      const void* m_origin; ///< The origin of this memory block
       void*       m_data;   ///< Pointer to the start of the memory block
       std::size_t m_size;   ///< The size of the memory block
     };

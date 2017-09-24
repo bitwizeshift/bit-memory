@@ -42,7 +42,7 @@ bit::memory::owner<bit::memory::memory_block>
     auto v = static_cast<byte*>(m_memory) + (m_active_page++ * virtual_memory_page_size);
     auto p = virtual_memory_commit( v, 1 );
 
-    return memory_block( p, virtual_memory_page_size, this );
+    return {p, virtual_memory_page_size};
   }
 
   return nullblock;

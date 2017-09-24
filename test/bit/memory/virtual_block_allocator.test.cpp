@@ -31,11 +31,6 @@ TEST_CASE("virtual_block_allocator::allocate_block()")
       REQUIRE( succeeds );
     }
 
-    SECTION("Origin points to the original block allocator")
-    {
-      REQUIRE( block.origin() == &block_allocator );
-    }
-
     SECTION("Aligns to virtual page boundary")
     {
       auto align = bit::memory::align_of(block.data());
