@@ -6,7 +6,7 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/malloc_block_allocator.hpp>
+#include <bit/memory/block_allocators/malloc_block_allocator.hpp>
 
 #include <catch.hpp>
 

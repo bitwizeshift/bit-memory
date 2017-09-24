@@ -9,9 +9,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATOR_HPP
 
-#include "memory.hpp"
-#include "memory_block.hpp"
-#include "concepts.hpp"
+#include "../memory.hpp"
+#include "../memory_block.hpp"
+#include "../concepts.hpp"
 
 namespace bit {
   namespace memory {

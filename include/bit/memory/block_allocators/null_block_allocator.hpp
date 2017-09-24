@@ -9,8 +9,8 @@
 #ifndef BIT_MEMORY_NULL_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_NULL_BLOCK_ALLOCATOR_HPP
 
-#include "memory.hpp"
-#include "memory_block.hpp"
+#include "../memory.hpp"
+#include "../memory_block.hpp"
 #include "cached_block_allocator.hpp"
 
 namespace bit {

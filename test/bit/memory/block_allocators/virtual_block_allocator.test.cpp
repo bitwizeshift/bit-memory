@@ -6,10 +6,10 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/virtual_memory.hpp>
-#include <bit/memory/virtual_block_allocator.hpp>
 #include <bit/memory/memory.hpp>
 #include <bit/memory/debugging.hpp>
+#include <bit/memory/virtual_memory.hpp>
+#include <bit/memory/block_allocators/virtual_block_allocator.hpp>
 
 #include <catch.hpp>
 

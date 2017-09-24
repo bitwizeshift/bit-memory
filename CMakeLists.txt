@@ -69,31 +69,32 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
-
   include/bit/memory/detail/ebo_storage.hpp
 
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
 
-  # Raw Allocators
+  # Allocators
   include/bit/memory/aligned_allocator.hpp
   include/bit/memory/malloc_allocator.hpp
   include/bit/memory/new_allocator.hpp
   include/bit/memory/null_allocator.hpp
 
   # Block Allocators
-  include/bit/memory/cached_block_allocator.hpp
-  include/bit/memory/debug_block_allocator.hpp
-  include/bit/memory/synchronized_block_allocator.hpp
-  include/bit/memory/virtual_block_allocator.hpp
-  include/bit/memory/aligned_block_allocator.hpp
-  include/bit/memory/null_block_allocator.hpp
-  include/bit/memory/static_block_allocator.hpp
-  include/bit/memory/malloc_block_allocator.hpp
-  include/bit/memory/new_block_allocator.hpp
-  include/bit/memory/fallback_block_allocator.hpp
-  include/bit/memory/block_allocator.hpp
+  include/bit/memory/block_allocators/cached_block_allocator.hpp
+  include/bit/memory/block_allocators/debug_block_allocator.hpp
+  include/bit/memory/block_allocators/synchronized_block_allocator.hpp
+  include/bit/memory/block_allocators/virtual_block_allocator.hpp
+  include/bit/memory/block_allocators/aligned_block_allocator.hpp
+  include/bit/memory/block_allocators/null_block_allocator.hpp
+  include/bit/memory/block_allocators/static_block_allocator.hpp
+  include/bit/memory/block_allocators/malloc_block_allocator.hpp
+  include/bit/memory/block_allocators/new_block_allocator.hpp
+  include/bit/memory/block_allocators/fallback_block_allocator.hpp
+  include/bit/memory/block_allocators/block_allocator.hpp
+
+  # Streaming Allocators
 
   # Adapters
   include/bit/memory/std_allocator_adapter.hpp
@@ -126,10 +127,10 @@ set(source_files
   # Memory Allocations
   src/bit/memory/virtual_memory.cpp
   # Block Allocators
-  src/bit/memory/virtual_block_allocator.cpp
-  src/bit/memory/null_block_allocator.cpp
-  src/bit/memory/malloc_block_allocator.cpp
-  src/bit/memory/new_block_allocator.cpp
+  src/bit/memory/block_allocators/virtual_block_allocator.cpp
+  src/bit/memory/block_allocators/null_block_allocator.cpp
+  src/bit/memory/block_allocators/malloc_block_allocator.cpp
+  src/bit/memory/block_allocators/new_block_allocator.cpp
   # Allocators
   src/bit/memory/null_allocator.cpp
 

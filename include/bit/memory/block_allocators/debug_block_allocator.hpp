@@ -9,9 +9,9 @@
 #ifndef BIT_MEMORY_DEBUG_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_DEBUG_BLOCK_ALLOCATOR_HPP
 
-#include "memory.hpp"
-#include "memory_block.hpp"
-#include "debugging.hpp"
+#include "../memory.hpp"
+#include "../memory_block.hpp"
+#include "../debugging.hpp"
 
 #include <algorithm> // std::fill, std::for_each
 

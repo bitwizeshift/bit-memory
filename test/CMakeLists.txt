@@ -4,7 +4,7 @@ find_package(Catch REQUIRED)
 
 if( WIN32 OR UNIX OR APPLE )
   set(platform_source_files
-         bit/memory/virtual_block_allocator.test.cpp
+         bit/memory/block_allocators/virtual_block_allocator.test.cpp
   )
 endif()
 
@@ -15,9 +15,10 @@ set(source_files
   # Memory Allocations
 
   # Block Allocators
-  bit/memory/null_block_allocator.test.cpp
-  bit/memory/malloc_block_allocator.test.cpp
-  bit/memory/new_block_allocator.test.cpp
+  bit/memory/block_allocators/null_block_allocator.test.cpp
+  bit/memory/block_allocators/malloc_block_allocator.test.cpp
+  bit/memory/block_allocators/new_block_allocator.test.cpp
+
   # Allocators
 
   ${platform_source_files}

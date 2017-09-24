@@ -9,9 +9,9 @@
 #ifndef BIT_MEMORY_VIRTUAL_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_VIRTUAL_BLOCK_ALLOCATOR_HPP
 
-#include "virtual_memory.hpp"
-#include "memory_block.hpp"
-#include "memory_block_cache.hpp"
+#include "../virtual_memory.hpp"
+#include "../memory_block.hpp"
+#include "../memory_block_cache.hpp"
 #include "debug_block_allocator.hpp"
 
 #include <cstddef> // std::size_t

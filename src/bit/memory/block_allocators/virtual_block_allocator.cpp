@@ -1,4 +1,4 @@
-#include <bit/memory/virtual_block_allocator.hpp>
+#include <bit/memory/block_allocators/virtual_block_allocator.hpp>
 
 //============================================================================
 // virtual_block_allocator

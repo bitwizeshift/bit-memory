@@ -10,8 +10,8 @@
 #ifndef BIT_MEMORY_ALIGNED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_ALIGNED_BLOCK_ALLOCATOR_HPP
 
-#include "aligned_memory.hpp"
-#include "memory_block.hpp"
+#include "../aligned_memory.hpp"
+#include "../memory_block.hpp"
 #include "cached_block_allocator.hpp"
 #include "debug_block_allocator.hpp"
 

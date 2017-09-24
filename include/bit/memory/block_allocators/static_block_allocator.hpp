@@ -9,8 +9,8 @@
 #ifndef BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_STATIC_BLOCK_ALLOCATOR_HPP
 
-#include "memory.hpp"
-#include "memory_block.hpp"
+#include "../memory.hpp"
+#include "../memory_block.hpp"
 #include "debug_block_allocator.hpp"
 
 #include <cstdlib> // std::size_t
