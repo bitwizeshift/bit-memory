@@ -15,6 +15,39 @@
 
 namespace bit {
   namespace memory {
+    namespace detail {
+
+      struct block_allocator_vtable
+      {
+        using deallocate_block_fn_t = void(*)( void*, memory_block );
+        using allocate_block_fn_t   = memory_block(*)( void* );
+
+        deallocate_block_fn_t deallocate_fn;
+        allocate_block_fn_t   allocate_fn;
+
+        template<typename BlockAllocator>
+        static block_allocator_vtable* get_vtable()
+        {
+          static auto s_vtable = []()
+          {
+            block_allocator_vtable table;
+
+            table.allocate_fn = +[](void* p)
+            {
+              return static_cast<BlockAllocator*>(p)->allocate_block();
+            };
+            table.deallocate_fn = +[](void* p, memory_block block)
+            {
+              return static_cast<BlockAllocator*>(p)->deallocate_block(block);
+            };
+            return table;
+          }();
+
+          return &s_vtable;
+        }
+      };
+
+    } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief A type erased view of allocators that satisfy the BlockAllocator
@@ -88,29 +121,16 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      using deallocate_block_fn_t = void(*)( void*, memory_block );
-      using allocate_block_fn_t   = memory_block(*)( void* );
-
-      //----------------------------------------------------------------------
-      // Private Static Functions
-      //----------------------------------------------------------------------
-    private:
-
-      template<typename BlockAllocator>
-      static owner<memory_block> allocate_block_function( void* instance );
-
-      template<typename BlockAllocator>
-      static void deallocate_block_function( void* instance, owner<memory_block> block );
+      using vtable_type = detail::block_allocator_vtable;
 
       //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
     private:
 
-      void*                 m_ptr;
-      allocate_block_fn_t   m_allocate_block_fn;
-      deallocate_block_fn_t m_deallocate_block_fn;
 
+      void*        m_ptr;
+      vtable_type* m_vtable;
     };
 
   } // namespace memory
