@@ -69,7 +69,8 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
-  include/bit/memory/smart_ptr.hpp
+
+  include/bit/memory/detail/ebo_storage.hpp
 
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
@@ -84,7 +85,7 @@ set(headers
   # Block Allocators
   include/bit/memory/cached_block_allocator.hpp
   include/bit/memory/debug_block_allocator.hpp
-  include/bit/memory/thread_safe_block_allocator.hpp
+  include/bit/memory/synchronized_block_allocator.hpp
   include/bit/memory/virtual_block_allocator.hpp
   include/bit/memory/aligned_block_allocator.hpp
   include/bit/memory/null_block_allocator.hpp
