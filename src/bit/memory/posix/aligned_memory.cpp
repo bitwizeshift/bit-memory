@@ -29,9 +29,11 @@ void* bit::memory::aligned_offset_malloc( std::size_t size,
   noexcept
 {
   union {
-    void*         aligned_ptr;
-    std::uint16_t adjust_ptr;
+    void*          aligned_ptr;
+    std::uint16_t* adjust_ptr;
   } r = {};
+
+  assert( align % 2 == 0 && "Alignment must be power of 2" );
 
   void* allocated_ptr;
 
@@ -40,7 +42,7 @@ void* bit::memory::aligned_offset_malloc( std::size_t size,
   offset += sizeof(std::uint16_t);
 
   // Step offset up to a multiple of the alignment
-  size += offset + (offset % align);
+  size += offset + (offset & align);
 
   ::posix_memalign(&allocated_ptr, align, size);
 
@@ -64,6 +66,7 @@ void bit::memory::aligned_offset_free( void* ptr )
   r.aligned_ptr = ptr;
   std::uint16_t adjust = *(--r.adjust_ptr);
 
+  auto p = static_cast<char*>(r.adjust_ptr) - adjust;
   //  r.aligned_ptr = Pointer_Math::subtract(r.aligned_ptr, adjust);
 
   std::free( ptr );
