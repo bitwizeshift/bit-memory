@@ -150,6 +150,10 @@ namespace bit {
     /// \}
 
   } // namespace memory
+
+  inline namespace literals {
+    using namespace memory::literals;
+  } // inline namespace literals
 } // namespace bit
 
 // IWYU pragma: begin_exports
