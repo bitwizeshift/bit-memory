@@ -27,7 +27,7 @@ namespace bit {
     /// is considered bad-practice, since this allocator could never produce
     /// a valid allocation.
     ///
-    /// \satisfies RawAllocator
+    /// \satisfies Allocator
     //////////////////////////////////////////////////////////////////////////
     class null_allocator
     {

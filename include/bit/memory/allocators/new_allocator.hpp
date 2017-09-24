@@ -25,7 +25,7 @@ namespace bit {
     ///
     /// Any alignment requests are ignored
     ///
-    /// \satisfies RawAllocator
+    /// \satisfies Allocator
     ///////////////////////////////////////////////////////////////////////////
     class new_allocator
     {
