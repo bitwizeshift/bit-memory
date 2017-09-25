@@ -50,7 +50,17 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_name<T,
-        void_t<decltype( std::declval<const char*&>() = std::declval<T&>().name() )>
+        void_t<decltype( std::declval<const char*&>() = std::declval<const T&>().name() )>
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct allocator_has_set_name : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_set_name<T,
+        void_t<decltype( std::declval<T&>().set_name( std::declval<const char*&>() ) )>
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -60,7 +70,7 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_max_size<T,
-        void_t<decltype( std::declval<std::size_t&>() = std::declval<T&>().max_size() )>
+        void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().max_size() )>
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -70,7 +80,7 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_used<T,
-        void_t<decltype( std::declval<std::size_t&>() = std::declval<T&>().used() )>
+        void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().used() )>
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -227,12 +237,25 @@ namespace bit {
       ///
       /// \note Not all allocators are nameable or have a name specified.
       ///       For these allocators, the string returned is "Unnamed"
+      ///
       /// \note The lifetime of the pointer returned is unmanaged, and is NOT
       ///       the responsibility of the caller to free.
       ///
       /// \param alloc the allocator to get the name of
       /// \return the name of the allocator
       static const char* name( const Allocator& alloc ) noexcept;
+
+      /// \brief Sets the name of the specified allocator
+      ///
+      /// \note The lifetime of the pointer passed must be managed from outside
+      ///       of the allocator
+      ///
+      /// \note The name of the allocator is not guaranteed to change if the
+      ///       allocator does not support naming
+      ///
+      /// \param alloc the allocator set the name of
+      /// \param name the name to set the allocator to
+      static void set_name( Allocator& alloc, const char* name ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation
@@ -290,6 +313,20 @@ namespace bit {
       static const char* do_name( std::true_type, const Allocator& alloc );
       static const char* do_name( std::false_type, const Allocator& alloc );
       /// \}
+
+      //----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Sets the name of the allocator, either calling
+      ///        \c Allocator::set_name or ignoring the setting
+      ///
+      /// \param alloc the allocator
+      /// \param name the name of the allocator
+      /// \return the name of the allocator
+      static void do_set_name( std::true_type, Allocator& alloc, const char* name );
+      static void do_set_name( std::false_type, Allocator& alloc, const char* name );
+      /// \}
+
     };
 
   } // namespace memory

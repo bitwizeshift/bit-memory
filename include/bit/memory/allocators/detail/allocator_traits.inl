@@ -69,6 +69,13 @@ inline const char* bit::memory::allocator_traits<Allocator>
   return do_name( detail::allocator_has_name<Allocator>{}, alloc );
 }
 
+template<typename Allocator>
+inline void bit::memory::allocator_traits<Allocator>
+  ::set_name( Allocator& alloc, const char* name )
+  noexcept
+{
+  return do_set_name( detail::allocator_has_set_name<Allocator>{}, alloc, name );
+}
 //=============================================================================
 // Private Implementation
 //=============================================================================
@@ -107,7 +114,6 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
   return alloc.max_size();
 }
 
-
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
   ::do_max_size( std::false_type, const Allocator& alloc )
@@ -123,7 +129,6 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 {
   return alloc.used();
 }
-
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
@@ -141,12 +146,30 @@ inline const char* bit::memory::allocator_traits<Allocator>
   return alloc.name();
 }
 
-
 template<typename Allocator>
 inline const char* bit::memory::allocator_traits<Allocator>
   ::do_name( std::false_type, const Allocator& alloc )
 {
   return "Unnamed";
+}
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline void bit::memory::allocator_traits<Allocator>
+  ::do_set_name( std::true_type, Allocator& alloc, const char* name )
+{
+  alloc.set_name( name );
+}
+
+template<typename Allocator>
+inline void bit::memory::allocator_traits<Allocator>
+  ::do_set_name( std::false_type, Allocator& alloc, const char* name )
+{
+  (void) alloc;
+  (void) name;
+
+  // do nothing
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALLOCATOR_TRAITS_INL */
