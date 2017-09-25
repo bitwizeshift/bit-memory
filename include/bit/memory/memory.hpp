@@ -9,9 +9,7 @@
 #ifndef BIT_MEMORY_MEMORY_HPP
 #define BIT_MEMORY_MEMORY_HPP
 
-#include "memory_block.hpp" // memory_block, nullblock
-
-#include <cstddef> // std::size_t
+#include <cstddef> // std::size_t, std::ptrdiff_t
 #include <utility> // std::forward
 #include <cstdint> // std::uintpr_t
 
@@ -102,19 +100,6 @@ namespace bit {
     ///
     /// \return \c true
     constexpr bool is_null( std::nullptr_t ) noexcept;
-
-    /// \brief Checks whether a given block is nullblock
-    ///
-    /// This overload always returns \c true
-    ///
-    /// \return \c true
-    constexpr bool is_null( memory_block block ) noexcept;
-
-    /// \brief Checks whether a given block is nullblock
-    ///
-    /// \param block the block to check
-    /// \return \c true if the block is \c nullblock
-    constexpr bool is_null( nullblock_t ) noexcept;
 
     //------------------------------------------------------------------------
     // Deltas

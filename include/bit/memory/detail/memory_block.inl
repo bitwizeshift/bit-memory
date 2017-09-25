@@ -129,4 +129,19 @@ inline constexpr bool bit::memory::operator != ( const memory_block& lhs,
   return !(lhs==nullblock);
 }
 
+//----------------------------------------------------------------------------
+// Utilities
+//----------------------------------------------------------------------------
+
+inline constexpr bool bit::memory::is_null( memory_block block )
+  noexcept
+{
+  return block == nullblock;
+}
+
+inline constexpr bool bit::memory::is_null( nullblock_t )
+  noexcept
+{
+  return true;
+}
 #endif /* BIT_MEMORY_DETAIL_MEMORY_BLOCK_INL */

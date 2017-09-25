@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
 #define BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
 
-#include <cstdlib> // std::size_t
+#include <cstddef> // std::size_t, std::ptrdiff_t
 #include <cstdint> // std::uintpr_t
 #include <cassert> // assert
 

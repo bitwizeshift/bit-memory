@@ -109,18 +109,6 @@ inline constexpr bool bit::memory::is_null( std::nullptr_t )
   return true;
 }
 
-inline constexpr bool bit::memory::is_null( memory_block block )
-  noexcept
-{
-  return block == nullblock;
-}
-
-inline constexpr bool bit::memory::is_null( nullblock_t )
-  noexcept
-{
-  return true;
-}
-
 //----------------------------------------------------------------------------
 // Deltas
 //----------------------------------------------------------------------------

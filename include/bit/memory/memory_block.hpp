@@ -143,6 +143,22 @@ namespace bit {
     constexpr bool operator != ( nullblock_t, const memory_block& rhs ) noexcept;
     constexpr bool operator != ( const memory_block& lhs, nullblock_t ) noexcept;
 
+    //------------------------------------------------------------------------
+    // Utilities
+    //------------------------------------------------------------------------
+
+    /// \brief Checks if the given memory_block is null
+    ///
+    /// \param block the block of memory to check
+    /// \return \c true if the block is null
+    constexpr bool is_null( memory_block block ) noexcept;
+
+    /// \brief Checks if the given block is null. nullblocks are always
+    ///        null, so this returns \c true
+    ///
+    /// \return true
+    constexpr bool is_null( nullblock_t ) noexcept;
+
   } // namespace memory
 } // namespace bit
 
