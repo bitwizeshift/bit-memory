@@ -208,7 +208,7 @@ namespace bit {
       ///
       /// \return the amount of bytes available for the largest possible
       ///         allocation
-      static std::size_t max_size( Allocator& alloc ) noexcept;
+      static std::size_t max_size( const Allocator& alloc ) noexcept;
 
       /// \brief Gets the current amount of bytes used by this allocator
       ///
@@ -217,7 +217,7 @@ namespace bit {
       ///
       /// \param alloc the allocator to to check the amount used
       /// \return the amount of bytes used
-      static std::size_t used( Allocator& alloc ) noexcept;
+      static std::size_t used( const Allocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Name
@@ -232,7 +232,7 @@ namespace bit {
       ///
       /// \param alloc the allocator to get the name of
       /// \return the name of the allocator
-      static const char* name( Allocator& alloc ) noexcept;
+      static const char* name( const Allocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation
@@ -262,8 +262,8 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \return the max size
-      static std::size_t do_max_size( std::true_type, Allocator& alloc );
-      static std::size_t do_max_size( std::false_type, Allocator& alloc );
+      static std::size_t do_max_size( std::true_type, const Allocator& alloc );
+      static std::size_t do_max_size( std::false_type, const Allocator& alloc );
       /// \}
 
       //----------------------------------------------------------------------
@@ -275,8 +275,8 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \return the bytes used
-      static std::size_t do_used( std::true_type, Allocator& alloc );
-      static std::size_t do_used( std::false_type, Allocator& alloc );
+      static std::size_t do_used( std::true_type, const Allocator& alloc );
+      static std::size_t do_used( std::false_type, const Allocator& alloc );
       /// \}
 
       //----------------------------------------------------------------------
@@ -287,8 +287,8 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \return the name of the allocator
-      static const char* do_name( std::true_type, Allocator& alloc );
-      static const char* do_name( std::false_type, Allocator& alloc );
+      static const char* do_name( std::true_type, const Allocator& alloc );
+      static const char* do_name( std::false_type, const Allocator& alloc );
       /// \}
     };
 

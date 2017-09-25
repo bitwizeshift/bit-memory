@@ -43,7 +43,7 @@ inline void bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::max_size( Allocator& alloc )
+  ::max_size( const Allocator& alloc )
   noexcept
 {
   return do_max_size( detail::allocator_has_max_size<Allocator>{}, alloc );
@@ -51,7 +51,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::used( Allocator& alloc )
+  ::used( const Allocator& alloc )
   noexcept
 {
   return do_used( detail::allocator_has_used<Allocator>{}, alloc );
@@ -63,7 +63,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline const char* bit::memory::allocator_traits<Allocator>
-  ::name( Allocator& alloc )
+  ::name( const Allocator& alloc )
   noexcept
 {
   return do_name( detail::allocator_has_name<Allocator>{}, alloc );
@@ -102,7 +102,7 @@ inline void* bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_max_size( std::true_type, Allocator& alloc )
+  ::do_max_size( std::true_type, const Allocator& alloc )
 {
   return alloc.max_size();
 }
@@ -110,7 +110,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_max_size( std::false_type, Allocator& alloc )
+  ::do_max_size( std::false_type, const Allocator& alloc )
 {
   return std::numeric_limits<std::size_t>::max();
 }
@@ -119,7 +119,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_used( std::true_type, Allocator& alloc )
+  ::do_used( std::true_type, const Allocator& alloc )
 {
   return alloc.used();
 }
@@ -127,7 +127,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_used( std::false_type, Allocator& alloc )
+  ::do_used( std::false_type, const Allocator& alloc )
 {
   return 0;
 }
@@ -136,7 +136,7 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline const char* bit::memory::allocator_traits<Allocator>
-  ::do_name( std::true_type, Allocator& alloc )
+  ::do_name( std::true_type, const Allocator& alloc )
 {
   return alloc.name();
 }
@@ -144,7 +144,7 @@ inline const char* bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline const char* bit::memory::allocator_traits<Allocator>
-  ::do_name( std::false_type, Allocator& alloc )
+  ::do_name( std::false_type, const Allocator& alloc )
 {
   return "Unnamed";
 }
