@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALIGNED_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_ALIGNED_ALLOCATOR_HPP
 
+#include "../memory.hpp"         // owner
 #include "../errors.hpp"         // out_of_memory_handler
 #include "../aligned_memory.hpp" // aligned_malloc, aligned_free
 
@@ -73,7 +74,7 @@ namespace bit {
       /// \param size the size of this allocation
       /// \param align the requested alignment
       /// \return the allocated pointer
-      void* allocate( std::size_t size, std::size_t align );
+      owner<void*> allocate( std::size_t size, std::size_t align );
 
       /// \brief Allocates aligned memory of size \p size, with alignment to a
       ///        boundary of at least \p align
@@ -87,7 +88,7 @@ namespace bit {
       ///
       /// \param p the pointer to deallocate
       /// \param size the size to deallocate
-      void deallocate( void* p, std::size_t size );
+      void deallocate( owner<void*> p, std::size_t size );
     };
 
     /// \{

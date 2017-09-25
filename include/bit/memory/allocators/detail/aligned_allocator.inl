@@ -5,8 +5,9 @@
 // Allocations / Deallocation
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::aligned_allocator::allocate( std::size_t size,
-                                                       std::size_t align )
+inline bit::memory::owner<void*>
+  bit::memory::aligned_allocator::allocate( std::size_t size,
+                                            std::size_t align )
 {
   auto p = try_allocate( size, align );
 
@@ -24,7 +25,7 @@ inline void* bit::memory::aligned_allocator::try_allocate( std::size_t size,
   return aligned_malloc( size, align );
 }
 
-inline void bit::memory::aligned_allocator::deallocate( void* p,
+inline void bit::memory::aligned_allocator::deallocate( owner<void*> p,
                                                         std::size_t size )
 {
   (void) size;

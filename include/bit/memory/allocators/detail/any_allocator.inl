@@ -22,13 +22,13 @@ inline bit::memory::any_allocator::any_allocator( Allocator&& any_allocator )
 // Block Allocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::any_allocator
+inline bit::memory::owner<void*> bit::memory::any_allocator
   ::allocate( std::size_t size, std::size_t align )
 {
   return m_vtable->allocate_fn( m_ptr, size, align );
 }
 
-inline void* bit::memory::any_allocator
+inline bit::memory::owner<void*> bit::memory::any_allocator
   ::try_allocate( std::size_t size, std::size_t align )
   noexcept
 {
@@ -37,7 +37,8 @@ inline void* bit::memory::any_allocator
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::any_allocator::deallocate( void* p, std::size_t size )
+inline void bit::memory::any_allocator::deallocate( owner<void*> p,
+                                                    std::size_t size )
 {
   m_vtable->deallocate_fn( m_ptr, p, size );
 }

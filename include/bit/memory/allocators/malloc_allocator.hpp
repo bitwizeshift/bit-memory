@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_MALLOC_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_MALLOC_ALLOCATOR_HPP
 
+#include "../memory.hpp" // owner
 #include "../errors.hpp" // out_of_memory_handler
 
 #include <cstdlib>     // std::malloc, std::free, std::size_t
@@ -77,7 +78,7 @@ namespace bit {
       /// \param size the size of this allocation
       /// \param align the requested alignment (ignored)
       /// \return the allocated pointer
-      void* allocate( std::size_t size, std::size_t align );
+      owner<void*> allocate( std::size_t size, std::size_t align );
 
       /// \brief Attempts to allocate memory of size \p size, returning nullptr
       ///        on failure
@@ -88,13 +89,13 @@ namespace bit {
       /// \param size the size of this allocation
       /// \param align the requested alignment (ignored)
       /// \return the allocated pointer
-      void* try_allocate( std::size_t size, std::size_t align ) noexcept;
+      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
 
       /// \brief Deallocates a pointer \p p with the allocation size of \p size
       ///
       /// \param p the pointer to deallocate
       /// \param size the size to deallocate
-      void deallocate( void* p, std::size_t size );
+      void deallocate( owner<void*> p, std::size_t size );
     };
 
     /// \{

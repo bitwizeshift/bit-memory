@@ -9,8 +9,8 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 
-#include "../memory.hpp" // owner
-#include "allocator_traits.hpp"
+#include "../memory.hpp"        // owner
+#include "allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::integral_constant, std::is_same, etc
@@ -148,21 +148,21 @@ namespace bit {
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the allocated pointer
-      void* allocate( std::size_t size, std::size_t align );
+      owner<void*> allocate( std::size_t size, std::size_t align );
 
       /// \brief Allocates a block from the underlying block allocator
       ///
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the allocated pointer
-      void* try_allocate( std::size_t size, std::size_t align ) noexcept;
+      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
 
       /// \brief Deallocates a block from the underlying block allocatore
       ///
       /// \param p the entry to deallocate, originally allocated with a
       ///          call to allocate
       /// \param n the number of entries to destroy
-      void deallocate( void* p, std::size_t n );
+      void deallocate( owner<void*> p, std::size_t n );
 
       //----------------------------------------------------------------------
       // Capacity

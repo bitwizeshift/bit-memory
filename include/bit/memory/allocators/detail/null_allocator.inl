@@ -9,8 +9,9 @@
 // Allocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::null_allocator::allocate( std::size_t size,
-                                                    std::size_t align )
+inline bit::memory::owner<void*>
+  bit::memory::null_allocator::allocate( std::size_t size,
+                                         std::size_t align )
 {
   (void) align;
 
@@ -19,8 +20,9 @@ inline void* bit::memory::null_allocator::allocate( std::size_t size,
   return nullptr;
 }
 
-inline void* bit::memory::null_allocator::try_allocate( std::size_t size,
-                                                        std::size_t align )
+inline bit::memory::owner<void*>
+  bit::memory::null_allocator::try_allocate( std::size_t size,
+                                             std::size_t align )
   noexcept
 {
   (void) size;
@@ -30,7 +32,7 @@ inline void* bit::memory::null_allocator::try_allocate( std::size_t size,
 }
 
 
-inline void bit::memory::null_allocator::deallocate( void* p,
+inline void bit::memory::null_allocator::deallocate( owner<void*> p,
                                                      std::size_t size )
   noexcept
 {

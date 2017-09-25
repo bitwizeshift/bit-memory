@@ -9,9 +9,10 @@
 #ifndef BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 
+#include "../memory.hpp" // owner
 #include "../errors.hpp" // out_of_memory_handler
 
-#include <cstdlib>     // std::size_t
+#include <cstddef>     // std::size_t
 #include <type_traits> // std::true_type
 
 namespace bit {
@@ -80,21 +81,21 @@ namespace bit {
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return nullptr
-      void* allocate( std::size_t size, std::size_t align );
+      owner<void*> allocate( std::size_t size, std::size_t align );
 
       /// \brief Allocates a null pointer
       ///
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return nullptr
-      void* try_allocate( std::size_t size, std::size_t align ) noexcept;
+      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
 
       /// \brief Deallocates a pointer previously allocated with a call to
       ///        allocate.
       ///
       /// \param p the pointer to deallocate
       /// \param n the number of entries previously allocated
-      void deallocate( void* p, std::size_t n ) noexcept;
+      void deallocate( owner<void*> p, std::size_t n ) noexcept;
     };
 
 
