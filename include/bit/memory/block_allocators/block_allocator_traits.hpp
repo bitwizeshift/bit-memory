@@ -52,6 +52,42 @@ namespace bit {
     template<typename T>
     constexpr bool is_block_allocator_v = is_block_allocator<T>::value;
 
+    //////////////////////////////////////////////////////////////////////////
+    /// \brief The block_allocator_traits class template provides a
+    ///        standardized way to access block allocator functionality
+    ///
+    /// This will infer defaults for any optional values that may not be
+    /// present in the allocator
+    ///
+    /// \note In the present version of this library, BlockAllocator does not
+    ///       define any optional variations. This is here for forward-
+    ///       compatibility.
+    ///
+    /// \tparam BlockAllocator the block allocator type. Must satisfy
+    ///         BlockAllocator concept
+    //////////////////////////////////////////////////////////////////////////
+    template<typename BlockAllocator>
+    class block_allocator_traits
+    {
+      //----------------------------------------------------------------------
+      // Block Allocations
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Allocates a block from the underlying allocator
+      ///
+      /// \param alloc the allocator to allocate from
+      /// \return the memory block
+      static owner<memory_block> allocate_block( BlockAllocator& alloc );
+
+      /// \brief Deallocates a block from the underlying container
+      ///
+      /// \param alloc the allocator to deallocate from
+      /// \param block the block to deallocate
+      static void deallocate_block( BlockAllocator& alloc,
+                                    owner<memory_block> block );
+    };
+
   } // namespace memory
 } // namespace bit
 

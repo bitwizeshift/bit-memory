@@ -35,12 +35,18 @@ namespace bit {
 
             table.allocate_fn = +[](void* p)
             {
-              return static_cast<BlockAllocator*>(p)->allocate_block();
+              auto instance = static_cast<BlockAllocator*>(p);
+
+              return block_allocator_traits<BlockAllocator>::allocate_block(*instance);
             };
+
             table.deallocate_fn = +[](void* p, memory_block block)
             {
-              return static_cast<BlockAllocator*>(p)->deallocate_block(block);
+              auto instance = static_cast<BlockAllocator*>(p);
+
+              block_allocator_traits<BlockAllocator>::deallocate_block(*instance, block);
             };
+
             return table;
           }();
 
@@ -128,7 +134,6 @@ namespace bit {
       // Private Members
       //----------------------------------------------------------------------
     private:
-
 
       void*        m_ptr;
       vtable_type* m_vtable;
