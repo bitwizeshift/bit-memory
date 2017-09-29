@@ -1,5 +1,48 @@
 #include <bit/memory/debugging.hpp>
 
+#include <algorithm> // std::fill
+
+//----------------------------------------------------------------------------
+
+void bit::memory::debug_tag_bytes( void* p,
+                                   std::size_t n,
+                                   debug_tag tag )
+{
+  // Tag all the bytes
+  auto* start = static_cast<byte*>(p);
+  auto* end   = start + n;
+
+  std::fill( start, end, static_cast<byte>(tag) );
+}
+
+//----------------------------------------------------------------------------
+
+void* bit::memory::debug_untag_bytes( void* p,
+                                      std::size_t n,
+                                      debug_tag tag,
+                                      std::size_t* stomped )
+{
+  auto* byte_ptr   = static_cast<byte*>(p);
+  auto* stomp_ptr  = (void*){};
+  auto  stomp_size = std::size_t(0);
+
+  while( --n ) {
+    if( *byte_ptr != static_cast<byte>(tag) ) {
+      // If a stomp occurs, record the start of th estomp, and determine
+      // the size
+      if( !stomp_ptr ) stomp_ptr = byte_ptr;
+      ++stomp_size;
+    }
+    ++byte_ptr;
+  }
+  if( stomp_ptr ) {
+    *stomped = stomp_size;
+  }
+
+  return stomp_ptr;
+
+}
+
 //============================================================================
 // byte_range
 //============================================================================

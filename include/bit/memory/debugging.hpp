@@ -36,6 +36,48 @@ namespace bit {
                                      //!< determine memory stomps
     };
 
+    /// \{
+    /// \brief Tags memory with the \ref debug_tag bytes
+    ///
+    /// \param p pointer to the memory to tag
+    /// \param n the number of bytes to tag
+    /// \param tag the tag to write
+    void debug_tag_bytes( void* p, std::size_t n, debug_tag tag );
+    void debug_tag_block_allocated_bytes( void* p, std::size_t n );
+    void debug_tag_block_freed_bytes( void* p, std::size_t n );
+    void debug_tag_fence_start_bytes( void* p, std::size_t n );
+    void debug_tag_fence_end_bytes( void* p, std::size_t n );
+    void debug_tag_allocated_bytes( void* p, std::size_t n );
+    void debug_tag_freed_bytes( void* p, std::size_t n );
+    /// \}
+
+
+    /// \{
+    /// \brief Untags memory previously tagged with \ref debug_tag bytes
+    ///
+    /// This function validates that the bytes previously tagged still contain
+    /// the same tag (thus no buffer-overflow conditions have occurred).
+    ///
+    /// If a buffer overflow has occurred, then this function returns a pointer
+    /// to the first byte that has been overwritten, and \p stomped will now
+    /// contain the number of bytes that have been modified.
+    ///
+    /// Otherwise this function returns \c nullptr, and \c stomped remains
+    /// unchanged
+    ///
+    /// \param p pointer to the memory to untag
+    /// \param n the number of bytes to untag
+    /// \param tag the expected debug tag
+    /// \param [out] stomped outputs the number of bytes stomped if a buffer
+    ///              overflow occurs; otherwise remains unchanged
+    /// \return pointer to the first byte that does not match \p tag (if
+    ///         modified); otherwise returns nullptr
+    void* debug_untag_bytes( void* p, std::size_t n, debug_tag tag, std::size_t* stomped );
+    void* debug_untag_fence_start_bytes( void* p, std::size_t n, std::size_t* stomped );
+    void* debug_untag_fence_end_bytes( void* p, std::size_t n, std::size_t* stomped );
+    /// \}
+
+
     //////////////////////////////////////////////////////////////////////////
     /// \brief A range of bytes for iterating all values for debugging
     ///
@@ -96,5 +138,7 @@ namespace bit {
 
   } // namespace memory
 } // namespace bit
+
+#include "detail/debugging.inl"
 
 #endif /* BIT_MEMORY_DEBUGGING_HPP */
