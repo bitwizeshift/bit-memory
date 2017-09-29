@@ -37,6 +37,18 @@ inline constexpr void* bit::memory::memory_block::data()
   return m_data;
 }
 
+inline constexpr void* bit::memory::memory_block::start_address()
+  const noexcept
+{
+  return data();
+}
+
+inline constexpr void* bit::memory::memory_block::end_address()
+  const noexcept
+{
+  return static_cast<byte*>(m_data) + m_size;
+}
+
 //----------------------------------------------------------------------------
 // Observers
 //----------------------------------------------------------------------------

@@ -10,6 +10,8 @@
 #ifndef BIT_MEMORY_MEMORY_BLOCK_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_HPP
 
+#include "detail/memory/byte.hpp" // byte
+
 #include <cstdlib> // std::size_t
 #include <utility> // std::swap
 
@@ -86,6 +88,20 @@ namespace bit {
       ///
       /// \return the pointer to the data
       constexpr void* data() const noexcept;
+
+      /// \brief Retrieves the start address of this memory block
+      ///
+      /// This is the same as \c data()
+      ///
+      /// \return the pointer to the data block
+      constexpr void* start_address() const noexcept;
+
+      /// \brief Retrieves the end address of this memory block
+      ///
+      /// \note That the end address is 1 past the end of the memory block
+      ///
+      /// \return the pointer to the end of the data block
+      constexpr void* end_address() const noexcept;
 
       //----------------------------------------------------------------------
       // Observers
