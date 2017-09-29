@@ -19,7 +19,7 @@ namespace {
                              std::ptrdiff_t size );
 
 
-  void default_stomp_handler( const bit::memory::allocator_info& info,
+  void default_buffer_overflow_handler( const bit::memory::allocator_info& info,
                               const void* ptr,
                               std::ptrdiff_t size );
 
@@ -34,15 +34,15 @@ namespace {
   // Static Entries
   //---------------------------------------------------------------------------
 
-  using atomic_leak_handler_t          = std::atomic<bit::memory::leak_handler_t>;
-  using atomic_stomp_handler_t         = std::atomic<bit::memory::stomp_handler_t>;
-  using atomic_double_delete_handler_t = std::atomic<bit::memory::double_delete_handler_t>;
-  using atomic_out_of_memory_handler_t = std::atomic<bit::memory::out_of_memory_handler_t>;
+  using atomic_leak_handler_t            = std::atomic<bit::memory::leak_handler_t>;
+  using atomic_buffer_overflow_handler_t = std::atomic<bit::memory::buffer_overflow_handler_t>;
+  using atomic_double_delete_handler_t   = std::atomic<bit::memory::double_delete_handler_t>;
+  using atomic_out_of_memory_handler_t   = std::atomic<bit::memory::out_of_memory_handler_t>;
 
-  atomic_leak_handler_t          g_leak_handler(&default_leak_handler);
-  atomic_stomp_handler_t         g_stomp_handler(&default_stomp_handler);
-  atomic_double_delete_handler_t g_double_delete_handler(&default_double_delete_handler);
-  atomic_out_of_memory_handler_t g_out_of_memory_handler(&default_out_of_memory_handler);
+  atomic_leak_handler_t            g_leak_handler(&default_leak_handler);
+  atomic_buffer_overflow_handler_t g_buffer_overflow_handler(&default_buffer_overflow_handler);
+  atomic_double_delete_handler_t   g_double_delete_handler(&default_double_delete_handler);
+  atomic_out_of_memory_handler_t   g_out_of_memory_handler(&default_out_of_memory_handler);
 }
 
 //-----------------------------------------------------------------------------
@@ -67,18 +67,20 @@ bit::memory::leak_handler_t bit::memory::get_leak_handler()
 // Stomp Handler
 //-----------------------------------------------------------------------------
 
-bit::memory::stomp_handler_t bit::memory::set_stomp_handler( stomp_handler_t f )
+bit::memory::buffer_overflow_handler_t
+  bit::memory::set_buffer_overflow_handler( buffer_overflow_handler_t f )
   noexcept
 {
-  return g_stomp_handler.exchange( f ? f : &default_stomp_handler );
+  return g_buffer_overflow_handler.exchange( f ? f : &default_buffer_overflow_handler );
 }
 
 //-----------------------------------------------------------------------------
 
-bit::memory::stomp_handler_t bit::memory::get_stomp_handler()
+bit::memory::buffer_overflow_handler_t
+  bit::memory::get_buffer_overflow_handler()
   noexcept
 {
-  return g_stomp_handler;
+  return g_buffer_overflow_handler;
 }
 
 //-----------------------------------------------------------------------------
@@ -133,11 +135,11 @@ namespace {
   }
 
 
-  void default_stomp_handler( const bit::memory::allocator_info& info,
-                              const void* ptr,
-                              std::ptrdiff_t size )
+  void default_buffer_overflow_handler( const bit::memory::allocator_info& info,
+                                        const void* ptr,
+                                        std::ptrdiff_t size )
   {
-    std::cerr << "stomp detected at address " << ptr << "\n"
+    std::cerr << "buffer overflow detected at address " << ptr << "\n"
               << size << " bytes overwritten.\n";
 
     assert(false);

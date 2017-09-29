@@ -24,7 +24,7 @@ namespace bit {
     using leak_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
 
     /// \brief The type used by the stomp handler
-    using stomp_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
+    using buffer_overflow_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
 
     /// \brief The type used by the double delete handler
     using double_delete_handler_t = void(*)(const allocator_info&, const void*, std::ptrdiff_t);
@@ -52,17 +52,17 @@ namespace bit {
     // Stomp Handler
     //------------------------------------------------------------------------
 
-    /// \brief Makes f the new global memory stomp handler function and returns
-    ///        the previously installed memory::stomp_handler.
+    /// \brief Makes f the new global memory buffer overflow handler function
+    ///        and returns the previously installed handler.
     ///
     /// \param f the new handler
     /// \return the old handler
-    stomp_handler_t set_stomp_handler(stomp_handler_t f) noexcept;
+    buffer_overflow_handler_t set_buffer_overflow_handler(buffer_overflow_handler_t f) noexcept;
 
     /// \brief Gets the current stomp handler
     ///
     /// \return the old handler
-    stomp_handler_t get_stomp_handler() noexcept;
+    buffer_overflow_handler_t get_buffer_overflow_handler() noexcept;
 
     //------------------------------------------------------------------------
     // Double Delete Handler
