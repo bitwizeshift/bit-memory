@@ -64,6 +64,7 @@ set(headers
   include/bit/memory/allocator_info.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/errors.hpp
+  include/bit/memory/macros.hpp
   include/bit/memory/memory.hpp
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
