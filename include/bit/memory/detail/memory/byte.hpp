@@ -9,6 +9,8 @@
 #ifndef BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
 #define BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
 
+#include <type_traits> // std::enable_if, std::is_integral
+
 namespace bit {
   namespace memory {
 
