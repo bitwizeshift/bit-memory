@@ -22,7 +22,7 @@ template<typename BlockAllocator>
 bit::memory::debug_block_allocator<BlockAllocator>::~debug_block_allocator()
 {
   if( m_storage.size ) {
-    leak_handler({"debug",&m_storage},nullptr,m_storage.size);
+    get_leak_handler()({"debug",&m_storage},nullptr,m_storage.size);
   }
 }
 
@@ -36,15 +36,12 @@ bit::memory::owner<bit::memory::memory_block>
 {
   using byte_t = unsigned char;
 
-  const auto tag = static_cast<byte_t>(debug_tag::allocated_block_byte);
   auto block     = m_storage.allocate_block();
-  auto first     = (byte_t*) block.data();
-  auto last      = ((byte_t*) block.data()) + block.size();
 
-  std::fill( first, last, tag );
+  debug_tag_block_allocated_bytes( block.data(), block.size() );
 
-  ++m_storage.size;
-  m_storage.allocations += block_size;
+  m_storage.size += static_cast<std::ptrdiff_t>(block.size());
+  ++m_storage.allocations;
 
   return block;
 }
@@ -68,16 +65,36 @@ void bit::memory::debug_block_allocator<BlockAllocator>
     }
   });
 
+  // TODO(bitwize): Updated 'debug' to be actual allocator info
   if( i == size ) {
-    double_delete_handler( {"debug",&m_storage}, block.data(), block.size() );
+    get_double_delete_handler()( {"debug",&m_storage}, block.data(), block.size() );
   }
 
-  std::fill( first, last, tag );
+  debug_tag_block_freed_bytes( block.data(), block.size() );
 
+  m_storage.size -= static_cast<std::ptrdiff_t>(block.size());
   --m_storage.allocations;
-  m_storage.size -= block_size;
 
   m_storage.deallocate_block( block );
 }
+
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<typename BlockAllocator>
+std::ptrdiff_t bit::memory::debug_block_allocator<BlockAllocator>::size()
+   const noexcept
+{
+  return m_storage.size;
+}
+
+template<typename BlockAllocator>
+std::ptrdiff_t bit::memory::debug_block_allocator<BlockAllocator>::allocations()
+   const noexcept
+{
+  return m_storage.allocations;
+}
+
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_DEBUG_BLOCK_ALLOCATOR_INL */

@@ -12,6 +12,7 @@
 #include "../memory.hpp"
 #include "../memory_block.hpp"
 #include "../debugging.hpp"
+#include "../errors.hpp"   // get_xyz_handler
 
 #include <algorithm> // std::fill, std::for_each
 
@@ -31,13 +32,6 @@ namespace bit {
     template<typename BlockAllocator>
     class debug_block_allocator
     {
-      //----------------------------------------------------------------------
-      // Public Member Types
-      //----------------------------------------------------------------------
-    public:
-
-      static constexpr std::size_t block_size = BlockAllocator::block_size;
-
       //----------------------------------------------------------------------
       // Constructor
       //----------------------------------------------------------------------
@@ -96,6 +90,21 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block );
+
+      //----------------------------------------------------------------------
+      // Observers
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Returns the current size in bytes of allocated blocks
+      ///
+      /// \return the number of bytes allocated
+      std::ptrdiff_t size() const noexcept;
+
+      /// \brief Returns number of allocated blocks
+      ///
+      /// \return the number of allocated blocks
+      std::ptrdiff_t allocations() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Member Types
