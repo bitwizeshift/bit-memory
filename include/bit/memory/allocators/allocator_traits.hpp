@@ -186,6 +186,18 @@ namespace bit {
       /// \param p the pointer
       static bool owns( Allocator& alloc, const void* p ) noexcept;
 
+      /// \brief Gets the name of the specified allocator
+      ///
+      /// \note Not all allocators are nameable or have a name specified.
+      ///       For these allocators, the string returned is "Unnamed"
+      ///
+      /// \note The lifetime of the pointer returned is unmanaged, and is NOT
+      ///       the responsibility of the caller to free.
+      ///
+      /// \param alloc the allocator to get the name of
+      /// \return the name of the allocator
+      static allocator_info info( const Allocator& alloc ) noexcept;
+
       //----------------------------------------------------------------------
       // Capacity
       //----------------------------------------------------------------------
@@ -209,22 +221,6 @@ namespace bit {
       /// \param alloc the allocator to get the min size from
       /// \return the minimum amount of bytes able to allocated
       static std::size_t min_size( const Allocator& alloc ) noexcept;
-
-      //----------------------------------------------------------------------
-      // Name
-      //----------------------------------------------------------------------
-
-      /// \brief Gets the name of the specified allocator
-      ///
-      /// \note Not all allocators are nameable or have a name specified.
-      ///       For these allocators, the string returned is "Unnamed"
-      ///
-      /// \note The lifetime of the pointer returned is unmanaged, and is NOT
-      ///       the responsibility of the caller to free.
-      ///
-      /// \param alloc the allocator to get the name of
-      /// \return the name of the allocator
-      static allocator_info info( const Allocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation

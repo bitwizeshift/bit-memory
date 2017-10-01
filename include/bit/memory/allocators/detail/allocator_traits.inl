@@ -67,6 +67,14 @@ inline bool bit::memory::allocator_traits<Allocator>
   return alloc.owns(p);
 }
 
+template<typename Allocator>
+inline bit::memory::allocator_info
+  bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
+  noexcept
+{
+  return do_info( detail::allocator_has_info<Allocator>{}, alloc );
+}
+
 //-----------------------------------------------------------------------------
 // Capacity
 //-----------------------------------------------------------------------------
@@ -85,18 +93,6 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
   noexcept
 {
   return do_min_size( detail::allocator_has_min_size<Allocator>{}, alloc );
-}
-
-//-----------------------------------------------------------------------------
-// Observers
-//-----------------------------------------------------------------------------
-
-template<typename Allocator>
-inline bit::memory::allocator_info
-  bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
-  noexcept
-{
-  return do_info( detail::allocator_has_info<Allocator>{}, alloc );
 }
 
 //=============================================================================
