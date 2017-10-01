@@ -20,6 +20,11 @@
 #error BIT_MEMORY_ASSUME cannot be defined outside of macros.hpp
 #endif
 
+#ifdef BIT_MEMORY_UNUSED
+#error BIT_MEMORY_UNUSED cannot be defined outside of macros.hpp
+#endif
+
+
 #ifdef __GNUC__
 #define BIT_MEMORY_LIKELY(x) __builtin_expect(!!(x),1)
 #else
@@ -39,5 +44,7 @@
 #else
 #define BIT_MEMORY_ASSUME(x) x
 #endif
+
+#define BIT_MEMORY_UNUSED(x) (void) x
 
 #endif /* BIT_MEMORY_MACROS_HPP */
