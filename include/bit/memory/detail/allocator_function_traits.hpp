@@ -7,11 +7,11 @@
  * \note This is an internal header file, included by other library headers.
  *       Do not attempt to use it directly.
  */
-#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP
-#define BIT_MEMORY_ALLOCATORS_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP
+#ifndef BIT_MEMORY_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP
+#define BIT_MEMORY_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP
 
-#include "../../detail/void_t.hpp"  // void_t
-#include "../../allocator_info.hpp" // allocator_info
+#include "../allocator_info.hpp" // allocator_info
+#include "void_t.hpp"  // void_t
 
 #include <type_traits> // std::integral_constant, std::true_type, etc
 #include <cstddef>     // std::max_align_t
@@ -147,4 +147,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP */
+#endif /* BIT_MEMORY_DETAIL_ALLOCATOR_FUNCTION_TRAITS_HPP */

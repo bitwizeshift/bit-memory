@@ -62,6 +62,7 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 set(headers
   # Utilities
   include/bit/memory/allocator_info.hpp
+  include/bit/memory/allocator_reference.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/errors.hpp
   include/bit/memory/macros.hpp
@@ -70,6 +71,7 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
+  include/bit/memory/detail/allocator_function_traits.hpp
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/void_t.hpp
 
@@ -78,7 +80,6 @@ set(headers
   include/bit/memory/aligned_memory.hpp
 
   # Allocators
-  include/bit/memory/allocators/detail/allocator_function_traits.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/allocator_traits.hpp
   include/bit/memory/allocators/any_allocator.hpp

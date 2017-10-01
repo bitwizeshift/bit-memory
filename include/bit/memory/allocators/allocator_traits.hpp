@@ -10,10 +10,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 
-#include "detail/allocator_function_traits.hpp"
+#include "../detail/allocator_function_traits.hpp" // is_allocator, etc
 
-#include "../allocator_info.hpp" // allocator_info
-#include "../errors.hpp"         // get_out_of_memory_handler
+#include "../allocator_reference.hpp" // allocator_reference
+#include "../allocator_info.hpp"      // allocator_info
+#include "../errors.hpp"              // get_out_of_memory_handler
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -248,6 +249,13 @@ namespace bit {
       static allocator_info do_info( std::true_type, const Allocator& alloc );
       static allocator_info do_info( std::false_type, const Allocator& alloc );
       /// \}
+
+    };
+
+    template<typename Allocator>
+    class allocator_traits<allocator_reference<Allocator>>
+      : public allocator_traits<Allocator>
+    {
 
     };
 
