@@ -1,18 +1,19 @@
 /**
  * \file linear_allocator.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains the definition of the ExtendedAllocator class,
+ *        linear_allocator.
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 #ifndef BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 
-#include "../memory.hpp"
-#include "../memory_block.hpp"
-#include "../alignment.hpp" // align_forward
+#include "../memory.hpp"       // align_forward
+#include "../memory_block.hpp" // memory_block
+#include "../macros.hpp"       // BIT_MEMORY_UNLIKELY
 
-#include <cassert>
+#include <cassert> // assert
 
 namespace bit {
   namespace memory {
@@ -21,13 +22,21 @@ namespace bit {
     /// \brief A linear allocator is an allocator that allocates data
     ///        contiguously
     ///
-    /// \satisfies Allocator
+    /// \satisfies ExtendedAllocator
     //////////////////////////////////////////////////////////////////////////
     class linear_allocator
     {
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      // Public Member Types
+      //-----------------------------------------------------------------------
+    public:
+
+      using max_alignment              = std::integral_constant<std::size_t,(1 << (sizeof(std::size_t)-1))>;
+      using can_truncate_deallocations = std::true_type;
+
+      //-----------------------------------------------------------------------
       // Constructors
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Constructs a linear_allocator
@@ -55,28 +64,45 @@ namespace bit {
       // Deleted copy assignment
       linear_allocator& operator=( const linear_allocator& ) = delete;
 
-      //----------------------------------------------------------------------
-      // Allocations
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      // Allocations / Deallocations
+      //-----------------------------------------------------------------------
     public:
 
-      void* allocate( std::size_t size, std::size_t align );
+      /// \brief Tries to allocate memory of size \p size, aligned to the
+      ///        boundary \p align, offset by \p offset
+      ///
+      /// \param size the size of the allocation
+      /// \param align the requested alignment of the allocation
+      /// \param offset the amount to offset the alignment by
+      /// \return the allocated pointer on success, \c nullptr on failure
+      void* try_allocate( std::size_t size,
+                          std::size_t align,
+                          std::size_t offset = 0 ) noexcept;
 
-      void* try_allocate( std::size_t size, std::size_t align ) noexcept;
-
+      /// \brief Does nothing for linear_allocator. Use deallocate_all
+      ///
+      /// \param p the pointer
+      /// \param size the size of the allocation
       void deallocate( void* p, std::size_t size );
 
-      //----------------------------------------------------------------------
-      // Modifiers
-      //----------------------------------------------------------------------
+      /// \brief Deallocates everything from this allocator
+      void deallocate_all();
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
     public:
 
-      /// \brief Resets memory in the linear allocator
-      void reset() noexcept;
+      /// \brief Checks whether \p linear_allocator contains the pointer \p p
+      ///
+      /// \param p the pointer to check
+      /// \return \c true if \p p is contained in this allocator
+      bool owns( void* p ) const noexcept;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Private Members
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     private:
 
       memory_block m_block;
