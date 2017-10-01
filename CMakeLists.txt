@@ -75,6 +75,23 @@ set(headers
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/void_t.hpp
 
+  # Taggers
+  include/bit/memory/taggers/debug_memory_tagger.hpp
+  include/bit/memory/taggers/null_tagger.hpp
+
+  # Trackers
+  include/bit/memory/trackers/detail/stat_recording_tracker.hpp
+  include/bit/memory/trackers/detailed_leak_tracker.hpp
+  include/bit/memory/trackers/leak_tracker.hpp
+  include/bit/memory/trackers/null_tracker.hpp
+
+  # Bounds Checkers
+  include/bit/memory/bounds_checkers/debug_bounds_checker.hpp
+  include/bit/memory/bounds_checkers/null_bounds_checker.hpp
+
+  # Lockables
+  include/bit/memory/lockables/null_lock.hpp
+
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp

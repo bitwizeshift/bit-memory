@@ -11,6 +11,7 @@
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 #include "../allocator_info.hpp"             // allocator_info
+#include "../errors.hpp"                     // get_leak_handler
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <map>     // std::map
