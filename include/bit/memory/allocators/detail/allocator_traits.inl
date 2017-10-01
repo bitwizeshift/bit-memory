@@ -63,10 +63,10 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::used( const Allocator& alloc )
+  ::min_size( const Allocator& alloc )
   noexcept
 {
-  return do_used( detail::allocator_has_used<Allocator>{}, alloc );
+  return do_min_size( detail::allocator_has_min_size<Allocator>{}, alloc );
 }
 
 //-----------------------------------------------------------------------------
@@ -141,22 +141,6 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
   ::do_min_size( std::false_type, const Allocator& alloc )
 {
   return 1;
-}
-
-//-----------------------------------------------------------------------------
-
-template<typename Allocator>
-inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_used( std::true_type, const Allocator& alloc )
-{
-  return alloc.used();
-}
-
-template<typename Allocator>
-inline std::size_t bit::memory::allocator_traits<Allocator>
-  ::do_used( std::false_type, const Allocator& alloc )
-{
-  return 0;
 }
 
 //-----------------------------------------------------------------------------

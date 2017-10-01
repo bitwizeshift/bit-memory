@@ -79,7 +79,7 @@
 /// - MoveConstructible
 /// - MoveAssignable
 ///
-/// For type \c A to be \c BlockAllocator, it must satisfy the above
+/// For type \c A to be \c Allocator, it must satisfy the above
 /// conditions as well as the following:
 ///
 /// Provided
@@ -146,11 +146,17 @@
 /// if an implementation is not provided
 ///
 /// \code
-/// a.name()
+/// a.deallocate_all()
 /// \endcode
-/// \c a returns the name of the current allocator. The name me be a
-/// hardcoded ansi-string, or a user-supplied one stored as part of the
-/// allocator data.
+/// \c a deallocates all entries inside of the allocator. Any existing pointers
+/// are now invalidated
+///
+/// Default asserts.
+///
+/// \code
+/// a.info()
+/// \endcode
+/// \c a returns an allocator_info object describing the allocator
 ///
 /// Default returns "unknown allocator"
 ///
@@ -163,12 +169,12 @@
 /// Default is \c std::numeric_limits<std::size_t>::max()
 ///
 /// \code
-/// a.used()
+/// a.min_size()
 /// \endcode
 ///
-/// Returns the current number of bytes allocated by this allocator
+/// Returns the minimum size the allocator can support
 ///
-/// Default is \c 0
+/// Default is \c 1
 ///
 /// \code
 /// A::is_stateless::value
@@ -211,6 +217,60 @@
 /// results in undefined behaviour.
 ///
 /// Default is \c alignof(std::max_align_t)
+///
+/// \code
+/// A::can_truncate_deallocations
+/// \endcode
+/// Determines whether the allocator is capable of truncating deallocations
+/// by clearing away larger chunks of data, rather than waiting for the every
+/// deallocation call.
+///////////////////////////////////////////////////////////////////////////////
+
+//------------------------------------------------------------------------
+
+///////////////////////////////////////////////////////////////////////////////
+/// \concept ExtendedAllocator
+///
+/// \brief This concept defines the required interface and semantics
+///        expected of an extended allocator
+///
+/// An \c ExtendedAllocator is also an \c Allocator that provides extended
+/// functionality for tracking ownership, and providing the ability to
+/// offset the allocations alignment.
+///
+/// Requirements
+///
+/// - Allocator
+///
+/// For type \c A to be \c ExtendedAllocator, it must satisfy the above
+/// conditions as well as the following:
+///
+/// Provided
+///
+/// \c A - an Allocator type
+/// \c a - an instance of type \c A
+/// \c s - the size of an allocation
+/// \c n - the alignment of the allocation
+/// \c o - the offset for the alignment
+/// \c v - a void pointer
+///
+/// the following expressions must be well-formed with the expected
+/// side-effects:
+///
+/// \code
+/// v = a.try_allocate( s, n, o )
+/// \endcode
+/// \c a tries to allocate at least \c s bytes aligned to the boundary \c n,
+/// offset by \c o bytes.
+///
+/// The expression \code a.try_allocate( s, n ) \endcode must be
+/// non-throwing, otherwise it is undefined behaviour.
+///
+/// \code
+/// bool b = a.owns( p );
+/// \endcode
+///
+/// \c a checks whether it owns the pointer \c p, returning the result.
 ///////////////////////////////////////////////////////////////////////////////
 
 #endif /* BIT_MEMORY_CONCEPTS_HPP */

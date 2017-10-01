@@ -42,6 +42,29 @@ namespace bit {
     template<typename T>
     constexpr bool is_allocator_v = is_allocator<T>::value;
 
+
+    /// \brief Type-trait to determine whether \p T is an extended allocator
+    ///
+    /// The result is \c std::true_type if \p T satisfies the ExtendedAllocator
+    /// concept, which requires the following:
+    ///
+    /// \c T must satisfy \c Allocator, and the expressions must be
+    /// well-formed:
+    ///
+    /// \code
+    /// std::declval<T&>().try_allocate( std::declval<std::size_t>(), std::declval<std::size_t>(), std::declval<std::size_t>() );
+    /// std::declval<T&>().owns( std::declval<void*>() );
+    /// \endcode
+    ///
+    /// The result is accessible as \c ::value
+    template<typename T>
+    using is_extended_allocator = detail::is_allocator<T>;
+
+    /// \brief Convenience template variable to extract whether \p T is an
+    ///        extended allocator
+    template<typename T>
+    constexpr bool is_extended_allocator_v = is_extended_allocator<T>::value;
+
     //////////////////////////////////////////////////////////////////////////
     /// \brief The allocator_traits class template provides a standardized
     ///        way to access allocator functionality
@@ -153,15 +176,6 @@ namespace bit {
       /// \return the minimum amount of bytes able to allocated
       static std::size_t min_size( const Allocator& alloc ) noexcept;
 
-      /// \brief Gets the current amount of bytes used by this allocator
-      ///
-      /// \note the amount used may return \c 0 if an allocator does not keep
-      ///       a record of the allocations made
-      ///
-      /// \param alloc the allocator to to check the amount used
-      /// \return the amount of bytes used
-      static std::size_t used( const Allocator& alloc ) noexcept;
-
       //----------------------------------------------------------------------
       // Name
       //----------------------------------------------------------------------
@@ -221,19 +235,6 @@ namespace bit {
       /// \return the max size
       static std::size_t do_min_size( std::true_type, const Allocator& alloc );
       static std::size_t do_min_size( std::false_type, const Allocator& alloc );
-      /// \}
-
-      //----------------------------------------------------------------------
-
-      /// \{
-      /// \brief Determines the amount of bytes used by the allocator, either
-      ///        by calling \c Allocator::used, or by assuming
-      ///        \c 0
-      ///
-      /// \param alloc the allocator
-      /// \return the bytes used
-      static std::size_t do_used( std::true_type, const Allocator& alloc );
-      static std::size_t do_used( std::false_type, const Allocator& alloc );
       /// \}
 
       //----------------------------------------------------------------------

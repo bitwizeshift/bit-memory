@@ -30,6 +30,17 @@ namespace bit {
       > : std::true_type{};
 
       //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct is_extended_allocator : std::false_type{};
+
+      template<typename T>
+      struct is_extended_allocator<T,void_t<
+        decltype( std::declval<void*&>() = std::declval<T&>().try_allocate( std::declval<std::size_t>(), std::declval<std::size_t>(), std::declval<std::size_t>() ) ),
+        decltype( std::declval<bool&>() = std::declval<T&>().owns( std::declval<void*>() ) )>
+      > : is_allocator<T>{};
+
+      //----------------------------------------------------------------------
       // Allocator traits
       //----------------------------------------------------------------------
 
@@ -90,16 +101,6 @@ namespace bit {
       template<typename T>
       struct allocator_has_min_size<T,
         void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().min_size() )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_used : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_used<T,
-        void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().used() )>
       > : std::true_type{};
 
       //----------------------------------------------------------------------
