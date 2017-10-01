@@ -9,6 +9,8 @@
 #ifndef BIT_MEMORY_ALLOCATORS_POOL_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_POOL_ALLOCATOR_HPP
 
+#include "detail/named_allocator.hpp"
+
 #include "../macros.hpp" // BIT_MEMORY_ASSUME
 #include "../memory.hpp" // byte
 
@@ -129,6 +131,8 @@ namespace bit {
       /// \return the freelist entry
       void* pop_freelist_entry() noexcept;
     };
+
+    using named_pool_allocator = detail::named_allocator<pool_allocator>;
 
   } // namespace memory
 } // namespace bit

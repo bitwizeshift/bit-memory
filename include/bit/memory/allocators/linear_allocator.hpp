@@ -9,6 +9,8 @@
 #ifndef BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 
+#include "detail/named_allocator.hpp"
+
 #include "../memory.hpp"       // align_forward
 #include "../memory_block.hpp" // memory_block
 #include "../macros.hpp"       // BIT_MEMORY_UNLIKELY
@@ -108,6 +110,8 @@ namespace bit {
       memory_block m_block;
       void*        m_current;
     };
+
+    using named_linear_allocator = detail::named_allocator<linear_allocator>;
 
   } // namespace memory
 } // namespace bit
