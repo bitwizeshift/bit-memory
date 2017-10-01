@@ -11,18 +11,36 @@
 
 template<typename Allocator>
 inline void* bit::memory::allocator_traits<Allocator>
+  ::try_allocate( Allocator& alloc, std::size_t size, std::size_t align )
+  noexcept
+{
+  // try_allocate *must* be defined
+  return alloc.try_allocate( size, align );
+}
+
+template<typename Allocator>
+template<typename,typename>
+inline void* bit::memory::allocator_traits<Allocator>
+  ::try_allocate( Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset )
+  noexcept
+{
+  // try_allocate *must* be defined for ExtendedAllocator
+  return alloc.try_allocate( size, align, offset );
+}
+
+template<typename Allocator>
+inline void* bit::memory::allocator_traits<Allocator>
   ::allocate( Allocator& alloc, std::size_t size, std::size_t align )
 {
   return do_allocate( detail::allocator_has_allocate<Allocator>{}, alloc, size, align );
 }
 
 template<typename Allocator>
+template<typename,typename>
 inline void* bit::memory::allocator_traits<Allocator>
-  ::try_allocate( Allocator& alloc, std::size_t size, std::size_t align )
-  noexcept
+  ::allocate( Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset )
 {
-  // try_allocate *must* be defined
-  return alloc.try_allocate( size, align );
+  return do_allocate( detail::allocator_has_extended_allocate<Allocator>{}, alloc, size, align, offset );
 }
 
 //-----------------------------------------------------------------------------
@@ -91,14 +109,20 @@ inline bit::memory::allocator_info
 
 template<typename Allocator>
 inline void* bit::memory::allocator_traits<Allocator>
-  ::do_allocate( std::true_type, Allocator& alloc, std::size_t size, std::size_t align )
+  ::do_allocate( std::true_type,
+                 Allocator& alloc,
+                 std::size_t size,
+                 std::size_t align )
 {
   return alloc.allocate( size, align );;
 }
 
 template<typename Allocator>
 inline void* bit::memory::allocator_traits<Allocator>
-  ::do_allocate( std::false_type, Allocator& alloc, std::size_t size, std::size_t align )
+  ::do_allocate( std::false_type,
+                 Allocator& alloc,
+                 std::size_t size,
+                 std::size_t align )
 {
   auto p = allocator_traits<Allocator>::try_allocate(alloc,size,align);
 
@@ -110,6 +134,39 @@ inline void* bit::memory::allocator_traits<Allocator>
 
   return p;
 }
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline void* bit::memory::allocator_traits<Allocator>
+  ::do_allocate( std::true_type,
+                 Allocator& alloc,
+                 std::size_t size,
+                 std::size_t align,
+                 std::size_t offset )
+{
+  return alloc.allocate( size, align, offset );
+}
+
+template<typename Allocator>
+inline void* bit::memory::allocator_traits<Allocator>
+  ::do_allocate( std::false_type,
+                 Allocator& alloc,
+                 std::size_t size,
+                 std::size_t align,
+                 std::size_t offset )
+{
+  auto p = allocator_traits<Allocator>::try_allocate(alloc,size,align,offset);
+
+  if( p == nullptr ) {
+    const auto info = allocator_traits<Allocator>::info( alloc );
+
+    get_out_of_memory_handler()(info, size);
+  }
+
+  return p;
+}
+
 
 //-----------------------------------------------------------------------------
 

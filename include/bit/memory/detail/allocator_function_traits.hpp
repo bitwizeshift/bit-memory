@@ -55,6 +55,16 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
+      struct allocator_has_extended_allocate : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_extended_allocate<T,
+        void_t<decltype(std::declval<void*&>() = std::declval<T&>().allocate( std::declval<std::size_t>(), std::declval<std::size_t>(), std::declval<std::size_t>() ) )>
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
       struct allocator_has_deallocate_all : std::false_type{};
 
       template<typename T>

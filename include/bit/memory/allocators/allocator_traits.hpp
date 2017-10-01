@@ -106,10 +106,26 @@ namespace bit {
       /// \param alloc the allocator to allocate from
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
-      /// \return the pointer to the allocated member
+      /// \return the pointer to the allocated memory
       static void* try_allocate( Allocator& alloc,
                                  std::size_t size,
                                  std::size_t align ) noexcept;
+
+      /// \brief Attempts to allocate memory of at least \p size bytes,
+      ///        aligned to \p align boundary with an offset of \p offset bytes
+      ///
+      /// On failure, this function returns \p nullptr
+      ///
+      /// \param alloc the allocator to allocate from
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \param offset the offset of the allocation
+      /// \return the pointer to the allocated memory
+      template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
+      static void* try_allocate( Allocator& alloc,
+                                 std::size_t size,
+                                 std::size_t align,
+                                 std::size_t offset ) noexcept;
 
       /// \brief Allocates memory of at least \p size bytes, aligned to \p
       ///        align boundary
@@ -124,6 +140,23 @@ namespace bit {
       static void* allocate( Allocator& alloc,
                              std::size_t size,
                              std::size_t align );
+
+      /// \brief Allocates memory of at least \p size bytes, aligned to \p
+      ///        align boundary
+      ///
+      /// On failure, this function may throw or invoke the out_of_memory
+      /// handler before returning \p nullptr
+      ///
+      /// \param alloc the allocator to allocate from
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \param offset the offset of the allocation
+      /// \return the pointer to the allocated member
+      template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
+      static void* allocate( Allocator& alloc,
+                             std::size_t size,
+                             std::size_t align,
+                             std::size_t offset );
 
       //----------------------------------------------------------------------
       // Deallocation
@@ -207,9 +240,12 @@ namespace bit {
       /// \param alloc the allocator to allocate
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
+      /// \param offset the offset of the alignment
       /// \return the allocated pointer
       static void* do_allocate( std::true_type, Allocator& alloc, std::size_t size, std::size_t align );
       static void* do_allocate( std::false_type, Allocator& alloc, std::size_t size, std::size_t align );
+      static void* do_allocate( std::true_type, Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset );
+      static void* do_allocate( std::false_type, Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset );
       /// \}
 
       //----------------------------------------------------------------------
