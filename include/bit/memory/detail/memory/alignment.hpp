@@ -20,11 +20,12 @@ namespace bit {
     // Alignment Checking
     //------------------------------------------------------------------------
 
-    /// \brief Determines whether a given alignment value is a valid alignment
+    /// \brief Determines whether a given value is a power of two (used in
+    ///        alignment checks)
     ///
-    /// \param alignment the boundary to align to
-    /// \return \c true if it's a valid alignment
-    constexpr bool is_valid_alignment( std::size_t alignment ) noexcept;
+    /// \param x the value to check
+    /// \return \c true if the value is a power-of-two
+    constexpr bool is_power_of_two( std::size_t x ) noexcept;
 
     /// \brief Gets the alignment of the pointer
     ///
