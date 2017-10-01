@@ -38,6 +38,18 @@ inline void bit::memory::allocator_traits<Allocator>
 }
 
 //-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline bool bit::memory::allocator_traits<Allocator>
+  ::owns( Allocator& alloc, const void* p )
+  noexcept
+{
+  return alloc.owns(p);
+}
+
+//-----------------------------------------------------------------------------
 // Capacity
 //-----------------------------------------------------------------------------
 
@@ -62,20 +74,13 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
-inline const char* bit::memory::allocator_traits<Allocator>
-  ::name( const Allocator& alloc )
+inline bit::memory::allocator_info
+  bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
   noexcept
 {
-  return do_name( detail::allocator_has_name<Allocator>{}, alloc );
+  return do_info( detail::allocator_has_info<Allocator>{}, alloc );
 }
 
-template<typename Allocator>
-inline void bit::memory::allocator_traits<Allocator>
-  ::set_name( Allocator& alloc, const char* name )
-  noexcept
-{
-  return do_set_name( detail::allocator_has_set_name<Allocator>{}, alloc, name );
-}
 //=============================================================================
 // Private Implementation
 //=============================================================================
@@ -98,8 +103,9 @@ inline void* bit::memory::allocator_traits<Allocator>
   auto p = allocator_traits<Allocator>::try_allocate(alloc,size,align);
 
   if( p == nullptr ) {
-    auto n = allocator_traits<Allocator>::name( alloc );
-    get_out_of_memory_handler()({n,std::addressof(alloc)}, size);
+    const auto info = allocator_traits<Allocator>::info( alloc );
+
+    get_out_of_memory_handler()(info, size);
   }
 
   return p;
@@ -125,6 +131,22 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline std::size_t bit::memory::allocator_traits<Allocator>
+  ::do_min_size( std::true_type, const Allocator& alloc )
+{
+  return alloc.min_size();
+}
+
+template<typename Allocator>
+inline std::size_t bit::memory::allocator_traits<Allocator>
+  ::do_min_size( std::false_type, const Allocator& alloc )
+{
+  return 1;
+}
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline std::size_t bit::memory::allocator_traits<Allocator>
   ::do_used( std::true_type, const Allocator& alloc )
 {
   return alloc.used();
@@ -140,36 +162,19 @@ inline std::size_t bit::memory::allocator_traits<Allocator>
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
-inline const char* bit::memory::allocator_traits<Allocator>
-  ::do_name( std::true_type, const Allocator& alloc )
+inline bit::memory::allocator_info
+  bit::memory::allocator_traits<Allocator>::do_info( std::true_type,
+                                                     const Allocator& alloc )
 {
-  return alloc.name();
+  return alloc.info();
 }
 
 template<typename Allocator>
-inline const char* bit::memory::allocator_traits<Allocator>
-  ::do_name( std::false_type, const Allocator& alloc )
+inline bit::memory::allocator_info
+  bit::memory::allocator_traits<Allocator>::do_info( std::false_type,
+                                                     const Allocator& alloc )
 {
-  return "Unnamed";
-}
-
-//-----------------------------------------------------------------------------
-
-template<typename Allocator>
-inline void bit::memory::allocator_traits<Allocator>
-  ::do_set_name( std::true_type, Allocator& alloc, const char* name )
-{
-  alloc.set_name( name );
-}
-
-template<typename Allocator>
-inline void bit::memory::allocator_traits<Allocator>
-  ::do_set_name( std::false_type, Allocator& alloc, const char* name )
-{
-  (void) alloc;
-  (void) name;
-
-  // do nothing
+  return {"Unnamed",std::addressof(alloc)};
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALLOCATOR_TRAITS_INL */

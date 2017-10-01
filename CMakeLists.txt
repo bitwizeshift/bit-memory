@@ -71,12 +71,14 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/detail/ebo_storage.hpp
+  include/bit/memory/detail/void_t.hpp
 
   # Memory Allocations
   include/bit/memory/virtual_memory.hpp
   include/bit/memory/aligned_memory.hpp
 
   # Allocators
+  include/bit/memory/allocators/detail/allocator_function_traits.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/allocator_traits.hpp
   include/bit/memory/allocators/any_allocator.hpp

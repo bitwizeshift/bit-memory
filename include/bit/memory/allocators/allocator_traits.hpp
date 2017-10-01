@@ -10,8 +10,10 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 
-#include "../errors.hpp"        // get_out_of_memory_handler
-#include "../detail/void_t.hpp" // void_t
+#include "detail/allocator_function_traits.hpp"
+
+#include "../allocator_info.hpp" // allocator_info
+#include "../errors.hpp"         // get_out_of_memory_handler
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -20,102 +22,6 @@
 
 namespace bit {
   namespace memory {
-    namespace detail {
-
-      template<typename T, typename = void>
-      struct is_allocator : std::false_type{};
-
-      template<typename T>
-      struct is_allocator<T,void_t<
-        decltype( std::declval<void*&>() = std::declval<T&>().try_allocate( std::declval<std::size_t>(), std::declval<std::size_t>() ) ),
-        decltype( std::declval<T&>().deallocate( std::declval<void*>(), std::declval<std::size_t>() ) )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-      // Allocator traits
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_allocate : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_allocate<T,
-        void_t<decltype(std::declval<void*&>() = std::declval<T&>().allocate( std::declval<std::size_t>(), std::declval<std::size_t>() ) )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_name : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_name<T,
-        void_t<decltype( std::declval<const char*&>() = std::declval<const T&>().name() )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_set_name : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_set_name<T,
-        void_t<decltype( std::declval<T&>().set_name( std::declval<const char*&>() ) )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_max_size : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_max_size<T,
-        void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().max_size() )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_has_used : std::false_type{};
-
-      template<typename T>
-      struct allocator_has_used<T,
-        void_t<decltype( std::declval<std::size_t&>() = std::declval<const T&>().used() )>
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_is_always_equal : std::false_type{};
-
-      template<typename T>
-      struct allocator_is_always_equal<T,void_t<decltype(T::is_always_equal)>> : T::is_always_equal{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_is_stateless : std::false_type{};
-
-      template<typename T>
-      struct allocator_is_stateless<T,void_t<decltype(T::is_stateless)>> : T::is_stateless{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_default_alignment : std::integral_constant<std::size_t,1>{};
-
-      template<typename T>
-      struct allocator_default_alignment<T,void_t<decltype(T::default_alignment)>> : T::default_alignment{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_max_alignment : std::integral_constant<std::size_t,alignof(std::max_align_t)>{};
-
-      template<typename T>
-      struct allocator_max_alignment<T,void_t<decltype(T::max_alignment)>> : std::integral_constant<std::size_t,alignof(std::max_align_t)>{};
-
-    } // namespace detail
 
     /// \brief Type-trait to determine whether \p T is an allocator
     ///
@@ -148,16 +54,20 @@ namespace bit {
     template<typename Allocator>
     class allocator_traits
     {
+
+      static_assert( is_allocator<Allocator>::value, "Allocator must be an Allocator" );
+
       //----------------------------------------------------------------------
       // Public Members
       //----------------------------------------------------------------------
     public:
 
-      /// Whether or not
       using is_always_equal   = detail::allocator_is_always_equal<Allocator>;
       using is_stateless      = detail::allocator_is_stateless<Allocator>;
       using default_alignment = detail::allocator_default_alignment<Allocator>;
       using max_alignment     = detail::allocator_max_alignment<Allocator>;
+      using can_truncate_deallocations = detail::allocator_can_truncate_deallocations<Allocator>;
+      using knows_ownership   = detail::allocator_has_owns<Allocator>;
 
       //----------------------------------------------------------------------
       // Allocation
@@ -204,6 +114,22 @@ namespace bit {
       static void deallocate( Allocator& alloc, void* p, std::size_t size );
 
       //----------------------------------------------------------------------
+      // Observers
+      //----------------------------------------------------------------------
+
+      /// \brief Checks if the given allocator is known to own the specified
+      ///        pointer \p p
+      ///
+      /// \note This directly invokes \c alloc.owns(p) . It is undefined
+      ///       behaviour to invoke this if \c Allocator::owns is not
+      ///       defined; branches should instead be taken by using
+      ///       \ref knows_ownership
+      ///
+      /// \param alloc the allocator
+      /// \param p the pointer
+      static bool owns( Allocator& alloc, const void* p ) noexcept;
+
+      //----------------------------------------------------------------------
       // Capacity
       //----------------------------------------------------------------------
 
@@ -215,10 +141,17 @@ namespace bit {
       ///       allocating from an empty state.
       ///
       /// \param alloc the allocator to get the max size from
-      ///
       /// \return the amount of bytes available for the largest possible
       ///         allocation
       static std::size_t max_size( const Allocator& alloc ) noexcept;
+
+      /// \brief Gets the minimum size allocateable from this allocator
+      ///
+      /// \note The default is 1, if this function is not defined
+      ///
+      /// \param alloc the allocator to get the min size from
+      /// \return the minimum amount of bytes able to allocated
+      static std::size_t min_size( const Allocator& alloc ) noexcept;
 
       /// \brief Gets the current amount of bytes used by this allocator
       ///
@@ -243,19 +176,7 @@ namespace bit {
       ///
       /// \param alloc the allocator to get the name of
       /// \return the name of the allocator
-      static const char* name( const Allocator& alloc ) noexcept;
-
-      /// \brief Sets the name of the specified allocator
-      ///
-      /// \note The lifetime of the pointer passed must be managed from outside
-      ///       of the allocator
-      ///
-      /// \note The name of the allocator is not guaranteed to change if the
-      ///       allocator does not support naming
-      ///
-      /// \param alloc the allocator set the name of
-      /// \param name the name to set the allocator to
-      static void set_name( Allocator& alloc, const char* name ) noexcept;
+      static allocator_info info( const Allocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation
@@ -292,6 +213,19 @@ namespace bit {
       //----------------------------------------------------------------------
 
       /// \{
+      /// \brief Determines the min size of an allocation, either by
+      ///        calling \c Allocator::min_size(), or by assuming
+      ///        \c 1
+      ///
+      /// \param alloc the allocator
+      /// \return the max size
+      static std::size_t do_min_size( std::true_type, const Allocator& alloc );
+      static std::size_t do_min_size( std::false_type, const Allocator& alloc );
+      /// \}
+
+      //----------------------------------------------------------------------
+
+      /// \{
       /// \brief Determines the amount of bytes used by the allocator, either
       ///        by calling \c Allocator::used, or by assuming
       ///        \c 0
@@ -305,26 +239,13 @@ namespace bit {
       //----------------------------------------------------------------------
 
       /// \{
-      /// \brief Determines the name of the allocator, either by calling
-      ///        \c Allocator::name or by assuming "Unnamed"
+      /// \brief Determines the info for the allocator, either by calling
+      ///        \c Allocator::info or by assuming "Unnamed" for the name
       ///
       /// \param alloc the allocator
       /// \return the name of the allocator
-      static const char* do_name( std::true_type, const Allocator& alloc );
-      static const char* do_name( std::false_type, const Allocator& alloc );
-      /// \}
-
-      //----------------------------------------------------------------------
-
-      /// \{
-      /// \brief Sets the name of the allocator, either calling
-      ///        \c Allocator::set_name or ignoring the setting
-      ///
-      /// \param alloc the allocator
-      /// \param name the name of the allocator
-      /// \return the name of the allocator
-      static void do_set_name( std::true_type, Allocator& alloc, const char* name );
-      static void do_set_name( std::false_type, Allocator& alloc, const char* name );
+      static allocator_info do_info( std::true_type, const Allocator& alloc );
+      static allocator_info do_info( std::false_type, const Allocator& alloc );
       /// \}
 
     };
