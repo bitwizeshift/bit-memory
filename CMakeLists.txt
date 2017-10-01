@@ -100,6 +100,7 @@ set(headers
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/allocator_traits.hpp
   include/bit/memory/allocators/any_allocator.hpp
+  include/bit/memory/allocators/arena_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
   include/bit/memory/allocators/min_aligned_allocator.hpp
   include/bit/memory/allocators/new_allocator.hpp
