@@ -3,9 +3,12 @@
 
 
 inline void bit::memory::detailed_leak_tracker::on_allocate( void* p,
-                                                             std::size_t bytes )
+                                                             std::size_t bytes,
+                                                             std::size_t align )
   noexcept
 {
+  BIT_MEMORY_UNUSED(align);
+
   // Technically this function can throw, due to the std::map. However, this is
   // called from a noexcept context in arena_allocator::try_allocate anyway;
   // and that couldn't be handled from that context either.

@@ -11,6 +11,7 @@
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 #include "../allocator_info.hpp"             // allocator_info
 #include "../errors.hpp"                     // get_leak_handler
+#include "../macros.hpp"                     // BIT_MEMORY_UNUSED
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 
@@ -31,13 +32,16 @@ namespace bit {
 
       /// \brief Records an allocation after allocating the size
       ///
+      /// \param p the pointer to the memory to allocate
       /// \param bytes the size of the allocation, in bytes
-      void on_allocate( void*, std::size_t bytes ) noexcept;
+      /// \param align the alignment of the allocation
+      void on_allocate( void* p, std::size_t bytes, std::size_t align ) noexcept;
 
       /// \brief Records the deallocation before deallocating the bytes
       ///
+      /// \param p the pointer to the memory to deallocate
       /// \param bytes the size of the deallocation, in bytes
-      void on_deallocate( void*, std::size_t bytes ) noexcept;
+      void on_deallocate( void* p, std::size_t bytes ) noexcept;
 
       /// \brief Records when deallocations have been truncated
       void on_deallocate_all() noexcept;

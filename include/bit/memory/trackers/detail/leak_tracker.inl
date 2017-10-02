@@ -6,9 +6,13 @@
 //-----------------------------------------------------------------------------
 
 inline void bit::memory::leak_tracker::on_allocate( void* p,
-                                                    std::size_t bytes )
+                                                    std::size_t bytes,
+                                                    std::size_t align )
   noexcept
 {
+  BIT_MEMORY_UNUSED(p);
+  BIT_MEMORY_UNUSED(align);
+
   m_allocated += bytes;
 }
 
@@ -16,6 +20,8 @@ inline void bit::memory::leak_tracker::on_deallocate( void* p,
                                                       std::size_t bytes )
   noexcept
 {
+  BIT_MEMORY_UNUSED(p);
+
   m_allocated -= bytes;
 }
 

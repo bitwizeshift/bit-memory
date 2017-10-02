@@ -39,7 +39,8 @@ namespace bit {
         ///
         /// \param p the pointer allocated
         /// \param bytes the number of bytes allocated
-        void on_allocate( void* p, std::size_t bytes ) noexcept;
+        /// \param align the alignment of the allocation
+        void on_allocate( void* p, std::size_t bytes, std::size_t align ) noexcept;
 
         /// \brief Records a deallocation occuring of size \p bytes
         ///
@@ -67,6 +68,20 @@ namespace bit {
         ///
         /// \return the smallest request size, in bytes
         std::size_t smallest_request() const noexcept;
+
+        //---------------------------------------------------------------------
+
+        /// \brief Returns the largest alignment request size from this tracker
+        ///
+        /// \return the largest alignment request size, in bytes
+        std::size_t largest_alignment_request() const noexcept;
+
+        /// \brief Returns the smallest alignment request size from this tracker
+        ///
+        /// \return the smallest alignment request size, in bytes
+        std::size_t smallest_alignment_request() const noexcept;
+
+        //---------------------------------------------------------------------
 
         /// \brief Returns the peak size of this tracker
         ///
@@ -104,13 +119,15 @@ namespace bit {
         //---------------------------------------------------------------------
       private:
 
-        std::size_t m_largest_request     = 0;
-        std::size_t m_smallest_request    = 0;
-        std::size_t m_total_allocated     = 0;
-        std::size_t m_total_allocations   = 0;
-        std::size_t m_total_deallocations = 0;
-        std::ptrdiff_t m_peak_size        = 0;
-        std::ptrdiff_t m_running_total    = 0;
+        std::size_t m_largest_request            = 0;
+        std::size_t m_smallest_request           = 0;
+        std::size_t m_largest_alignment_request  = 0;
+        std::size_t m_smallest_alignment_request = 0;
+        std::size_t m_total_allocated            = 0;
+        std::size_t m_total_allocations          = 0;
+        std::size_t m_total_deallocations        = 0;
+        std::ptrdiff_t m_peak_size               = 0;
+        std::ptrdiff_t m_running_total           = 0;
       };
 
     } // namespace detail

@@ -65,14 +65,14 @@ void* bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
     if( BIT_MEMORY_UNLIKELY(!byte_ptr) ) return nullptr;
 
     // Track the allocation
-    tracker.on_allocate( byte_ptr + Checker::front_size, new_size );
+    tracker.on_allocate( byte_ptr + Checker::front_size, new_size, align );
   }
 
 
   // Check the boundary, and tag the allocation
   checker.prepare_front_fence( byte_ptr, Checker::front_size );
   tagger.tag_allocation( byte_ptr + Checker::front_size, size );
-  checker.prepare_back_fence( byte_ptr + Checker::front_size + size , Checker::back_size );
+  checker.prepare_back_fence( byte_ptr + Checker::front_size + size, Checker::back_size );
 
   // adjust the pointer by the offset, and return it
   return byte_ptr + Checker::front_size;

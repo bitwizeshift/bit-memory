@@ -29,7 +29,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      void on_allocate( void*, std::size_t ){}
+      void on_allocate( void*, std::size_t, std::size_t ){}
       void on_deallocate( void*, std::size_t ){}
       void finalize( const allocator_info& ){}
     };
