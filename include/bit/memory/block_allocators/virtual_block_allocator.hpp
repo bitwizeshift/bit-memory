@@ -49,9 +49,27 @@ namespace bit {
       /// \param pages the number of pages to reserve
       explicit virtual_block_allocator( std::size_t pages );
 
+      /// \brief Move-constructs a virtual_block_allocator from another one
+      ///
+      /// \param other the other virtual_block_allocator to move
+      virtual_block_allocator( virtual_block_allocator&& other ) noexcept;
+
+      // Deleted copy constructor
+      virtual_block_allocator( const virtual_block_allocator& other ) = delete;
+
+      //----------------------------------------------------------------------
+
       /// \brief Destructs this virtual_block_allocator, decommitting any
       ///        commit pages
       ~virtual_block_allocator();
+
+      //----------------------------------------------------------------------
+
+      // Deleted move-assignment
+      virtual_block_allocator& operator=( virtual_block_allocator&& other ) = delete;
+
+      // Deleted copy-assignment
+      virtual_block_allocator& operator=( const virtual_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
       // Block Allocations

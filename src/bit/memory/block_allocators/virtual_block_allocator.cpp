@@ -20,10 +20,24 @@ bit::memory::virtual_block_allocator
 
 }
 
+bit::memory::virtual_block_allocator
+  ::virtual_block_allocator( virtual_block_allocator&& other )
+  noexcept
+  : m_memory( other.m_memory ),
+    m_pages( other.m_pages ),
+    m_active_page( other.m_active_page ),
+    m_cache( std::move(other.m_cache) )
+{
+  other.m_memory      = nullptr;
+  other.m_active_page = 0;
+}
+
 bit::memory::virtual_block_allocator::~virtual_block_allocator()
 {
-  // Releasing also decommits memory
-  virtual_memory_release( m_memory, m_pages );
+  if( m_memory ) {
+    // Releasing also decommits memory
+    virtual_memory_release( m_memory, m_pages );
+  }
 }
 
 //----------------------------------------------------------------------------
