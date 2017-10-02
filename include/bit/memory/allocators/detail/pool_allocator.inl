@@ -18,8 +18,7 @@ inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
   assert( chunk_size >= sizeof(void*) );
   assert( chunk_size >= alignof(void*) );
 
-  auto size = chunk_size;
-  auto* p   = m_head;
+  auto* p = m_head;
 
   for( auto size = chunk_size; (size + chunk_size) <= block.size(); size += chunk_size )
   {

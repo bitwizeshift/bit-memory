@@ -34,9 +34,7 @@ template<typename BlockAllocator>
 bit::memory::owner<bit::memory::memory_block>
   bit::memory::debug_block_allocator<BlockAllocator>::allocate_block()
 {
-  using byte_t = unsigned char;
-
-  auto block     = m_storage.allocate_block();
+  auto block = m_storage.allocate_block();
 
   debug_tag_block_allocated_bytes( block.data(), block.size() );
 

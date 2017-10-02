@@ -23,7 +23,7 @@ void* bit::memory::debug_untag_bytes( void* p,
                                       std::size_t* stomped )
 {
   auto* byte_ptr   = static_cast<byte*>(p);
-  auto* stomp_ptr  = (void*){};
+  void* stomp_ptr  = nullptr;
   auto  stomp_size = std::size_t(0);
 
   while( --n ) {

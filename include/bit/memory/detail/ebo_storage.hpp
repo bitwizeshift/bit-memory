@@ -95,8 +95,8 @@ namespace bit {
 
         template<typename Tuple, std::size_t...Idxs, typename...Tuples>
         ebo_storage_impl( Tuple&& tuple, std::index_sequence<Idxs...>, Tuples&&...tuples )
-          : base_type( std::forward<Tuples>(tuples)... ),
-            T0( std::get<Idxs>( std::forward<Tuple>(tuple) )... )
+          : T0( std::get<Idxs>( std::forward<Tuple>(tuple) )... ),
+            base_type( std::forward<Tuples>(tuples)... )
         {
 
         }

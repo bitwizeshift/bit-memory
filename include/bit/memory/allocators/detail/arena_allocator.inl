@@ -53,7 +53,7 @@ void* bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   auto& checker   = detail::get<3>(m_storage);
   auto& lock      = detail::get<4>(m_storage);
 
-  auto* byte_ptr = (byte*){};
+  byte* byte_ptr = nullptr;
 
   { // critical section
     std::lock_guard<lock_type> scope(lock);

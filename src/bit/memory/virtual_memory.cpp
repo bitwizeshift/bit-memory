@@ -87,7 +87,7 @@ bit::memory::memory_block bit::memory::virtual_memory::at( std::ptrdiff_t n )
   if( n < 0 || n >= m_pages ) throw std::out_of_range("virtual_memory::at: index out of bounds");
 
   auto ptr = static_cast<char*>(m_data) + (n * page_size);
-  return memory_block{ m_data, page_size };
+  return memory_block{ ptr, page_size };
 }
 
 bit::memory::memory_block
@@ -95,5 +95,5 @@ bit::memory::memory_block
   const noexcept
 {
   auto ptr = static_cast<char*>(m_data) + (n * page_size);
-  return memory_block{ m_data, page_size };
+  return memory_block{ ptr, page_size };
 }

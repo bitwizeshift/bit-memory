@@ -54,7 +54,7 @@ void bit::memory::virtual_memory_decommit( void* memory, std::size_t n )
   noexcept
 {
   auto size = n * virtual_memory_page_size;
-  auto result = ::VirtualFree(memory, size, MEM_DECOMMIT);
+  ::VirtualFree(memory, size, MEM_DECOMMIT);
 
 //  assert(result == nullptr && "virtual_memory_decommit: unable to decommit memory");
 }
@@ -66,7 +66,7 @@ void bit::memory::virtual_memory_release( void* memory, std::size_t n )
 {
   (void) n;
 
-  auto result = ::VirtualFree(memory, 0u, MEM_RELEASE);
+  ::VirtualFree(memory, 0u, MEM_RELEASE);
 
 //  assert(result != nullptr && "virtual_memory_release: unable to release memory");
 }
