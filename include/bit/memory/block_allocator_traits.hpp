@@ -12,7 +12,8 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "detail/void_t.hpp" // void_t
+#include "detail/block_allocator_function_traits.hpp"
+
 #include "memory.hpp"        // owner
 #include "memory_block.hpp"  // memory_block
 
@@ -21,18 +22,6 @@
 
 namespace bit {
   namespace memory {
-    namespace detail {
-
-      template<typename T, typename = void>
-      struct is_block_allocator : std::false_type{};
-
-      template<typename T>
-      struct is_block_allocator<T,void_t<
-        decltype( std::declval<T&>().allocate_block() ),
-        decltype( std::declval<T&>().deallocate_block(std::declval<memory_block>() ) )>
-      > : std::true_type{};
-
-    } // namespace detail
 
     /// \brief Type-trait to determine whether \p T is a block allocator
     ///

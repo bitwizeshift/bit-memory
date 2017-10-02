@@ -72,6 +72,7 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/detail/allocator_function_traits.hpp
+  include/bit/memory/detail/block_allocator_function_traits.hpp
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/void_t.hpp
 
