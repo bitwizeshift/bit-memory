@@ -84,29 +84,29 @@ namespace bit {
       template<typename BlockAllocator, typename = std::enable_if_t<is_enabled<BlockAllocator>::value>>
       any_block_allocator( BlockAllocator&& allocator ) noexcept;
 
-      /// \brief Copy-constructs a block_allocator from an existing one
-      ///
-      /// \param other the other allocator to copy
-      any_block_allocator( const any_block_allocator& other ) noexcept = default;
-
       /// \brief Move-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to move
       any_block_allocator( any_block_allocator&& other ) noexcept = default;
 
-      //----------------------------------------------------------------------
-
-      /// \brief Copy-assigns a block_allocator from an existing one
+      /// \brief Copy-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to copy
-      /// \return reference to \c (*this)
-      any_block_allocator& operator = ( const any_block_allocator& other ) noexcept = default;
+      any_block_allocator( const any_block_allocator& other ) noexcept = default;
+
+      //----------------------------------------------------------------------
 
       /// \brief Move-assigns a block_allocator from an existing one
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
       any_block_allocator& operator = ( any_block_allocator&& other ) noexcept = default;
+
+      /// \brief Copy-assigns a block_allocator from an existing one
+      ///
+      /// \param other the other allocator to copy
+      /// \return reference to \c (*this)
+      any_block_allocator& operator = ( const any_block_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations

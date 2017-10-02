@@ -34,7 +34,7 @@ namespace bit {
     class cached_block_allocator
     {
       //----------------------------------------------------------------------
-      // Constructor
+      // Constructor / Destructor / Assignment
       //----------------------------------------------------------------------
     public:
 
@@ -44,31 +44,27 @@ namespace bit {
       template<typename...Args>
       explicit cached_block_allocator( Args&&...args );
 
-      /// \brief Copy-constructs a cached_block_allocator from another one
-      ///
-      /// \param other the other allocator to copy
-      cached_block_allocator( const cached_block_allocator& other ) = default;
-
       /// \brief Move-constructs a cached_block_allocator from another one
       ///
       /// \param other the other allocator to move
       cached_block_allocator( cached_block_allocator&& other ) noexcept = default;
 
+      // Deleted copy constructor
+      cached_block_allocator( const cached_block_allocator& other ) = delete;
+
+      //----------------------------------------------------------------------
+
       /// \brief Destructs this cached_block_allocator and destroys all
       ///        cached entries
       ~cached_block_allocator();
 
-      /// \brief Copy-assigns a cached_block_allocator from another one
-      ///
-      /// \param other the other allocator to copy
-      /// \return a reference to \c (*this)
-      cached_block_allocator& operator=( const cached_block_allocator& other ) = default;
+      //----------------------------------------------------------------------
 
-      /// \brief Move-assigns a cached_block_allocator from another one
-      ///
-      /// \param other the other allocator to move
-      /// \return a reference to \c (*this)
-      cached_block_allocator& operator=( cached_block_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      cached_block_allocator& operator=( cached_block_allocator&& other ) = delete;
+
+      // Deleted copy assignment
+      cached_block_allocator& operator=( const cached_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
       // Block Allocations

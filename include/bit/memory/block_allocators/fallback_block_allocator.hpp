@@ -48,15 +48,21 @@ namespace bit {
       /// \param an the rest of the block allocators
       fallback_block_allocator( BlockAllocator0& a0, BlockAllocatorN&...an );
 
-      fallback_block_allocator( const fallback_block_allocator& other ) = default;
-
+      /// \brief Move-constructs a fallback_block_allocator from another one
+      ///
+      /// \param other the other allocator to move
       fallback_block_allocator( fallback_block_allocator&& other ) noexcept = default;
+
+      // Deleted copy assignment
+      fallback_block_allocator( const fallback_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
 
-      fallback_block_allocator& operator=( const fallback_block_allocator& other ) = default;
+      // Deleted move assignment
+      fallback_block_allocator& operator=( fallback_block_allocator&& other ) = delete;
 
-      fallback_block_allocator& operator=( fallback_block_allocator&& other ) noexcept = default;
+      // Deleted copy assignment
+      fallback_block_allocator& operator=( const fallback_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
       // Block Allocations

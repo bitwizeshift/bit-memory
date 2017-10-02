@@ -39,7 +39,7 @@ namespace bit {
       using block_alignment = std::integral_constant<std::size_t,Align>;
 
       //----------------------------------------------------------------------
-      // Block Allocations
+      // Constructors / Allocators
       //----------------------------------------------------------------------
     public:
 
@@ -59,14 +59,16 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns a aligned_block_allocator from another allocator
-      ///
-      /// \param other the other allocator to move_assign
-      /// \return reference to \c (*this)
-      aligned_block_allocator& operator=( aligned_block_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      aligned_block_allocator& operator=( aligned_block_allocator&& other ) = delete;
 
-      // Deleted aligned_block_allocator assignment
+      // Deleted copy assignment
       aligned_block_allocator& operator=( const aligned_block_allocator& other ) = delete;
+
+      //----------------------------------------------------------------------
+      // Block Allocations
+      //----------------------------------------------------------------------
+    public:
 
       /// \brief Allocates a memory_block of size \ref block_size with
       ///        alignment \p Align

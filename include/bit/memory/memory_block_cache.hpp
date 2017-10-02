@@ -98,12 +98,28 @@ namespace bit {
       using const_iterator  = memory_block_cache_iterator;
 
       //----------------------------------------------------------------------
-      // Constructor
+      // Constructor / Assignment
       //----------------------------------------------------------------------
     public:
 
       /// \brief Default constructs a block cache
       memory_block_cache() noexcept;
+
+      /// \brief Move-constructs a memory_block_cache from an existing one
+      ///
+      /// \param other the other memory_block_cache to move
+      memory_block_cache( memory_block_cache&& other ) noexcept = default;
+
+      // Deleted copy constructor
+      memory_block_cache( const memory_block_cache& other ) = delete;
+
+      //----------------------------------------------------------------------
+
+      // Deleted move assignment
+      memory_block_cache& operator=( memory_block_cache&& other ) = delete;
+
+      // Deleted copy assignment
+      memory_block_cache& operator=( const memory_block_cache& other ) = delete;
 
       //----------------------------------------------------------------------
       // Observers

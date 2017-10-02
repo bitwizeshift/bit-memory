@@ -54,13 +54,10 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns a malloc_block_allocator from another allocator
-      ///
-      /// \param other the other allocator to move_assign
-      /// \return reference to \c (*this)
-      malloc_block_allocator& operator=( malloc_block_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      malloc_block_allocator& operator=( malloc_block_allocator&& other ) = delete;
 
-      // Deleted malloc_block_allocator assignment
+      // Deleted copy assignment
       malloc_block_allocator& operator=( const malloc_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------

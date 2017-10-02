@@ -43,15 +43,15 @@ namespace bit {
       template<typename...Args, decltype(BlockAllocator( std::declval<Args>()... ), void())* = nullptr>
       explicit debug_block_allocator( Args&&...args );
 
-      /// \brief Copy-constructs a debug_block_allocator from another one
-      ///
-      /// \param other the other allocator to copy
-      debug_block_allocator( const debug_block_allocator& other ) = default;
-
       /// \brief Move-constructs a debug_block_allocator from another one
       ///
       /// \param other the other allocator to move
       debug_block_allocator( debug_block_allocator&& other ) noexcept = default;
+
+      /// \brief Copy-constructs a debug_block_allocator from another one
+      ///
+      /// \param other the other allocator to copy
+      debug_block_allocator( const debug_block_allocator& other ) = default;
 
       //----------------------------------------------------------------------
 
@@ -60,17 +60,11 @@ namespace bit {
 
       //----------------------------------------------------------------------
 
-      /// \brief Copy-assigns a debug_block_allocator from another one
-      ///
-      /// \param other the other allocator to copy
-      /// \return a reference to \c (*this)
-      debug_block_allocator& operator=( const debug_block_allocator& other ) = default;
+      // Deleted move assignment
+      debug_block_allocator& operator=( debug_block_allocator&& other ) = delete;
 
-      /// \brief Move-assigns a debug_block_allocator from another one
-      ///
-      /// \param other the other allocator to move
-      /// \return a reference to \c (*this)
-      debug_block_allocator& operator=( debug_block_allocator&& other ) noexcept = default;
+      // Deleted copy assignment
+      debug_block_allocator& operator=( const debug_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
       // Block Allocations

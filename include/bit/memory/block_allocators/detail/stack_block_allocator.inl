@@ -2,6 +2,19 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STACK_BLOCK_ALLOCATOR_INL
 
 //-----------------------------------------------------------------------------
+// Constructors
+//-----------------------------------------------------------------------------
+
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align>
+inline bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
+  ::stack_block_allocator()
+  noexcept
+  : m_index(0)
+{
+
+}
+
+//-----------------------------------------------------------------------------
 // Block Allocations
 //-----------------------------------------------------------------------------
 

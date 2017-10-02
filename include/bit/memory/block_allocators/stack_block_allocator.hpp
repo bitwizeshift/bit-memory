@@ -13,6 +13,9 @@
 #include "../memory.hpp"       // memory, is_power_of_two
 #include "../memory_block.hpp" // memory_block
 
+#include "debug_block_allocator.hpp"  // debug_block_allocator
+#include "cached_block_allocator.hpp" // cached_block_allocator
+
 #include <cstddef> // std::max_align_t
 
 namespace bit {
@@ -55,7 +58,7 @@ namespace bit {
       ///        blocks of the specified \p size
       ///
       /// \param size the size of each block allocation
-      explicit stack_block_allocator() noexcept = default;
+      explicit stack_block_allocator() noexcept;
 
       // Deleted move constructor
       stack_block_allocator( stack_block_allocator&& other ) = delete;
@@ -99,6 +102,19 @@ namespace bit {
       alignas(Align) char m_storage[size];
       std::size_t         m_index;
     };
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using debug_stack_block_allocator = debug_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using cached_stack_block_allocator = cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using cached_debug_stack_block_allocator = debug_block_allocator<cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>>;
 
   } // namespace memory
 } // namespace bit
