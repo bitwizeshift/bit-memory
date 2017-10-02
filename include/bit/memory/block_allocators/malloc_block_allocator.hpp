@@ -27,6 +27,13 @@ namespace bit {
     class malloc_block_allocator
     {
       //----------------------------------------------------------------------
+      // Public Member Types
+      //----------------------------------------------------------------------
+    public:
+
+      using block_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
+
+      //----------------------------------------------------------------------
       // Constructors
       //----------------------------------------------------------------------
     public:
@@ -36,6 +43,25 @@ namespace bit {
       ///
       /// \param size the size of each block allocation
       explicit malloc_block_allocator( std::size_t size ) noexcept;
+
+      /// \brief Move-constructs a malloc_block_allocator from another allocator
+      ///
+      /// \param other the other malloc_block_allocator to move
+      malloc_block_allocator( malloc_block_allocator&& other ) noexcept = default;
+
+      // Deleted copy constructor
+      malloc_block_allocator( const malloc_block_allocator& other ) = delete;
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Move-assigns a malloc_block_allocator from another allocator
+      ///
+      /// \param other the other allocator to move_assign
+      /// \return reference to \c (*this)
+      malloc_block_allocator& operator=( malloc_block_allocator&& other ) noexcept = default;
+
+      // Deleted malloc_block_allocator assignment
+      malloc_block_allocator& operator=( const malloc_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
       // Block Allocations
@@ -58,13 +84,30 @@ namespace bit {
     private:
 
       std::size_t m_size;
+
+      friend bool operator==( const malloc_block_allocator&, const malloc_block_allocator& ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparisons
+    //-------------------------------------------------------------------------
+
+    bool operator==( const malloc_block_allocator& lhs,
+                     const malloc_block_allocator& rhs ) noexcept;
+    bool operator!=( const malloc_block_allocator& lhs,
+                     const malloc_block_allocator& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utiltiies
+    //-------------------------------------------------------------------------
 
     using cached_malloc_block_allocator = cached_block_allocator<malloc_block_allocator>;
     using debug_malloc_block_allocator  = debug_block_allocator<malloc_block_allocator>;
-    using cached_debug_malloc_block_allocator = cached_block_allocator<debug_block_allocator<malloc_block_allocator>>;
+    using cached_debug_malloc_block_allocator = debug_block_allocator<cached_block_allocator<malloc_block_allocator>>;
 
   } // namespace memory
 } // namespace bit
+
+#include "detail/malloc_block_allocator.inl"
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_MALLOC_BLOCK_ALLOCATOR_HPP */

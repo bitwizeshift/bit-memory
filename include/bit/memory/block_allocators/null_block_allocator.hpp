@@ -13,6 +13,9 @@
 #include "../memory_block.hpp"
 #include "cached_block_allocator.hpp"
 
+#include <type_traits> // std::integral_constant, std::true_false
+#include <cstddef>     // std::max_align_t
+
 namespace bit {
   namespace memory {
 
@@ -23,6 +26,42 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     class null_block_allocator
     {
+      //----------------------------------------------------------------------
+      // Public Member Types
+      //----------------------------------------------------------------------
+    public:
+
+      using is_always_equal = std::true_type;
+      using is_stateless    = std::true_type;
+      using block_alignment = std::integral_constant<std::size_t,1>;
+
+      //-----------------------------------------------------------------------
+      // Constructor / Assignment
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Default-constructs a null_block_allocator
+      null_block_allocator() = default;
+
+      /// \brief Move-constructs a null_block_allocator from another allocator
+      ///
+      /// \param other the other null_block_allocator to move
+      null_block_allocator( null_block_allocator&& other ) noexcept = default;
+
+      // Deleted copy constructor
+      null_block_allocator( const null_block_allocator& other ) = delete;
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Move-assigns a null_block_allocator from another allocator
+      ///
+      /// \param other the other allocator to move_assign
+      /// \return reference to \c (*this)
+      null_block_allocator& operator=( null_block_allocator&& other ) noexcept = default;
+
+      // Deleted copy assignment
+      null_block_allocator& operator=( const null_block_allocator& other ) = delete;
+
       //----------------------------------------------------------------------
       // Block Allocations
       //----------------------------------------------------------------------
@@ -37,19 +76,22 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block ) noexcept;
-
     };
 
-    using cached_null_block_allocator = cached_block_allocator<null_block_allocator>;
+    //-------------------------------------------------------------------------
+    // Comparisons
+    //-------------------------------------------------------------------------
 
-    //------------------------------------------------------------------------
+    bool operator==( const null_block_allocator& lhs,
+                     const null_block_allocator& rhs ) noexcept;
+    bool operator!=( const null_block_allocator& lhs,
+                     const null_block_allocator& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
     // Utilities
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
-    /// \brief Gets a static null_block_allocator
-    ///
-    /// \return a reference to a null_block_allocator
-    null_block_allocator& null_block_allocator_instance() noexcept;
+    using cached_null_block_allocator = cached_block_allocator<null_block_allocator>;
 
   } // namespace memory
 } // namespace bit

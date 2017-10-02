@@ -109,15 +109,6 @@ namespace bit {
                      const null_allocator& rhs ) noexcept;
     /// \}
 
-    //------------------------------------------------------------------------
-    // Utilities
-    //------------------------------------------------------------------------
-
-    /// \brief Gets a static null_allocator
-    ///
-    /// \return a reference to a null_allocator
-    null_allocator& null_allocator_instance() noexcept;
-
   } // namespace memory
 } // namespace bit
 

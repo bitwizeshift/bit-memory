@@ -10,8 +10,10 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
 
-#include "../aligned_memory.hpp"
-#include "../memory_block.hpp"
+#include "../memory.hpp"             // is_power_of_two
+#include "../aligned_memory.hpp"     // aligned_allocate
+#include "../memory_block.hpp"       // memory_block
+
 #include "cached_block_allocator.hpp"
 #include "debug_block_allocator.hpp"
 
@@ -27,18 +29,44 @@ namespace bit {
     template<std::size_t Size,std::size_t Align>
     class aligned_block_allocator
     {
+      static_assert( is_power_of_two(Align), "Alignment must be a power of two!" );
+
       //----------------------------------------------------------------------
-      // Public Members
+      // Public Member Types
       //----------------------------------------------------------------------
     public:
 
-      static constexpr std::size_t block_size = Size;
-      static constexpr std::size_t align_size = Align;
+      using block_alignment = std::integral_constant<std::size_t,Align>;
 
       //----------------------------------------------------------------------
       // Block Allocations
       //----------------------------------------------------------------------
     public:
+
+      /// \brief Constructs a aligned_block_allocator that will distribute
+      ///        blocks of the specified \p size
+      ///
+      /// \param size the size of each block allocation
+      aligned_block_allocator() noexcept = default;
+
+      /// \brief Move-constructs a aligned_block_allocator from another allocator
+      ///
+      /// \param other the other aligned_block_allocator to move
+      aligned_block_allocator( aligned_block_allocator&& other ) noexcept = default;
+
+      // Deleted copy constructor
+      aligned_block_allocator( const aligned_block_allocator& other ) = delete;
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Move-assigns a aligned_block_allocator from another allocator
+      ///
+      /// \param other the other allocator to move_assign
+      /// \return reference to \c (*this)
+      aligned_block_allocator& operator=( aligned_block_allocator&& other ) noexcept = default;
+
+      // Deleted aligned_block_allocator assignment
+      aligned_block_allocator& operator=( const aligned_block_allocator& other ) = delete;
 
       /// \brief Allocates a memory_block of size \ref block_size with
       ///        alignment \p Align
@@ -52,6 +80,10 @@ namespace bit {
       void deallocate_block( owner<memory_block> block ) noexcept;
 
     };
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
 
     /// \brief A cached version of aligned_block_allocator
     ///

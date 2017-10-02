@@ -108,7 +108,6 @@ set(headers
 
   # Block Allocators
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
-  include/bit/memory/block_allocators/aligned_offset_block_allocator.hpp
   include/bit/memory/block_allocators/any_block_allocator.hpp
   include/bit/memory/block_allocators/cached_block_allocator.hpp
   include/bit/memory/block_allocators/debug_block_allocator.hpp
@@ -151,21 +150,22 @@ set(source_files
   src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
   src/bit/memory/errors.cpp
+
   # Memory Allocations
   src/bit/memory/virtual_memory.cpp
+
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp
-  src/bit/memory/block_allocators/null_block_allocator.cpp
   src/bit/memory/block_allocators/malloc_block_allocator.cpp
   src/bit/memory/block_allocators/new_block_allocator.cpp
+
   # Allocators
-  src/bit/memory/allocators/null_allocator.cpp
 
   # memory-specific
   ${platform_source_files}
 )
 
-add_library(memory ${source_files})
+add_library(memory ${source_files} ${headers})
 add_library(bit::memory ALIAS memory)
 
 set_target_properties(memory PROPERTIES
@@ -178,7 +178,7 @@ target_include_directories(memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
 )
 target_compile_options(memory PUBLIC -std=c++14
-  $<$<CONFIG:DEBUG>:-DDEBUG>
+  $<$<CONFIG:DEBUG>:-DDEBUG -Wall -pedantic>
   $<$<CONFIG:RELEASE>:-DNDEBUG -DRELEASE>
 )
 
