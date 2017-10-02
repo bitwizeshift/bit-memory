@@ -19,6 +19,7 @@
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::is_reference, std::is_const, etc
 #include <memory>      // std::pointer_traits
+#include <tuple>       // std::make_tuple
 
 namespace bit {
   namespace memory {
@@ -67,19 +68,33 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
+      /// \brief Constructs a std_allocator_adapter that references the
+      ///        underlying allocator
+      ///
+      /// \param allocator the allocator to reference
       explicit std_allocator_adapter( Allocator& allocator ) noexcept;
 
-      std_allocator_adapter( const std_allocator_adapter& allocator )
-        noexcept = default;
+      /// \brief Copy-constructs a std_allocator_adapter from an existing one
+      ///
+      /// \param other the other adapter to copy
+      std_allocator_adapter( const std_allocator_adapter& other ) = default;
 
-      std_allocator_adapter( std_allocator_adapter&& allocator )
-        noexcept = default;
+      /// \brief Move-constructs a std_allocator_adapter from an existing one
+      ///
+      /// \param other the other adapter to move
+      std_allocator_adapter( std_allocator_adapter&& other ) = default;
 
+      /// \brief Copy-converts a std_allocator_adapter from an existing one
+      ///
+      /// \param other the other adapter to copy-convert
       template<typename U>
-      std_allocator_adapter( const std_allocator_adapter<U,Allocator>& ) noexcept;
+      std_allocator_adapter( const std_allocator_adapter<U,Allocator>& other ) noexcept;
 
+      /// \brief Move-converts a std_allocator_adapter from an existing one
+      ///
+      /// \param other the other adapter to move-convert
       template<typename U>
-      std_allocator_adapter( std_allocator_adapter<U,Allocator>&& ) noexcept;
+      std_allocator_adapter( std_allocator_adapter<U,Allocator>&& other ) noexcept;
 
       //----------------------------------------------------------------------
       // Allocation
@@ -134,17 +149,9 @@ namespace bit {
     bool operator==( const std_allocator_adapter<T1,Allocator>& lhs,
                      const std_allocator_adapter<T2,Allocator>& rhs ) noexcept;
 
-    template<typename T1, typename T2, typename Allocator1, typename Allocator2>
-    bool operator==( const std_allocator_adapter<T1,Allocator1>& lhs,
-                     const std_allocator_adapter<T2,Allocator2>& rhs ) noexcept;
-
     template<typename T1, typename T2, typename Allocator>
     bool operator!=( const std_allocator_adapter<T1,Allocator>& lhs,
                      const std_allocator_adapter<T2,Allocator>& rhs ) noexcept;
-
-    template<typename T1, typename T2, typename Allocator1, typename Allocator2>
-    bool operator!=( const std_allocator_adapter<T1,Allocator1>& lhs,
-                     const std_allocator_adapter<T2,Allocator2>& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit

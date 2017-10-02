@@ -6,6 +6,22 @@
 //=============================================================================
 
 //-----------------------------------------------------------------------------
+// Constructor
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline bit::memory::detail::allocator_reference_base<Allocator,true>
+  ::allocator_reference_base( Allocator& allocator )
+  noexcept
+  : Allocator()
+{
+  // stateless allocators are always identical, regardless of which one is
+  // being referenced.
+
+  BIT_MEMORY_UNUSED( allocator );
+}
+
+//-----------------------------------------------------------------------------
 // Element Access
 //-----------------------------------------------------------------------------
 

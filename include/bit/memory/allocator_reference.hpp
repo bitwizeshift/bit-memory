@@ -9,6 +9,7 @@
 #define BIT_MEMORY_ALLOCATOR_REFERENCE_HPP
 
 #include "detail/allocator_function_traits.hpp" // allocator_is_stateless
+#include "macros.hpp"  // BIT_MEMORY_UNUSED
 
 #include <type_traits> // std::is_final
 #include <memory>      // std::addressof
@@ -30,7 +31,14 @@ namespace bit {
         //---------------------------------------------------------------------
       public:
 
+        /// \brief Default constructs the allocator reference
         allocator_reference_base() noexcept = default;
+
+        /// \brief constructs an allocator_reference with a reference to the
+        ///        specified \p allocator
+        ///
+        /// \param allocator the allocator to reference
+        allocator_reference_base( Allocator& allocator ) noexcept;
 
         //---------------------------------------------------------------------
         // Element Access

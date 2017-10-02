@@ -13,7 +13,7 @@ template<typename T, typename Allocator>
 inline bit::memory::std_allocator_adapter<T,Allocator>
   ::std_allocator_adapter( Allocator& allocator )
   noexcept
-  : base_type( allocator )
+  : base_type( std::make_tuple(allocator) )
 {
 
 }
@@ -110,28 +110,10 @@ inline bool bit::memory
   return lhs.get() == rhs.get();
 }
 
-template<typename T1, typename T2, typename Allocator1, typename Allocator2>
-inline bool bit::memory
-  ::operator==( const std_allocator_adapter<T1,Allocator1>&,
-                const std_allocator_adapter<T2,Allocator2>& )
-  noexcept
-{
-  return false;
-}
-
 template<typename T1, typename T2, typename Allocator>
 inline bool bit::memory
   ::operator!=( const std_allocator_adapter<T1,Allocator>& lhs,
                 const std_allocator_adapter<T2,Allocator>& rhs )
-  noexcept
-{
-  return !(lhs==rhs);
-}
-
-template<typename T1, typename T2, typename Allocator1, typename Allocator2>
-inline bool bit::memory
-  ::operator!=( const std_allocator_adapter<T1,Allocator1>& lhs,
-                const std_allocator_adapter<T2,Allocator2>& rhs )
   noexcept
 {
   return !(lhs==rhs);
