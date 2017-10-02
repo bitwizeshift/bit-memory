@@ -18,6 +18,7 @@
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::is_reference, std::is_const, etc
+#include <memory>      // std::pointer_traits
 
 namespace bit {
   namespace memory {
@@ -46,13 +47,16 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
+      using void_pointer       = typename traits_type::pointer;
+      using const_void_pointer = typename traits_type::const_pointer;
+      using size_type          = typename traits_type::size_type;
+      using difference_type    = typename traits_type::difference_type;
+
       using value_type      = T;
-      using pointer         = T*;
-      using const_pointer   = const T*;
+      using pointer         = typename std::pointer_traits<void_pointer>::template rebind<T>;
+      using const_pointer   = typename std::pointer_traits<const_void_pointer>::template rebind<const T>;
       using reference       = T&;
       using const_reference = const T&;
-      using size_type       = std::size_t;
-      using difference_type = std::ptrdiff_t;
 
       template<typename U> struct rebind { using other = std_allocator_adapter<U,Allocator>; };
 
@@ -86,13 +90,13 @@ namespace bit {
       ///
       /// \param n the number of T entries to allocate
       /// \return the pointer to T
-      T* allocate( std::size_t n );
+      pointer allocate( size_type n );
 
       /// \brief Deallocates memory using the underlying Allocator
       ///
       /// \param p the pointer to deallocate
       /// \param n the number of entries to deallocate
-      void deallocate( T* p, std::size_t n );
+      void deallocate( pointer p, size_type n );
 
       //----------------------------------------------------------------------
       // Observers

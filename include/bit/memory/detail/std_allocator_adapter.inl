@@ -43,8 +43,9 @@ inline bit::memory::std_allocator_adapter<T,Allocator>
 //----------------------------------------------------------------------------
 
 template<typename T, typename Allocator>
-inline T* bit::memory::std_allocator_adapter<T,Allocator>
-  ::allocate( std::size_t n )
+inline typename bit::memory::std_allocator_adapter<T,Allocator>::pointer
+  bit::memory::std_allocator_adapter<T,Allocator>
+  ::allocate( size_type n )
 {
   auto& allocator = detail::get<0>( *this );
 
@@ -53,7 +54,7 @@ inline T* bit::memory::std_allocator_adapter<T,Allocator>
 
 template<typename T, typename Allocator>
 inline void bit::memory::std_allocator_adapter<T,Allocator>
-  ::deallocate( T* p, std::size_t n )
+  ::deallocate( pointer p, size_type n )
 {
   auto& allocator = detail::get<0>( *this );
 

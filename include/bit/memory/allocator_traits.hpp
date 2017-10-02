@@ -30,8 +30,8 @@ namespace bit {
     /// which minimally requires the following to be well formed:
     ///
     /// \code
-    /// std::declval<T&>().try_allocate( std::declval<std::size_t>(), std::declval<std::size_t>() );
-    /// std::declval<T&>().deallocate( std::declval<void*>(), std::declval<std::size_t>() );
+    /// std::declval<T&>().try_allocate( std::declval<size_type>(), std::declval<size_type>() );
+    /// std::declval<T&>().deallocate( std::declval<pointer>(), std::declval<size_type>() );
     /// \endcode
     ///
     /// The result is accessible as \c ::value
@@ -53,8 +53,8 @@ namespace bit {
     /// well-formed:
     ///
     /// \code
-    /// std::declval<T&>().try_allocate( std::declval<std::size_t>(), std::declval<std::size_t>(), std::declval<std::size_t>() );
-    /// std::declval<T&>().owns( std::declval<void*>() );
+    /// std::declval<T&>().try_allocate( std::declval<size_type>(), std::declval<size_type>(), std::declval<size_type>() );
+    /// std::declval<T&>().owns( std::declval<pointer>() );
     /// \endcode
     ///
     /// The result is accessible as \c ::value
@@ -86,6 +86,11 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
+      using size_type       = detail::allocator_size_type_t<Allocator>;
+      using difference_type = detail::allocator_difference_type_t<Allocator>;
+      using pointer         = detail::allocator_pointer_t<Allocator>;
+      using const_pointer   = detail::allocator_const_pointer_t<Allocator>;
+
       using is_always_equal   = detail::allocator_is_always_equal<Allocator>;
       using is_stateless      = detail::allocator_is_stateless<Allocator>;
       using default_alignment = detail::allocator_default_alignment<Allocator>;
@@ -107,9 +112,9 @@ namespace bit {
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the pointer to the allocated memory
-      static void* try_allocate( Allocator& alloc,
-                                 std::size_t size,
-                                 std::size_t align ) noexcept;
+      static pointer try_allocate( Allocator& alloc,
+                                   size_type size,
+                                   size_type align ) noexcept;
 
       /// \brief Attempts to allocate memory of at least \p size bytes,
       ///        aligned to \p align boundary with an offset of \p offset bytes
@@ -122,10 +127,10 @@ namespace bit {
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated memory
       template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
-      static void* try_allocate( Allocator& alloc,
-                                 std::size_t size,
-                                 std::size_t align,
-                                 std::size_t offset ) noexcept;
+      static pointer try_allocate( Allocator& alloc,
+                                   size_type size,
+                                   size_type align,
+                                   size_type offset ) noexcept;
 
       /// \brief Allocates memory of at least \p size bytes, aligned to \p
       ///        align boundary
@@ -137,9 +142,9 @@ namespace bit {
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the pointer to the allocated member
-      static void* allocate( Allocator& alloc,
-                             std::size_t size,
-                             std::size_t align );
+      static pointer allocate( Allocator& alloc,
+                               size_type size,
+                               size_type align );
 
       /// \brief Allocates memory of at least \p size bytes, aligned to \p
       ///        align boundary
@@ -153,10 +158,10 @@ namespace bit {
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated member
       template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
-      static void* allocate( Allocator& alloc,
-                             std::size_t size,
-                             std::size_t align,
-                             std::size_t offset );
+      static pointer allocate( Allocator& alloc,
+                               size_type size,
+                               size_type align,
+                               size_type offset );
 
       //----------------------------------------------------------------------
       // Deallocation
@@ -168,7 +173,7 @@ namespace bit {
       /// \param alloc the allocator to allocate from
       /// \param p the pointer to deallocate
       /// \param size the size of the allocation
-      static void deallocate( Allocator& alloc, void* p, std::size_t size );
+      static void deallocate( Allocator& alloc, pointer p, size_type size );
 
       //----------------------------------------------------------------------
       // Observers
@@ -184,7 +189,7 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \param p the pointer
-      static bool owns( Allocator& alloc, const void* p ) noexcept;
+      static bool owns( Allocator& alloc, const_pointer p ) noexcept;
 
       /// \brief Gets the name of the specified allocator
       ///
@@ -212,7 +217,7 @@ namespace bit {
       /// \param alloc the allocator to get the max size from
       /// \return the amount of bytes available for the largest possible
       ///         allocation
-      static std::size_t max_size( const Allocator& alloc ) noexcept;
+      static size_type max_size( const Allocator& alloc ) noexcept;
 
       /// \brief Gets the minimum size allocateable from this allocator
       ///
@@ -220,7 +225,7 @@ namespace bit {
       ///
       /// \param alloc the allocator to get the min size from
       /// \return the minimum amount of bytes able to allocated
-      static std::size_t min_size( const Allocator& alloc ) noexcept;
+      static size_type min_size( const Allocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation
@@ -238,10 +243,10 @@ namespace bit {
       /// \param align the alignment of the allocation
       /// \param offset the offset of the alignment
       /// \return the allocated pointer
-      static void* do_allocate( std::true_type, Allocator& alloc, std::size_t size, std::size_t align );
-      static void* do_allocate( std::false_type, Allocator& alloc, std::size_t size, std::size_t align );
-      static void* do_allocate( std::true_type, Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset );
-      static void* do_allocate( std::false_type, Allocator& alloc, std::size_t size, std::size_t align, std::size_t offset );
+      static pointer do_allocate( std::true_type, Allocator& alloc, size_type size, size_type align );
+      static pointer do_allocate( std::false_type, Allocator& alloc, size_type size, size_type align );
+      static pointer do_allocate( std::true_type, Allocator& alloc, size_type size, size_type align, size_type offset );
+      static pointer do_allocate( std::false_type, Allocator& alloc, size_type size, size_type align, size_type offset );
       /// \}
 
       //----------------------------------------------------------------------
@@ -249,12 +254,12 @@ namespace bit {
       /// \{
       /// \brief Determines the max size of the allocator, either by
       ///        calling \c Allocator::max_size, or by assuming
-      ///        \c std::numeric_limits<std::size_t>::max()
+      ///        \c std::numeric_limits<size_type>::max()
       ///
       /// \param alloc the allocator
       /// \return the max size
-      static std::size_t do_max_size( std::true_type, const Allocator& alloc );
-      static std::size_t do_max_size( std::false_type, const Allocator& alloc );
+      static size_type do_max_size( std::true_type, const Allocator& alloc );
+      static size_type do_max_size( std::false_type, const Allocator& alloc );
       /// \}
 
       //----------------------------------------------------------------------
@@ -266,8 +271,8 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \return the max size
-      static std::size_t do_min_size( std::true_type, const Allocator& alloc );
-      static std::size_t do_min_size( std::false_type, const Allocator& alloc );
+      static size_type do_min_size( std::true_type, const Allocator& alloc );
+      static size_type do_min_size( std::false_type, const Allocator& alloc );
       /// \}
 
       //----------------------------------------------------------------------

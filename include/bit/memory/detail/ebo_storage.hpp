@@ -4,7 +4,8 @@
  * \brief This header contains an internal-only implementation of an EBO
  *        helper to reduce class-sizes.
  *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
+ * \note This is an internal header file, included by other library headers.
+ *       Do not attempt to use it directly.
  */
 #ifndef BIT_MEMORY_DETAIL_EBO_STORAGE_HPP
 #define BIT_MEMORY_DETAIL_EBO_STORAGE_HPP
