@@ -13,7 +13,7 @@ template<typename T, typename Allocator>
 inline bit::memory::std_allocator_adapter<T,Allocator>
   ::std_allocator_adapter( Allocator& allocator )
   noexcept
-  : m_instance( std::addressof(allocator) )
+  : base_type( allocator )
 {
 
 }
@@ -23,7 +23,7 @@ template<typename U>
 inline bit::memory::std_allocator_adapter<T,Allocator>
   ::std_allocator_adapter( const std_allocator_adapter<U,Allocator>& other )
   noexcept
-  : m_instance( std::addressof(other.get()) )
+  : base_type( other.get() )
 {
 
 }
@@ -33,7 +33,7 @@ template<typename U>
 inline bit::memory::std_allocator_adapter<T,Allocator>
   ::std_allocator_adapter( std_allocator_adapter<U,Allocator>&& other )
   noexcept
-  : m_instance( std::addressof(other.get()) )
+  : base_type( other.get() )
 {
 
 }
@@ -46,14 +46,18 @@ template<typename T, typename Allocator>
 inline T* bit::memory::std_allocator_adapter<T,Allocator>
   ::allocate( std::size_t n )
 {
-  return m_instance->allocate( sizeof(T), alignof(T), n );
+  auto& allocator = detail::get<0>( *this );
+
+  return traits_type::try_allocate( allocator, n, alignof(T) );
 }
 
 template<typename T, typename Allocator>
 inline void bit::memory::std_allocator_adapter<T,Allocator>
   ::deallocate( T* p, std::size_t n )
 {
-  m_instance->deallocate( p, n );
+  auto& allocator = detail::get<0>( *this );
+
+  traits_type::deallocate( allocator, p, n );
 }
 
 //----------------------------------------------------------------------------
@@ -61,10 +65,23 @@ inline void bit::memory::std_allocator_adapter<T,Allocator>
 //----------------------------------------------------------------------------
 
 template<typename T, typename Allocator>
+template<typename,typename>
+typename bit::memory::std_allocator_adapter<T,Allocator>::size_type
+  bit::memory::std_allocator_adapter<T,Allocator>::max_size()
+  const noexcept
+{
+  auto& allocator = detail::get<0>( *this );
+
+  return traits_type::max_size( allocator );
+}
+
+template<typename T, typename Allocator>
 Allocator& bit::memory::std_allocator_adapter<T,Allocator>::get()
   const noexcept
 {
-  return *m_instance;
+  auto& allocator = detail::get<0>( *this );
+
+  return allocator.get();
 }
 
 //----------------------------------------------------------------------------

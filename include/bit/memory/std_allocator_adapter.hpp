@@ -10,10 +10,14 @@
 #ifndef BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 #define BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 
-#include "allocator_traits.hpp"
+#include "detail/ebo_storage.hpp"               // detail::ebo_storage
+#include "detail/allocator_function_traits.hpp" // detail::allocator_has_max_size
 
-#include <type_traits> // std::is_reference, std::is_const, etc
+#include "allocator_reference.hpp"              // allocator_reference
+#include "allocator_traits.hpp"                 // allocator_traits
+
 #include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <type_traits> // std::is_reference, std::is_const, etc
 
 namespace bit {
   namespace memory {
@@ -28,7 +32,11 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     template<typename T, typename Allocator>
     class std_allocator_adapter
+      : private detail::ebo_storage<allocator_reference<Allocator>>
     {
+      using base_type = detail::ebo_storage<allocator_reference<Allocator>>;
+      using traits_type = allocator_traits<allocator_reference<Allocator>>;
+
       static_assert( !std::is_reference<T>::value, "Unable to allocate reference type" );
       static_assert( !std::is_const<T>::value, "Unable to allocate const type" );
       static_assert( is_allocator<Allocator>::value, "Allocator must satisfy Allocator requirements" );
@@ -47,6 +55,8 @@ namespace bit {
       using difference_type = std::ptrdiff_t;
 
       template<typename U> struct rebind { using other = std_allocator_adapter<U,Allocator>; };
+
+      using is_always_equal = typename traits_type::is_always_equal;
 
       //----------------------------------------------------------------------
       // Constructors
@@ -88,17 +98,16 @@ namespace bit {
       // Observers
       //----------------------------------------------------------------------
 
+      /// \brief Gets the maximum size this allocator supports
+      ///
+      /// \return the maximum size able to be allocated
+      template<typename U = Allocator, typename = std::enable_if<detail::allocator_has_max_size<U>::value>>
+      size_type max_size() const noexcept;
+
       /// \brief Gets the underlying allocator
       ///
       /// \return a reference to the underlying allocator
       Allocator& get() const noexcept;
-
-      //----------------------------------------------------------------------
-      // Private Members
-      //----------------------------------------------------------------------
-    private:
-
-      Allocator* m_instance; ///< The underlying allocator
     };
 
     //------------------------------------------------------------------------
