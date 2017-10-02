@@ -19,7 +19,7 @@
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::is_reference, std::is_const, etc
 #include <memory>      // std::pointer_traits
-#include <tuple>       // std::make_tuple
+#include <tuple>       // std::forward_as_tuple
 
 namespace bit {
   namespace memory {

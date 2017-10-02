@@ -13,7 +13,7 @@ template<typename T, typename Allocator>
 inline bit::memory::std_allocator_adapter<T,Allocator>
   ::std_allocator_adapter( Allocator& allocator )
   noexcept
-  : base_type( std::make_tuple(allocator) )
+  : base_type( std::forward_as_tuple(allocator) )
 {
 
 }
@@ -49,7 +49,8 @@ inline typename bit::memory::std_allocator_adapter<T,Allocator>::pointer
 {
   auto& allocator = detail::get<0>( *this );
 
-  return traits_type::try_allocate( allocator, n, alignof(T) );
+  auto p = traits_type::try_allocate( allocator, sizeof(T) * n, alignof(T) );
+  return static_cast<pointer>(p);
 }
 
 template<typename T, typename Allocator>
@@ -58,7 +59,7 @@ inline void bit::memory::std_allocator_adapter<T,Allocator>
 {
   auto& allocator = detail::get<0>( *this );
 
-  traits_type::deallocate( allocator, p, n );
+  traits_type::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * n );
 }
 
 //----------------------------------------------------------------------------
