@@ -54,11 +54,8 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns a aligned_allocator from another allocator
-      ///
-      /// \param other the other allocator to move_assign
-      /// \return reference to \c (*this)
-      aligned_allocator& operator=( aligned_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      aligned_allocator& operator=( aligned_allocator&& other ) = delete;
 
       // Deleted copy assignment
       aligned_allocator& operator=( const aligned_allocator& other ) = delete;

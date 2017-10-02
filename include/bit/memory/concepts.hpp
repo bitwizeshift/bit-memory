@@ -30,7 +30,6 @@
 /// Requirements
 ///
 /// - MoveConstructible
-/// - MoveAssignable
 ///
 /// For type \c A to be \c BlockAllocator, it must satisfy the above
 /// conditions as well as the following:
@@ -77,7 +76,6 @@
 /// Requirements
 ///
 /// - MoveConstructible
-/// - MoveAssignable
 ///
 /// For type \c A to be \c Allocator, it must satisfy the above
 /// conditions as well as the following:

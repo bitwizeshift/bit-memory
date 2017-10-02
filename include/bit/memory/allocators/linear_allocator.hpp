@@ -59,14 +59,11 @@ namespace bit {
 
       //----------------------------------------------------------------------
 
-      /// \brief Move-assigns a linear_allocator from another allocator
-      ///
-      /// \param other the other allocator to move assign
-      /// \return reference to \c (*this)
-      linear_allocator& operator=( linear_allocator&& other ) noexcept = default;
-
       // Deleted copy assignment
       linear_allocator& operator=( const linear_allocator& ) = delete;
+
+      // Deleted move assignment
+      linear_allocator& operator=( linear_allocator&& other ) = delete;
 
       //-----------------------------------------------------------------------
       // Allocations / Deallocations

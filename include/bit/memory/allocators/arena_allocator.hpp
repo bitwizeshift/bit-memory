@@ -73,7 +73,7 @@ namespace bit {
       using tracker_type = MemoryTracker;
 
       //-----------------------------------------------------------------------
-      // Constructor / Destructor
+      // Constructor / Destructor / Assignment
       //-----------------------------------------------------------------------
     public:
 
@@ -89,14 +89,21 @@ namespace bit {
       /// \param other the other allocator to move
       arena_allocator( arena_allocator&& other ) = default;
 
-      /// \brief Move-assigns this arena_allocator from another allocator
-      ///
-      /// \param other the other allocator to move
-      /// \return reference to \c (*this)
-      arena_allocator& operator=( arena_allocator&& other ) = default;
+      // Deleted copy constructor
+      arena_allocator( const arena_allocator& other ) = delete;
+
+      //-----------------------------------------------------------------------
 
       /// \brief Destructs the arena allocator, checking for any leaks
       ~arena_allocator();
+
+      //-----------------------------------------------------------------------
+
+      // Deleted move assignment
+      arena_allocator& operator=( arena_allocator&& other ) = delete;
+
+      // Deleted copy assignment
+      arena_allocator& operator=( const arena_allocator& other ) = delete;
 
       //-----------------------------------------------------------------------
       // Observers

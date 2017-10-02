@@ -59,11 +59,8 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns a null_allocator from another allocator
-      ///
-      /// \param other the other allocator to move_assign
-      /// \return reference to \c (*this)
-      null_allocator& operator=( null_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      null_allocator& operator=( null_allocator&& other ) = delete;
 
       // Deleted copy assignment
       null_allocator& operator=( const null_allocator& other ) = delete;

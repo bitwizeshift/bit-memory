@@ -72,7 +72,8 @@ namespace bit {
       template<typename T>
       struct is_allocator<T,void_t<
         decltype( std::declval<allocator_pointer_t<T>&>() = std::declval<T&>().try_allocate( std::declval<allocator_size_type_t<T>>(), std::declval<allocator_size_type_t<T>>() ) ),
-        decltype( std::declval<T&>().deallocate( std::declval<allocator_pointer_t<T>>(), std::declval<allocator_size_type_t<T>>() ) )>
+        decltype( std::declval<T&>().deallocate( std::declval<allocator_pointer_t<T>>(), std::declval<allocator_size_type_t<T>>() ) ),
+        decltype( T( std::declval<T&&>() ) )>
       > : std::true_type{};
 
       //----------------------------------------------------------------------

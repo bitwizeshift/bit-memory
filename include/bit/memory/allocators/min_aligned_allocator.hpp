@@ -70,11 +70,8 @@ namespace bit {
 
     //-----------------------------------------------------------------------
 
-    /// \brief Move-assigns a min_aligned_allocator from another allocator
-    ///
-    /// \param other the other allocator to move assign
-    /// \return reference to \c (*this)
-    min_aligned_allocator& operator=( min_aligned_allocator&& other ) noexcept = default;
+    // Deleted move assignment
+    min_aligned_allocator& operator=( min_aligned_allocator&& other ) = delete;
 
     // Deleted copy assignment
     min_aligned_allocator& operator=( const min_aligned_allocator& other ) = delete;

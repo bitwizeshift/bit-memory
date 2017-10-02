@@ -60,11 +60,8 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      /// \brief Move-assigns the pool_allocator from another allocator
-      ///
-      /// \param other the other allocator to move assign
-      /// \return reference to \c (*this)
-      pool_allocator& operator=( pool_allocator&& other ) noexcept = default;
+      // Deleted move assignment
+      pool_allocator& operator=( pool_allocator&& other ) = delete;
 
       // Deleted copy assignment
       pool_allocator& operator=( const pool_allocator& other ) = delete;
