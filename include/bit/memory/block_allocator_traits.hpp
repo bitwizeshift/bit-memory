@@ -12,8 +12,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "../detail/void_t.hpp" // void_t
-#include "../memory_block.hpp"  // memory_block
+#include "detail/void_t.hpp" // void_t
+#include "memory.hpp"        // owner
+#include "memory_block.hpp"  // memory_block
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t

@@ -10,7 +10,7 @@
 #define BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 
 #include "../memory.hpp"        // owner
-#include "allocator_traits.hpp" // allocator_traits
+#include "../allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::integral_constant, std::is_same, etc

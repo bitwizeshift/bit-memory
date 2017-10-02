@@ -13,8 +13,8 @@
 #include "../errors.hpp"         // out_of_memory_handler
 #include "../aligned_memory.hpp" // aligned_malloc, aligned_free
 
-#include <type_traits> // std::true_type
 #include <cstddef>     // std::max_align_t
+#include <type_traits> // std::true_type
 
 namespace bit {
   namespace memory {

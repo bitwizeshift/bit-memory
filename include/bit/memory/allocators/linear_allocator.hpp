@@ -15,7 +15,9 @@
 #include "../memory_block.hpp" // memory_block
 #include "../macros.hpp"       // BIT_MEMORY_UNLIKELY
 
-#include <cassert> // assert
+#include <cassert>     // assert
+#include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <type_traits> // std:integral_constant, std::true_type, etc
 
 namespace bit {
   namespace memory {

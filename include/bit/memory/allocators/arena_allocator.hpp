@@ -17,7 +17,7 @@
 #include "../allocator_info.hpp" // allocator_info
 #include "../macros.hpp"         // BIT_MEMORY_UNLIKELY
 
-#include "allocator_traits.hpp"  // allocator_traits
+#include "../allocator_traits.hpp"  // allocator_traits
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <mutex>   // std::lock_guard

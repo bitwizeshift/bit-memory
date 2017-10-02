@@ -10,11 +10,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 
-#include "../detail/allocator_function_traits.hpp" // is_allocator, etc
+#include "detail/allocator_function_traits.hpp" // is_allocator, etc
 
-#include "../allocator_reference.hpp" // allocator_reference
-#include "../allocator_info.hpp"      // allocator_info
-#include "../errors.hpp"              // get_out_of_memory_handler
+#include "allocator_reference.hpp" // allocator_reference
+#include "allocator_info.hpp"      // allocator_info
+#include "errors.hpp"              // get_out_of_memory_handler
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t

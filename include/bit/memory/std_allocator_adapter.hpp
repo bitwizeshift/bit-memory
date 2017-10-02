@@ -10,7 +10,7 @@
 #ifndef BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 #define BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 
-#include "allocators/allocator_traits.hpp"
+#include "allocator_traits.hpp"
 
 #include <type_traits> // std::is_reference, std::is_const, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t

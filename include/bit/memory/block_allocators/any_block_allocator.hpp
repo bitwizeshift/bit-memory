@@ -12,7 +12,7 @@
 #include "../memory.hpp"       // owner
 #include "../memory_block.hpp" // memory_block
 
-#include "block_allocator_traits.hpp"
+#include "../block_allocator_traits.hpp"
 
 namespace bit {
   namespace memory {
