@@ -10,6 +10,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_DETAIL_NAMED_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_DETAIL_NAMED_ALLOCATOR_HPP
 
+#include "../../allocator_info.hpp" // allocator_info
+
+#include <type_traits> // std::enable_if_t, std::is_constructible
+#include <utility>     // std::forward
+
 namespace bit {
   namespace memory {
     namespace detail {

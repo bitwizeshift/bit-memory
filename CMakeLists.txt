@@ -102,6 +102,7 @@ set(headers
   include/bit/memory/block_allocator_traits.hpp
 
   # Allocators
+  include/bit/memory/allocators/detail/named_allocator.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/any_allocator.hpp
   include/bit/memory/allocators/arena_allocator.hpp
