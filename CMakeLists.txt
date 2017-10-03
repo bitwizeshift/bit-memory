@@ -109,6 +109,7 @@ set(headers
   include/bit/memory/allocators/min_aligned_allocator.hpp
   include/bit/memory/allocators/new_allocator.hpp
   include/bit/memory/allocators/null_allocator.hpp
+  include/bit/memory/allocators/stack_allocator.hpp
 
   # Block Allocators
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
