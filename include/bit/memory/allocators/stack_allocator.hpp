@@ -9,8 +9,10 @@
 #ifndef BIT_MEMORY_ALLOCATORS_STACK_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_STACK_ALLOCATOR_HPP
 
-#include "../macros.hpp" // BIT_MEMORY_UNLIKELY
-#include "../memory.hpp" // offset_align_forward, byte
+#include "detail/named_allocator.hpp" // detail::named_allocator
+
+#include "../macros.hpp"              // BIT_MEMORY_UNLIKELY
+#include "../memory.hpp"              // offset_align_forward, byte
 
 #include <cstddef>     // std::size_t, std::max_align_t
 #include <type_traits> // std::true_type, std::integral_constant
@@ -117,6 +119,9 @@ namespace bit {
       alignas(Align) char m_storage[Size];
       void* m_current;
     };
+
+    template<std::size_t Size, std::size_t Align = alignof(std::max_align_t)>
+    using named_stack_allocator = detail::named_allocator<stack_allocator<Size,Align>>;
 
   } // namespace memory
 } // namespace bit
