@@ -1,7 +1,8 @@
 /**
  * \file allocator_deleter.hpp
  *
- * \brief TODO: Add description
+ * \brief This header contains the definition of an allocator deleter for use
+ *        with smart pointer types
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
