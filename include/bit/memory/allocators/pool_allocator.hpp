@@ -97,7 +97,7 @@ namespace bit {
       /// \brief Determines whether the pointer \p p is owned by this allocator
       ///
       /// \return \c true if the pointer \p p is originally from this allocator
-      bool owns( void* p ) const noexcept;
+      bool owns( const void* p ) const noexcept;
 
       /// \brief Determines the max size that this allocator can allocate
       ///
@@ -127,7 +127,20 @@ namespace bit {
       ///
       /// \return the freelist entry
       void* pop_freelist_entry() noexcept;
+
+      friend bool operator==( const pool_allocator&, const pool_allocator&) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparison
+    //-------------------------------------------------------------------------
+
+    bool operator==( const pool_allocator& lhs, const pool_allocator& rhs ) noexcept;
+    bool operator!=( const pool_allocator& lhs, const pool_allocator& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
 
     using named_pool_allocator = detail::named_allocator<pool_allocator>;
 

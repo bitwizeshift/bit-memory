@@ -108,7 +108,20 @@ namespace bit {
 
       memory_block m_block;
       void*        m_current;
+
+      friend bool operator==( const linear_allocator&, const linear_allocator& ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparisons
+    //-------------------------------------------------------------------------
+
+    bool operator==( const linear_allocator& lhs, const linear_allocator& rhs ) noexcept;
+    bool operator!=( const linear_allocator& lhs, const linear_allocator& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
 
     using named_linear_allocator = detail::named_allocator<linear_allocator>;
 

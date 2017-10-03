@@ -123,4 +123,31 @@ void bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   allocator_traits<ExtendedAllocator>::deallocate_all( allocator );
 }
 
+//-----------------------------------------------------------------------------
+// Comparison
+//-----------------------------------------------------------------------------
+
+template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+inline bool bit::memory
+  ::operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
+  noexcept
+{
+  auto& lhs_allocator = detail::get<0>( lhs.m_storage );
+  auto& rhs_allocator = detail::get<0>( rhs.m_storage );
+
+  return lhs_allocator == rhs_allocator;
+}
+
+
+template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+inline bool bit::memory
+  ::operator!=( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
+  noexcept
+{
+  return !(lhs == rhs);
+}
+
+
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ARENA_ALLOCATOR_INL */
