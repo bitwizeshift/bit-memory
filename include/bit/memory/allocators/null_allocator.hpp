@@ -28,7 +28,7 @@ namespace bit {
     /// is considered bad-practice, since this allocator could never produce
     /// a valid allocation.
     ///
-    /// \satisfies Allocator
+    /// \satisfies ExtendedAllocator
     //////////////////////////////////////////////////////////////////////////
     class null_allocator
     {
@@ -72,20 +72,12 @@ namespace bit {
 
       /// \brief Allocates a null pointer
       ///
-      /// This call immediately calls the 'out_of_memory_handler', since
-      /// the null_allocator always returns nullptr
-      ///
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return nullptr
-      owner<void*> allocate( std::size_t size, std::size_t align );
-
-      /// \brief Allocates a null pointer
-      ///
-      /// \param size the size of the allocation
-      /// \param align the alignment of the allocation
-      /// \return nullptr
-      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
+      owner<void*> try_allocate( std::size_t size,
+                                 std::size_t align,
+                                 std::size_t offset = 0 ) noexcept;
 
       /// \brief Deallocates a pointer previously allocated with a call to
       ///        allocate.
@@ -93,6 +85,23 @@ namespace bit {
       /// \param p the pointer to deallocate
       /// \param n the number of entries previously allocated
       void deallocate( owner<void*> p, std::size_t n ) noexcept;
+
+      //----------------------------------------------------------------------
+      // Observers
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Checks if the pointer \p p is contained in the null_allocator
+      ///
+      /// \param p the pointer to check
+      /// \return \c true if \p p is \c nullptr
+      bool owns( const void* p ) const noexcept;
+
+      /// \brief Checks if nullptr is part of this allocator
+      ///
+      /// \return true
+      bool owns( std::nullptr_t ) const noexcept;
+
     };
 
 

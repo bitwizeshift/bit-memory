@@ -10,23 +10,14 @@
 //----------------------------------------------------------------------------
 
 inline bit::memory::owner<void*>
-  bit::memory::null_allocator::allocate( std::size_t size,
-                                         std::size_t align )
-{
-  (void) align;
-
-  get_out_of_memory_handler()({"null_allocator",nullptr}, size);
-
-  return nullptr;
-}
-
-inline bit::memory::owner<void*>
   bit::memory::null_allocator::try_allocate( std::size_t size,
-                                             std::size_t align )
+                                             std::size_t align,
+                                             std::size_t offset )
   noexcept
 {
   (void) size;
   (void) align;
+  (void) offset;
 
   return nullptr;
 }
@@ -38,6 +29,22 @@ inline void bit::memory::null_allocator::deallocate( owner<void*> p,
 {
   (void) p;
   (void) size;
+}
+
+//----------------------------------------------------------------------------
+// Observers
+//----------------------------------------------------------------------------
+
+inline bool bit::memory::null_allocator::owns( const void* p )
+  const noexcept
+{
+  return p == nullptr;
+}
+
+inline bool bit::memory::null_allocator::owns( std::nullptr_t )
+  const noexcept
+{
+  return true;
 }
 
 //----------------------------------------------------------------------------
