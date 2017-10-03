@@ -74,5 +74,22 @@ inline bool bit::memory::linear_allocator::owns( void* p )
   return m_block.start_address() <= p && p < m_current;
 }
 
+//----------------------------------------------------------------------------
+// Comparisons
+//----------------------------------------------------------------------------
+
+bool bit::memory::operator==( const linear_allocator& lhs,
+                              const linear_allocator& rhs )
+  noexcept
+{
+  return lhs.m_current == rhs.m_current && lhs.m_block == rhs.m_block;
+}
+
+bool bit::memory::operator!=( const linear_allocator& lhs,
+                              const linear_allocator& rhs )
+  noexcept
+{
+  return !(lhs==rhs);
+}
 
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_LINEAR_ALLOCATOR_INL */

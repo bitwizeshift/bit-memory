@@ -118,7 +118,24 @@ namespace bit {
 
       alignas(Align) char m_storage[Size];
       void* m_current;
+
+      template<std::size_t S, std::size_t A>
+      friend bool operator==( const stack_allocator<S,A>&, const stack_allocator<S,A>& ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparison
+    //-------------------------------------------------------------------------
+
+    template<std::size_t S, std::size_t A>
+    bool operator==( const stack_allocator<S,A>& lhs, const stack_allocator<S,A>& rhs ) noexcept;
+
+    template<std::size_t S, std::size_t A>
+    bool operator!=( const stack_allocator<S,A>& lhs, const stack_allocator<S,A>& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
 
     template<std::size_t Size, std::size_t Align = alignof(std::max_align_t)>
     using named_stack_allocator = detail::named_allocator<stack_allocator<Size,Align>>;

@@ -67,7 +67,7 @@ inline void bit::memory::pool_allocator::deallocate( void* p, std::size_t size )
 // Observers
 //-----------------------------------------------------------------------------
 
-inline bool bit::memory::pool_allocator::owns( void* p )
+inline bool bit::memory::pool_allocator::owns( const void* p )
   const noexcept
 {
   return m_block.contains(p);
@@ -98,6 +98,26 @@ inline void* bit::memory::pool_allocator::pop_freelist_entry()
   auto p = m_head;
   m_head = *static_cast<void**>(m_head);
   return p;
+}
+
+//-----------------------------------------------------------------------------
+// Comparison
+//-----------------------------------------------------------------------------
+
+inline bool bit::memory::operator==( const pool_allocator& lhs,
+                                     const pool_allocator& rhs )
+  noexcept
+{
+  return lhs.m_head == rhs.m_head &&
+         lhs.m_block == rhs.m_block &&
+         lhs.m_chunk_size == rhs.m_chunk_size;
+}
+
+inline bool bit::memory::operator!=( const pool_allocator& lhs,
+                                     const pool_allocator& rhs )
+  noexcept
+{
+  return !(lhs==rhs);
 }
 
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_POOL_ALLOCATOR_INL */

@@ -192,7 +192,23 @@ namespace bit {
     private:
 
       storage_type m_storage;
+
+      template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+      friend bool operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                              const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparison
+    //-------------------------------------------------------------------------
+
+    template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+    bool operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                     const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
+
+    template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+    bool operator!=( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                     const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit
