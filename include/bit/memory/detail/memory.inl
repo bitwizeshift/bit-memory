@@ -54,9 +54,9 @@ noexcept
 //----------------------------------------------------------------------------
 
 template<typename T, typename...Args>
-inline T* bit::memory::uninitialized_construct_at( void* ptr, Args&&...args )
+inline T* bit::memory::uninitialized_construct_at( void* p, Args&&...args )
 {
-  return new (ptr) T( std::forward<Args>(args)... );
+  return new (p) T( std::forward<Args>(args)... );
 }
 
 namespace bit {
@@ -64,9 +64,9 @@ namespace bit {
     namespace detail {
 
       template<typename T, typename Tuple, std::size_t...Idxs>
-      inline T* uninitialized_construct_from_tuple( void* ptr, Tuple&& tuple, std::index_sequence<Idxs...> )
+      inline T* uninitialized_construct_from_tuple( void* p, Tuple&& tuple, std::index_sequence<Idxs...> )
       {
-        return new (ptr) T( std::get<Idxs>(std::forward<Tuple>(tuple))... );
+        return new (p) T( std::get<Idxs>(std::forward<Tuple>(tuple))... );
       }
 
     } // namespace detail
@@ -75,11 +75,11 @@ namespace bit {
 
 
 template<typename T, typename Tuple>
-inline T* bit::memory::uninitialized_construct_from_tuple( void* ptr, Tuple&& tuple )
+inline T* bit::memory::uninitialized_construct_from_tuple( void* p, Tuple&& tuple )
 {
   const auto seq = std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{};
 
-  return detail::uninitialized_construct_from_tuple<T>( ptr, std::forward<Tuple>(tuple), seq );
+  return detail::uninitialized_construct_from_tuple<T>( p, std::forward<Tuple>(tuple), seq );
 }
 
 namespace bit {
