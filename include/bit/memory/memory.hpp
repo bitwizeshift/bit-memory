@@ -12,6 +12,8 @@
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <utility> // std::forward
 #include <cstdint> // std::uintpr_t
+#include <utility> // std::forward, std::index_sequence
+#include <tuple>   // std::tuple, std::forward_as_tuple
 
 namespace bit {
   namespace memory {
@@ -71,6 +73,13 @@ namespace bit {
 
     template<typename T>
     T* uninitialized_construct_array_at( void* p, std::size_t n );
+
+    template<typename T, typename Tuple>
+    T* uninitialized_construct_from_tuple( void* ptr, Tuple&& tuple );
+
+    /// \brief Constructs a given type from a tuple
+    template<typename T, typename Tuple>
+    T make_from_tuple( Tuple&& tuple );
 
     //------------------------------------------------------------------------
     // Destruction

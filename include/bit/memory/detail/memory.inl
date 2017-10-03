@@ -59,6 +59,52 @@ inline T* bit::memory::uninitialized_construct_at( void* ptr, Args&&...args )
   return new (ptr) T( std::forward<Args>(args)... );
 }
 
+namespace bit {
+  namespace memory {
+    namespace detail {
+
+      template<typename T, typename Tuple, std::size_t...Idxs>
+      inline T* uninitialized_construct_from_tuple( void* ptr, Tuple&& tuple, std::index_sequence<Idxs...> )
+      {
+        return new (ptr) T( std::get<Idxs>(std::forward<Tuple>(tuple))... );
+      }
+
+    } // namespace detail
+  } // namespace memory
+} // namespace bit
+
+
+template<typename T, typename Tuple>
+inline T* bit::memory::uninitialized_construct_from_tuple( void* ptr, Tuple&& tuple )
+{
+  const auto seq = std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{};
+
+  return detail::uninitialized_construct_from_tuple<T>( ptr, std::forward<Tuple>(tuple), seq );
+}
+
+namespace bit {
+  namespace memory {
+    namespace detail {
+
+      template<typename T, typename Tuple, std::size_t...Idxs>
+      inline T make_from_tuple( Tuple&& tuple, std::index_sequence<Idxs...> )
+      {
+        return T( std::get<Idxs>(std::forward<Tuple>(tuple))... );
+      }
+
+    } // namespace detail
+  } // namespace memory
+} // namespace bit
+
+template<typename T, typename Tuple>
+inline T bit::memory::make_from_tuple( Tuple&& tuple )
+{
+  const auto seq = std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{};
+
+  return detail::make_from_tuple<T>( std::forward<Tuple>(tuple), seq );
+}
+
+
 template<typename T>
 inline T* bit::memory::uninitialized_construct_array_at( void* p,
                                                          std::size_t n )
