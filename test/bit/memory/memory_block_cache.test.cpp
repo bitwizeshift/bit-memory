@@ -38,8 +38,8 @@ TEST_CASE("memory_block_cache::memory_block_cache()")
 
 TEST_CASE("memory_block_cache::store_block( owner<memory_block> )")
 {
-  const auto block_size = 32;
-  auto block_allocator = bit::memory::new_block_allocator(block_size);
+  static const auto block_size = 32;
+  auto block_allocator = bit::memory::new_block_allocator<block_size>();
   auto block_cache     = bit::memory::memory_block_cache();
 
   auto block1 = block_allocator.allocate_block();
@@ -85,7 +85,8 @@ TEST_CASE("memory_block_cache::request_block()")
 
   SECTION("Cache is non-empty")
   {
-    auto block_allocator = bit::memory::new_block_allocator(1024);
+    static const auto block_size = 1024;
+    auto block_allocator = bit::memory::dynamic_new_block_allocator(block_size);
     auto block = block_allocator.allocate_block();
 
     auto p = block.data();
@@ -106,7 +107,7 @@ TEST_CASE("memory_block_cache::request_block( BlockAllocator& )")
 {
   auto block_cache = bit::memory::memory_block_cache();
 
-  auto block_allocator = bit::memory::new_block_allocator(1024);
+  auto block_allocator = bit::memory::new_block_allocator<1024>();
   auto block = block_allocator.allocate_block();
 
   auto p = block.data();

@@ -14,10 +14,10 @@
 // Block Allocations
 //----------------------------------------------------------------------------
 
-TEST_CASE("new_block_allocator::allocate_block()")
+TEST_CASE("new_block_allocator::allocate_block<1024>()")
 {
-  const auto block_size = 1024;
-  auto block_allocator = bit::memory::new_block_allocator(block_size);
+  static const auto block_size = 1024;
+  auto block_allocator = bit::memory::new_block_allocator<block_size>();
 
   SECTION("Allocates a memory block")
   {

@@ -165,7 +165,6 @@ set(source_files
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp
   src/bit/memory/block_allocators/malloc_block_allocator.cpp
-  src/bit/memory/block_allocators/new_block_allocator.cpp
 
   # Allocators
 
