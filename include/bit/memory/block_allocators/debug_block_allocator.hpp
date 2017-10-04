@@ -48,10 +48,8 @@ namespace bit {
       /// \param other the other allocator to move
       debug_block_allocator( debug_block_allocator&& other ) noexcept = default;
 
-      /// \brief Copy-constructs a debug_block_allocator from another one
-      ///
-      /// \param other the other allocator to copy
-      debug_block_allocator( const debug_block_allocator& other ) = default;
+      // Deleted copy constructor
+      debug_block_allocator( const debug_block_allocator& other ) = delete;
 
       //----------------------------------------------------------------------
 
