@@ -25,6 +25,9 @@ namespace bit {
     ///
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
+    ///
+    /// \satisfies BlockAllocator
+    /// \satisfies Stateless
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size,std::size_t Align>
     class aligned_block_allocator
@@ -49,21 +52,29 @@ namespace bit {
       /// \param size the size of each block allocation
       aligned_block_allocator() noexcept = default;
 
-      /// \brief Move-constructs a aligned_block_allocator from another allocator
+      /// \brief Move-constructs an aligned_block_allocator from another allocator
       ///
       /// \param other the other aligned_block_allocator to move
       aligned_block_allocator( aligned_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      aligned_block_allocator( const aligned_block_allocator& other ) = delete;
+      /// \brief Copy-constructs an aligned_block_allocator from another allocator
+      ///
+      /// \param other the other aligned_block_allocator to copy
+      aligned_block_allocator( const aligned_block_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      aligned_block_allocator& operator=( aligned_block_allocator&& other ) = delete;
+      /// \brief Move-assigns an aligned_block_allocator from another allocator
+      ///
+      /// \param other the other aligned_block_allocator to move
+      /// \return reference to \c (*this)
+      aligned_block_allocator& operator=( aligned_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      aligned_block_allocator& operator=( const aligned_block_allocator& other ) = delete;
+      /// \brief Copy-assigns an aligned_block_allocator from another allocator
+      ///
+      /// \param other the other aligned_block_allocator to copy
+      /// \return reference to \c (*this)
+      aligned_block_allocator& operator=( const aligned_block_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations

@@ -13,6 +13,61 @@
 #define BIT_MEMORY_CONCEPTS_HPP
 
 ///////////////////////////////////////////////////////////////////////////////
+/// \concept Stateless
+///
+/// \brief A structure that encompasses functionality, but contains no internal
+///        nor external state (i.e. no data members).
+///
+/// Two instances of the same type must always compare equal, and constructing/
+/// copying/moving instances must not affect or be affected by any external
+/// state.
+///
+/// Semantically, a single instance should be identical in every respect to any
+/// duplicates; which may allow a composition of multiple of the same Stateless
+/// object to be compressed into a single instance (either EBO inheritance or
+/// data member).
+///
+/// Requirements
+///
+/// - DefaultConstructible
+/// - CopyConstructible
+/// - MoveConstructible
+/// - CopyAssignable
+/// - MoveASsignable
+/// - EqualityComparable
+///
+/// Additionally, it must satisfy the followowing:
+///
+/// Provided
+///
+/// \c S - a Stateless type
+/// \c s - an instance of type \c S
+///
+/// the following expressions must be well-formed with the expected
+/// reproduceable side-effects:
+///
+/// \code
+/// S() == S()
+/// \endcode
+/// returns true
+///
+/// \code
+/// S() != S()
+/// \endcode
+/// returns false
+///
+/// \code
+/// S s1{};              // default ctor
+/// S s2(s);             // copy ctor
+/// S s3(std::move(s1)); // move ctor
+///
+/// s1 = s2;             // copy assignment
+/// s2 = std::move(2);   // move assignment
+/// \code
+///
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
 /// \concept BlockAllocator
 ///
 /// \brief This concept defines the required interface and semantics
