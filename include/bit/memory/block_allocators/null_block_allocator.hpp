@@ -23,6 +23,7 @@ namespace bit {
     /// \brief A block allocator that only distributes null blocks
     ///
     /// \satisfies BlockAllocator
+    /// \satisfies Stateless
     //////////////////////////////////////////////////////////////////////////
     class null_block_allocator
     {
@@ -31,7 +32,6 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      using is_always_equal = std::true_type;
       using is_stateless    = std::true_type;
       using block_alignment = std::integral_constant<std::size_t,1>;
 
@@ -48,16 +48,24 @@ namespace bit {
       /// \param other the other null_block_allocator to move
       null_block_allocator( null_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      null_block_allocator( const null_block_allocator& other ) = delete;
+      /// \brief Copy-constructs a null_block_allocator from another allocator
+      ///
+      /// \param other the other null_block_allocator to copy
+      null_block_allocator( const null_block_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      null_block_allocator& operator=( null_block_allocator&& other ) = delete;
+      /// \brief Move-assigns a null_block_allocator from another allocator
+      ///
+      /// \param other the other null_block_allocator to move
+      /// \return reference to \c (*this)
+      null_block_allocator& operator=( null_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      null_block_allocator& operator=( const null_block_allocator& other ) = delete;
+      /// \brief Copy-assigns a null_block_allocator from another allocator
+      ///
+      /// \param other the other null_block_allocator to copy\
+      /// \return reference to \c (*this)
+      null_block_allocator& operator=( const null_block_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations
