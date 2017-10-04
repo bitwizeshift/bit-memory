@@ -16,8 +16,8 @@
 
 TEST_CASE("malloc_block_allocator::allocate_block()")
 {
-  const auto block_size = 1024;
-  auto block_allocator = bit::memory::malloc_block_allocator(block_size);
+  static const auto block_size = 1024;
+  auto block_allocator = bit::memory::malloc_block_allocator<block_size>();
 
   SECTION("Allocates a memory block")
   {
