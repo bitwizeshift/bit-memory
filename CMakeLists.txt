@@ -65,6 +65,8 @@ set(headers
   include/bit/memory/detail/block_allocator_function_traits.hpp
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/void_t.hpp
+  include/bit/memory/detail/identity.hpp
+  include/bit/memory/detail/dynamic_size_type.hpp
 
   include/bit/memory/allocator_info.hpp
   include/bit/memory/allocator_deleter.hpp
