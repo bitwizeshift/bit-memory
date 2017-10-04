@@ -12,7 +12,8 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "detail/block_allocator_function_traits.hpp"
+#include "detail/block_allocator_function_traits.hpp" // detail::is_block_allocator
+#include "allocator_reference.hpp"                    // allocator_reference
 
 #include "memory.hpp"        // owner
 #include "memory_block.hpp"  // memory_block
@@ -54,11 +55,14 @@ namespace bit {
     ///       compatibility.
     ///
     /// \tparam BlockAllocator the block allocator type. Must satisfy
-    ///         BlockAllocator concept
+    ///         BlockAllocator concept, or be an allocator_reference of a
+    ///         BlockAllocator
     //////////////////////////////////////////////////////////////////////////
     template<typename BlockAllocator>
     class block_allocator_traits
     {
+      static_assert( is_block_allocator<BlockAllocator>::value, "BlockAllocator must be a BlockAllocator" );
+
       //----------------------------------------------------------------------
       // Block Allocations
       //----------------------------------------------------------------------
@@ -76,6 +80,12 @@ namespace bit {
       /// \param block the block to deallocate
       static void deallocate_block( BlockAllocator& alloc,
                                     owner<memory_block> block );
+    };
+
+    template<typename BlockAllocator>
+    class block_allocator_traits<allocator_reference<BlockAllocator>>
+      : public block_allocator_traits<BlockAllocator>
+    {
     };
 
   } // namespace memory
