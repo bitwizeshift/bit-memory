@@ -39,6 +39,7 @@ namespace bit {
     /// \tparam Tag the type used for a tag
     ///
     /// \satisfies BlockAllocator
+    /// \satisfies Stateless
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t BlockSize,
              std::size_t Blocks = 1,
@@ -70,17 +71,25 @@ namespace bit {
       /// \param other the other allocator to move
       static_block_allocator( static_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      static_block_allocator( const static_block_allocator& other ) = delete;
+      /// \brief Copy-constructs a static_block_allocator from another one
+      ///
+      /// \param other the other allocator to copy
+      static_block_allocator( const static_block_allocator& other ) noexcept = default;
 
 
       //----------------------------------------------------------------------
 
-      // Deleted move assignment
-      static_block_allocator& operator=( static_block_allocator&& other ) = delete;
+      /// \brief Move-assigns a static_block_allocator from another one
+      ///
+      /// \param other the other allocator to move
+      /// \return reference to \c (*this)
+      static_block_allocator& operator=( static_block_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      static_block_allocator& operator=( const static_block_allocator& other ) = delete;
+      /// \brief Move-assigns a static_block_allocator from another one
+      ///
+      /// \param other the other allocator to move
+      /// \return reference to \c (*this)
+      static_block_allocator& operator=( const static_block_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations
