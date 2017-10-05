@@ -56,7 +56,8 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      static constexpr std::size_t block_size = BlockSize;
+      using block_size      = std::integral_constant<std::size_t,BlockSize>;
+      using block_alignment = std::integral_constant<std::size_t,Align>;
 
       //----------------------------------------------------------------------
       // Constructor

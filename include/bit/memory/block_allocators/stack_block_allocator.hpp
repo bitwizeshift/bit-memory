@@ -32,6 +32,8 @@ namespace bit {
     /// \tparam BlockSize The size of each block
     /// \tparam Blocks the number of blocks in the block allocator
     /// \tparam Align the alignment of the blocks
+    ///
+    /// \satisfies BlockAllocator
     ///////////////////////////////////////////////////////////////////////////
     template<std::size_t BlockSize,
              std::size_t Blocks=1u,
@@ -47,7 +49,8 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using default_alignment = std::integral_constant<std::size_t,Align>;
+      using block_size      = std::integral_constant<std::size_t,BlockSize>;
+      using block_alignment = std::integral_constant<std::size_t,Align>;
 
       //----------------------------------------------------------------------
       // Constructors
