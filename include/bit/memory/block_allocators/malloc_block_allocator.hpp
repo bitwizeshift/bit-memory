@@ -19,18 +19,19 @@
 #include "cached_block_allocator.hpp"
 #include "debug_block_allocator.hpp"
 
-#include <cstddef> // std::size_t, std::ptrdiff_t
-#include <cstdlib> // std::malloc, std::free
+#include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <cstdlib>     // std::malloc, std::free
+#include <type_traits> // std::true_type, std::false_type, etc
 
 namespace bit {
   namespace memory {
     namespace detail {
-      template<bool IsStateless>
-      struct malloc_block_allocator_base;
-
-      template<>
-      struct malloc_block_allocator_base<true>
+      template<std::size_t Size>
+      struct malloc_block_allocator_base
       {
+        using block_size   = std::integral_constant<std::size_t,Size>;
+        using is_stateless = std::true_type;
+
         malloc_block_allocator_base() noexcept = default;
         malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
         malloc_block_allocator_base( const malloc_block_allocator_base& ) noexcept = default;
@@ -39,8 +40,10 @@ namespace bit {
       };
 
       template<>
-      struct malloc_block_allocator_base<false>
+      struct malloc_block_allocator_base<dynamic_size>
       {
+        using is_stateless = std::false_type;
+
         malloc_block_allocator_base() noexcept = default;
         malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
         malloc_block_allocator_base( const malloc_block_allocator_base& ) = delete;
@@ -68,7 +71,6 @@ namespace bit {
     public:
 
       using block_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
-      using is_stateless    = typename block_size_member::is_stateless;
 
       //----------------------------------------------------------------------
       // Constructors
@@ -152,7 +154,7 @@ namespace bit {
     // Utiltiies
     //-------------------------------------------------------------------------
 
-    using dynamic_malloc_block_allocator = malloc_block_allocator<detail::dynamic_size>;
+    using dynamic_malloc_block_allocator = malloc_block_allocator<dynamic_size>;
 
     template<std::size_t Size>
     using cached_malloc_block_allocator = cached_block_allocator<malloc_block_allocator<Size>>;

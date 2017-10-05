@@ -15,9 +15,12 @@
 
 namespace bit {
   namespace memory {
-    namespace detail {
 
-      constexpr std::size_t dynamic_size = std::size_t(-1);
+    /// \brief A size used to indicate a dynamic value processed at runtime,
+    ///        rather than a static value known at compile-time
+    constexpr std::size_t dynamic_size = std::size_t(-1);
+
+    namespace detail {
 
       /////////////////////////////////////////////////////////////////////////
       /// \brief This type is used as a compile-time constant for storing
@@ -147,6 +150,7 @@ namespace bit {
       };
 
     } // namespace detail
+
   } // namespace memory
 } // namespace bit
 
@@ -175,7 +179,7 @@ inline constexpr std::size_t bit::memory::detail::dynamic_size_type<Index,Size>
 //-----------------------------------------------------------------------------
 
 template<std::size_t Index>
-inline constexpr bit::memory::detail::dynamic_size_type<Index,bit::memory::detail::dynamic_size>
+inline constexpr bit::memory::detail::dynamic_size_type<Index,bit::memory::dynamic_size>
   ::dynamic_size_type( std::size_t size )
   noexcept
   : m_size(size)
@@ -188,7 +192,7 @@ inline constexpr bit::memory::detail::dynamic_size_type<Index,bit::memory::detai
 //-----------------------------------------------------------------------------
 
 template<std::size_t Index>
-inline constexpr std::size_t bit::memory::detail::dynamic_size_type<Index,bit::memory::detail::dynamic_size>
+inline constexpr std::size_t bit::memory::detail::dynamic_size_type<Index,bit::memory::dynamic_size>
   ::value()
   const noexcept
 {

@@ -19,17 +19,18 @@
 #include "cached_block_allocator.hpp"
 #include "debug_block_allocator.hpp"
 
-#include <new> // ::new
+#include <new>         // ::new
+#include <type_traits> // std::true_type, std::false_type, etc
 
 namespace bit {
   namespace memory {
     namespace detail {
-      template<bool IsStateless>
-      struct new_block_allocator_base;
-
-      template<>
-      struct new_block_allocator_base<true>
+      template<std::size_t Size>
+      struct new_block_allocator_base
       {
+        using block_size = std::integral_constant<std::size_t,Size>;
+        using is_stateless = std::true_type;
+
         new_block_allocator_base() noexcept = default;
         new_block_allocator_base( new_block_allocator_base&& ) noexcept = default;
         new_block_allocator_base( const new_block_allocator_base& ) noexcept = default;
@@ -38,8 +39,10 @@ namespace bit {
       };
 
       template<>
-      struct new_block_allocator_base<false>
+      struct new_block_allocator_base<dynamic_size>
       {
+        using is_stateless = std::false_type;
+
         new_block_allocator_base() noexcept = default;
         new_block_allocator_base( new_block_allocator_base&& ) noexcept = default;
         new_block_allocator_base( const new_block_allocator_base& ) = delete;
@@ -58,7 +61,7 @@ namespace bit {
     template<std::size_t Size>
     class new_block_allocator
       : private detail::dynamic_size_type<0,Size>,
-        private detail::new_block_allocator_base<(Size!=std::size_t(-1))>
+        private detail::new_block_allocator_base<Size>
     {
       using block_size_member = detail::dynamic_size_type<0,Size>;
 
@@ -68,7 +71,6 @@ namespace bit {
     public:
 
       using block_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
-      using is_stateless    = typename block_size_member::is_stateless;
 
       //----------------------------------------------------------------------
       // Constructors
@@ -162,7 +164,7 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    using dynamic_new_block_allocator = new_block_allocator<detail::dynamic_size>;
+    using dynamic_new_block_allocator = new_block_allocator<dynamic_size>;
 
     template<std::size_t Size>
     using cached_new_block_allocator = cached_block_allocator<new_block_allocator<Size>>;
