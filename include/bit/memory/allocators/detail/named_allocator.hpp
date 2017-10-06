@@ -32,6 +32,14 @@ namespace bit {
       class named_allocator : public Allocator
       {
         //---------------------------------------------------------------------
+        // Public Member Types
+        //---------------------------------------------------------------------
+      public:
+
+        /// Named allocators cannot be stateless, since they have unique names
+        using is_stateless = std::false_type;
+
+        //---------------------------------------------------------------------
         // Constructors
         //---------------------------------------------------------------------
       public:
