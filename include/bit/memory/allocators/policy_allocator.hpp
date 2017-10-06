@@ -1,12 +1,12 @@
 /**
- * \file arena_allocator.hpp
+ * \file policy_allocator.hpp
  *
- * \brief This header contains the definition of a policy-based arena allocator
+ * \brief This header contains the definition of a policy-based allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALLOCATORS_ARENA_ALLOCATOR_HPP
-#define BIT_MEMORY_ALLOCATORS_ARENA_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
 
 #include "../detail/ebo_storage.hpp"               // detail::ebo_storage
 #include "../detail/allocator_function_traits.hpp" // detail::allocator_has_xyz
@@ -26,13 +26,13 @@ namespace bit {
   namespace memory {
 
     ///////////////////////////////////////////////////////////////////////////
-    /// \brief This allocator manages arena-based memory allocation strategies
+    /// \brief This allocator manages policy-based memory allocation strategies
     ///        using policy-based-design.
     ///
     /// It is comprised of debugger types that better help memory allocation
     /// strategies, while also supporting
     ///
-    /// \note Since this is an arena allocator, it is not possible for all of
+    /// \note Since this is an policy allocator, it is not possible for all of
     ///       the underlying policies to be stateless (since something must
     ///       keep track of the used blocks); thus this class does not default
     ///       itself to being stateless
@@ -53,8 +53,20 @@ namespace bit {
              typename MemoryTracker,
              typename BoundsChecker,
              typename BasicLockable>
-    class arena_allocator
+    class policy_allocator
+      : private detail::ebo_storage<ExtendedAllocator,
+                                    MemoryTagger,
+                                    MemoryTracker,
+                                    BoundsChecker,
+                                    BasicLockable>
     {
+
+      using base_type = detail::ebo_storage<ExtendedAllocator,
+                                            MemoryTagger,
+                                            MemoryTracker,
+                                            BoundsChecker,
+                                            BasicLockable>;
+
       //-----------------------------------------------------------------------
       // Public Member Types
       //-----------------------------------------------------------------------
@@ -68,6 +80,11 @@ namespace bit {
       using default_alignment          = detail::allocator_default_alignment<ExtendedAllocator>;
       using max_alignment              = detail::allocator_max_alignment<ExtendedAllocator>;
       using can_truncate_deallocations = detail::allocator_can_truncate_deallocations<ExtendedAllocator>;
+      using is_stateless = std::integral_constant<bool,detail::allocator_is_stateless<ExtendedAllocator>::value &&
+                                                       std::is_empty<MemoryTagger>::value &&
+                                                       std::is_empty<MemoryTracker>::value &&
+                                                       std::is_empty<BoundsChecker>::value &&
+                                                       std::is_empty<BasicLockable>::value>;
 
       using lock_type    = BasicLockable;
       using tracker_type = MemoryTracker;
@@ -77,40 +94,40 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Constructs an arena_allocator by forwarding all arguments to
+      /// \brief Constructs an policy_allocator by forwarding all arguments to
       ///        the underlying ExtendedAllocator
       ///
       /// \param args the arguments to forward to the ExtendedAllocator
       template<typename...Args, typename = std::enable_if_t<std::is_constructible<ExtendedAllocator,Args...>::value>>
-      arena_allocator( Args&&...args );
+      policy_allocator( Args&&...args );
 
-      /// \brief Move-constructs this arena_allocator from another allocator
+      /// \brief Move-constructs this policy_allocator from another allocator
       ///
       /// \param other the other allocator to move
-      arena_allocator( arena_allocator&& other ) = default;
+      policy_allocator( policy_allocator&& other ) = default;
 
       // Deleted copy constructor
-      arena_allocator( const arena_allocator& other ) = delete;
+      policy_allocator( const policy_allocator& other ) = delete;
 
       //-----------------------------------------------------------------------
 
-      /// \brief Destructs the arena allocator, checking for any leaks
-      ~arena_allocator();
+      /// \brief Destructs the policy allocator, checking for any leaks
+      ~policy_allocator();
 
       //-----------------------------------------------------------------------
 
       // Deleted move assignment
-      arena_allocator& operator=( arena_allocator&& other ) = delete;
+      policy_allocator& operator=( policy_allocator&& other ) = delete;
 
       // Deleted copy assignment
-      arena_allocator& operator=( const arena_allocator& other ) = delete;
+      policy_allocator& operator=( const policy_allocator& other ) = delete;
 
       //-----------------------------------------------------------------------
       // Observers
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Accesses the tracker from the arena_allocator
+      /// \brief Accesses the tracker from the policy_allocator
       ///
       /// \return the tracker
       const tracker_type& tracker() const noexcept;
@@ -176,26 +193,15 @@ namespace bit {
       std::size_t min_size() const noexcept;
 
       //-----------------------------------------------------------------------
-      // Private Member Types
-      //-----------------------------------------------------------------------
-    private:
-
-      using storage_type = detail::ebo_storage<ExtendedAllocator,
-                                               MemoryTagger,
-                                               MemoryTracker,
-                                               BoundsChecker,
-                                               BasicLockable>;
-
-      //-----------------------------------------------------------------------
       // Private Members
       //-----------------------------------------------------------------------
     private:
 
-      storage_type m_storage;
+      bool equals( const policy_allocator& other ) const noexcept;
 
       template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-      friend bool operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                              const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
+      friend bool operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                              const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
     };
 
     //-------------------------------------------------------------------------
@@ -203,16 +209,16 @@ namespace bit {
     //-------------------------------------------------------------------------
 
     template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-    bool operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                     const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
+    bool operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                     const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
 
     template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-    bool operator!=( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                     const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
+    bool operator!=( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                     const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/arena_allocator.inl"
+#include "detail/policy_allocator.inl"
 
-#endif /* BIT_MEMORY_ALLOCATORS_ARENA_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP */

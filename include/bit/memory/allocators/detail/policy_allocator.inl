@@ -1,11 +1,11 @@
-#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_ARENA_ALLOCATOR_INL
-#define BIT_MEMORY_ALLOCATORS_DETAIL_ARENA_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_POLICY_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_POLICY_ALLOCATOR_INL
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
 template<typename...Args, typename>
-bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
-  ::arena_allocator( Args&&...args )
-  : m_storage( std::forward_as_tuple(std::forward<Args>(args)...),
+bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+  ::policy_allocator( Args&&...args )
+  : base_type( std::forward_as_tuple(std::forward<Args>(args)...),
                std::make_tuple(),
                std::make_tuple(),
                std::make_tuple(),
@@ -16,26 +16,26 @@ bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
-  ::~arena_allocator()
+bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+  ::~policy_allocator()
 {
-  auto& allocator = detail::get<0>(m_storage);
-  auto& tracker   = detail::get<2>(m_storage);
+  auto& allocator = detail::get<0>(*this);
+  auto& tracker   = detail::get<2>(*this);
 
   tracker.finalize( allocator_traits<ExtendedAllocator>::info(allocator) );
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-const typename bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>::tracker_type&
-  bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+const typename bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>::tracker_type&
+  bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::tracker()
   const noexcept
 {
-  return detail::get<2>( m_storage );
+  return detail::get<2>(*this);
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-void* bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+void* bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::try_allocate( std::size_t size, std::size_t align )
   noexcept
 {
@@ -47,11 +47,11 @@ void* bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   const auto new_size = Checker::front_size + size + Checker::back_size;
   const auto offset   = Checker::front_size;
 
-  auto& allocator = detail::get<0>(m_storage);
-  auto& tagger    = detail::get<1>(m_storage);
-  auto& tracker   = detail::get<2>(m_storage);
-  auto& checker   = detail::get<3>(m_storage);
-  auto& lock      = detail::get<4>(m_storage);
+  auto& allocator = detail::get<0>(*this);
+  auto& tagger    = detail::get<1>(*this);
+  auto& tracker   = detail::get<2>(*this);
+  auto& checker   = detail::get<3>(*this);
+  auto& lock      = detail::get<4>(*this);
 
   byte* byte_ptr = nullptr;
 
@@ -79,14 +79,14 @@ void* bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-void bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::deallocate( void* p, std::size_t size )
 {
-  auto& allocator = detail::get<0>(m_storage);
-  auto& tagger    = detail::get<1>(m_storage);
-  auto& tracker   = detail::get<2>(m_storage);
-  auto& checker   = detail::get<3>(m_storage);
-  auto& lock      = detail::get<4>(m_storage);
+  auto& allocator = detail::get<0>(*this);
+  auto& tagger    = detail::get<1>(*this);
+  auto& tracker   = detail::get<2>(*this);
+  auto& checker   = detail::get<3>(*this);
+  auto& lock      = detail::get<4>(*this);
 
   const auto new_size = Checker::front_size + size + Checker::back_size;
   const auto offset   = Checker::front_size;
@@ -112,15 +112,26 @@ void bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
 template<typename, typename>
-void bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::deallocate_all()
 {
-  auto& allocator = detail::get<0>(m_storage);
-  auto& tracker   = detail::get<2>(m_storage);
+  auto& allocator = detail::get<0>(*this);
+  auto& tracker   = detail::get<2>(*this);
 
   tracker.on_deallocate_all();
 
   allocator_traits<ExtendedAllocator>::deallocate_all( allocator );
+}
+
+template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+inline bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+  ::equals( const policy_allocator& other )
+  const noexcept
+{
+  auto& lhs_allocator = detail::get<0>( *this );
+  auto& rhs_allocator = detail::get<0>( other );
+
+  return lhs_allocator == rhs_allocator;
 }
 
 //-----------------------------------------------------------------------------
@@ -129,25 +140,22 @@ void bit::memory::arena_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
 
 template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
 inline bool bit::memory
-  ::operator==( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
+  ::operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
   noexcept
 {
-  auto& lhs_allocator = detail::get<0>( lhs.m_storage );
-  auto& rhs_allocator = detail::get<0>( rhs.m_storage );
-
-  return lhs_allocator == rhs_allocator;
+  return lhs.equals(rhs);
 }
 
 
 template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
 inline bool bit::memory
-  ::operator!=( const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                const arena_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
+  ::operator!=( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
+                const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
   noexcept
 {
   return !(lhs == rhs);
 }
 
 
-#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ARENA_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_POLICY_ALLOCATOR_INL */
