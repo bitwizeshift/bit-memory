@@ -81,7 +81,7 @@ set(headers
   include/bit/memory/concepts.hpp
 
   # Taggers
-  include/bit/memory/taggers/debug_memory_tagger.hpp
+  include/bit/memory/taggers/allocator_tagger.hpp
   include/bit/memory/taggers/null_tagger.hpp
 
   # Trackers

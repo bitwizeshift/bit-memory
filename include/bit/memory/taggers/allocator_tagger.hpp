@@ -1,5 +1,5 @@
 /**
- * \file debug_memory_tagger.hpp
+ * \file allocator_tagger.hpp
  *
  * \brief This header contains the definition of a debug tagger that tags
  *        allocations with specific byte-patterns.
@@ -22,7 +22,7 @@ namespace bit {
     ///
     /// \satisfies MemoryTagger
     ///////////////////////////////////////////////////////////////////////////
-    class debug_tagger
+    class allocator_tagger
     {
       //-----------------------------------------------------------------------
       // Tagging
@@ -36,6 +36,6 @@ namespace bit {
   } // namespace memory
 } // namespace debug
 
-#include "detail/debug_memory_tagger.inl"
+#include "detail/allocator_tagger.inl"
 
 #endif /* BIT_MEMORY_TAGGERS_DEBUG_MEMORY_TAGGER_HPP */
