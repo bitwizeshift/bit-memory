@@ -103,7 +103,7 @@ namespace bit {
       static constexpr auto size = BlockSize * Blocks;
 
       alignas(Align) char m_storage[size];
-      std::size_t         m_index;
+      memory_block_cache  m_cache;
     };
 
     //-------------------------------------------------------------------------
@@ -111,15 +111,7 @@ namespace bit {
     //-------------------------------------------------------------------------
 
     template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using cached_stack_block_allocator = cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
-
-    //-------------------------------------------------------------------------
-
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
     using named_stack_block_allocator = detail::named_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
-
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using named_cached_stack_block_allocator = detail::named_block_allocator<cached_stack_block_allocator<BlockSize,Blocks,Align>>;
 
   } // namespace memory
 } // namespace bit
