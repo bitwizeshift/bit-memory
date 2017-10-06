@@ -1,7 +1,7 @@
 /**
  * \file freelist.hpp
  *
- * \brief TODO: Add description
+ * \brief This header contains the definition of a simple freelist utility
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
@@ -16,6 +16,14 @@
 namespace bit {
   namespace memory {
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// \brief A simple freelist that uses intrusive pointers inside raw memory
+    ///
+    /// This is dissimilar from the memory_block_cache in that it does not store
+    /// each block sie in the freelist; it only knows of the pointers. The
+    /// semantics, ownership, and valdity of the pointers must all be managed
+    /// from outside
+    ///////////////////////////////////////////////////////////////////////////
     class freelist
     {
       //-----------------------------------------------------------------------
@@ -23,16 +31,21 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
+      /// \brief Default constructs an empty freelist
       constexpr freelist() noexcept;
 
-      freelist( const freelist& other ) = delete;
-
+      /// \brief Move-assigns a freelist from an existing freelist
       freelist( freelist&& other ) noexcept = default;
+
+      // Deleted copy construction
+      freelist( const freelist& other ) = delete;
 
       //-----------------------------------------------------------------------
 
+      // Deleted move assignment
       freelist& operator=( freelist&& other ) = delete;
 
+      // Deleted copy construction
       freelist& operator=( const freelist& other ) = delete;
 
 

@@ -74,8 +74,9 @@ inline void bit::memory::freelist::steal( freelist& other )
 inline void bit::memory::freelist::store( void* p )
   noexcept
 {
-  using pointer = void*;
   assert( alignof(void*) <= align_of(p) );
+
+  using pointer = void*;
 
   new (p) pointer(m_head);
   m_head = p;
