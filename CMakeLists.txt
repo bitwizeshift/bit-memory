@@ -71,6 +71,7 @@ set(headers
   include/bit/memory/allocator_info.hpp
   include/bit/memory/allocator_deleter.hpp
   include/bit/memory/allocator_reference.hpp
+  include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/errors.hpp
   include/bit/memory/macros.hpp
@@ -78,7 +79,7 @@ set(headers
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
-  include/bit/memory/concepts.hpp
+  include/bit/memory/std_allocator_adapter.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp
@@ -121,8 +122,6 @@ set(headers
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/any_block_allocator.hpp
   include/bit/memory/block_allocators/cached_block_allocator.hpp
-  include/bit/memory/block_allocators/debug_block_allocator.hpp
-  include/bit/memory/block_allocators/fallback_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
@@ -130,11 +129,6 @@ set(headers
   include/bit/memory/block_allocators/stack_block_allocator.hpp
   include/bit/memory/block_allocators/static_block_allocator.hpp
   include/bit/memory/block_allocators/virtual_block_allocator.hpp
-
-  # Streaming Allocators
-
-  # Adapters
-  include/bit/memory/std_allocator_adapter.hpp
 )
 
 if( WIN32 )
@@ -167,8 +161,6 @@ set(source_files
 
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp
-
-  # Allocators
 
   # memory-specific
   ${platform_source_files}
