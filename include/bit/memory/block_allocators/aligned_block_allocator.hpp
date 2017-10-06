@@ -21,7 +21,7 @@
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t
-#include <casser>      // assert
+#include <cassert>     // assert
 
 namespace bit {
   namespace memory {

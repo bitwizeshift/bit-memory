@@ -29,6 +29,29 @@ namespace bit {
         decltype( std::declval<T&>().deallocate_block(std::declval<memory_block>() ) )>
       > : std::true_type{};
 
+
+      template<typename T, typename = void>
+      struct block_allocator_has_block_alignment : std::false_type{};
+
+      template<typename T>
+      struct block_allocator_has_block_alignment<T,void_t<
+        decltype(T::block_alignment)>
+      > : std::true_type{};
+
+      template<typename T, typename = void>
+      struct block_allocator_has_block_size : std::false_type{};
+
+      template<typename T>
+      struct block_allocator_has_block_size<T,void_t<
+        decltype(T::block_size)>
+      > : std::true_type{};
+
+      template<typename T, typename = void>
+      struct block_allocator_is_stateless : std::false_type{};
+
+      template<typename T>
+      struct block_allocator_is_stateless<T,void_t<decltype(T::is_stateless)>> : T::is_stateless{};
+
     } // namespace detail
   } // namespace memory
 } // namespace bit

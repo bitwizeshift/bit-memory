@@ -64,6 +64,15 @@ namespace bit {
       static_assert( is_block_allocator<BlockAllocator>::value, "BlockAllocator must be a BlockAllocator" );
 
       //----------------------------------------------------------------------
+      // Public Member Types
+      //----------------------------------------------------------------------
+    public:
+
+      using has_block_alignment = detail::block_allocator_has_block_alignment<BlockAllocator>;
+      using has_block_size      = detail::block_allocator_has_block_size<BlockAllocator>;
+      using is_stateless        = detail::block_allocator_is_stateless<BlockAllocator>;
+
+      //----------------------------------------------------------------------
       // Block Allocations
       //----------------------------------------------------------------------
     public:
@@ -80,6 +89,31 @@ namespace bit {
       /// \param block the block to deallocate
       static void deallocate_block( BlockAllocator& alloc,
                                     owner<memory_block> block );
+
+      //----------------------------------------------------------------------
+      // Capacity
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Returns the block allignment for each block from the given
+      ///        block allocator
+      ///
+      /// \note This is only well-formed for block allocators where
+      ///       \ref has_block_alignment is \c std::true_type
+      ///
+      /// \param alloc the block allocator
+      /// \return the block alignment
+      static constexpr std::size_t block_alignment( BlockAllocator& alloc ) noexcept;
+
+      /// \brief Returns the block size for each block from a given block
+      ///        allocator
+      ///
+      /// \note This is only well-formed for block allocators where
+      ///       \ref has_block_alignment is \c std::true_type
+      ///
+      /// \param alloc the block allocator
+      /// \return the block alignment
+      static constexpr std::size_t block_size( BlockAllocator& alloc ) noexcept;
     };
 
     template<typename BlockAllocator>
