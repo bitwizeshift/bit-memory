@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
 
+#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../memory.hpp"             // owner
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
@@ -121,6 +122,11 @@ namespace bit {
       /// \return the memory_block_cache
       static memory_block_cache& block_cache() noexcept;
     };
+
+    //-------------------------------------------------------------------------
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using named_static_block_allocator = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align>>;
 
   } // namespace memory
 } // namespace bit

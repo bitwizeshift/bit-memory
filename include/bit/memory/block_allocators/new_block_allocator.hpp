@@ -10,8 +10,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_NEW_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_NEW_BLOCK_ALLOCATOR_HPP
 
-#include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
+#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
+#include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
 #include "../macros.hpp"                   // BIT_MEMORY_UNLIKELY
 #include "../memory.hpp"                   // owner
 #include "../memory_block.hpp"             // memory_block
@@ -169,6 +170,18 @@ namespace bit {
     using dynamic_new_block_allocator = new_block_allocator<dynamic_size>;
 
     using cached_dynamic_new_block_allocator = cached_block_allocator<dynamic_new_block_allocator>;
+
+    //-------------------------------------------------------------------------
+
+    template<std::size_t Size>
+    using named_new_block_allocator = detail::named_block_allocator<new_block_allocator<Size>>;
+
+    template<std::size_t Size>
+    using named_cached_new_block_allocator = detail::named_block_allocator<cached_new_block_allocator<Size>>;
+
+    using named_dynamic_new_block_allocator = detail::named_block_allocator<dynamic_new_block_allocator>;
+
+    using named_cached_dynamic_new_block_allocator = detail::named_block_allocator<cached_dynamic_new_block_allocator>;
 
   } // namespace memory
 } // namespace bit

@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_STACK_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_STACK_BLOCK_ALLOCATOR_HPP
 
+#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../macros.hpp"       // BIT_MEMORY_UNUSED
 #include "../memory.hpp"       // memory, is_power_of_two
 #include "../memory_block.hpp" // memory_block
@@ -111,6 +112,14 @@ namespace bit {
 
     template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
     using cached_stack_block_allocator = cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
+
+    //-------------------------------------------------------------------------
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using named_stack_block_allocator = detail::named_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
+
+    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    using named_cached_stack_block_allocator = detail::named_block_allocator<cached_stack_block_allocator<BlockSize,Blocks,Align>>;
 
   } // namespace memory
 } // namespace bit

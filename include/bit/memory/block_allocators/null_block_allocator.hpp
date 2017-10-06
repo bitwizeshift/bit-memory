@@ -9,8 +9,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_NULL_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_NULL_BLOCK_ALLOCATOR_HPP
 
-#include "../memory.hpp"
-#include "../memory_block.hpp"
+#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
+#include "../memory.hpp"        // owner
+#include "../memory_block.hpp"  // memory_block
 
 #include <type_traits> // std::integral_constant, std::true_false
 #include <cstddef>     // std::max_align_t
@@ -91,6 +92,12 @@ namespace bit {
                      const null_block_allocator& rhs ) noexcept;
     bool operator!=( const null_block_allocator& lhs,
                      const null_block_allocator& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_null_block_allocator = detail::named_block_allocator<null_block_allocator>;
 
   } // namespace memory
 } // namespace bit

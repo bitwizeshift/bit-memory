@@ -9,9 +9,10 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP
 
-#include "../virtual_memory.hpp"
-#include "../memory_block.hpp"
-#include "../memory_block_cache.hpp"
+#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
+#include "../virtual_memory.hpp"     // virtual_alloc, etc
+#include "../memory_block.hpp"       // owner
+#include "../memory_block_cache.hpp" // memory_block_cache
 
 #include <cstddef> // std::size_t
 
@@ -95,6 +96,12 @@ namespace bit {
       std::ptrdiff_t     m_active_page; ///< The currently active page
       memory_block_cache m_cache;       ///< Cache of already committed pages
     };
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_virtual_block_allocator = detail::named_block_allocator<virtual_block_allocator>;
 
   } // namespace memory
 } // namespace bit
