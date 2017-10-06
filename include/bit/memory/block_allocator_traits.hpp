@@ -159,4 +159,6 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
+#include "detail/block_allocator_traits.inl"
+
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP */
