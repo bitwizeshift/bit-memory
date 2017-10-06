@@ -115,6 +115,7 @@ set(headers
   include/bit/memory/allocators/stack_allocator.hpp
 
   # Block Allocators
+  include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/any_block_allocator.hpp
   include/bit/memory/block_allocators/cached_block_allocator.hpp
