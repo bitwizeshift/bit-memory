@@ -1,6 +1,10 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
 
+//-----------------------------------------------------------------------------
+// Block Allocations
+//-----------------------------------------------------------------------------
+
 template<typename BlockAllocator>
 inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::block_allocator_traits<BlockAllocator>
@@ -15,6 +19,23 @@ inline void bit::memory::block_allocator_traits<BlockAllocator>
 {
   return alloc.deallocate_block( block );
 }
+
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<typename BlockAllocator>
+inline bit::memory::allocator_info
+  bit::memory::block_allocator_traits<BlockAllocator>
+  ::info( const BlockAllocator& alloc )
+  noexcept
+{
+  return do_info( detail::block_allocator_has_info<BlockAllocator>{}, alloc );
+}
+
+//-----------------------------------------------------------------------------
+// Capacity / Alignment
+//-----------------------------------------------------------------------------
 
 template<typename BlockAllocator>
 inline constexpr std::size_t bit::memory::block_allocator_traits<BlockAllocator>
@@ -36,4 +57,24 @@ inline constexpr std::size_t bit::memory::block_allocator_traits<BlockAllocator>
   return BlockAllocator::block_size::value;
 }
 
+//-----------------------------------------------------------------------------
+// Private Implementation
+//-----------------------------------------------------------------------------
+
+
+template<typename BlockAllocator>
+inline bit::memory::allocator_info
+  bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_info( std::true_type, const BlockAllocator& alloc )
+{
+  return alloc.info();
+}
+
+template<typename BlockAllocator>
+inline bit::memory::allocator_info
+  bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_info( std::false_type, const BlockAllocator& alloc )
+{
+  return {"Unnamed",std::addressof(alloc)};
+}
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL */

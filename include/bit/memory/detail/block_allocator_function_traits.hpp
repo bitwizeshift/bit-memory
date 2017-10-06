@@ -10,8 +10,9 @@
 #ifndef BIT_MEMORY_DETAIL_BLOCK_ALLOCATOR_FUNCTION_TRAITS_HPP
 #define BIT_MEMORY_DETAIL_BLOCK_ALLOCATOR_FUNCTION_TRAITS_HPP
 
-#include "void_t.hpp"          // void_t
-#include "../memory_block.hpp" // memory_block
+#include "void_t.hpp"              // void_t
+#include "../memory_block.hpp"     // memory_block
+#include "../allocator_info.hpp"   // allocator_info
 
 #include <cstddef>     // std::size_t
 #include <type_traits> // std::true_type, std::integral_constant, etc
@@ -29,6 +30,7 @@ namespace bit {
         decltype( std::declval<T&>().deallocate_block(std::declval<memory_block>() ) )>
       > : std::true_type{};
 
+      //----------------------------------------------------------------------
 
       template<typename T, typename = void>
       struct block_allocator_has_block_alignment : std::false_type{};
@@ -38,6 +40,8 @@ namespace bit {
         decltype(T::block_alignment)>
       > : std::true_type{};
 
+      //----------------------------------------------------------------------
+
       template<typename T, typename = void>
       struct block_allocator_has_block_size : std::false_type{};
 
@@ -46,11 +50,23 @@ namespace bit {
         decltype(T::block_size)>
       > : std::true_type{};
 
+      //----------------------------------------------------------------------
+
       template<typename T, typename = void>
       struct block_allocator_is_stateless : std::false_type{};
 
       template<typename T>
       struct block_allocator_is_stateless<T,void_t<decltype(T::is_stateless)>> : T::is_stateless{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct block_allocator_has_info : std::false_type{};
+
+      template<typename T>
+      struct block_allocator_has_info<T,
+        void_t<decltype( std::declval<allocator_info>() = std::declval<const T&>().info() )>
+      > : std::true_type{};
 
     } // namespace detail
   } // namespace memory

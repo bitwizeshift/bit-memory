@@ -20,6 +20,7 @@
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <memory>      // std::addressof
 
 namespace bit {
   namespace memory {
@@ -91,6 +92,23 @@ namespace bit {
                                     owner<memory_block> block );
 
       //----------------------------------------------------------------------
+      // Observers
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Gets the name of the specified block allocator
+      ///
+      /// \note Not all allocators are nameable or have a name specified.
+      ///       For these allocators, the string returned is "Unnamed"
+      ///
+      /// \note The lifetime of the pointer returned is unmanaged, and is NOT
+      ///       the responsibility of the caller to free.
+      ///
+      /// \param alloc the block allocator to get the name of
+      /// \return the name of the allocator
+      static allocator_info info( const BlockAllocator& alloc ) noexcept;
+
+      //----------------------------------------------------------------------
       // Capacity
       //----------------------------------------------------------------------
     public:
@@ -114,6 +132,22 @@ namespace bit {
       /// \param alloc the block allocator
       /// \return the block alignment
       static constexpr std::size_t block_size( BlockAllocator& alloc ) noexcept;
+
+
+      //----------------------------------------------------------------------
+      // Private Implementation
+      //----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Determines the info for the allocator, either by calling
+      ///        \c BlockAllocator::info or by assuming "Unnamed" for the name
+      ///
+      /// \param alloc the allocator
+      /// \return the name of the allocator
+      static allocator_info do_info( std::true_type, const BlockAllocator& alloc );
+      static allocator_info do_info( std::false_type, const BlockAllocator& alloc );
+      /// \}
     };
 
     template<typename BlockAllocator>
