@@ -11,7 +11,6 @@
 
 #include "../memory.hpp"
 #include "../memory_block.hpp"
-#include "cached_block_allocator.hpp"
 
 #include <type_traits> // std::integral_constant, std::true_false
 #include <cstddef>     // std::max_align_t
@@ -92,12 +91,6 @@ namespace bit {
                      const null_block_allocator& rhs ) noexcept;
     bool operator!=( const null_block_allocator& lhs,
                      const null_block_allocator& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
-    // Utilities
-    //-------------------------------------------------------------------------
-
-    using cached_null_block_allocator = cached_block_allocator<null_block_allocator>;
 
   } // namespace memory
 } // namespace bit

@@ -56,7 +56,7 @@ inline bit::memory::owner<bit::memory::memory_block>
 
     if( BIT_MEMORY_UNLIKELY( block == nullblock ) ) return nullblock;
 
-    tracker.on_allocate( block.data(), block.size() );
+    tracker.on_allocate( block.data(), block.size(), block_align( typename traits_type::has_block_alignment{} ) );
   }
 
   tagger.tag_allocation( block.data(), block.size() );
@@ -74,8 +74,6 @@ inline void bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lo
   auto& tagger    = detail::get<1>(*this);
   auto& tracker   = detail::get<2>(*this);
   auto& lock      = detail::get<3>(*this);
-
-  const auto info = traits_type::info(allocator);
 
   // Tag the deallocation
   tagger.tag_deallocation( block.data(), block.size() );
@@ -112,6 +110,28 @@ inline bit::memory::allocator_info
   const noexcept
 {
   return traits_type::info( detail::get<0>(*this) );
+}
+
+//-----------------------------------------------------------------------------
+// Private Members
+//-----------------------------------------------------------------------------
+
+template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
+inline std::size_t
+  bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
+  ::block_align( std::true_type )
+  const noexcept
+{
+  return traits_type::block_alignment( detail::get<0>(*this) );
+}
+
+template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
+inline std::size_t
+  bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
+  ::block_align( std::false_type )
+  const noexcept
+{
+  return 1;
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_POLICY_BLOCK_ALLOCATOR_INL */

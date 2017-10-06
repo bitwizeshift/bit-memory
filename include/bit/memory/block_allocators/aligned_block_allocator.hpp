@@ -17,7 +17,6 @@
 #include "../memory_block.hpp"   // memory_block
 
 #include "cached_block_allocator.hpp" // cached_block_allocator
-#include "debug_block_allocator.hpp"  // debug_block_allocator
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t
@@ -186,8 +185,6 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    using dynamic_aligned_block_allocator = aligned_block_allocator<dynamic_size,dynamic_size>;
-
     /// \brief A cached version of aligned_block_allocator
     ///
     /// \tparam Size The size of the block
@@ -195,23 +192,9 @@ namespace bit {
     template<std::size_t Size,std::size_t Align>
     using cached_aligned_block_allocator = cached_block_allocator<aligned_block_allocator<Size,Align>>;
 
-    /// \brief A debug version of aligned_block_allocator
-    ///
-    /// \tparam Size The size of the block
-    /// \tparam Align The alignment of block
-    template<std::size_t Size,std::size_t Align>
-    using debug_aligned_block_allocator = debug_block_allocator<aligned_block_allocator<Size,Align>>;
-
-    /// \brief A cached/debug version of aligned_block_allocator
-    ///
-    /// \tparam Size The size of the block
-    /// \tparam Align The alignment of block
-    template<std::size_t Size,std::size_t Align>
-    using cached_debug_aligned_block_allocator = cached_block_allocator<debug_block_allocator<aligned_block_allocator<Size,Align>>>;
+    using dynamic_aligned_block_allocator = aligned_block_allocator<dynamic_size,dynamic_size>;
 
     using cached_dynamic_aligned_block_allocator = cached_block_allocator<dynamic_aligned_block_allocator>;
-    using debug_dynamic_aligned_block_allocator = debug_block_allocator<dynamic_aligned_block_allocator>;
-    using cached_debug_dynamic_aligned_block_allocator = debug_block_allocator<cached_block_allocator<dynamic_aligned_block_allocator>>;
 
   } // namespace memory
 } // namespace bit

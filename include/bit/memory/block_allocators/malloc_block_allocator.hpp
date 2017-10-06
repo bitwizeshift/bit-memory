@@ -17,7 +17,6 @@
 #include "../memory_block.hpp"             // memory_block
 
 #include "cached_block_allocator.hpp"
-#include "debug_block_allocator.hpp"
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <cstdlib>     // std::malloc, std::free
@@ -158,14 +157,8 @@ namespace bit {
 
     template<std::size_t Size>
     using cached_malloc_block_allocator = cached_block_allocator<malloc_block_allocator<Size>>;
-    template<std::size_t Size>
-    using debug_malloc_block_allocator = debug_block_allocator<malloc_block_allocator<Size>>;
-    template<std::size_t Size>
-    using cached_debug_malloc_block_allocator = debug_block_allocator<cached_block_allocator<malloc_block_allocator<Size>>>;
 
-    using cached_dynamic_malloc_block_allocator       = cached_block_allocator<dynamic_malloc_block_allocator>;
-    using debug_dynamic_malloc_block_allocator        = debug_block_allocator<dynamic_malloc_block_allocator>;
-    using cached_debug_dynamic_malloc_block_allocator = debug_block_allocator<cached_block_allocator<dynamic_malloc_block_allocator>>;
+    using cached_dynamic_malloc_block_allocator = cached_block_allocator<dynamic_malloc_block_allocator>;
 
   } // namespace memory
 } // namespace bit

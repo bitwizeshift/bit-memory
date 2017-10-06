@@ -17,7 +17,6 @@
 #include "../memory_block.hpp"             // memory_block
 
 #include "cached_block_allocator.hpp"
-#include "debug_block_allocator.hpp"
 
 #include <new>         // ::new
 #include <type_traits> // std::true_type, std::false_type, etc
@@ -164,18 +163,12 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    using dynamic_new_block_allocator = new_block_allocator<dynamic_size>;
-
     template<std::size_t Size>
     using cached_new_block_allocator = cached_block_allocator<new_block_allocator<Size>>;
-    template<std::size_t Size>
-    using debug_new_block_allocator  = debug_block_allocator<new_block_allocator<Size>>;
-    template<std::size_t Size>
-    using cached_debug_new_block_allocator = debug_block_allocator<cached_block_allocator<new_block_allocator<Size>>>;
+
+    using dynamic_new_block_allocator = new_block_allocator<dynamic_size>;
 
     using cached_dynamic_new_block_allocator = cached_block_allocator<dynamic_new_block_allocator>;
-    using debug_dynamic_new_block_allocator  = debug_block_allocator<dynamic_new_block_allocator>;
-    using cached_debug_dynamic_new_block_allocator = debug_block_allocator<cached_block_allocator<dynamic_new_block_allocator>>;
 
   } // namespace memory
 } // namespace bit

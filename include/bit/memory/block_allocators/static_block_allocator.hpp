@@ -12,7 +12,6 @@
 #include "../memory.hpp"             // owner
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
-#include "debug_block_allocator.hpp"
 
 #include <cstddef> // std::size_t, std::max_align_t
 #include <cassert> // assert
@@ -122,9 +121,6 @@ namespace bit {
       /// \return the memory_block_cache
       static memory_block_cache& block_cache() noexcept;
     };
-
-    template<std::size_t BlockSize, std::size_t Blocks = 1, std::size_t Align = alignof(std::max_align_t), typename Tag = void>
-    using debug_static_block_allocator = debug_block_allocator<static_block_allocator<BlockSize,Blocks,Align,Tag>>;
 
   } // namespace memory
 } // namespace bit

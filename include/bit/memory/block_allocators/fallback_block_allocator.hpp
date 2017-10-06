@@ -12,7 +12,6 @@
 #include "../memory.hpp"
 #include "../memory_block.hpp"
 #include "cached_block_allocator.hpp"
-#include "debug_block_allocator.hpp"
 
 #include <tuple>   // std::tuple
 #include <utility> // std::index_sequence
@@ -120,14 +119,6 @@ namespace bit {
     template<typename BlockAllocator0, typename...BlockAllocatorN>
     using cached_fallback_block_allocator =
       cached_block_allocator<fallback_block_allocator<BlockAllocator0,BlockAllocatorN...>>;
-
-    template<typename BlockAllocator0, typename...BlockAllocatorN>
-    using debug_fallback_block_allocator =
-      debug_block_allocator<fallback_block_allocator<BlockAllocator0,BlockAllocatorN...>>;
-
-    template<typename BlockAllocator0, typename...BlockAllocatorN>
-    using cached_debug_fallback_block_allocator =
-      cached_block_allocator<debug_block_allocator<fallback_block_allocator<BlockAllocator0,BlockAllocatorN...>>>;
 
   } // namespace memory
 } // namespace bit

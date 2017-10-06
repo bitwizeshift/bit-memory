@@ -191,6 +191,15 @@ namespace bit {
       /// \return the allocator info
       template<typename U = BlockAllocator, typename = std::enable_if_t<detail::block_allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
+
+      //-----------------------------------------------------------------------
+      // Private Members
+      //-----------------------------------------------------------------------
+    private:
+
+      std::size_t block_align( std::true_type ) const noexcept;
+      std::size_t block_align( std::false_type ) const noexcept;
+
     };
 
   } // namespace memory

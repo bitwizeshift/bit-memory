@@ -13,7 +13,6 @@
 #include "../memory.hpp"       // memory, is_power_of_two
 #include "../memory_block.hpp" // memory_block
 
-#include "debug_block_allocator.hpp"  // debug_block_allocator
 #include "cached_block_allocator.hpp" // cached_block_allocator
 
 #include <cstddef> // std::max_align_t
@@ -111,13 +110,7 @@ namespace bit {
     //-------------------------------------------------------------------------
 
     template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using debug_stack_block_allocator = debug_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
-
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
     using cached_stack_block_allocator = cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
-
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using cached_debug_stack_block_allocator = debug_block_allocator<cached_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>>;
 
   } // namespace memory
 } // namespace bit

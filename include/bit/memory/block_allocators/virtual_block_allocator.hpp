@@ -12,7 +12,6 @@
 #include "../virtual_memory.hpp"
 #include "../memory_block.hpp"
 #include "../memory_block_cache.hpp"
-#include "debug_block_allocator.hpp"
 
 #include <cstddef> // std::size_t
 
@@ -96,9 +95,6 @@ namespace bit {
       std::ptrdiff_t     m_active_page; ///< The currently active page
       memory_block_cache m_cache;       ///< Cache of already committed pages
     };
-
-    /// \brief A debug virtual block allocator.
-    using debug_virtual_block_allocator = debug_block_allocator<virtual_block_allocator>;
 
   } // namespace memory
 } // namespace bit
