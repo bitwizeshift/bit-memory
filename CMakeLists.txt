@@ -106,6 +106,7 @@ set(headers
   # Allocators
   include/bit/memory/allocators/detail/named_allocator.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
+  include/bit/memory/allocators/aligned_offset_allocator.hpp
   include/bit/memory/allocators/any_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
