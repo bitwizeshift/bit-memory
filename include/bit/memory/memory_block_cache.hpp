@@ -18,67 +18,6 @@ namespace bit {
   namespace memory {
 
     //////////////////////////////////////////////////////////////////////////
-    /// \brief An iterator for the memory_block_cache
-    //////////////////////////////////////////////////////////////////////////
-    class memory_block_cache_iterator
-    {
-      //----------------------------------------------------------------------
-      // Public Member Types
-      //----------------------------------------------------------------------
-    public:
-
-      using iterator_category = std::forward_iterator_tag;
-      using value_type        = std::add_const_t<memory_block>;
-      using pointer           = value_type*;
-      using reference         = value_type&;
-      using difference_type   = std::ptrdiff_t;
-
-      //----------------------------------------------------------------------
-      // Constructor
-      //----------------------------------------------------------------------
-    public:
-
-      /// \brief Default-constructs an end-iterator
-      explicit memory_block_cache_iterator();
-
-      /// \brief Constructs an iterator for this memory_block_cache
-      ///
-      /// \param block a pointer to the first block
-      explicit memory_block_cache_iterator( memory_block block );
-
-      //----------------------------------------------------------------------
-      // Member functions
-      //----------------------------------------------------------------------
-    public:
-
-      reference operator*() noexcept;
-      pointer operator->() noexcept;
-
-      memory_block_cache_iterator& operator++() noexcept;
-      memory_block_cache_iterator operator++(int) noexcept;
-
-      //----------------------------------------------------------------------
-      // Private Members
-      //----------------------------------------------------------------------
-    private:
-
-      memory_block m_block; /// A memory block to use as the pointer
-
-      friend bool operator==( const memory_block_cache_iterator&,
-                              const memory_block_cache_iterator& ) noexcept;
-    };
-
-    //------------------------------------------------------------------------
-    // Comparison Operators
-    //------------------------------------------------------------------------
-
-    bool operator==( const memory_block_cache_iterator& lhs,
-                     const memory_block_cache_iterator& rhs ) noexcept;
-
-    bool operator!=( const memory_block_cache_iterator& lhs,
-                     const memory_block_cache_iterator& rhs ) noexcept;
-
-    //////////////////////////////////////////////////////////////////////////
     /// \brief A cache containing an intrinsically linked list of
     ///        memory_blocks
     ///
@@ -89,14 +28,6 @@ namespace bit {
     /////////////////////////////////////////////////////////////////////////
     class memory_block_cache
     {
-      //----------------------------------------------------------------------
-      // Public Member Types
-      //----------------------------------------------------------------------
-    public:
-
-      using iterator        = memory_block_cache_iterator;
-      using const_iterator  = memory_block_cache_iterator;
-
       //----------------------------------------------------------------------
       // Constructor / Assignment
       //----------------------------------------------------------------------
@@ -186,35 +117,6 @@ namespace bit {
       ///
       /// \param other the other memory_block_cache to swap with
       void swap( memory_block_cache& other ) noexcept;
-
-      //----------------------------------------------------------------------
-      // Iteration
-      //----------------------------------------------------------------------
-    public:
-
-      /// \brief Gets the begin iterator for this cache
-      ///
-      /// \return the begin iterator
-      iterator begin() noexcept;
-
-      /// \copydoc memory_block_cache::begin()
-      const_iterator begin() const noexcept;
-
-      /// \copydoc memory_block_cache::begin()
-      const_iterator cbegin() const noexcept;
-
-      //----------------------------------------------------------------------
-
-      /// \brief Gets the end iterator for this cache
-      ///
-      /// \return the end iterator
-      iterator end() noexcept;
-
-      /// \copydoc memory_block_cache::end()
-      const_iterator end() const noexcept;
-
-      /// \copydoc memory_block_cache::end()
-      const_iterator cend() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Members

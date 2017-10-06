@@ -153,7 +153,6 @@ endif()
 
 set(source_files
   # Utilities
-  src/bit/memory/memory_block_cache.cpp
   src/bit/memory/debugging.cpp
   src/bit/memory/errors.cpp
 
