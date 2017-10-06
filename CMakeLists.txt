@@ -124,6 +124,7 @@ set(headers
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
+  include/bit/memory/block_allocators/policy_block_allocator.hpp
   include/bit/memory/block_allocators/stack_block_allocator.hpp
   include/bit/memory/block_allocators/static_block_allocator.hpp
   include/bit/memory/block_allocators/synchronized_block_allocator.hpp
