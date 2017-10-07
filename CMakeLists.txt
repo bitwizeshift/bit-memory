@@ -5,7 +5,6 @@ enable_testing()
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 
 include(AddIndependenceCheck)
-include(GitBuildInformation)
 include(MakeVersionHeader)
 
 #-----------------------------------------------------------------------------
@@ -26,22 +25,12 @@ endif()
 # Version Info
 #-----------------------------------------------------------------------------
 
-git_build_information( PATCH_VARIABLE BIT_MEMORY_VERSION_PATCH
-                       BUILD_VARIABLE BIT_MEMORY_BUILD_NUMBER
-                       BRANCH_VARIABLE BIT_MEMORY_BRANCH
-                       REF 29468d8bf1f538d823ea1b7e6f66d8250cf32ad4 # v0.1 -- CI doesn't pull tags
-                       PATHSPECS ${CMAKE_CURRENT_LIST_DIR}/include
-                                 ${CMAKE_CURRENT_LIST_DIR}/cmake
-                                 ${CMAKE_CURRENT_LIST_FILE}
-)
-
 set(BIT_MEMORY_VERSION_MAJOR 0 CACHE STRING "major version of bit::memory" FORCE)
 set(BIT_MEMORY_VERSION_MINOR 1 CACHE STRING "minor version of bit::memory" FORCE)
-set(BIT_MEMORY_VERSION_PATCH ${BIT_MEMORY_VERSION_PATCH} CACHE STRING "patch version of bit::memory" FORCE)
+set(BIT_MEMORY_VERSION_PATCH 188 CACHE STRING "patch version of bit::memory" FORCE)
 set(BIT_MEMORY_VERSION "${BIT_MEMORY_VERSION_MAJOR}.${BIT_MEMORY_VERSION_MINOR}.${BIT_MEMORY_VERSION_PATCH}" CACHE STRING "version of bit::memory" FORCE)
-set(BIT_MEMORY_BUILD_NUMBER "${BIT_MEMORY_BUILD_NUMBER}" CACHE STRING "build number of bit::memory" FORCE)
 
-message(STATUS "bit::memory ${BIT_MEMORY_VERSION} (${BIT_MEMORY_BRANCH} ${BIT_MEMORY_BUILD_NUMBER})")
+message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
 
 #-----------------------------------------------------------------------------
 # bit::memory
@@ -53,10 +42,8 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
   MAJOR ${BIT_MEMORY_VERSION_MAJOR}
   MINOR ${BIT_MEMORY_VERSION_MINOR}
   PATCH ${BIT_MEMORY_VERSION_PATCH}
-  BUILD ${BIT_MEMORY_BUILD_NUMBER}
   PREFIX BIT_MEMORY
   SUFFIX "a"
-  TAG ${BIT_MEMORY_BRANCH}
 )
 
 set(headers
