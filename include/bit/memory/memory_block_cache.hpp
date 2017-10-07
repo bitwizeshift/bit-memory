@@ -10,9 +10,8 @@
 #ifndef BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 
-#include "memory_block.hpp"
-#include "memory.hpp"
-#include <iterator>
+#include "memory_block.hpp" // memory_block
+#include "memory.hpp"       // owner
 
 namespace bit {
   namespace memory {

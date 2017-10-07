@@ -9,8 +9,8 @@
 #ifndef BIT_MEMORY_VIRTUAL_MEMORY_HPP
 #define BIT_MEMORY_VIRTUAL_MEMORY_HPP
 
-#include "memory_block.hpp"
-#include "memory_block_cache.hpp"
+#include "memory_block.hpp"       // memory_block
+#include "memory_block_cache.hpp" // memory_block_cache
 
 #include <cstdint> // std::size_t & std::ptrdiff_t
 #include <cstddef> // std::size_t

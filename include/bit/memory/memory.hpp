@@ -1,13 +1,15 @@
 /**
  * \file memory.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header is guaranteed to define the type 'byte'
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
 #ifndef BIT_MEMORY_MEMORY_HPP
 #define BIT_MEMORY_MEMORY_HPP
+
+#include "byte.hpp" // byte
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <utility> // std::forward
@@ -167,7 +169,6 @@ namespace bit {
 } // namespace bit
 
 // IWYU pragma: begin_exports
-#include "detail/memory/byte.hpp"
 #include "detail/memory/alignment.hpp"
 // IWYU pragma: end_exports
 

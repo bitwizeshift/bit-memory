@@ -1,10 +1,10 @@
 /**
  * \file byte.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header defines an unambiguous byte type, used for pointers and
+ *        byte management
  *
- * \note This is an internal header file, included by other library headers.
- *       Do not attempt to use it directly.
+ * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 #ifndef BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
 #define BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
@@ -14,11 +14,16 @@
 namespace bit {
   namespace memory {
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// \brief An unambiguous integral type of exactly size 1
+    ///
+    /// This avoids ambiguity between char, signed char, and unsigned char
+    ///////////////////////////////////////////////////////////////////////////
     enum class byte : unsigned char{};
 
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Operators
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
 #ifndef BIT_DOXYGEN_BUILD
     template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
@@ -38,7 +43,7 @@ namespace bit {
     constexpr byte operator^(byte lhs, byte rhs) noexcept;
     constexpr byte operator~(byte lhs) noexcept;
 
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
 #ifndef BIT_DOXYGEN_BUILD
     template<typename IntT, typename = std::enable_if_t<std::is_integral<IntT>::value>>
@@ -58,9 +63,9 @@ namespace bit {
     byte& operator&=(byte& lhs, byte rhs) noexcept;
     byte& operator^=(byte& lhs, byte rhs) noexcept;
 
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Byte Literals
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     inline namespace literals {
       inline namespace byte_literals {
@@ -70,15 +75,9 @@ namespace bit {
       } // inline namespace byte_literals
     } // inline namespace literals
 
-    template<typename IntT>
-    IntT read_packed_bytes( const void* p ) noexcept;
-
-    template<typename IntT>
-    void write_packed_bytes( void* p, IntT i ) noexcept;
-
   } // namespace memory
 } // namespace bit
 
-#include "byte.inl"
+#include "detail/byte.inl"
 
 #endif // BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP

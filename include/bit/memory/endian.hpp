@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ENDIAN_HPP
 #define BIT_MEMORY_ENDIAN_HPP
 
-#include "memory.hpp" // byte
+#include "byte.hpp" // byte
 
 #include <algorithm>   // std::reverse
 #include <cstdint>     // std::int8_t, std::uint8_t, etc
