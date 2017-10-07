@@ -127,8 +127,9 @@ namespace {
                              const void* ptr,
                              std::ptrdiff_t size )
   {
-    std::cerr << "leak discovered with allocator '"
-              << info.name() << "': "
+    std::cerr << "memory leak occurred with allocator {\""
+              << info.name()
+              << "\", " << info.address() << "}.\n"
               << size << " bytes leaked at address " << ptr << "\n";
 
     assert(false);
@@ -139,8 +140,11 @@ namespace {
                                         const void* ptr,
                                         std::ptrdiff_t size )
   {
-    std::cerr << "buffer overflow detected at address " << ptr << "\n"
-              << size << " bytes overwritten.\n";
+    std::cerr << "buffer overflow occurred with allocator {\""
+              << info.name()
+              << "\", " << info.address() << "}.\n"
+              << size << " bytes overwritten at address "
+              << ptr << ".\n";
 
     assert(false);
   }
@@ -149,8 +153,11 @@ namespace {
                                       const void* ptr,
                                       std::ptrdiff_t size )
   {
-    std::cerr << "double delete detected at address " << ptr << "\n"
-              << size << " bytes double-deleted.\n";
+    std::cerr << "double delete occurred with allocator {\""
+              << info.name()
+              << "\", " << info.address() << "}.\n"
+              << size << " bytes double-deleted at address "
+              << ptr << ".\n";
 
     assert(false);
   }
@@ -158,10 +165,10 @@ namespace {
   void default_out_of_memory_handler( const bit::memory::allocator_info& info,
                                       std::size_t size )
   {
-    std::cerr << "out of memory with allocator '"
+    std::cerr << "out of memory occurred with allocator {\""
               << info.name()
-              << "' at address " << info.address() << ".\n"
-              << "requested allocation size: " << size << " bytes\n";
+              << "\", " << info.address() << "}.\n"
+              << "Requested allocation size: " << size << " bytes\n";
 
     assert(false);
   }
