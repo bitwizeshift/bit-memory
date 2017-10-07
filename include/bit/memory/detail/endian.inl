@@ -1,12 +1,17 @@
 #ifndef BIT_MEMORY_DETAIL_ENDIAN_INL
 #define BIT_MEMORY_DETAIL_ENDIAN_INL
 
-
 //-----------------------------------------------------------------------------
 // Swapping
 //-----------------------------------------------------------------------------
 
 inline char bit::memory::endian_swap( char val )
+  noexcept
+{
+  return val;
+}
+
+inline bit::memory::byte bit::memory::endian_swap( byte val )
   noexcept
 {
   return val;
@@ -146,10 +151,10 @@ inline T* bit::memory::endian_swap_in_place( T* p )
 
 namespace bit { namespace memory { inline namespace casts { namespace detail {
 
-  template<bit::memory::endian Endianness, typename T>
+  template<endian Endianness, typename T>
   struct endian_caster
   {
-    inline T operator()( T&& val )
+    inline T operator()( T val )
       noexcept
     {
       return endian_swap( std::forward<T>(val) );
@@ -157,10 +162,9 @@ namespace bit { namespace memory { inline namespace casts { namespace detail {
   };
 
   template<typename T>
-  struct endian_caster<bit::memory::endian::native,T>
+  struct endian_caster<endian::native,T>
   {
-    // Forward the type, since no cast should be made
-    inline T&& operator()( T&& val )
+    inline T operator()( T val )
       noexcept
     {
       return std::forward<T>(val);
