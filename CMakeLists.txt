@@ -29,7 +29,7 @@ endif()
 git_build_information( PATCH_VARIABLE BIT_MEMORY_VERSION_PATCH
                        BUILD_VARIABLE BIT_MEMORY_BUILD_NUMBER
                        BRANCH_VARIABLE BIT_MEMORY_BRANCH
-                       REF v0.1
+                       REF 29468d8bf1f538d823ea1b7e6f66d8250cf32ad4 # v0.1 -- CI doesn't pull tags
                        PATHSPECS ${CMAKE_CURRENT_LIST_DIR}/include
                                  ${CMAKE_CURRENT_LIST_DIR}/cmake
                                  ${CMAKE_CURRENT_LIST_FILE}
