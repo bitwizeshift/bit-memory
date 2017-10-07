@@ -10,7 +10,8 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_NULL_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../memory.hpp"        // owner
+
+#include "../owner.hpp"         // owner
 #include "../memory_block.hpp"  // memory_block
 
 #include <type_traits> // std::integral_constant, std::true_false

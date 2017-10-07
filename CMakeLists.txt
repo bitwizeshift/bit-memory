@@ -59,18 +59,20 @@ set(headers
   include/bit/memory/allocator_info.hpp
   include/bit/memory/allocator_deleter.hpp
   include/bit/memory/allocator_reference.hpp
+  include/bit/memory/byte.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/endian.hpp
   include/bit/memory/errors.hpp
   include/bit/memory/freelist.hpp
   include/bit/memory/macros.hpp
-  include/bit/memory/memory.hpp
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
+  include/bit/memory/owner.hpp
   include/bit/memory/std_allocator_adapter.hpp
   include/bit/memory/unaligned_memory.hpp
+  include/bit/memory/uninitialized_storage.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp

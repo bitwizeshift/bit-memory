@@ -11,8 +11,9 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../macros.hpp"              // BIT_MEMORY_UNLIKELY
-#include "../memory.hpp"              // offset_align_forward, byte
+#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../byte.hpp"              // byte
+#include "../pointer_utilities.hpp" // offset_align_forward
 
 #include <cstddef>     // std::size_t, std::max_align_t
 #include <type_traits> // std::true_type, std::integral_constant

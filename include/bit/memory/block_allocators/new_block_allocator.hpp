@@ -14,7 +14,7 @@
 
 #include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
 #include "../macros.hpp"                   // BIT_MEMORY_UNLIKELY
-#include "../memory.hpp"                   // owner
+#include "../owner.hpp"                    // owner
 #include "../memory_block.hpp"             // memory_block
 
 #include "cached_block_allocator.hpp"

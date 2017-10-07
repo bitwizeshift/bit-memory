@@ -6,11 +6,10 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_MEMORY_BLOCK_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_HPP
 
-#include "detail/memory/byte.hpp" // byte
+#include "byte.hpp" // byte
 
 #include <cstdlib> // std::size_t
 #include <utility> // std::swap
@@ -19,7 +18,7 @@ namespace bit {
   namespace memory {
     namespace detail {
       struct memory_block_arg{};
-    }
+    } // namespace detail
 
     /// \brief An instance to represent null memory blocks
 #ifndef BIT_DOXYGEN_BUILD

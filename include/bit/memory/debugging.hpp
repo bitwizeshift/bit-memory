@@ -8,7 +8,6 @@
 #ifndef BIT_MEMORY_DEBUGGING_HPP
 #define BIT_MEMORY_DEBUGGING_HPP
 
-#include "memory.hpp"       // owner
 #include "memory_block.hpp" // memory_block
 #include "concepts.hpp"
 

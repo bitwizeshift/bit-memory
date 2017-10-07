@@ -10,9 +10,10 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../virtual_memory.hpp"     // virtual_alloc, etc
-#include "../memory_block.hpp"       // owner
+
+#include "../owner.hpp"              // owner
 #include "../memory_block_cache.hpp" // memory_block_cache
+#include "../virtual_memory.hpp"     // virtual_alloc, etc
 
 #include <cstddef> // std::size_t
 

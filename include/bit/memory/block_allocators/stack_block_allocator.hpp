@@ -10,9 +10,11 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_STACK_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../macros.hpp"       // BIT_MEMORY_UNUSED
-#include "../memory.hpp"       // memory, is_power_of_two
-#include "../memory_block.hpp" // memory_block
+
+#include "../macros.hpp"            // BIT_MEMORY_UNUSED
+#include "../memory_block.hpp"      // memory_block
+#include "../owner.hpp"             // owner
+#include "../pointer_utilities.hpp" // is_power_of_two
 
 #include "cached_block_allocator.hpp" // cached_block_allocator
 

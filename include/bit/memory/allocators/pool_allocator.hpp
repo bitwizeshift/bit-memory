@@ -12,7 +12,7 @@
 #include "detail/named_allocator.hpp"
 
 #include "../macros.hpp" // BIT_MEMORY_ASSUME
-#include "../memory.hpp" // byte
+#include "../byte.hpp" // byte
 
 #include <cassert>
 

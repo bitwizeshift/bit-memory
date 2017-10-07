@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
 
-#include "../memory.hpp"
+#include "../owner.hpp"  // owner
 #include "../errors.hpp" // out_of_memory_handler
 
 #include <cstddef>     // std::size_t, std::max_align_t
