@@ -20,11 +20,10 @@ inline void bit::memory::store_unaligned( void* p, const T& val )
 template<typename T>
 inline T bit::memory::load_unaligned( const void* p )
 {
-  alignas(alignof(T)) char storage[sizeof(T)];
+  T result;
+  std::memcpy(reinterpret_cast<char*>(&result),p,sizeof(T));
 
-  std::memcpy(&storage[0],p,sizeof(T));
-
-  return (*reinterpret_cast<T*>(&storage[0]));
+  return result;
 }
 
 //-----------------------------------------------------------------------------
