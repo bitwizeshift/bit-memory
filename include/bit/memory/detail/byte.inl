@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_MEMORY_BYTE_INL
-#define BIT_MEMORY_DETAIL_MEMORY_BYTE_INL
+#ifndef BIT_MEMORY_BYTE_INL
+#define BIT_MEMORY_BYTE_INL
 
 template<typename IntT, typename>
 inline constexpr bit::memory::byte bit::memory::operator<<(byte lhs, IntT shift)
@@ -87,4 +87,4 @@ inline constexpr bit::memory::byte
   return static_cast<byte>(b);
 }
 
-#endif // BIT_MEMORY_DETAIL_MEMORY_BYTE_INL
+#endif // BIT_MEMORY_BYTE_INL

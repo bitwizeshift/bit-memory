@@ -6,8 +6,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
-#define BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
+#ifndef BIT_MEMORY_BYTE_HPP
+#define BIT_MEMORY_BYTE_HPP
 
 #include <type_traits> // std::enable_if, std::is_integral
 
@@ -80,4 +80,4 @@ namespace bit {
 
 #include "detail/byte.inl"
 
-#endif // BIT_MEMORY_DETAIL_MEMORY_BYTE_HPP
+#endif // BIT_MEMORY_BYTE_HPP

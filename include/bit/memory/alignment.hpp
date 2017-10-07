@@ -5,8 +5,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
-#define BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
+#ifndef BIT_MEMORY_ALIGNMENT_HPP
+#define BIT_MEMORY_ALIGNMENT_HPP
 
 #include "memory.hpp" // advance
 
@@ -114,4 +114,4 @@ namespace bit {
 
 #include "detail/alignment.inl"
 
-#endif // BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
+#endif // BIT_MEMORY_ALIGNMENT_HPP

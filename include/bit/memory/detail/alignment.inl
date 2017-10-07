@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_INL
-#define BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_INL
+#ifndef BIT_MEMORY_ALIGNMENT_INL
+#define BIT_MEMORY_ALIGNMENT_INL
 
 //----------------------------------------------------------------------------
 // Alignment Checking
@@ -151,4 +151,4 @@ inline void* bit::memory::offset_align_backward( void* ptr,
 }
 
 
-#endif // BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_INL
+#endif // BIT_MEMORY_ALIGNMENT_INL
