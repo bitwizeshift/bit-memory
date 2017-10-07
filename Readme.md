@@ -21,6 +21,9 @@ Additionally, this library offers utilities for the following concerns:
 - Virtual Memory: Functionality for reserving and committing virtual memory pages in a cross-platform way (MacOS,Linux, and Windows)
 - Aligned Memory: Functionality for allocating over-aligned memory
 
+This library defines a variety of `BlockAllocator`s and `Allocator`s -- and is extendable through user-defined custom types that
+conform to the concepts defined here.
+
 ## Differences from Standard Allocators
 
 The `Allocator` concept in this library differs from the C++ standard's allocators in a few ways
@@ -296,3 +299,62 @@ A::can_truncate_deallocations
 Determines whether the allocator is capable of truncating deallocations
 by clearing away larger chunks of data, rather than waiting for the every
 deallocation call.
+
+```c++
+bool b = a.owns( p );
+```
+
+`a` checks whether it owns the pointer `p`, returning the result.
+
+### <a name='extended-allocator'></a>`ExtendedAllocator` Concept
+
+This concept defines the required interface and semantics expected of an
+extended allocator
+
+An `ExtendedAllocator` is also an `Allocator` that provides extended
+ability to offset the allocations alignment.
+
+**Requirements**
+
+[`Allocator`](#allocator)
+
+For type `A` to be `ExtendedAllocator`, it must satisfy the above
+conditions as well as the following:
+
+Provided
+
+`A` - an `Allocator` type
+`a` - an instance of type `A`
+`s` - the size of an allocation
+`n` - the alignment of the allocation
+`o` - the offset for the alignment
+`v` - a void pointer
+
+the following expressions must be well-formed with the expected
+side-effects:
+
+#### Required
+
+```c++
+v = a.try_allocate( s, n, o );
+```
+
+`a` tries to allocate at least `s` bytes aligned to the boundary `n`,
+offset by `o` bytes.
+
+The expression ```c++ a.try_allocate( s, n, o ) ``` must be
+non-throwing, otherwise it is undefined behaviour.
+
+#### Optional
+
+```c++
+v = a.allocate( s, n, o );
+```
+
+`a` allocates at least `s` bytes aligned to the boundary `n`, offset by `o`
+
+The behaviour of this function is implementation-defined on failure
+(may throw, may invoke out-of-memory handler, etc).
+
+The default for this is to invoke out-of-memory handler on `nullptr`
+if an implementation is not provided
