@@ -82,6 +82,7 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/std_allocator_adapter.hpp
+  include/bit/memory/unaligned_memory.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp
