@@ -73,6 +73,7 @@ set(headers
   include/bit/memory/allocator_reference.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
+  include/bit/memory/endian.hpp
   include/bit/memory/errors.hpp
   include/bit/memory/freelist.hpp
   include/bit/memory/macros.hpp
