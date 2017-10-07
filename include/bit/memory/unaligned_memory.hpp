@@ -10,9 +10,25 @@
 
 #include <cstdint> // std::uint8_t, std::uint16_t, etc
 #include <cstring> // std::memcpy
+#include <memory>  // std::addressof
 
 namespace bit {
   namespace memory {
+
+    //-------------------------------------------------------------------------
+    // Storing
+    //-------------------------------------------------------------------------
+
+    /// \brief Stores an arbitrary type \p T into unaligned memory
+    ///
+    /// \param p the memory to store into
+    /// \param val the value to store
+    template<typename T>
+    void store_unaligned( void* p, const T& val );
+
+    //-------------------------------------------------------------------------
+    // Loading
+    //-------------------------------------------------------------------------
 
     /// \brief Loads an arbitrary type \p T from unaligned memory
     ///
@@ -25,7 +41,7 @@ namespace bit {
     /// \param p pointer to the memory to load from
     /// \return the type \p T
     template<typename T>
-    T load_unaligned( void* p );
+    T load_unaligned( const void* p );
 
     //-------------------------------------------------------------------------
 
@@ -34,14 +50,14 @@ namespace bit {
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::int8_t
-    std::int8_t load_unaligned_int8( void* p );
+    std::int8_t load_unaligned_int8( const void* p );
 
     /// \brief Loads an unaligned std::uint8_t from the memory pointed at
     ///        by \p p
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::uint8_t
-    std::uint8_t load_unaligned_uint8( void* p );
+    std::uint8_t load_unaligned_uint8( const void* p );
 
     //-------------------------------------------------------------------------
 
@@ -50,14 +66,14 @@ namespace bit {
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::int16_t
-    std::int16_t load_unaligned_int16( void* p );
+    std::int16_t load_unaligned_int16( const void* p );
 
     /// \brief Loads an unaligned std::uint16_t from the memory pointed at
     ///        by \p p
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::uint16_t
-    std::uint16_t load_unaligned_uint16( void* p );
+    std::uint16_t load_unaligned_uint16( const void* p );
 
     //-------------------------------------------------------------------------
 
@@ -66,14 +82,14 @@ namespace bit {
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::int32_t
-    std::int32_t load_unaligned_int32( void* p );
+    std::int32_t load_unaligned_int32( const void* p );
 
     /// \brief Loads an unaligned std::uint32_t from the memory pointed at
     ///        by \p p
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::uint32_t
-    std::uint32_t load_unaligned_uint32( void* p );
+    std::uint32_t load_unaligned_uint32( const void* p );
 
     //-------------------------------------------------------------------------
 
@@ -82,14 +98,14 @@ namespace bit {
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::int64_t
-    std::int64_t load_unaligned_int64( void* p );
+    std::int64_t load_unaligned_int64( const void* p );
 
     /// \brief Loads an unaligned std::uint64_t from the memory pointed at
     ///        by \p p
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded std::uint64_t
-    std::uint64_t load_unaligned_uint64( void* p );
+    std::uint64_t load_unaligned_uint64( const void* p );
 
     //-------------------------------------------------------------------------
 
@@ -98,14 +114,14 @@ namespace bit {
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded float
-    float load_unaligned_float( void* p );
+    float load_unaligned_float( const void* p );
 
     /// \brief Loads an unaligned double from the memory pointed at
     ///        by \p p
     ///
     /// \param p pointer to the memory to load from
     /// \return the loaded double
-    double load_unaligned_double( void* p );
+    double load_unaligned_double( const void* p );
 
   } // namespace memory
 } // namespace bit
