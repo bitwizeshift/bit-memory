@@ -5,7 +5,7 @@
 [![Github Issues](https://img.shields.io/github/issues/bitwizeshift/bit-memory.svg)](http://github.com/bitwizeshift/bit-memory/issues)
 [![Tested Compilers](https://img.shields.io/badge/compilers-gcc%20%7C%20clang-blue.svg)](#tested-compilers)
 [![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](http://bitwizeshift.github.io/bit-memory)
-[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bitwizeshift/bit-memory/master/LICENSE.md)
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bitwizeshift/bit-memory/blob/master/LICENSE.md)
 [![Github Releases](https://img.shields.io/github/release/bitwizeshift/bit-memory.svg)](https://github.com/bitwizeshift/bit-memory/releases)
 
 ## What is `bit::memory`?
