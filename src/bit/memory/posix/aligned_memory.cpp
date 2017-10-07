@@ -41,7 +41,6 @@ void* bit::memory::aligned_offset_malloc( std::size_t size,
   ::posix_memalign(&allocated_ptr, align, size);
 
   // Adjust the pointer forward to the alignment, and store the adjustment
-  std::size_t adjust;
   auto p      = static_cast<char*>(allocated_ptr);
   auto adjust = std::size_t{};
   p           = offset_align_forward(p, align, offset+1, &adjust);
