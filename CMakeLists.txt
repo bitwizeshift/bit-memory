@@ -73,6 +73,7 @@ set(headers
   include/bit/memory/owner.hpp
   include/bit/memory/std_allocator_adapter.hpp
   include/bit/memory/unaligned_memory.hpp
+  include/bit/memory/uninitialized_storage.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp
