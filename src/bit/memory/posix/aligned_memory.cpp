@@ -1,10 +1,12 @@
 #include <bit/memory/aligned_memory.hpp>
+#include <bit/memory/unaligned_memory.hpp> // store_unaligned, load_unaligned
+#include <bit/memory/memory.hpp>           // offset_align_forward
 
-#include <unistd.h>
+#include <cstddef> // std::size_t, std::ptrdiff_t
+#include <cstdint> // std::uint16_t
+#include <cstdlib> // std::free
 
-#include <cstdlib>
-#include <cstdint>
-
+#include <unistd.h> // posix_memalign
 
 void* bit::memory::aligned_malloc( std::size_t size, std::size_t align )
   noexcept
@@ -28,48 +30,40 @@ void* bit::memory::aligned_offset_malloc( std::size_t size,
                                           std::size_t offset )
   noexcept
 {
-  union {
-    void*          aligned_ptr;
-    std::uint16_t* adjust_ptr;
-  } r = {};
+  assert( is_power_of_two(align) && "Alignment must be power of 2" );
 
-  assert( align % 2 == 0 && "Alignment must be power of 2" );
+  // Add the amount adjusted for the offset, and
+  // Step offset up to a multiple of the alignment
+  offset += sizeof(std::uint16_t);
+  size   += offset + (offset & align);
 
   void* allocated_ptr;
-
-  // Add the amount adjusted for the offset here.
-  // 16 bits chosen in case an offset greater than 255 is necessary (unlikely)
-  offset += sizeof(std::uint16_t);
-
-  // Step offset up to a multiple of the alignment
-  size += offset + (offset & align);
-
   ::posix_memalign(&allocated_ptr, align, size);
 
-  // Find the amount adjusted and store th result
+  // Adjust the pointer forward to the alignment, and store the adjustment
   std::size_t adjust;
-  //r.aligned_ptr = Pointer_Math::align_forward( allocated_ptr, align, offset, &adjust );
+  auto p      = static_cast<char*>(allocated_ptr);
+  auto adjust = std::size_t{};
+  p           = offset_align_forward(p, align, offset+1, &adjust);
 
-  *(r.adjust_ptr++) = static_cast<std::uint16_t>(adjust);
+  store_unaligned( p, static_cast<std::uint16_t>(adjust) );
 
-  return r.aligned_ptr;
+  return p + sizeof(std::uint16_t);
 }
 
 //------------------------------------------------------------------------
 
 void bit::memory::aligned_offset_free( void* ptr )
 {
-  union{
-    void*          aligned_ptr;
-    std::uint16_t* adjust_ptr;
-  } r = {};
-  r.aligned_ptr = ptr;
-  std::uint16_t adjust = *(--r.adjust_ptr);
+  // Load the previously stored adjustment, then adjust pointer back to
+  // allocated state
+  auto p = static_cast<char*>(ptr);
+  p -= sizeof(std::uint16_t);
 
-  auto p = static_cast<char*>(r.adjust_ptr) - adjust;
-  //  r.aligned_ptr = Pointer_Math::subtract(r.aligned_ptr, adjust);
+  auto adjust = load_unaligned_uint16(p);
+  p -= adjust;
 
-  std::free( ptr );
+  std::free( p );
 }
 
 #define BIT_ALIGNED_MALLOC_DEFINED
