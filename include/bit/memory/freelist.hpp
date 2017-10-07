@@ -8,7 +8,7 @@
 #ifndef BIT_MEMORY_FREELIST_HPP
 #define BIT_MEMORY_FREELIST_HPP
 
-#include "memory.hpp" // align_of
+#include "alignment.hpp" // align_of
 
 #include <cstddef> // std::size_t
 #include <cassert> // assert

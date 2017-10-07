@@ -161,10 +161,6 @@ namespace bit {
   } // inline namespace literals
 } // namespace bit
 
-// IWYU pragma: begin_exports
-#include "detail/memory/alignment.hpp"
-// IWYU pragma: end_exports
-
 #include "detail/memory.inl"
 
 #endif /* BIT_MEMORY_MEMORY_HPP */

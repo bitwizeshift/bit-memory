@@ -1,13 +1,14 @@
 /**
  * \file alignment.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains the definition of various alignment utilities
  *
- * \note This is an internal header file, included by other library headers.
- *       Do not attempt to use it directly.
+ * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 #ifndef BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
 #define BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP
+
+#include "memory.hpp" // advance
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <cstdint> // std::uintpr_t
@@ -111,6 +112,6 @@ namespace bit {
   } // namespace memory
 }  // namespace bit
 
-#include "alignment.inl"
+#include "detail/alignment.inl"
 
 #endif // BIT_MEMORY_DETAIL_MEMORY_ALIGNMENT_HPP

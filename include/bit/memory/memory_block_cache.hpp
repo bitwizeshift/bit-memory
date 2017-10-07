@@ -12,7 +12,7 @@
 
 #include "memory_block.hpp" // memory_block
 #include "owner.hpp"        // owner
-#include "memory.hpp"       // align_of
+#include "alignment.hpp"    // align_of
 
 namespace bit {
   namespace memory {
