@@ -12,6 +12,7 @@ set(source_files
   main.test.cpp
   # Utilities
   bit/memory/memory_block_cache.test.cpp
+  bit/memory/endian.test.cpp
   # Memory Allocations
 
   # Block Allocators
@@ -19,7 +20,6 @@ set(source_files
   bit/memory/block_allocators/malloc_block_allocator.test.cpp
   bit/memory/block_allocators/new_block_allocator.test.cpp
 
-  # Allocators
 
   ${platform_source_files}
 )
