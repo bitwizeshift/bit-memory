@@ -10,9 +10,11 @@
 #ifndef BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 
-#include "memory_block.hpp" // memory_block
-#include "owner.hpp"        // owner
-#include "alignment.hpp"    // align_of
+#include "memory_block.hpp"      // memory_block
+#include "owner.hpp"             // owner
+#include "pointer_utilities.hpp" // align_of
+
+#include <new> // placement new
 
 namespace bit {
   namespace memory {

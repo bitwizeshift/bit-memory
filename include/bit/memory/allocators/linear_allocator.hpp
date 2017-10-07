@@ -9,11 +9,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
 
-#include "detail/named_allocator.hpp"
+#include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../memory.hpp"       // align_forward
-#include "../memory_block.hpp" // memory_block
-#include "../macros.hpp"       // BIT_MEMORY_UNLIKELY
+#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../memory_block.hpp"      // memory_block
+#include "../pointer_utilities.hpp" // align_forward
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t, std::ptrdiff_t

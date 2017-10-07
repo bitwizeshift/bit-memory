@@ -10,8 +10,6 @@
 #ifndef BIT_MEMORY_ALIGNED_MEMORY_HPP
 #define BIT_MEMORY_ALIGNED_MEMORY_HPP
 
-#include "memory.hpp"
-
 #include <new> // std::nothrow_t
 
 namespace bit {

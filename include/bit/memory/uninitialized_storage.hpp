@@ -11,6 +11,7 @@
 #include <tuple>   // std::forward_as_tuple, std::tuple
 #include <utility> // std::forward
 #include <cstddef> // std::size_t
+#include <new>     // placement new
 
 namespace bit {
   namespace memory {

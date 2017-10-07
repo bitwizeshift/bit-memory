@@ -66,7 +66,6 @@ set(headers
   include/bit/memory/errors.hpp
   include/bit/memory/freelist.hpp
   include/bit/memory/macros.hpp
-  include/bit/memory/memory.hpp
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
