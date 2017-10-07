@@ -12,6 +12,7 @@
 #include "../detail/ebo_storage.hpp"                     // detail::ebo_storage
 #include "../detail/block_allocator_function_traits.hpp" // detail::block_allocator_has...
 
+#include "../owner.hpp"                  // owner
 #include "../memory_block.hpp"           // memory_block
 #include "../allocator_info.hpp"         // allocator_info
 #include "../block_allocator_traits.hpp" // block_allocator_traits

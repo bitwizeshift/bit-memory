@@ -15,7 +15,7 @@
 #include "detail/block_allocator_function_traits.hpp" // detail::is_block_allocator
 #include "allocator_reference.hpp"                    // allocator_reference
 
-#include "memory.hpp"        // owner
+#include "owner.hpp"         // owner
 #include "memory_block.hpp"  // memory_block
 
 #include <type_traits> // std::true_type, std::false_type, etc

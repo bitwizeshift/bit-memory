@@ -10,7 +10,7 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../memory.hpp"             // owner
+#include "../owner.hpp"              // owner
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
 

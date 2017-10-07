@@ -11,7 +11,8 @@
 #define BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 
 #include "memory_block.hpp" // memory_block
-#include "memory.hpp"       // owner
+#include "owner.hpp"        // owner
+#include "memory.hpp"       // align_of
 
 namespace bit {
   namespace memory {

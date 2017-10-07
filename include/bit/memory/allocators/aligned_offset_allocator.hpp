@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALIGNED_OFFSET_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_ALIGNED_OFFSET_ALLOCATOR_HPP
 
-#include "../memory.hpp"         // owner
+#include "../owner.hpp"          // owner
 #include "../aligned_memory.hpp" // aligned_malloc, aligned_free
 
 #include <cstddef>     // std::max_align_t

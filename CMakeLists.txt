@@ -70,6 +70,7 @@ set(headers
   include/bit/memory/memory_block.hpp
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
+  include/bit/memory/owner.hpp
   include/bit/memory/std_allocator_adapter.hpp
   include/bit/memory/unaligned_memory.hpp
 

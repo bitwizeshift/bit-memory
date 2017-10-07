@@ -11,7 +11,7 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../virtual_memory.hpp"     // virtual_alloc, etc
-#include "../memory_block.hpp"       // owner
+#include "../owner.hpp"              // owner
 #include "../memory_block_cache.hpp" // memory_block_cache
 
 #include <cstddef> // std::size_t

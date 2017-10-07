@@ -12,6 +12,7 @@
 
 #include "detail/allocator_function_traits.hpp" // is_allocator, etc
 
+#include "owner.hpp"               // owner
 #include "allocator_reference.hpp" // allocator_reference
 #include "allocator_info.hpp"      // allocator_info
 #include "errors.hpp"              // get_out_of_memory_handler

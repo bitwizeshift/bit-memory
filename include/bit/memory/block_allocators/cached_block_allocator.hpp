@@ -10,7 +10,7 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 
-#include "../memory.hpp"             // owner
+#include "../owner.hpp"              // owner
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
 

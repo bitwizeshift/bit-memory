@@ -13,6 +13,7 @@
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../detail/dynamic_size_type.hpp"  // dynamic_size, detail::dynamic_size_type
 
+#include "../owner.hpp"          // owner
 #include "../memory.hpp"         // is_power_of_two
 #include "../aligned_memory.hpp" // aligned_allocate
 #include "../memory_block.hpp"   // memory_block

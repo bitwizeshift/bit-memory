@@ -11,6 +11,7 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../macros.hpp"       // BIT_MEMORY_UNUSED
+#include "../owner.hpp"        // owner
 #include "../memory.hpp"       // memory, is_power_of_two
 #include "../memory_block.hpp" // memory_block
 
