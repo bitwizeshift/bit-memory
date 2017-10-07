@@ -23,15 +23,15 @@ inline void bit::memory::null_block_allocator
 // Comparisons
 //-----------------------------------------------------------------------------
 
-bool bit::memory::operator==( const null_block_allocator& lhs,
-                              const null_block_allocator& rhs )
+bool bit::memory::operator==( const null_block_allocator&,
+                              const null_block_allocator& )
   noexcept
 {
   return true;
 }
 
-bool bit::memory::operator!=( const null_block_allocator& lhs,
-                              const null_block_allocator& rhs )
+bool bit::memory::operator!=( const null_block_allocator&,
+                              const null_block_allocator& )
   noexcept
 {
   return false;

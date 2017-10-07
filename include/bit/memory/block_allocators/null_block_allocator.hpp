@@ -64,7 +64,7 @@ namespace bit {
 
       /// \brief Copy-assigns a null_block_allocator from another allocator
       ///
-      /// \param other the other null_block_allocator to copy\
+      /// \param other the other null_block_allocator to copy
       /// \return reference to \c (*this)
       null_block_allocator& operator=( const null_block_allocator& other ) noexcept = default;
 
