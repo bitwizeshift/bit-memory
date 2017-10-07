@@ -36,7 +36,8 @@ message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
 # bit::memory
 #-----------------------------------------------------------------------------
 
-set(CMAKE_CXX_VERSION 14)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
   MAJOR ${BIT_MEMORY_VERSION_MAJOR}
@@ -158,19 +159,27 @@ set(source_files
 add_library(memory ${source_files} ${headers})
 add_library(bit::memory ALIAS memory)
 
-set_target_properties(memory PROPERTIES
-  CXX_STANDARD 14
-  CXX_STANDARD_REQUIRED true
-)
-
+# Add include directories
 target_include_directories(memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
 )
-target_compile_options(memory PUBLIC -std=c++14
-  $<$<CONFIG:DEBUG>:-DDEBUG -Wall -pedantic>
-  $<$<CONFIG:RELEASE>:-DNDEBUG -DRELEASE>
+
+# Add DEBUG, NDEBUG, and RELEASE macro definitions
+target_compile_definitions(memory PUBLIC
+  $<$<CONFIG:DEBUG>:DEBUG>
+  $<$<CONFIG:RELEASE>:DEBUG RELEASE>
 )
+
+# Add compiler-specific flags
+if( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
+  target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" )
+  # TODO: Determine MSVC necessary compiler flags
+endif()
+
 
 #-----------------------------------------------------------------------------
 # bit::memory : Independence Tests
@@ -179,10 +188,12 @@ target_compile_options(memory PUBLIC -std=c++14
 if( BIT_MEMORY_COMPILE_INDEPENDENCE_TESTS )
 
   add_independence_check(memory_independence ${headers})
-  target_compile_options(memory_independence PRIVATE -std=c++14
-    $<$<CONFIG:DEBUG>:-DDEBUG>
-    $<$<CONFIG:RELEASE>:-DNDEBUG -DRELEASE>
+
+  target_compile_definitions(memory_independence PUBLIC
+    $<$<CONFIG:DEBUG>:DEBUG>
+    $<$<CONFIG:RELEASE>:DEBUG RELEASE>
   )
+
   target_include_directories(memory_independence PRIVATE $<TARGET_PROPERTY:memory,INCLUDE_DIRECTORIES>)
 
   add_library(bit::memory::independence ALIAS memory_independence)
