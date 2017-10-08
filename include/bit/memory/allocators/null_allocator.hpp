@@ -54,16 +54,24 @@ namespace bit {
       /// \param other the other null_allocator to move
       null_allocator( null_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      null_allocator( const null_allocator& other ) = delete;
+      /// \brief Copy-constructs a null_allocator from another allocator
+      ///
+      /// \param other the other null_allocator to copy
+      null_allocator( const null_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      null_allocator& operator=( null_allocator&& other ) = delete;
+      /// \brief Move-assigns a null_allocator from another allocator
+      ///
+      /// \param other the other null_allocator to move
+      /// \return reference to \c (*this)
+      null_allocator& operator=( null_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      null_allocator& operator=( const null_allocator& other ) = delete;
+      /// \brief Copy-assigns a null_allocator from another allocator
+      ///
+      /// \param other the other null_allocator to copy
+      /// \return reference to \c (*this)
+      null_allocator& operator=( const null_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Allocation

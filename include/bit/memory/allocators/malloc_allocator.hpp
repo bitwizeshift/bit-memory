@@ -51,16 +51,24 @@ namespace bit {
       /// \param other the other malloc_allocator to move
       malloc_allocator( malloc_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      malloc_allocator( const malloc_allocator& other ) = delete;
+      /// \brief Copy-constructs a malloc_allocator from another allocator
+      ///
+      /// \param other the other malloc_allocator to copy
+      malloc_allocator( const malloc_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      malloc_allocator& operator=( malloc_allocator&& other ) = delete;
+      /// \brief Move-assigns a malloc_allocator from another allocator
+      ///
+      /// \param other the other malloc_allocator to move
+      /// \return reference to \c (*this)
+      malloc_allocator& operator=( malloc_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      malloc_allocator& operator=( const malloc_allocator& other ) = delete;
+      /// \brief Copy-assigns a malloc_allocator from another allocator
+      ///
+      /// \param other the other malloc_allocator to copy
+      /// \return reference to \c (*this)
+      malloc_allocator& operator=( const malloc_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
       // Allocations / Deallocation

@@ -103,11 +103,19 @@ namespace bit {
 
       /// \brief Move-constructs this policy_allocator from another allocator
       ///
+      /// \note This constructor is only enabled if ExtendedAllocator is
+      ///       stateless
+      ///
       /// \param other the other allocator to move
       policy_allocator( policy_allocator&& other ) = default;
 
-      // Deleted copy constructor
-      policy_allocator( const policy_allocator& other ) = delete;
+      /// \brief Copy-constructs this policy_allocator from another allocator
+      ///
+      /// \note This constructor is only enabled if ExtendedAllocator is
+      ///       stateless
+      ///
+      /// \param other the other allocator to copy
+      policy_allocator( const policy_allocator& other ) = default;
 
       //-----------------------------------------------------------------------
 
@@ -116,11 +124,21 @@ namespace bit {
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      policy_allocator& operator=( policy_allocator&& other ) = delete;
+      /// \brief Move-assigns this policy_allocator from another allocator
+      ///
+      /// \note This assignment is only enabled if ExtendedAllocator is
+      ///       stateless
+      ///
+      /// \param other the other allocator to move
+      policy_allocator& operator=( policy_allocator&& other ) = default;
 
-      // Deleted copy assignment
-      policy_allocator& operator=( const policy_allocator& other ) = delete;
+      /// \brief Copy-assigns this policy_allocator from another allocator
+      ///
+      /// \note This assignment is only enabled if ExtendedAllocator is
+      ///       stateless
+      ///
+      /// \param other the other allocator to copy
+      policy_allocator& operator=( const policy_allocator& other ) = default;
 
       //-----------------------------------------------------------------------
       // Observers

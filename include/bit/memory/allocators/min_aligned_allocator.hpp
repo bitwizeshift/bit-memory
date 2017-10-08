@@ -11,7 +11,7 @@
 #define BIT_MEMORY_ALLOCATORS_MIN_ALIGNED_ALLOCATOR_HPP
 
 #include "../detail/ebo_storage.hpp" // ebo_storage
-#include "../owner.hpp "             // owner
+#include "../owner.hpp"              // owner
 #include "../allocator_traits.hpp"   // allocator_traits
 
 #include <cstddef> // std::size_t
@@ -56,25 +56,45 @@ namespace bit {
     /// \brief Default-constructs a min_aligned_allocator
     min_aligned_allocator();
 
-    /// \brief Default-constructs a aligned_allocator
+    /// \brief Constructs the underlying allocator by forwarding arguments
+    ///        to it
+    ///
+    /// \param arg0 the first argument
+    /// \param args the remaining arguments
     template<typename Arg0, typename...Args, typename = std::enable_if_t<!std::is_same<std::decay_t<Arg0>,min_aligned_allocator>::value>>
     min_aligned_allocator( Arg0&& arg0, Args&&...args );
 
     /// \brief Move-constructs a min_aligned_allocator from another allocator
     ///
+    /// \note This is only enabled if \p Allocator has a move constructor
+    ///
     /// \param other the other min_aligned_allocator to move
-    min_aligned_allocator( min_aligned_allocator&& other ) noexcept = default;
+    min_aligned_allocator( min_aligned_allocator&& other ) = default;
 
-    // Deleted copy constructor
-    min_aligned_allocator( const min_aligned_allocator& other ) = delete;
+    /// \brief Copy-constructs a min_aligned_allocator from another allocator
+    ///
+    /// \note This is only enabled if \p Allocator has a copy constructor
+    ///
+    /// \param other the other min_aligned_allocator to copy
+    min_aligned_allocator( const min_aligned_allocator& other ) = default;
 
     //-----------------------------------------------------------------------
 
-    // Deleted move assignment
-    min_aligned_allocator& operator=( min_aligned_allocator&& other ) = delete;
+    /// \brief Move-assigns a min_aligned_allocator from another allocator
+    ///
+    /// \note This is only enabled if \p Allocator has a move assignment
+    ///
+    /// \param other the other min_aligned_allocator to move
+    /// \return reference to \c (*this)
+    min_aligned_allocator& operator=( min_aligned_allocator&& other ) = default;
 
-    // Deleted copy assignment
-    min_aligned_allocator& operator=( const min_aligned_allocator& other ) = delete;
+    /// \brief Copy-assigns a min_aligned_allocator from another allocator
+    ///
+    /// \note This is only enabled if \p Allocator has a copy assignment
+    ///
+    /// \param other the other min_aligned_allocator to copy
+    /// \return reference to \c (*this)
+    min_aligned_allocator& operator=( const min_aligned_allocator& other ) = default;
 
     //-----------------------------------------------------------------------
     // Allocations / Deallocation

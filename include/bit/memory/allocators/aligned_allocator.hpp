@@ -44,21 +44,29 @@ namespace bit {
       /// \brief Default-constructs a aligned_allocator
       aligned_allocator() = default;
 
-      /// \brief Move-constructs a aligned_allocator from another allocator
+      /// \brief Move-constructs an aligned_allocator from another allocator
       ///
       /// \param other the other aligned_allocator to move
       aligned_allocator( aligned_allocator&& other ) noexcept = default;
 
-      // Deleted copy constructor
-      aligned_allocator( const aligned_allocator& other ) = delete;
+      /// \brief Copy-constructs an aligned_allocator from another allocator
+      ///
+      /// \param other the other aligned_allocator to copy
+      aligned_allocator( const aligned_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      // Deleted move assignment
-      aligned_allocator& operator=( aligned_allocator&& other ) = delete;
+      /// \brief Move-assigns an aligned_allocator from another allocator
+      ///
+      /// \param other the other aligned_allocator to move
+      /// \return reference to \c (*this)
+      aligned_allocator& operator=( aligned_allocator&& other ) noexcept = default;
 
-      // Deleted copy assignment
-      aligned_allocator& operator=( const aligned_allocator& other ) = delete;
+      /// \brief Copy-assigns an aligned_allocator from another allocator
+      ///
+      /// \param other the other aligned_allocator to copy
+      /// \return reference to \c (*this)
+      aligned_allocator& operator=( const aligned_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
       // Allocations / Deallocation
