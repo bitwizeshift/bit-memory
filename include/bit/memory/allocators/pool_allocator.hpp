@@ -1,18 +1,20 @@
 /**
  * \file pool_allocator.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains the definition for an allocator that creates
+ *        fixed-sized allocations from a reused pool
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_ALLOCATORS_POOL_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_POOL_ALLOCATOR_HPP
 
-#include "detail/named_allocator.hpp"
+#include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../macros.hpp" // BIT_MEMORY_ASSUME
-#include "../byte.hpp" // byte
+#include "../macros.hpp"            // BIT_MEMORY_ASSUME
+#include "../byte.hpp"              // byte
+#include "../memory_block.hpp"      // memory_block
+#include "../pointer_utilities.hpp" // is_power_of_two
 
 #include <cassert>
 

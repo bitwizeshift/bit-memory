@@ -48,7 +48,7 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 )
 
 set(headers
-  # Utilities
+  # Details
   include/bit/memory/detail/allocator_function_traits.hpp
   include/bit/memory/detail/block_allocator_function_traits.hpp
   include/bit/memory/detail/ebo_storage.hpp
@@ -56,9 +56,13 @@ set(headers
   include/bit/memory/detail/identity.hpp
   include/bit/memory/detail/dynamic_size_type.hpp
 
+  # Utilities
+  include/bit/memory/aligned_memory.hpp
+  include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
   include/bit/memory/allocator_deleter.hpp
   include/bit/memory/allocator_reference.hpp
+  include/bit/memory/block_allocator_traits.hpp
   include/bit/memory/byte.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
@@ -70,9 +74,11 @@ set(headers
   include/bit/memory/memory_block_cache.hpp
   include/bit/memory/not_null.hpp
   include/bit/memory/owner.hpp
+  include/bit/memory/pointer_utilities.hpp
   include/bit/memory/std_allocator_adapter.hpp
   include/bit/memory/unaligned_memory.hpp
   include/bit/memory/uninitialized_storage.hpp
+  include/bit/memory/virtual_memory.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp
@@ -92,24 +98,6 @@ set(headers
   # Lockables
   include/bit/memory/lockables/null_lock.hpp
 
-  # Memory Allocations
-  include/bit/memory/virtual_memory.hpp
-  include/bit/memory/aligned_memory.hpp
-  include/bit/memory/allocator_traits.hpp
-  include/bit/memory/block_allocator_traits.hpp
-
-  # Allocators
-  include/bit/memory/allocators/detail/named_allocator.hpp
-  include/bit/memory/allocators/aligned_allocator.hpp
-  include/bit/memory/allocators/aligned_offset_allocator.hpp
-  include/bit/memory/allocators/any_allocator.hpp
-  include/bit/memory/allocators/policy_allocator.hpp
-  include/bit/memory/allocators/malloc_allocator.hpp
-  include/bit/memory/allocators/min_aligned_allocator.hpp
-  include/bit/memory/allocators/new_allocator.hpp
-  include/bit/memory/allocators/null_allocator.hpp
-  include/bit/memory/allocators/stack_allocator.hpp
-
   # Block Allocators
   include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
@@ -122,6 +110,83 @@ set(headers
   include/bit/memory/block_allocators/stack_block_allocator.hpp
   include/bit/memory/block_allocators/static_block_allocator.hpp
   include/bit/memory/block_allocators/virtual_block_allocator.hpp
+
+  # Allocators
+  include/bit/memory/allocators/detail/named_allocator.hpp
+  include/bit/memory/allocators/aligned_allocator.hpp
+  include/bit/memory/allocators/aligned_offset_allocator.hpp
+  include/bit/memory/allocators/any_allocator.hpp
+  include/bit/memory/allocators/policy_allocator.hpp
+  include/bit/memory/allocators/linear_allocator.hpp
+  include/bit/memory/allocators/malloc_allocator.hpp
+  include/bit/memory/allocators/min_aligned_allocator.hpp
+  include/bit/memory/allocators/new_allocator.hpp
+  include/bit/memory/allocators/null_allocator.hpp
+  include/bit/memory/allocators/pool_allocator.hpp
+  include/bit/memory/allocators/stack_allocator.hpp
+)
+
+# Though the inline headers are not strictly used (or even required by CMake),
+# this is added for IDEs like CLion to accurately track headers.
+set(inline_headers
+  # Utilities
+  include/bit/memory/detail/allocator_deleter.inl
+  include/bit/memory/detail/allocator_info.inl
+  include/bit/memory/detail/allocator_reference.inl
+  include/bit/memory/detail/allocator_traits.inl
+  include/bit/memory/detail/block_allocator_traits.inl
+  include/bit/memory/detail/byte.inl
+  include/bit/memory/detail/debugging.inl
+  include/bit/memory/detail/endian.inl
+  include/bit/memory/detail/freelist.inl
+  include/bit/memory/detail/memory_block.inl
+  include/bit/memory/detail/memory_block_cache.inl
+  include/bit/memory/detail/not_null.inl
+  include/bit/memory/detail/pointer_utilities.inl
+  include/bit/memory/detail/std_allocator_adapter.inl
+  include/bit/memory/detail/unaligned_memory.inl
+  include/bit/memory/detail/uninitialized_storage.inl
+
+  # Memory Allocations
+  include/bit/memory/detail/virtual_memory.inl
+
+  # Taggers
+  include/bit/memory/taggers/detail/allocator_tagger.inl
+  include/bit/memory/taggers/detail/block_allocator_tagger.inl
+
+  # Trackers
+  include/bit/memory/trackers/detail/detailed_leak_tracker.inl
+  include/bit/memory/trackers/detail/leak_tracker.inl
+  include/bit/memory/trackers/detail/stat_recording_tracker.inl
+
+  # Bounds Checkers
+  include/bit/memory/bounds_checkers/detail/debug_bounds_checker.inl
+
+  # Block Allocators
+  include/bit/memory/block_allocators/detail/aligned_block_allocator.inl
+  include/bit/memory/block_allocators/detail/any_block_allocator.inl
+  include/bit/memory/block_allocators/detail/cached_block_allocator.inl
+  include/bit/memory/block_allocators/detail/malloc_block_allocator.inl
+  include/bit/memory/block_allocators/detail/named_block_allocator.inl
+  include/bit/memory/block_allocators/detail/new_block_allocator.inl
+  include/bit/memory/block_allocators/detail/null_block_allocator.inl
+  include/bit/memory/block_allocators/detail/policy_block_allocator.inl
+  include/bit/memory/block_allocators/detail/stack_block_allocator.inl
+  include/bit/memory/block_allocators/detail/static_block_allocator.inl
+
+  # Allocators
+  include/bit/memory/allocators/detail/aligned_allocator.inl
+  include/bit/memory/allocators/detail/aligned_offset_allocator.inl
+  include/bit/memory/allocators/detail/any_allocator.inl
+  include/bit/memory/allocators/detail/linear_allocator.inl
+  include/bit/memory/allocators/detail/malloc_allocator.inl
+  include/bit/memory/allocators/detail/min_aligned_allocator.inl
+  include/bit/memory/allocators/detail/named_allocator.inl
+  include/bit/memory/allocators/detail/new_allocator.inl
+  include/bit/memory/allocators/detail/null_allocator.inl
+  include/bit/memory/allocators/detail/policy_allocator.inl
+  include/bit/memory/allocators/detail/pool_allocator.inl
+  include/bit/memory/allocators/detail/stack_allocator.inl
 )
 
 if( WIN32 )
@@ -147,8 +212,6 @@ set(source_files
   # Utilities
   src/bit/memory/debugging.cpp
   src/bit/memory/errors.cpp
-
-  # Memory Allocations
   src/bit/memory/virtual_memory.cpp
 
   # Block Allocators
@@ -158,7 +221,7 @@ set(source_files
   ${platform_source_files}
 )
 
-add_library(memory ${source_files} ${headers})
+add_library(memory ${source_files} ${headers} ${inline_headers})
 add_library(bit::memory ALIAS memory)
 
 # Add include directories

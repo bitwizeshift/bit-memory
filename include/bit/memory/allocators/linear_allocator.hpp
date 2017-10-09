@@ -88,7 +88,7 @@ namespace bit {
       void deallocate( void* p, std::size_t size );
 
       /// \brief Deallocates everything from this allocator
-      void deallocate_all();
+      void deallocate_all() noexcept;
 
       //-----------------------------------------------------------------------
       // Observers
