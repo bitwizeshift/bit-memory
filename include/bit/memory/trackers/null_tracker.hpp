@@ -10,6 +10,7 @@
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 #include "../allocator_info.hpp"             // allocator_info
+#include "../concepts/MemoryTracker.hpp"     // is_memory_tracker
 
 #include <cstddef> // std::size_t
 
@@ -30,11 +31,17 @@ namespace bit {
     public:
 
       void on_allocate( void*, std::size_t, std::size_t ){}
-      void on_deallocate( void*, std::size_t ){}
+      void on_deallocate( const allocator_info&, void*, std::size_t ){}
+      void on_deallocate_all(){}
       void finalize( const allocator_info& ){}
     };
 
     using stat_recording_null_tracker = detail::stat_recording_tracker<null_tracker>;
+
+    static_assert( is_memory_tracker_v<null_tracker>,
+                   "null_tracker must satisfy MemoryTracker" );
+    static_assert( is_memory_tracker_v<stat_recording_null_tracker>,
+                   "stat_recording_null_tracker must satisfy MemoryTracker" );
 
   } // namespace memory
 } // namespace bit

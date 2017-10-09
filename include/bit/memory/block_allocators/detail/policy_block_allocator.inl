@@ -75,6 +75,8 @@ inline void bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lo
   auto& tracker   = detail::get<2>(*this);
   auto& lock      = detail::get<3>(*this);
 
+  const auto info = traits_type::info(allocator);
+
   // Tag the deallocation
   tagger.tag_deallocation( block.data(), block.size() );
 
@@ -82,7 +84,7 @@ inline void bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lo
     std::lock_guard<lock_type> scope(lock);
 
     // Untrack the deallocation
-    tracker.on_deallocate( block.data(), block.size() );
+    tracker.on_deallocate( info, block.data(), block.size() );
 
     traits_type::deallocate_block( allocator, block );
   }

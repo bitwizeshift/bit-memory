@@ -108,7 +108,7 @@ void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
     std::lock_guard<lock_type> scope(lock);
 
     // Untrack the deallocation
-    tracker.on_deallocate( p, new_size );
+    tracker.on_deallocate( info, p, new_size );
 
     allocator_traits<ExtendedAllocator>::deallocate( allocator, byte_ptr, new_size );
   }

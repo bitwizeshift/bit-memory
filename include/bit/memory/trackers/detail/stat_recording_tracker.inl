@@ -35,13 +35,13 @@ inline void bit::memory::detail::stat_recording_tracker<MemoryTracker>
 
 template<typename MemoryTracker>
 inline void bit::memory::detail::stat_recording_tracker<MemoryTracker>
-  ::on_deallocate( void* p, std::size_t bytes )
+  ::on_deallocate( const allocator_info& info, void* p, std::size_t bytes )
   noexcept
 {
   m_running_total -= bytes;
 
   ++m_total_deallocations;
-  MemoryTracker::on_deallocate(p,bytes);
+  MemoryTracker::on_deallocate(info,p,bytes);
 }
 
 template<typename MemoryTracker>

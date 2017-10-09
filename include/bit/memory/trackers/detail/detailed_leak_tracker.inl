@@ -17,12 +17,22 @@ inline void bit::memory::detailed_leak_tracker::on_allocate( void* p,
   m_allocations[p] = bytes;
 }
 
-inline void bit::memory::detailed_leak_tracker::on_deallocate( void* p,
+inline void bit::memory::detailed_leak_tracker::on_deallocate( const allocator_info& info,
+                                                               void* p,
                                                                std::size_t bytes )
   noexcept
 {
+  auto it = m_allocations.find(p);
+
+  // Signal (likely) double-delete if it is not found.
+  // Technically, this could also be caused from deleting to the wrong
+  // allocator -- but this falls under undefined-behavior.
+  if( it == m_allocations.end() ) {
+    (*get_double_delete_handler())( info, p, bytes );
+  }
+
   m_allocated -= bytes;
-  m_allocations.erase(p);
+  m_allocations.erase(it);
 }
 
 inline void bit::memory::detailed_leak_tracker::on_deallocate_all()

@@ -44,9 +44,10 @@ namespace bit {
 
         /// \brief Records a deallocation occuring of size \p bytes
         ///
+        /// \param info the info for the allocator
         /// \param p the pointer to the memory being deallocated
         /// \param bytes the nuber of bytes being deallocated
-        void on_deallocate( void* p, std::size_t bytes ) noexcept;
+        void on_deallocate( const allocator_info& info, void* p, std::size_t bytes ) noexcept;
 
         /// \brief Records all memory being truncated deallocated
         void on_deallocate_all() noexcept;
