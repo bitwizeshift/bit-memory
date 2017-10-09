@@ -16,20 +16,79 @@
 namespace bit {
   namespace memory {
 
-  // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
+  ///////////////////////////////////////////////////////////////////////////////
+  /// \concept{Stateless}
+  ///
+  /// \brief A structure that encompasses functionality, but contains no internal
+  ///        nor external state (i.e. no data members).
+  ///
+  /// Two instances of the same type must always compare equal, and constructing/
+  /// copying/moving instances must not affect or be affected by any external
+  /// state.
+  ///
+  /// Semantically, a single instance should be identical in every respect to any
+  /// duplicates; which may allow a composition of multiple of the same Stateless
+  /// object to be compressed into a single instance (either EBO inheritance or
+  /// data member).
+  ///
+  /// Requirements
+  ///
+  /// - DefaultConstructible
+  /// - CopyConstructible
+  /// - MoveConstructible
+  /// - CopyAssignable
+  /// - MoveASsignable
+  /// - EqualityComparable
+  ///
+  /// Additionally, it must satisfy the followowing:
+  ///
+  /// Provided
+  ///
+  /// \c S - a Stateless type
+  /// \c s - an instance of type \c S
+  ///
+  /// the following expressions must be well-formed with the expected
+  /// reproduceable side-effects:
+  ///
+  /// \code
+  /// S() == S()
+  /// \endcode
+  /// returns true
+  ///
+  /// \code
+  /// S() != S()
+  /// \endcode
+  /// returns false
+  ///
+  /// \code
+  /// S s1{};              // default ctor
+  /// S s2(s);             // copy ctor
+  /// S s3(std::move(s1)); // move ctor
+  ///
+  /// s1 = s2;             // copy assignment
+  /// s2 = std::move(2);   // move assignment
+  /// \code
+  ///
+  /// \code
+  /// S::is_stateless
+  /// \endcode
+  /// Type must be std::true_type
+  ///
+  ///////////////////////////////////////////////////////////////////////////////
 #if __cplusplus >= 202000L
+    // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
 
-  template<typename T>
-  concept bool Stateless = requires(T a, T b) {
-      { a == b } -> bool;
-      { a != b } -> bool;
-  } && std::is_empty<T>::value
-    && std::is_trivially_constructible<T>::value
-    && std::is_trivially_destructible<T>::value
-    && std::is_move_constructible<T>::value
-    && std::is_copy_constructible<T>::value
-    && std::is_move_assignable<T>::value
-    && std::is_copy_assignable<T>::value;
+    template<typename T>
+    concept bool Stateless = requires(T a, T b) {
+        { a == b } -> bool;
+        { a != b } -> bool;
+    } && std::is_empty<T>::value
+      && std::is_trivially_constructible<T>::value
+      && std::is_trivially_destructible<T>::value
+      && std::is_move_constructible<T>::value
+      && std::is_copy_constructible<T>::value
+      && std::is_move_assignable<T>::value
+      && std::is_copy_assignable<T>::value;
 
 #endif
 

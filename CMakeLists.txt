@@ -65,7 +65,6 @@ set(headers
   include/bit/memory/allocator_deleter.hpp
   include/bit/memory/allocator_reference.hpp
   include/bit/memory/block_allocator_traits.hpp
-  include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/endian.hpp
   include/bit/memory/errors.hpp

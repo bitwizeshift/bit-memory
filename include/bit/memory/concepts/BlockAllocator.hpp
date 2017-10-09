@@ -20,7 +20,50 @@
 namespace bit {
   namespace memory {
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// \concept{BlockAllocator}
+    ///
+    /// \brief This concept defines the required interface and semantics
+    ///        expected of a block allocator
+    ///
+    /// The \c bit::memory BlockAllocator concept is used to distribute
+    /// memory blocks to allocators that can use them.
+    ///
+    /// BlockAllocators are also used as upstream resources for
+    /// StreamingAllocators.
+    ///
+    /// The size of a memory_block returned by a BlockAllocator is fixed at
+    /// construction time, and is not permitted to vary.
+    ///
+    /// Requirements
+    ///
+    /// - MoveConstructible
+    ///
+    /// For type \c A to be \c BlockAllocator, it must satisfy the above
+    /// conditions as well as the following:
+    ///
+    /// Provided
+    ///
+    /// \c A - a BlockAllocator type
+    /// \c a - an instance of type \c A
+    /// \c b - a memory_block
+    ///
+    /// the following expressions must be well-formed with the expected
+    /// side-effects:
+    ///
+    /// \code
+    /// a.allocate_block()
+    /// \endcode
+    ///
+    /// Allocates a \c memory_block of implementation-specific size
+    ///
+    /// \code
+    /// a.deallocate_block( b );
+    /// \endcode
+    ///////////////////////////////////////////////////////////////////////////
 #if __cplusplus >= 202000L
+  // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
+
     template<typename B>
     concept BlockAllocator = requires( B b, memory_block block )
     {

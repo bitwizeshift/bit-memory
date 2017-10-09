@@ -19,7 +19,53 @@
 namespace bit {
   namespace memory {
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// \concept{ExtendedAllocator,Allocator}
+    ///
+    /// \brief This concept defines the required interface and semantics
+    ///        expected of an extended allocator
+    ///
+    /// An \c ExtendedAllocator is also an \c Allocator that provides extended
+    /// functionality for tracking ownership, and providing the ability to
+    /// offset the allocations alignment.
+    ///
+    /// Requirements
+    ///
+    /// - Allocator
+    ///
+    /// For type \c A to be \c ExtendedAllocator, it must satisfy the above
+    /// conditions as well as the following:
+    ///
+    /// Provided
+    ///
+    /// \c A - an Allocator type
+    /// \c a - an instance of type \c A
+    /// \c s - the size of an allocation
+    /// \c n - the alignment of the allocation
+    /// \c o - the offset for the alignment
+    /// \c v - a void pointer
+    ///
+    /// the following expressions must be well-formed with the expected
+    /// side-effects:
+    ///
+    /// \code
+    /// v = a.try_allocate( s, n, o )
+    /// \endcode
+    /// \c a tries to allocate at least \c s bytes aligned to the boundary
+    /// \c n, offset by \c o bytes.
+    ///
+    /// The expression \code a.try_allocate( s, n ) \endcode must be
+    /// non-throwing, otherwise it is undefined behaviour.
+    ///
+    /// \code
+    /// bool b = a.owns( p );
+    /// \endcode
+    ///
+    /// \c a checks whether it owns the pointer \c p, returning the result.
+    ///////////////////////////////////////////////////////////////////////////
 #if __cplusplus >= 202000L
+    // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
+
     template<typename T>
     concept ExtendedAllocator = requires( T a,
                                           allocator_size_type_t<T> size,

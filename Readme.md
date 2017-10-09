@@ -103,8 +103,6 @@ Returns a `bool` indicating that Stateless `S` is stateless
 It is undefined-behaviour for this to be `std::true_type` for a
 class `S` that is not actually stateless.
 
-Default is `std::false_type`
-
 - - - -
 
 Semantically, a `Stateless` type simply must not have or modify any internal or external state.
