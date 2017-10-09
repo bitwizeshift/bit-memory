@@ -94,6 +94,19 @@ Additionaly, the following criteria must be met:
 - `s1 == s2` for any `Stateless s1, s2` must always be `true`
 - `s1 != s2` for any `Stateless s1, s2` must always be `false`
 
+```c++
+S::is_stateless::value
+```
+
+Returns a `bool` indicating that Stateless `S` is stateless
+
+It is undefined-behaviour for this to be `std::true_type` for a
+class `S` that is not actually stateless.
+
+Default is `std::false_type`
+
+- - - -
+
 Semantically, a `Stateless` type simply must not have or modify any internal or external state.
 By not containing or modifying any form of state, it allows for only one instance of a base class to
 exist in a multiple-inheritance structure in order to leverage EBO.
@@ -108,9 +121,10 @@ For type `A` to be `BlockAllocator`, it must satisfy the above
 conditions as well as the following:
 
 Provided
-`A` - a `BlockAllocator` type
-`a` - an instance of type `A`
-`b` - a `memory_block`
+
+- `A` - a `BlockAllocator` type
+- `a` - an instance of type `A`
+- `b` - a `memory_block`
 
 the following expressions must be well-formed with the expected side-effects:
 
@@ -121,6 +135,8 @@ a.allocate_block()
 ```
 
 Allocates a `memory_block` of implementation-specific size
+
+- - - -
 
 ```c++
 a.deallocate_block( b );
@@ -137,6 +153,8 @@ A::is_stateless
 Determines that `A` is a `Stateless` object. It is undefined behaviour if `A` does not
 actually conform to `Stateless`.
 
+- - - -
+
 ```c++
 A::block_alignment::value
 ```
@@ -148,6 +166,8 @@ This is used for optimizations in `Allocator`s that use `BlockAllocator` as an u
 if the max-supported-alignment of an `Allocator` is less-than-or-equal to the guaranteed alignment of a
 `BlockAllocator`'s allocated block, then there is no need to store offset-information for each allocation, since
 offsets will not be required for the allocations.
+
+- - - -
 
 ```c++
 A::block_size::value
@@ -177,11 +197,11 @@ For type `A` to be an `Allocator`, it must satisfy the following:
 
 Provided
 
-`A` - an `Allocator` type
-`a` - an instance of type `A`
-`s` - the size of an allocation
-`n` - the alignment of the allocation
-`v` - a void pointer
+- `A` - an `Allocator` type
+- `a` - an instance of type `A`
+- `s` - the size of an allocation
+- `n` - the alignment of the allocation
+- `v` - a void pointer
 
 the following expressions must be well-formed with the expected side-effects:
 
@@ -199,6 +219,8 @@ byte boundary.
 
 The expression `a.try_allocate( s, n )` must be non-throwing,
 otherwise it is undefined behaviour.
+
+- - - -
 
 ```c++
 a.deallocate( v, s );
@@ -223,6 +245,8 @@ The behaviour of this function is implementation-defined on failure
 The default for this is to invoke out-of-memory handler on `nullptr`
 if an implementation is not provided
 
+- - - -
+
 ```c++
 a.deallocate_all()
 ```
@@ -232,12 +256,16 @@ are now invalidated
 
 Default asserts.
 
+- - - -
+
 ```c++
 a.info()
 ```
 `a` returns an allocator_info object describing the allocator
 
 Default returns `"unknown allocator"`
+
+- - - -
 
 ```c++
 a.max_size()
@@ -247,6 +275,8 @@ Returns the maximum size the allocator can support
 
 Default is `std::numeric_limits<std::size_t>::max()`
 
+- - - -
+
 ```c++
 a.min_size()
 ```
@@ -255,16 +285,7 @@ Returns the minimum size the allocator can support
 
 Default is `1`
 
-```c++
-A::is_stateless::value
-```
-
-Returns a `bool` indicating that allocator `A` is `Stateless`
-
-It is undefined-behaviour for this to be `std::true_type` for a
-class `A` that is not actually stateless.
-
-Default is `std::false_type`
+- - - -
 
 ```c++
 A::is_always_equal::value
@@ -274,6 +295,8 @@ Returns a `bool` indicating whether two instances of the same allocator
 will always compare equal.
 
 Default is `std::false_type`
+
+- - - -
 
 ```c++
 A::default_alignment::value
@@ -287,6 +310,8 @@ to align to the correct boundary).
 
 Default is `1`.
 
+- - - -
+
 ```c++
 A::max_alignment::value
 ```
@@ -297,13 +322,7 @@ results in undefined behaviour.
 
 Default is `alignof(std::max_align_t)`
 
-```c++
-A::can_truncate_deallocations
-```
-
-Determines whether the allocator is capable of truncating deallocations
-by clearing away larger chunks of data, rather than waiting for the every
-deallocation call.
+- - - -
 
 ```c++
 bool b = a.owns( p );
@@ -328,12 +347,12 @@ conditions as well as the following:
 
 Provided
 
-`A` - an `Allocator` type
-`a` - an instance of type `A`
-`s` - the size of an allocation
-`n` - the alignment of the allocation
-`o` - the offset for the alignment
-`v` - a void pointer
+- `A` - an `Allocator` type
+- `a` - an instance of type `A`
+- `s` - the size of an allocation
+- `n` - the alignment of the allocation
+- `o` - the offset for the alignment
+- `v` - a void pointer
 
 the following expressions must be well-formed with the expected
 side-effects:

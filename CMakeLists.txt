@@ -48,10 +48,6 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 )
 
 set(headers
-  # Details
-  include/bit/memory/detail/ebo_storage.hpp
-  include/bit/memory/detail/dynamic_size_type.hpp
-
   # Concepts
   include/bit/memory/concepts/detail/void_t.hpp
   include/bit/memory/concepts/detail/identity.hpp
@@ -61,6 +57,8 @@ set(headers
   include/bit/memory/concepts/BlockAllocator.hpp
 
   # Utilities
+  include/bit/memory/detail/ebo_storage.hpp
+  include/bit/memory/detail/dynamic_size_type.hpp
   include/bit/memory/aligned_memory.hpp
   include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
