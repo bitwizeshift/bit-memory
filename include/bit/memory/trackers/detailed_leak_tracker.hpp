@@ -13,6 +13,7 @@
 #include "../allocator_info.hpp"             // allocator_info
 #include "../errors.hpp"                     // get_leak_handler
 #include "../macros.hpp"                     // BIT_MEMORY_UNUSED
+#include "../concepts/MemoryTracker.hpp"     // is_memory_tracker
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <map>     // std::map
@@ -42,9 +43,10 @@ namespace bit {
 
       /// \brief Records a deallocation of the pointer \p p with size \p bytes
       ///
+      /// \param info the allocator info
       /// \param p the pointer
       /// \param bytes the size of the memory, in bytes
-      void on_deallocate( void* p, std::size_t bytes ) noexcept;
+      void on_deallocate( const allocator_info& info, void* p, std::size_t bytes ) noexcept;
 
       /// \brief Records all allocations being truncated into a single
       ///        deallocation
@@ -68,6 +70,11 @@ namespace bit {
     };
 
     using stat_recording_detailed_tracker = detail::stat_recording_tracker<detailed_leak_tracker>;
+
+    static_assert( is_memory_tracker_v<detailed_leak_tracker>,
+                   "detailed_leak_tracker must satisfy MemoryTracker" );
+    static_assert( is_memory_tracker_v<stat_recording_detailed_tracker>,
+                   "stat_recording_detailed_tracker must satisfy MemoryTracker" );
 
   } // namespace memory
 } // namespace bit

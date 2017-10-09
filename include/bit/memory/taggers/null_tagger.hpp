@@ -8,6 +8,8 @@
 #ifndef BIT_MEMORY_TAGGERS_NULL_TAGGER_HPP
 #define BIT_MEMORY_TAGGERS_NULL_TAGGER_HPP
 
+#include "../concepts/MemoryTagger.hpp" // is_memory_tagger
+
 #include <cstddef> // std::size_t
 
 namespace bit {
@@ -29,6 +31,9 @@ namespace bit {
       void tag_allocation( void*, std::size_t ){}
       void tag_deallocation( void*, std::size_t ){}
     };
+
+    static_assert( is_memory_tagger_v<null_tagger>,
+                   "null_tagger must satisfy MemoryTagger" );
 
   } // namespace memory
 } // namespace bit

@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
 #define BIT_MEMORY_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
 
+#include "../concepts/BoundsChecker.hpp" // is_bounds_checker
 #include "../allocator_info.hpp" // allocator_info
 
 #include <cstddef>               // std::size_t
@@ -48,6 +49,9 @@ namespace bit {
       void check_front_fence( const allocator_info&, void*, std::size_t ){}
       void check_back_fence( const allocator_info&, void*, std::size_t ){}
     };
+
+    static_assert( is_bounds_checker_v<null_bounds_checker>,
+                   "null_bounds_checker must satisfy BoundsChecker" );
 
   } // namespace memory
 } // namespace bit

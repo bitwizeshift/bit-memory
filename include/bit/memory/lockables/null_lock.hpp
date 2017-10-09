@@ -8,6 +8,8 @@
 #ifndef BIT_MEMORY_LOCKABLES_NULL_LOCK_HPP
 #define BIT_MEMORY_LOCKABLES_NULL_LOCK_HPP
 
+#include "../concepts/BasicLockable.hpp"
+
 namespace bit {
   namespace memory {
 
@@ -29,6 +31,9 @@ namespace bit {
 
       void unlock(){}
     };
+
+    static_assert( is_basic_lockable_v<null_lock>,
+                   "null_lock must satisfy BasicLockable" );
 
   } // namespace memory
 } // namespace bit
