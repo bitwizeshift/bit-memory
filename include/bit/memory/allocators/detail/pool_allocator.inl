@@ -7,8 +7,7 @@
 
 inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
                                                     memory_block block )
-  : m_head(block.data()),
-    m_block(block),
+  : m_block(block),
     m_chunk_size(chunk_size)
 {
   // It is a requirement that chunk_size is a power-of-2 that is greater
@@ -17,18 +16,17 @@ inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
   assert( is_power_of_two(chunk_size) );
   assert( chunk_size >= sizeof(void*) );
   assert( chunk_size >= alignof(void*) );
+  assert( chunk_size <= m_block.size() );
 
   using byte_t = unsigned char;
 
-  auto* p = m_head;
+  auto* p = m_block.data();
+  const auto chunks = m_block.size() / chunk_size;
 
-  for( auto size = chunk_size; (size + chunk_size) <= block.size(); size += chunk_size )
-  {
-    auto* next = static_cast<void*>(static_cast<byte_t*>(p) + chunk_size);
-    *static_cast<void**>(p) = next;
-    p = next;
+  // Store each entry in the freelist in reverse order
+  for( auto i = chunks-1; i != 0; --i ) {
+    m_freelist.store( static_cast<byte_t*>(p) + (i*chunk_size) );
   }
-  *static_cast<void**>(p) = nullptr;
 }
 
 //-----------------------------------------------------------------------------
@@ -42,7 +40,7 @@ inline void* bit::memory::pool_allocator::try_allocate( std::size_t size,
 {
   using byte_t = unsigned char;
 
-  auto p      = pop_freelist_entry();
+  auto p      = m_freelist.request();
   auto adjust = std::size_t{};
   p           = offset_align_forward(p, align, offset+1, &adjust);
 
@@ -66,7 +64,7 @@ inline void bit::memory::pool_allocator::deallocate( void* p, std::size_t size )
   auto adjust = static_cast<std::ptrdiff_t>(*static_cast<byte_t*>(p));
   p           = static_cast<byte_t*>(p) - adjust;
 
-  push_freelist_entry( p );
+  m_freelist.store( p );
 }
 
 //-----------------------------------------------------------------------------
@@ -86,27 +84,6 @@ inline std::size_t bit::memory::pool_allocator::max_size()
 }
 
 //-----------------------------------------------------------------------------
-// Private Member Functions
-//-----------------------------------------------------------------------------
-
-inline void bit::memory::pool_allocator::push_freelist_entry( void* p )
-  noexcept
-{
-  *static_cast<void**>(p) = m_head;
-  m_head = p;
-}
-
-inline void* bit::memory::pool_allocator::pop_freelist_entry()
-  noexcept
-{
-  if( BIT_MEMORY_UNLIKELY(!m_head) ) return nullptr;
-
-  auto p = m_head;
-  m_head = *static_cast<void**>(m_head);
-  return p;
-}
-
-//-----------------------------------------------------------------------------
 // Comparison
 //-----------------------------------------------------------------------------
 
@@ -114,7 +91,7 @@ inline bool bit::memory::operator==( const pool_allocator& lhs,
                                      const pool_allocator& rhs )
   noexcept
 {
-  return lhs.m_head == rhs.m_head &&
+  return lhs.m_freelist == rhs.m_freelist &&
          lhs.m_block == rhs.m_block &&
          lhs.m_chunk_size == rhs.m_chunk_size;
 }

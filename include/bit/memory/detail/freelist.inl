@@ -82,4 +82,20 @@ inline void bit::memory::freelist::store( void* p )
   m_head = p;
 }
 
+//-----------------------------------------------------------------------------
+// Comparisons
+//-----------------------------------------------------------------------------
+
+inline bool bit::memory::operator==( const freelist& lhs, const freelist& rhs )
+  noexcept
+{
+  return lhs.m_head == rhs.m_head;
+}
+
+inline bool bit::memory::operator!=( const freelist& lhs, const freelist& rhs )
+  noexcept
+{
+  return !(lhs==rhs);
+}
+
 #endif /* BIT_MEMORY_DETAIL_FREELIST_INL */

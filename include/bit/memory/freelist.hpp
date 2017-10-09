@@ -105,7 +105,16 @@ namespace bit {
     private:
 
       void* m_head;
+
+      friend bool operator==( const freelist&, const freelist& ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparisons
+    //-------------------------------------------------------------------------
+
+    bool operator==( const freelist& lhs, const freelist& rhs ) noexcept;
+    bool operator!=( const freelist& lhs, const freelist& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit

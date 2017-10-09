@@ -11,6 +11,7 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
+#include "../freelist.hpp"          // freelist
 #include "../macros.hpp"            // BIT_MEMORY_ASSUME
 #include "../memory_block.hpp"      // memory_block
 #include "../pointer_utilities.hpp" // is_power_of_two
@@ -110,7 +111,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     private:
 
-      void*        m_head;
+      freelist     m_freelist;
       memory_block m_block;
       std::size_t  m_chunk_size;
 
@@ -118,16 +119,6 @@ namespace bit {
       // Private Member Functions
       //-----------------------------------------------------------------------
     private:
-
-      /// \brief Pushes the pointer \p p into the freelist
-      ///
-      /// \param p the pointer to push
-      void push_freelist_entry( void* p ) noexcept;
-
-      /// \brief Pops an entry from the freelist
-      ///
-      /// \return the freelist entry
-      void* pop_freelist_entry() noexcept;
 
       friend bool operator==( const pool_allocator&, const pool_allocator&) noexcept;
     };
