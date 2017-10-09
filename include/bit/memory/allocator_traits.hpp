@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 
+#include "concepts/Stateless.hpp"         // is_stateless
 #include "concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
 #include "concepts/ExtendedAllocator.hpp" // allocator_has_extended_try_allocate
 
@@ -26,7 +27,7 @@
 namespace bit {
   namespace memory {
 
-  //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
     /// \brief The allocator_traits class template provides a standardized
     ///        way to access allocator functionality
     ///
