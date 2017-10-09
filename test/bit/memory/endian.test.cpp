@@ -12,11 +12,14 @@
 
 namespace {
 
+
   template<typename T>
   bool reverse_equals( const T& lhs, const T& rhs )
   {
-    auto lhs_p = reinterpret_cast<const bit::memory::byte*>(&lhs);
-    auto rhs_p = reinterpret_cast<const bit::memory::byte*>(&rhs);
+    using byte_t = unsigned char;
+
+    auto lhs_p = reinterpret_cast<const byte_t*>(&lhs);
+    auto rhs_p = reinterpret_cast<const byte_t*>(&rhs);
 
     for( auto i = 0u; i < sizeof(T); ++i ) {
       if( lhs_p[i] != rhs_p[sizeof(T)-i-1] ) {
@@ -44,19 +47,6 @@ TEST_CASE("endian_swap( char )")
   }
 }
 
-//-----------------------------------------------------------------------------
-
-TEST_CASE("endian_swap( byte )")
-{
-  auto b = bit::memory::byte(0x1a);
-
-  SECTION("Endian swapping byte returns input")
-  {
-    auto result = bit::memory::endian_swap(b);
-
-    REQUIRE( result == b );
-  }
-}
 
 //-----------------------------------------------------------------------------
 
@@ -282,18 +272,6 @@ TEST_CASE("endian_cast<endian::native>( T )")
     }
   }
 
-  SECTION("endian_cast<endian::native>( byte )")
-  {
-    SECTION("Returns input")
-    {
-      auto b = bit::memory::byte(0x12);
-
-      auto result = endian_cast<endian::native>(b);
-
-      REQUIRE( b == result );
-    }
-  }
-
   SECTION("endian_cast<endian::native>( std::int8_t )")
   {
     SECTION("Returns input")
@@ -448,18 +426,6 @@ TEST_CASE("endian_cast<other_endian>( T )")
       auto result = endian_cast<other_endian>(c);
 
       REQUIRE( c == result );
-    }
-  }
-
-  SECTION("endian_cast<other_endian>( byte )")
-  {
-    SECTION("Returns input")
-    {
-      auto b = bit::memory::byte(0x12);
-
-      auto result = endian_cast<other_endian>(b);
-
-      REQUIRE( b == result );
     }
   }
 

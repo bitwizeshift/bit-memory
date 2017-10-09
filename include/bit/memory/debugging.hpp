@@ -76,65 +76,6 @@ namespace bit {
     void* debug_untag_fence_end_bytes( void* p, std::size_t n, std::size_t* stomped );
     /// \}
 
-
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief A range of bytes for iterating all values for debugging
-    ///
-    //////////////////////////////////////////////////////////////////////////
-    struct byte_range
-    {
-      //----------------------------------------------------------------------
-      // Constructor
-      //----------------------------------------------------------------------
-    public:
-
-      /// \brief Constructs a byte range from a start and end pointer
-      ///
-      /// \param first the starting pointer
-      /// \param last the end pointer
-      byte_range( const byte* first, const byte* last ) noexcept;
-
-      //----------------------------------------------------------------------
-      // Iterators
-      //----------------------------------------------------------------------
-    public:
-
-      /// \brief Gets the beginning iterator for this byte range
-      ///
-      /// \return the starting byte pointer
-      const byte* begin() const noexcept;
-
-      /// \brief Gets the end iterator for this byte range
-      ///
-      /// \return the end byte pointer
-      const byte* end() const noexcept;
-
-      //----------------------------------------------------------------------
-      // Private Members
-      //----------------------------------------------------------------------
-    private:
-
-      const byte* m_first;
-      const byte* m_last;
-    };
-
-    //------------------------------------------------------------------------
-    // Utilities
-    //------------------------------------------------------------------------
-
-    /// \brief Makes a range of bytes from a given memory block
-    ///
-    /// \param block the memory block
-    /// \return the byte range
-    byte_range make_byte_range( memory_block block ) noexcept;
-
-    /// \brief Makes a range of bytes from a given piece of raw data
-    ///
-    /// \param data pointer to the raw data
-    /// \param n the size
-    /// \return the byte range
-    byte_range make_byte_range( const void* data, std::size_t n ) noexcept;
-
   } // namespace memory
 } // namespace bit
 

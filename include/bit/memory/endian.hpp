@@ -9,8 +9,6 @@
 #ifndef BIT_MEMORY_ENDIAN_HPP
 #define BIT_MEMORY_ENDIAN_HPP
 
-#include "byte.hpp" // byte
-
 #include <algorithm>   // std::reverse
 #include <cstdint>     // std::int8_t, std::uint8_t, etc
 #include <type_traits> // std::is_copy_constructible, std::enable_if_t, etc
@@ -62,7 +60,6 @@ namespace bit {
     /// \param val the value to endian-swap
     /// \return the integral value with swapped endian
     char endian_swap( char val ) noexcept;
-    byte endian_swap( byte val ) noexcept;
     std::int8_t endian_swap( std::int8_t val ) noexcept;
     std::uint8_t endian_swap( std::uint8_t val ) noexcept;
     std::int16_t endian_swap( std::int16_t val ) noexcept;

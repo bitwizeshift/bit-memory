@@ -115,7 +115,7 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      alignas(Align) static byte s_storage[BlockSize * Blocks];
+      alignas(Align) static char s_storage[BlockSize * Blocks];
 
       /// \brief Gets the static memory_block_cache for this allocator
       ///

@@ -45,12 +45,14 @@ bit::memory::owner<bit::memory::memory_block>
   bit::memory::virtual_block_allocator::allocate_block()
   noexcept
 {
+  using byte_t = unsigned char;
+
   if( !m_cache.empty() ) {
     return m_cache.request_block();
   }
 
   if( (static_cast<std::size_t>(m_active_page) < m_pages) ) {
-    auto v = static_cast<byte*>(m_memory) + (m_active_page++ * virtual_memory_page_size());
+    auto v = static_cast<byte_t*>(m_memory) + (m_active_page++ * virtual_memory_page_size());
     auto p = virtual_memory_commit( v, 1 );
 
     return {p, virtual_memory_page_size()};

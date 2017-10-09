@@ -46,7 +46,7 @@ inline constexpr void* bit::memory::memory_block::start_address()
 inline constexpr void* bit::memory::memory_block::end_address()
   const noexcept
 {
-  return static_cast<byte*>(m_data) + m_size;
+  return static_cast<char*>(m_data) + m_size;
 }
 
 //----------------------------------------------------------------------------

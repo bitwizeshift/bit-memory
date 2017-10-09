@@ -9,8 +9,6 @@
 #ifndef BIT_MEMORY_MEMORY_BLOCK_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_HPP
 
-#include "byte.hpp" // byte
-
 #include <cstdlib> // std::size_t
 #include <utility> // std::swap
 

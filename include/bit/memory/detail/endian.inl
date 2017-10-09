@@ -11,12 +11,6 @@ inline char bit::memory::endian_swap( char val )
   return val;
 }
 
-inline bit::memory::byte bit::memory::endian_swap( byte val )
-  noexcept
-{
-  return val;
-}
-
 inline std::int8_t bit::memory::endian_swap( std::int8_t val )
   noexcept
 {

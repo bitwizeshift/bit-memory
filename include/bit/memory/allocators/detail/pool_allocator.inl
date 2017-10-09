@@ -18,11 +18,13 @@ inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
   assert( chunk_size >= sizeof(void*) );
   assert( chunk_size >= alignof(void*) );
 
+  using byte_t = unsigned char;
+
   auto* p = m_head;
 
   for( auto size = chunk_size; (size + chunk_size) <= block.size(); size += chunk_size )
   {
-    auto* next = static_cast<void*>(static_cast<byte*>(p) + chunk_size);
+    auto* next = static_cast<void*>(static_cast<byte_t*>(p) + chunk_size);
     *static_cast<void**>(p) = next;
     p = next;
   }
@@ -38,6 +40,8 @@ inline void* bit::memory::pool_allocator::try_allocate( std::size_t size,
                                                         std::size_t offset )
   noexcept
 {
+  using byte_t = unsigned char;
+
   auto p      = pop_freelist_entry();
   auto adjust = std::size_t{};
   p           = offset_align_forward(p, align, offset+1, &adjust);
@@ -47,18 +51,20 @@ inline void* bit::memory::pool_allocator::try_allocate( std::size_t size,
   if( BIT_MEMORY_UNLIKELY(new_size > max_size()) ) return nullptr;
 
   // Store the adjustment made to align correctly
-  *static_cast<byte*>(p) = static_cast<byte>(adjust);
+  *static_cast<byte_t*>(p) = static_cast<byte_t>(adjust);
 
-  return static_cast<byte*>(p) + 1;
+  return static_cast<char*>(p) + 1;
 }
 
 inline void bit::memory::pool_allocator::deallocate( void* p, std::size_t size )
 {
-  (void) size;
+  BIT_MEMORY_UNUSED(size);
 
-  p           = static_cast<byte*>(p) - 1;
-  auto adjust = static_cast<std::ptrdiff_t>( *static_cast<byte*>(p) );
-  p           = static_cast<byte*>(p) - adjust;
+  using byte_t = unsigned char;
+
+  p           = static_cast<byte_t*>(p) - 1;
+  auto adjust = static_cast<std::ptrdiff_t>(*static_cast<byte_t*>(p));
+  p           = static_cast<byte_t*>(p) - adjust;
 
   push_freelist_entry( p );
 }

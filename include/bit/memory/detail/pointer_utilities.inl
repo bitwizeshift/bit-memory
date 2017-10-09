@@ -196,19 +196,19 @@ inline std::size_t bit::memory::distance( const void* lhs, const void* rhs )
 inline std::ptrdiff_t bit::memory::difference( const void* lhs, const void* rhs )
   noexcept
 {
-  return static_cast<const byte*>(lhs) - static_cast<const byte*>(rhs);
+  return static_cast<const char*>(lhs) - static_cast<const char*>(rhs);
 }
 
 inline void* bit::memory::advance( void* p, std::ptrdiff_t bytes )
   noexcept
 {
-  return static_cast<byte*>(p) + bytes;
+  return static_cast<char*>(p) + bytes;
 }
 
 inline const void* bit::memory::advance( const void* p, std::ptrdiff_t bytes )
   noexcept
 {
-  return static_cast<const byte*>(p) + bytes;
+  return static_cast<const char*>(p) + bytes;
 }
 
 #endif /* BIT_MEMORY_DETAIL_POINTER_UTILITIES_INL */

@@ -39,6 +39,8 @@ void* bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Loc
   ::try_allocate( std::size_t size, std::size_t align )
   noexcept
 {
+  using byte_t = unsigned char;
+
   // 'new_size' technically misses a few bytes reserved for padding and any
   // additional information the allocation policy may require; however it
   // gives a more consistent and deterministic size for all allocations. By
@@ -53,13 +55,13 @@ void* bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Loc
   auto& checker   = detail::get<3>(*this);
   auto& lock      = detail::get<4>(*this);
 
-  byte* byte_ptr = nullptr;
+  byte_t* byte_ptr = nullptr;
 
   { // critical section
     std::lock_guard<lock_type> scope(lock);
 
     auto* p = allocator_traits<ExtendedAllocator>::try_allocate( allocator, new_size, align, offset );
-    byte_ptr = static_cast<byte*>(p);
+    byte_ptr = static_cast<byte_t*>(p);
 
     // nullptr being returned is not the hot code-path
     if( BIT_MEMORY_UNLIKELY(!byte_ptr) ) return nullptr;
@@ -82,6 +84,8 @@ template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename 
 void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::deallocate( void* p, std::size_t size )
 {
+  using byte_t = unsigned char;
+
   auto& allocator = detail::get<0>(*this);
   auto& tagger    = detail::get<1>(*this);
   auto& tracker   = detail::get<2>(*this);
@@ -91,7 +95,7 @@ void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   const auto new_size = Checker::front_size + size + Checker::back_size;
   const auto offset   = Checker::front_size;
 
-  auto* byte_ptr = static_cast<byte*>(p) - offset;
+  auto* byte_ptr = static_cast<byte_t*>(p) - offset;
 
   const auto info = allocator_traits<ExtendedAllocator>::info(allocator);
 

@@ -9,8 +9,6 @@
 #ifndef BIT_MEMORY_POINTER_UTILITIES_HPP
 #define BIT_MEMORY_POINTER_UTILITIES_HPP
 
-#include "byte.hpp" // byte
-
 #include <cstdint> // std::uintptr_t
 #include <cstddef> // std::size_t, std::ptrdiff_t, std::nullptr_t
 #include <cassert> // assert

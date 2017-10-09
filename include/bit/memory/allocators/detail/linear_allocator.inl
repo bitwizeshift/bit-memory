@@ -33,7 +33,7 @@ inline void* bit::memory::linear_allocator::try_allocate( std::size_t size,
   auto adjust = std::size_t{};
   auto* p = offset_align_forward(m_current,align,offset,&adjust);
 
-  auto* p_end = static_cast<byte*>(p) + size;
+  auto* p_end = static_cast<char*>(p) + size;
 
   // If allocated outside the range, return nullptr
   if( BIT_MEMORY_UNLIKELY( p_end > m_block.end_address() ) )

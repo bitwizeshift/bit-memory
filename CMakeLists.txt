@@ -63,7 +63,6 @@ set(headers
   include/bit/memory/allocator_deleter.hpp
   include/bit/memory/allocator_reference.hpp
   include/bit/memory/block_allocator_traits.hpp
-  include/bit/memory/byte.hpp
   include/bit/memory/concepts.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/endian.hpp
@@ -135,7 +134,6 @@ set(inline_headers
   include/bit/memory/detail/allocator_reference.inl
   include/bit/memory/detail/allocator_traits.inl
   include/bit/memory/detail/block_allocator_traits.inl
-  include/bit/memory/detail/byte.inl
   include/bit/memory/detail/debugging.inl
   include/bit/memory/detail/endian.inl
   include/bit/memory/detail/freelist.inl

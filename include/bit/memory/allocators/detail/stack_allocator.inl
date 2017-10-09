@@ -37,12 +37,14 @@ inline void* bit::memory::stack_allocator<Size,Align>
   assert( align && "cannot allocate with 0 alignment");
   assert( is_power_of_two(align) && "alignment must be a power of two" );
 
+  using byte_t = unsigned char;
+
   auto adjust = std::size_t{};
   auto* p = offset_align_forward(m_current,align,offset+1,&adjust);
-  auto* byte_ptr = static_cast<byte*>(p);
+  auto* byte_ptr = static_cast<byte_t*>(p);
 
   // store the adjustment required
-  *byte_ptr = static_cast<byte>(adjust);
+  *byte_ptr = static_cast<byte_t>(adjust);
   byte_ptr += 1;
 
   // determine the end pointer
@@ -62,13 +64,15 @@ template<std::size_t Size, std::size_t Align>
 inline void bit::memory::stack_allocator<Size,Align>
   ::deallocate( void* p, std::size_t size )
 {
+  BIT_MEMORY_UNUSED(size);
+
   assert( owns(p) && "Pointer must be owned by this allocator" );
   assert( m_current > p && "Allocations occurred out-of-order" );
 
-  BIT_MEMORY_UNUSED(size);
+  using byte_t = unsigned char;
 
   // Adjust the pointer
-  auto* byte_ptr = static_cast<byte*>(p);
+  auto* byte_ptr = static_cast<byte_t*>(p);
   byte_ptr -= 1;
 
   auto adjust = static_cast<std::size_t>(*byte_ptr);

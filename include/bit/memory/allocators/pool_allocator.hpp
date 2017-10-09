@@ -12,7 +12,6 @@
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
 #include "../macros.hpp"            // BIT_MEMORY_ASSUME
-#include "../byte.hpp"              // byte
 #include "../memory_block.hpp"      // memory_block
 #include "../pointer_utilities.hpp" // is_power_of_two
 

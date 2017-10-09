@@ -11,7 +11,6 @@
 #include "../detail/ebo_storage.hpp"               // detail::ebo_storage
 #include "../detail/allocator_function_traits.hpp" // detail::allocator_has_xyz
 
-#include "../byte.hpp"           // byte
 #include "../debugging.hpp"      // debug_tag_...
 #include "../errors.hpp"         // get_leak_handler, get_out_of_memory_handler, etc
 #include "../allocator_info.hpp" // allocator_info
