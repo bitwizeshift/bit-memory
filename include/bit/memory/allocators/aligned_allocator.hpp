@@ -23,7 +23,8 @@ namespace bit {
     /// \brief This stateless allocator performs all of its allocation calls
     ///        using aligned memory invocations
     ///
-    /// \satisfies Allocator
+    /// \satisfies{Allocator}
+    /// \satisfies{Stateless}
     ///////////////////////////////////////////////////////////////////////////
     class aligned_allocator
     {

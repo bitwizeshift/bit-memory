@@ -37,7 +37,7 @@ namespace bit {
     ///       keep track of the used blocks); thus this class does not default
     ///       itself to being stateless
     ///
-    /// \satisfies Allocator
+    /// \satisfies{Allocator}
     ///
     /// \tparam ExtendedAllocator An allocator that satisfies the
     ///                           ExtendedAllocator concept

@@ -116,8 +116,8 @@ namespace bit {
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     ///
-    /// \satisfies BlockAllocator
-    /// \satisfies Stateless
+    /// \satisfies{BlockAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size,std::size_t Align>
     class aligned_block_allocator

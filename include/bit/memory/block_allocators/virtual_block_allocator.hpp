@@ -27,15 +27,10 @@ namespace bit {
     /// them as they get requested. Any blocks that get deleted are simply
     /// cached for later use, rather than being decommitted each time.
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
     //////////////////////////////////////////////////////////////////////////
     class virtual_block_allocator
     {
-      //----------------------------------------------------------------------
-      // Public Members
-      //----------------------------------------------------------------------
-    public:
-
       //----------------------------------------------------------------------
       // Constructors
       //----------------------------------------------------------------------

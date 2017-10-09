@@ -29,6 +29,7 @@ namespace bit {
     /// constructed as though it is the underlying type.
     ///
     /// \tparam BlockAllocator the block allocator to adapt around
+    /// \satisfies{BlockAllocator}
     //////////////////////////////////////////////////////////////////////////
     template<typename BlockAllocator>
     class cached_block_allocator

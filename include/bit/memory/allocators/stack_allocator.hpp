@@ -35,7 +35,7 @@ namespace bit {
     /// \tparam Size The size of the storage in this allocator
     /// \tparam Align the alignment of the storage
     ///
-    /// \satisfies ExtendedAllocator
+    /// \satisfies{ExtendedAllocator}
     ///////////////////////////////////////////////////////////////////////////
     template<std::size_t Size, std::size_t Align = alignof(std::max_align_t)>
     class stack_allocator

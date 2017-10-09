@@ -35,7 +35,7 @@ namespace bit {
     /// \tparam Blocks the number of blocks in the block allocator
     /// \tparam Align the alignment of the blocks
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
     ///////////////////////////////////////////////////////////////////////////
     template<std::size_t BlockSize,
              std::size_t Blocks=1u,

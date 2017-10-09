@@ -28,7 +28,8 @@ namespace bit {
     /// is considered bad-practice, since this allocator could never produce
     /// a valid allocation.
     ///
-    /// \satisfies ExtendedAllocator
+    /// \satisfies{ExtendedAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     class null_allocator
     {

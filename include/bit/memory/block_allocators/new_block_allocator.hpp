@@ -56,7 +56,8 @@ namespace bit {
     /// \brief A block allocator that uses ::operator new(...) to allocate
     ///        memory blocks
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size>
     class new_block_allocator

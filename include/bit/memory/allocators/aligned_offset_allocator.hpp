@@ -22,7 +22,8 @@ namespace bit {
     /// \brief This stateless allocator performs all of its allocation calls
     ///        using aligned memory invocations aligned to an offset
     ///
-    /// \satisfies ExtendedAllocator
+    /// \satisfies{ExtendedAllocator}
+    /// \satisfies{Stateless}
     ///////////////////////////////////////////////////////////////////////////
     class aligned_offset_allocator
     {

@@ -9,7 +9,6 @@
 #define BIT_MEMORY_DEBUGGING_HPP
 
 #include "memory_block.hpp" // memory_block
-#include "concepts.hpp"
 
 #include <cstddef>   // std::size_t
 

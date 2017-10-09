@@ -25,7 +25,7 @@ namespace bit {
     /// \brief This allocator creates a pool of fixed-sized chunk entries for
     ///        allocations
     ///
-    /// \satisfies ExtendedAllocator
+    /// \satisfies{ExtendedAllocator}
     ///////////////////////////////////////////////////////////////////////////
     class pool_allocator
     {

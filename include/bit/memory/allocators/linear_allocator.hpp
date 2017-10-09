@@ -26,7 +26,7 @@ namespace bit {
     /// \brief A linear allocator is an allocator that allocates data
     ///        contiguously
     ///
-    /// \satisfies ExtendedAllocator
+    /// \satisfies{ExtendedAllocator}
     //////////////////////////////////////////////////////////////////////////
     class linear_allocator
     {

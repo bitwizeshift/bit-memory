@@ -94,6 +94,8 @@ namespace bit {
     ///       NOT intended as a drop-in replacement for allocators; only a
     ///       means of type-erasing the allocator so that underlying APIs
     ///       need-not require the type of allocator embedded in the class.
+    ///
+    /// \satisfies{Allocator}
     //////////////////////////////////////////////////////////////////////////
     class any_allocator
     {

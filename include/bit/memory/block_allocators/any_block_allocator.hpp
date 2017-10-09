@@ -63,7 +63,7 @@ namespace bit {
     /// This view is non-owning, and thus does not participate in the lifetime
     /// of a given allocator.
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
     //////////////////////////////////////////////////////////////////////////
     class any_block_allocator final
     {

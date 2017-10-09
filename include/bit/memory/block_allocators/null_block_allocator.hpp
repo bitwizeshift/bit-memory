@@ -23,8 +23,8 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     /// \brief A block allocator that only distributes null blocks
     ///
-    /// \satisfies BlockAllocator
-    /// \satisfies Stateless
+    /// \satisfies{BlockAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     class null_block_allocator
     {

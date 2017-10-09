@@ -56,7 +56,8 @@ namespace bit {
     /// \brief A block allocator that wraps around raw calls to std::malloc
     ///        and std::free
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size>
     class malloc_block_allocator

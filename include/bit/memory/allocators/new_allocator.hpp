@@ -25,7 +25,8 @@ namespace bit {
     ///
     /// Any alignment requests are ignored
     ///
-    /// \satisfies Allocator
+    /// \satisfies{Allocator}
+    /// \satisfies{Stateless}
     ///////////////////////////////////////////////////////////////////////////
     class new_allocator
     {

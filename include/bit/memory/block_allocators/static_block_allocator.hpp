@@ -38,8 +38,8 @@ namespace bit {
     /// \tparam Align the alignment of the blocks
     /// \tparam Tag the type used for a tag
     ///
-    /// \satisfies BlockAllocator
-    /// \satisfies Stateless
+    /// \satisfies{BlockAllocator}
+    /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t BlockSize,
              std::size_t Blocks = 1,
