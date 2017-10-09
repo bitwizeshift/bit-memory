@@ -11,8 +11,8 @@
 #define BIT_MEMORY_ALLOCATORS_MIN_ALIGNED_ALLOCATOR_HPP
 
 #include "../detail/ebo_storage.hpp" // ebo_storage
-#include "../owner.hpp"              // owner
 #include "../allocator_traits.hpp"   // allocator_traits
+#include "../owner.hpp"              // owner
 
 #include <cstddef> // std::size_t
 #include <utility> // std::move

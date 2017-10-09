@@ -65,7 +65,9 @@ inline void bit::memory::stack_allocator<Size,Align>
   assert( owns(p) && "Pointer must be owned by this allocator" );
   assert( m_current > p && "Allocations occurred out-of-order" );
 
-  //
+  BIT_MEMORY_UNUSED(size);
+
+  // Adjust the pointer
   auto* byte_ptr = static_cast<byte*>(p);
   byte_ptr -= 1;
 

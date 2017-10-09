@@ -11,7 +11,7 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY, BIT_MEMORY_UNUSED
 #include "../byte.hpp"              // byte
 #include "../pointer_utilities.hpp" // offset_align_forward
 

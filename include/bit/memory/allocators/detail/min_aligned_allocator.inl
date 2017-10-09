@@ -59,7 +59,7 @@ inline void bit::memory::min_aligned_allocator<Allocator,MinAlign>
 {
   auto& allocator = detail::get<0>( *this );
 
-  traits_type::deallocate( allocator, size, size );
+  traits_type::deallocate( allocator, p, size );
 }
 
 //-----------------------------------------------------------------------------
