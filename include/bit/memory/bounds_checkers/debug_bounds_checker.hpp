@@ -8,6 +8,7 @@
 #ifndef BIT_MEMORY_BOUNDS_CHECKERS_DEBUG_BOUNDS_CHECKER_HPP
 #define BIT_MEMORY_BOUNDS_CHECKERS_DEBUG_BOUNDS_CHECKER_HPP
 
+#include "../concepts/BoundsChecker.hpp" // is_bounds_checker
 #include "../allocator_info.hpp" // allocator_info
 #include "../debugging.hpp"      // debug_tag_start_bytes, etc
 #include "../errors.hpp"         // get_buffer_overflow_handler
@@ -57,6 +58,9 @@ namespace bit {
                              void* p,
                              std::size_t size ) noexcept;
     };
+
+    static_assert( is_bounds_checker_v<debug_bounds_checker>,
+                   "debug_bounds_checker must satisfy BoundsChecker" );
 
   } // namespace memory
 } // namespace bit
