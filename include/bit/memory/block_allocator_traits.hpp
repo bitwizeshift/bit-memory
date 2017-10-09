@@ -53,9 +53,10 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
+      // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
+      using is_stateless        = bit::memory::is_stateless<BlockAllocator>;
       using has_block_alignment = block_allocator_has_block_alignment<BlockAllocator>;
       using has_block_size      = block_allocator_has_block_size<BlockAllocator>;
-      using is_stateless        = is_stateless<BlockAllocator>;
 
       //----------------------------------------------------------------------
       // Block Allocations
