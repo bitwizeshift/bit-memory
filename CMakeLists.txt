@@ -13,6 +13,7 @@ include(MakeVersionHeader)
 
 option(BIT_MEMORY_COMPILE_INDEPENDENCE_TESTS "Include each header independently in a .cpp file to determine header independence" on)
 option(BIT_MEMORY_COMPILE_UNIT_TESTS "Compile and run the unit tests for this library" on)
+option(BIT_MEMORY_GENERATE_DOCUMENTATION "Generates doxygen documentation" off)
 
 project("BitMemory")
 
@@ -33,7 +34,7 @@ set(BIT_MEMORY_VERSION "${BIT_MEMORY_VERSION_MAJOR}.${BIT_MEMORY_VERSION_MINOR}.
 message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
 
 #-----------------------------------------------------------------------------
-# bit::memory
+# bit::memory: Sources
 #-----------------------------------------------------------------------------
 
 set(CMAKE_CXX_STANDARD 14)
@@ -220,6 +221,10 @@ set(source_files
   ${platform_source_files}
 )
 
+#-----------------------------------------------------------------------------
+# bit::memory: Library
+#-----------------------------------------------------------------------------
+
 add_library(memory ${source_files} ${headers} ${inline_headers})
 add_library(bit::memory ALIAS memory)
 
@@ -243,7 +248,6 @@ elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" )
   # TODO: Determine MSVC necessary compiler flags
 endif()
-
 
 #-----------------------------------------------------------------------------
 # bit::memory : Independence Tests
@@ -269,9 +273,15 @@ endif()
 #-----------------------------------------------------------------------------
 
 if( BIT_MEMORY_COMPILE_UNIT_TESTS )
-
   add_subdirectory(test)
+endif()
 
+#-----------------------------------------------------------------------------
+# bit::memory : Documentation
+#-----------------------------------------------------------------------------
+
+if( BIT_MEMORY_GENERATE_DOCUMENTATION )
+  add_subdirectory(doc)
 endif()
 
 #-----------------------------------------------------------------------------

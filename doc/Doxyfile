@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "bit::stl"
+PROJECT_NAME           = "bit::memory"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -58,7 +58,7 @@ PROJECT_LOGO           =
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = doc
+OUTPUT_DIRECTORY       =
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096 sub-
 # directories (in 2 levels) under the output directory of each output format and
@@ -240,10 +240,10 @@ TAB_SIZE               = 2
 
 # 2 user-defined aliases: 'requires' to specify a required concept, and
 # 'satisfies' to specify a satisfied concept
-ALIASES  = "requires{2}=\par Requires\n\p \1 satisfies \ref \2"
-ALIASES += "satisfies{1}=\par Satisfies\n\ref \1\n\ingroup \1"
-ALIASES += "concept{1}=\defgroup \1\n\ingroup concepts
-ALIASES += "concept{2}=\defgroup \1\n\ingroup \2
+ALIASES  = requires{2}="\par Requires\n\p \1 satisfies \ref \2"
+ALIASES += satisfies{1}="\par Satisfies\n\ref \1\n\ingroup \1"
+ALIASES += concept{1}="\defgroup \1 \1\n\ingroup concepts"
+ALIASES += concept{2}="\defgroup \1 \1\n\ingroup \2"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -795,7 +795,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = include
+INPUT                  = ../Readme.md ../include
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -904,7 +904,7 @@ EXCLUDE_PATTERNS       = */test/*
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories use the pattern */test/*
 
-EXCLUDE_SYMBOLS        = bit::stl::detail::*
+EXCLUDE_SYMBOLS        = bit::memory::detail::*
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
 # that contain example code fragments that are included (see the \include
@@ -986,7 +986,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = Readme.md
+USE_MDFILE_AS_MAINPAGE = ../Readme.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -2085,7 +2085,7 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           = include
+INCLUDE_PATH           = ../include
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
