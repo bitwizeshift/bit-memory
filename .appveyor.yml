@@ -5,13 +5,13 @@ os: Visual Studio 2017
 init: []
 
 install:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 15.0\VC\vcvarsall.bat" amd64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd" -arch=x64
   - set CATCH_DIR=%cd%\catch\include
   - mkdir %CATCH_DIR%
   - appveyor DownloadFile https://github.com/philsquared/Catch/releases/download/v1.10.0/catch.hpp -FileName %CATCH_DIR%\catch.hpp
 
 before_build:
-  - set PATH=C:\Program Files (x86)\MSBuild\15.0\Bin;%PATH%
+#  - set PATH=C:\Program Files (x86)\MSBuild\15.0\Bin;%PATH%
   - git submodule init
   - git submodule update
 
