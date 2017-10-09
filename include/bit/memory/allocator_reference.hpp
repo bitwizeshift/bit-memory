@@ -1,7 +1,13 @@
 /**
  * \file allocator_reference.hpp
  *
- * \brief TODO: Add description
+ * \brief This header defines a manner to wrap allocators in a reference-like
+ *        type
+ *
+ * This allows allocators to be shared and accessed from multiple locations at
+ * a single time, without requiring pointer-semantics. \c allocator_traits
+ * and \c block_allocator_traits both work with allocator references and will
+ * behave as though it is the underlying allocator.
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */

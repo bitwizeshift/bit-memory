@@ -1,7 +1,7 @@
 /**
  * \file macros.hpp
  *
- * \brief TODO: Add description
+ * \brief This header contains useful macros for the rest of the library
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */

@@ -23,7 +23,7 @@ namespace bit {
     ///
     /// On any failure, the buffer overflow handler will be called
     ///
-    /// \satisfies BoundsChecker
+    /// \satisfies{BoundsChecker}
     ///////////////////////////////////////////////////////////////////////////
     class debug_bounds_checker
     {

@@ -24,7 +24,7 @@ namespace bit {
     /// \brief This tracker watches individual allocations to determine which
     ///        allocations may be missing a corresponding deallocation
     ///
-    /// \satisfies MemoryTracker
+    /// \satisfies{MemoryTracker}
     ///////////////////////////////////////////////////////////////////////////
     class detailed_leak_tracker
     {

@@ -5,7 +5,6 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_VIRTUAL_MEMORY_HPP
 #define BIT_MEMORY_VIRTUAL_MEMORY_HPP
 

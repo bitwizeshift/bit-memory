@@ -20,7 +20,7 @@ namespace bit {
     /// \brief This is a null (no-op) memory tracker meant for composition in
     ///        the arena_allocator
     ///
-    /// \satisfies MemoryTracker
+    /// \satisfies{MemoryTracker}
     ///////////////////////////////////////////////////////////////////////////
     struct null_tracker
     {

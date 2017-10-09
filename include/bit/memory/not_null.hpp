@@ -1,11 +1,10 @@
 /**
  * \file not_null.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains a utility for guaranteeing non-null pointers
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_NOT_NULL_HPP
 #define BIT_MEMORY_NOT_NULL_HPP
 

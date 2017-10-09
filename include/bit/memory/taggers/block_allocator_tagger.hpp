@@ -20,7 +20,7 @@ namespace bit {
     /// \brief This tagger tags block allocations with a specific \ref debug_tag
     ///        byte-pattern on allocations and deallocations.
     ///
-    /// \satisfies MemoryTagger
+    /// \satisfies{MemoryTagger}
     ///////////////////////////////////////////////////////////////////////////
     class block_allocator_tagger
     {

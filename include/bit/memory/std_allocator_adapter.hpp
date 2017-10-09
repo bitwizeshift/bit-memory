@@ -2,11 +2,11 @@
  * \file standard_allocator.hpp
  *
  * \brief This header contains an implementation of a standard allocator
- *        adapter
+ *        adapter, used to adapt bit::memory allocators into standard
+ *        allocators.
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 #define BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 

@@ -1,5 +1,5 @@
 /**
- * \file stat_recording_tracker
+ * \file stat_recording_tracker.hpp
  *
  * \brief This header contains the implementation of a statistic tracking
  *        MemoryTracker
@@ -25,7 +25,7 @@ namespace bit {
       ///
       /// \tparam MemoryTracker the underlying MemoryTracker
       ///
-      /// \satisfies MemoryTracker
+      /// \satisfies{MemoryTracker}
       /////////////////////////////////////////////////////////////////////////
       template<typename MemoryTracker>
       class stat_recording_tracker : public MemoryTracker

@@ -17,7 +17,7 @@ namespace bit {
     /// \brief This class is a no-op MemoryTagger; for use in composition in
     ///        the arena_allocator
     ///
-    /// \satisfies MemoryTagger
+    /// \satisfies{MemoryTagger}
     ///////////////////////////////////////////////////////////////////////////
     class null_tagger
     {

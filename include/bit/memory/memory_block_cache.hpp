@@ -6,7 +6,6 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 #define BIT_MEMORY_MEMORY_BLOCK_CACHE_HPP
 

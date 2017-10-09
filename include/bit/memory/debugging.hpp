@@ -1,7 +1,7 @@
 /**
  * \file debugging.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header contains definitions for various debugging utilities
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */

@@ -20,7 +20,7 @@ namespace bit {
     /// \brief This bounds checker performs no operation, and is intended to
     ///        be used for non-debug variations of the arena_allocator
     ///
-    /// \satisfies BoundsChecker
+    /// \satisfies{BoundsChecker}
     ///////////////////////////////////////////////////////////////////////////
     class null_bounds_checker
     {
