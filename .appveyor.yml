@@ -54,6 +54,7 @@ install:
   - appveyor DownloadFile https://github.com/philsquared/Catch/releases/download/v1.10.0/catch.hpp -FileName %CATCH_DIR%\catch.hpp
 
 before_build:
+  - cd "C:\projects\bit-memory"
   - git submodule init
   - git submodule update
 
