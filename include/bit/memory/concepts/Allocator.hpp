@@ -38,26 +38,21 @@ namespace bit {
     /// system, and giving it the single responsibility of allocating the
     /// data.
     ///
-    /// Requirements
+    /// For type \c A to be \c Allocator, it must satisfy the following:
     ///
-    /// - MoveConstructible
+    /// **Provided**
     ///
-    /// For type \c A to be \c Allocator, it must satisfy the above
-    /// conditions as well as the following:
-    ///
-    /// Provided
-    ///
-    /// \c A - an Allocator type
-    /// \c a - an instance of type \c A
-    /// \c s - the size of an allocation
-    /// \c n - the alignment of the allocation
-    /// \c v - a void pointer
+    /// - \c A - an Allocator type
+    /// - \c a - an instance of type \c A
+    /// - \c s - the size of an allocation
+    /// - \c n - the alignment of the allocation
+    /// - \c p - a void pointer
     ///
     /// the following expressions must be well-formed with the expected
     /// side-effects:
     ///
     /// \code
-    /// v = a.try_allocate( s, n )
+    /// p = a.try_allocate( s, n )
     /// \endcode
     /// \c a tries to allocate at least \c s bytes aligned to the boundary
     /// \c n. This function returns \c nullptr on failure to allocate,
@@ -66,6 +61,8 @@ namespace bit {
     ///
     /// The expression \code a.try_allocate( s, n ) \endcode must be
     /// non-throwing, otherwise it is undefined behaviour.
+    ///
+    /// - - - - -
     ///
     /// \code
     /// a.deallocate( v, s )
@@ -76,9 +73,7 @@ namespace bit {
     /// Any use of \c v after a call to \c a.deallocate is undefined
     /// behaviour.
     ///
-    /// \code
-    /// a.
-    /// \endcode
+    /// - - - - -
     ///
     /// \code
     /// a1 == a2
@@ -88,14 +83,17 @@ namespace bit {
     /// deallocated through a2. Establishes reflexive, symmetric, and
     /// transitive relationship. Does not throw exceptions.
     ///
+    /// - - - - -
+    ///
     /// \code
     /// a1 != a2
     /// \endcode
     ///
     /// same as !(a1==a2)
     ///
+    /// - - - - -
     ///
-    /// Optionally:
+    /// **Optionally**
     ///
     /// \code
     /// v = a.allocate( s, n )
@@ -108,6 +106,8 @@ namespace bit {
     /// The default for this is to invoke out-of-memory handler on \c nullptr
     /// if an implementation is not provided
     ///
+    /// - - - - -
+    ///
     /// \code
     /// a.deallocate_all()
     /// \endcode
@@ -116,12 +116,24 @@ namespace bit {
     ///
     /// Default asserts.
     ///
+    /// - - - - -
+    ///
     /// \code
     /// a.info()
     /// \endcode
     /// \c a returns an allocator_info object describing the allocator
     ///
     /// Default returns "unknown allocator"
+    ///
+    /// - - - - -
+    ///
+    /// \code
+    /// bool b = a.owns( p );
+    /// \endcode
+    ///
+    /// \c a checks whether it owns the pointer \c p, returning the result.
+    ///
+    /// - - - - -
     ///
     /// \code
     /// a.max_size()
@@ -131,6 +143,8 @@ namespace bit {
     ///
     /// Default is \c std::numeric_limits<std::size_t>::max()
     ///
+    /// - - - - -
+    ///
     /// \code
     /// a.min_size()
     /// \endcode
@@ -139,19 +153,7 @@ namespace bit {
     ///
     /// Default is \c 1
     ///
-    /// \code
-    /// A::is_stateless::value
-    /// \endcode
-    /// Returns a \c bool indicating  that allocator \c A is stateless, such
-    /// that any two instances of \c A will be identical. Note that
-    /// not every class where \c std::is_empty<A>::value is true is stateless;
-    /// this depends on whether there is external state that tracks information
-    /// about the allocator (e.g. static state stored outside of the class).
-    ///
-    /// It is undefined-behaviour for this to be \c std::true_type for a
-    /// class \c A that is not actually stateless.
-    ///
-    /// Default is \c std::false_type
+    /// - - - - -
     ///
     /// \code
     /// A::is_always_equal::value
@@ -160,6 +162,8 @@ namespace bit {
     /// allocator will always compare equal.
     ///
     /// Default is \c std::false_type
+    ///
+    /// - - - - -
     ///
     /// \code
     /// A::default_alignment::value
@@ -172,6 +176,8 @@ namespace bit {
     ///
     /// Default is \c 1.
     ///
+    /// - - - - -
+    ///
     /// \code
     /// A::max_alignment::value
     /// \endcode
@@ -180,13 +186,6 @@ namespace bit {
     /// results in undefined behaviour.
     ///
     /// Default is \c alignof(std::max_align_t)
-    ///
-    /// \code
-    /// A::can_truncate_deallocations
-    /// \endcode
-    /// Determines whether the allocator is capable of truncating deallocations
-    /// by clearing away larger chunks of data, rather than waiting for the
-    /// every deallocation call.
     ///////////////////////////////////////////////////////////////////////////
 #if __cplusplus >= 202000L
     // TODO(bitwize) replace 202000L with the correct __cplusplus when certified

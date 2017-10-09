@@ -26,14 +26,14 @@ namespace bit {
     ///
     /// For type \c T to be \c MemoryTracker, it must satisfy the following:
     ///
-    /// Provided
+    /// **Provided**
     ///
-    /// \c T - a \c MemoryTracker type
-    /// \c t - an instance of type \c T
-    /// \c s - the size of an allocation
-    /// \c a - the alignment of the allocation
-    /// \c v - a void pointer
-    /// \c i - an allocator_info object
+    /// - \c T - a \c MemoryTracker type
+    /// - \c t - an instance of type \c T
+    /// - \c s - the size of an allocation
+    /// - \c a - the alignment of the allocation
+    /// - \c v - a void pointer
+    /// - \c i - an allocator_info object
     ///
     /// The following expressions must be well-formed and with the following
     /// side-effects:
@@ -45,6 +45,8 @@ namespace bit {
     /// \c T receives information indicating that \c p was allocated with size
     /// \c s and alignment \c a
     ///
+    /// - - - - -
+    ///
     /// \code
     /// t.on_deallocate( info, p, s );
     /// \endcode
@@ -52,12 +54,16 @@ namespace bit {
     /// \c T receives information indicating that \c p was deallocated and size
     /// requested was \c s, for the allocator indicated by info \c i
     ///
+    /// - - - - -
+    ///
     /// \code
     /// t.on_deallocate_all();
     /// \endcode
     ///
     /// \c T receives information indicating the all memory was deallocated
     /// from within the allocator
+    ///
+    /// - - - - -
     ///
     /// \code
     /// t.finalize( i );

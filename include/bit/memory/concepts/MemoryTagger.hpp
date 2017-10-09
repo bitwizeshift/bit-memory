@@ -26,10 +26,10 @@ namespace bit {
     ///
     /// Provided
     ///
-    /// \c T - a \c MemoryTagger type
-    /// \c t - an instance of type \c T
-    /// \c s - the size of an allocation
-    /// \c p - a void pointer
+    /// - \c T - a \c MemoryTagger type
+    /// - \c t - an instance of type \c T
+    /// - \c s - the size of an allocation
+    /// - \c p - a void pointer
     ///
     /// The following expressions must be well-formed and with the following
     /// side-effects:
@@ -39,6 +39,8 @@ namespace bit {
     /// \endcode
     ///
     /// \c T tags the allocation at address \c p with size \c s
+    ///
+    /// - - - - -
     ///
     /// \code
     /// t.tag_deallocation( p, s );

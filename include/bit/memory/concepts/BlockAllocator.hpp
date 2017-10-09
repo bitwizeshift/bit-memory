@@ -35,18 +35,13 @@ namespace bit {
     /// The size of a memory_block returned by a BlockAllocator is fixed at
     /// construction time, and is not permitted to vary.
     ///
-    /// Requirements
+    /// For type \c A to be \c BlockAllocator, it must satisfy the following:
     ///
-    /// - MoveConstructible
+    /// **Provided**
     ///
-    /// For type \c A to be \c BlockAllocator, it must satisfy the above
-    /// conditions as well as the following:
-    ///
-    /// Provided
-    ///
-    /// \c A - a BlockAllocator type
-    /// \c a - an instance of type \c A
-    /// \c b - a memory_block
+    /// - \c A - a BlockAllocator type
+    /// - \c a - an instance of type \c A
+    /// - \c b - a memory_block
     ///
     /// the following expressions must be well-formed with the expected
     /// side-effects:
@@ -54,6 +49,8 @@ namespace bit {
     /// \code
     /// a.allocate_block()
     /// \endcode
+    ///
+    /// - - - - -
     ///
     /// Allocates a \c memory_block of implementation-specific size
     ///

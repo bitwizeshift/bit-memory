@@ -26,13 +26,13 @@ namespace bit {
     ///
     /// For type \c B to be a \c BoundsChecker, it must satisfy the following:
     ///
-    /// Provided
+    /// **Provided**
     ///
-    /// \c B - a \c BoundsChecker type
-    /// \c b - an instance of type \c B
-    /// \c s - the size of an allocation
-    /// \c p - a void pointer
-    /// \p i - an allocator_info object
+    /// - \c B - a \c BoundsChecker type
+    /// - \c b - an instance of type \c B
+    /// - \c s - the size of an allocation
+    /// - \c p - a void pointer
+    /// - \p i - an allocator_info object
     ///
     /// The following expressions must be well-formed and with the following
     /// side-effects:
@@ -43,11 +43,15 @@ namespace bit {
     ///
     /// Prepares a front-fence at the given pointer \c p with the size \c s
     ///
+    /// - - - - -
+    ///
     /// \code
     /// b.prepare_back_fence( p, s );
     /// \endcode
     ///
     /// Prepares a back-fence at the given pointer \c p with the size \c s
+    ///
+    /// - - - - -
     ///
     /// \code
     /// b.check_front_fence( i, p, s );
@@ -56,6 +60,8 @@ namespace bit {
     /// Checks a front-fence at the given pointer \c p with the size \c s, for
     /// allocator \c i.
     ///
+    /// - - - - -
+    ///
     /// \code
     /// b.check_back_fence( i, p, s );
     /// \endcode
@@ -63,12 +69,16 @@ namespace bit {
     /// Checks a back-fence at the given pointer \c p with the size \c s, for
     /// allocator \c i.
     ///
+    /// - - - - -
+    ///
     /// \code
     /// std::size_t s = B::front_size
     /// \endcode
     ///
     /// Convertible to \c std::size_t -- the number of bytes to prepend to an
     /// allocation for a front memory fence
+    ///
+    /// - - - - -
     ///
     /// \code
     /// std::size_t s = B::back_size

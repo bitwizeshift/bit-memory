@@ -31,7 +31,7 @@ namespace bit {
   /// object to be compressed into a single instance (either EBO inheritance or
   /// data member).
   ///
-  /// Requirements
+  /// **Requirements**
   ///
   /// - DefaultConstructible
   /// - CopyConstructible
@@ -42,10 +42,10 @@ namespace bit {
   ///
   /// Additionally, it must satisfy the followowing:
   ///
-  /// Provided
+  /// **Provided**
   ///
-  /// \c S - a Stateless type
-  /// \c s - an instance of type \c S
+  /// - \c S - a Stateless type
+  /// - \c s - an instance of type \c S
   ///
   /// the following expressions must be well-formed with the expected
   /// reproduceable side-effects:
@@ -55,10 +55,14 @@ namespace bit {
   /// \endcode
   /// returns true
   ///
+  /// - - - - -
+  ///
   /// \code
   /// S() != S()
   /// \endcode
   /// returns false
+  ///
+  /// - - - - -
   ///
   /// \code
   /// S s1{};              // default ctor
