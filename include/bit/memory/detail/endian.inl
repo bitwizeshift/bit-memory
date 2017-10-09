@@ -139,7 +139,11 @@ inline T* bit::memory::endian_swap_in_place( T* p )
   noexcept
 {
   // Note: Reinterpret casting T to a byte pointer is legal C++
-  endian_swap_buffer_in_place( reinterpret_cast<byte*>(p), sizeof(T) );
+
+  // TODO(bitwize): Investigate why converting to 'bit::memory::byte*' is being
+  //                optimized out, whereas to 'char*' is not. By the standard,
+  //                they should both be considered byte pointers.
+  endian_swap_buffer_in_place( reinterpret_cast<char*>(p), sizeof(T) );
 
   return p;
 }
