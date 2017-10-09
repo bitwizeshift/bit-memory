@@ -9,6 +9,7 @@
 #ifndef BIT_MEMORY_TAGGERS_BLOCK_ALLOCATOR_TAGGER_HPP
 #define BIT_MEMORY_TAGGERS_BLOCK_ALLOCATOR_TAGGER_HPP
 
+#include "../concepts/MemoryTagger.hpp" // is_memory_tagger
 #include "../debugging.hpp" // debug_tag_allocated_bytes
 
 #include <cstddef>          // std::size_t
@@ -32,6 +33,10 @@ namespace bit {
       void tag_allocation( void* p, std::size_t size ) noexcept;
       void tag_deallocation( void* p, std::size_t size ) noexcept;
     };
+
+
+    static_assert( is_memory_tagger_v<block_allocator_tagger>,
+                   "block_allocator_tagger must satisfy MemoryTagger" );
 
   } // namespace memory
 } // namespace debug

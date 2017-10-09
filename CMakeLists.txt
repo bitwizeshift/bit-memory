@@ -56,6 +56,7 @@ set(headers
   include/bit/memory/concepts/Allocator.hpp
   include/bit/memory/concepts/BlockAllocator.hpp
   include/bit/memory/concepts/ExtendedAllocator.hpp
+  include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
 
   # Utilities
