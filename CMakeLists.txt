@@ -55,6 +55,7 @@ set(headers
   include/bit/memory/concepts/Stateless.hpp
   include/bit/memory/concepts/Allocator.hpp
   include/bit/memory/concepts/BlockAllocator.hpp
+  include/bit/memory/concepts/BasicLockable.hpp
   include/bit/memory/concepts/BoundsChecker.hpp
   include/bit/memory/concepts/ExtendedAllocator.hpp
   include/bit/memory/concepts/MemoryTagger.hpp
