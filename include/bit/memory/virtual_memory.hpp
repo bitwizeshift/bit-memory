@@ -23,8 +23,10 @@ namespace bit {
     // Global Constants
     //------------------------------------------------------------------------
 
-    /// \brief The page size of the virtual memory
-    extern const std::size_t virtual_memory_page_size;
+    /// \brief Retrieves the page size of the virtual memory
+    ///
+    /// \return the page size of the virtual memory
+    std::size_t virtual_memory_page_size() noexcept;
 
     //------------------------------------------------------------------------
     // Global Functions
@@ -72,14 +74,6 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     class virtual_memory
     {
-      //----------------------------------------------------------------------
-      // Public Static Members
-      //----------------------------------------------------------------------
-    public:
-
-      /// \brief The page size of the virtual memory
-      static const std::size_t page_size;
-
       //----------------------------------------------------------------------
       // Constructors
       //----------------------------------------------------------------------

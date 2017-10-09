@@ -4,8 +4,6 @@
 // virtual_memory
 //============================================================================
 
-const std::size_t bit::memory::virtual_memory::page_size = bit::memory::virtual_memory_page_size;
-
 //----------------------------------------------------------------------------
 // Constructors / Destructors
 //----------------------------------------------------------------------------
@@ -54,7 +52,7 @@ bit::memory::virtual_memory&
 void bit::memory::virtual_memory::commit( std::ptrdiff_t n )
   noexcept
 {
-  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size);
+  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size());
 
   virtual_memory_commit( ptr, 1 );
 }
@@ -63,7 +61,7 @@ void bit::memory::virtual_memory::commit( std::ptrdiff_t n )
 void bit::memory::virtual_memory::decommit( std::ptrdiff_t n )
   noexcept
 {
-  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size);
+  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size());
 
   virtual_memory_decommit( ptr, 1 );
 }
@@ -86,14 +84,14 @@ bit::memory::memory_block bit::memory::virtual_memory::at( std::ptrdiff_t n )
 {
   if( n < 0 || n >= static_cast<std::ptrdiff_t>(m_pages) ) throw std::out_of_range("virtual_memory::at: index out of bounds");
 
-  auto ptr = static_cast<char*>(m_data) + (n * page_size);
-  return memory_block{ ptr, page_size };
+  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size());
+  return memory_block{ ptr, virtual_memory_page_size() };
 }
 
 bit::memory::memory_block
   bit::memory::virtual_memory::operator[]( std::ptrdiff_t n )
   const noexcept
 {
-  auto ptr = static_cast<char*>(m_data) + (n * page_size);
-  return memory_block{ ptr, page_size };
+  auto ptr = static_cast<char*>(m_data) + (n * virtual_memory_page_size());
+  return memory_block{ ptr, virtual_memory_page_size() };
 }

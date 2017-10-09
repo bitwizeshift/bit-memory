@@ -34,12 +34,12 @@ TEST_CASE("virtual_block_allocator::allocate_block()")
     {
       auto align = bit::memory::align_of(block.data());
 
-      REQUIRE( align >= bit::memory::virtual_memory_page_size );
+      REQUIRE( align >= bit::memory::virtual_memory_page_size() );
     }
 
     SECTION("Size is virtual page size")
     {
-      REQUIRE( block.size() == bit::memory::virtual_memory_page_size );
+      REQUIRE( block.size() == bit::memory::virtual_memory_page_size() );
     }
   }
 

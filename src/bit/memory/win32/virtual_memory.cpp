@@ -4,9 +4,9 @@
 
 #include <cassert>
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Forward Declarations
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 namespace
 {
@@ -16,29 +16,35 @@ namespace
   std::size_t get_virtual_page_size() noexcept;
 }
 
-//--------------------------------------------------------------------------
-// Constants
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Free Functions
+//-----------------------------------------------------------------------------
 
-const std::size_t bit::memory::virtual_memory_page_size = get_virtual_page_size();
+std::size_t bit::memory::virtual_memory_page_size()
+  noexcept
+{
+  static const std::size_t s_page_size = get_virtual_page_size();
 
-//--------------------------------------------------------------------------
+  return s_page_size;
+}
+
+//-----------------------------------------------------------------------------
 
 void* bit::memory::virtual_memory_reserve( std::size_t n )
   noexcept
 {
-  auto size = n * virtual_memory_page_size;
+  auto size = n * virtual_memory_page_size();
   auto ptr = ::VirtualAlloc(nullptr, size, MEM_RESERVE, PAGE_NOACCESS);
 
   return ptr;
 }
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 void* bit::memory::virtual_memory_commit( void* memory, std::size_t n )
   noexcept
 {
-  auto size = n * virtual_memory_page_size;
+  auto size = n * virtual_memory_page_size();
   auto region = ::VirtualAlloc(memory, size, MEM_COMMIT, PAGE_READWRITE);
 
   if(!region) return nullptr;
@@ -48,18 +54,18 @@ void* bit::memory::virtual_memory_commit( void* memory, std::size_t n )
   return region;
 }
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 void bit::memory::virtual_memory_decommit( void* memory, std::size_t n )
   noexcept
 {
-  auto size = n * virtual_memory_page_size;
+  auto size = n * virtual_memory_page_size();
   ::VirtualFree(memory, size, MEM_DECOMMIT);
 
 //  assert(result == nullptr && "virtual_memory_decommit: unable to decommit memory");
 }
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 void bit::memory::virtual_memory_release( void* memory, std::size_t n )
   noexcept
@@ -72,9 +78,9 @@ void bit::memory::virtual_memory_release( void* memory, std::size_t n )
 }
 
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Free Functions
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 namespace {
 

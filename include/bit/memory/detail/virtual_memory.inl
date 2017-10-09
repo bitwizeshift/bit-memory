@@ -18,7 +18,7 @@ inline void* bit::memory::virtual_memory::get()
 inline std::size_t bit::memory::virtual_memory::size()
   const noexcept
 {
-  return m_pages * page_size;
+  return m_pages * virtual_memory_page_size();
 }
 
 inline std::size_t bit::memory::virtual_memory::pages()

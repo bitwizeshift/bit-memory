@@ -4,9 +4,6 @@
 // virtual_block_allocator
 //============================================================================
 
-const std::size_t bit::memory::virtual_block_allocator::block_size = bit::memory::virtual_memory_page_size;
-const std::size_t bit::memory::virtual_block_allocator::align_size = bit::memory::virtual_memory_page_size;
-
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
@@ -53,10 +50,10 @@ bit::memory::owner<bit::memory::memory_block>
   }
 
   if( (static_cast<std::size_t>(m_active_page) < m_pages) ) {
-    auto v = static_cast<byte*>(m_memory) + (m_active_page++ * virtual_memory_page_size);
+    auto v = static_cast<byte*>(m_memory) + (m_active_page++ * virtual_memory_page_size());
     auto p = virtual_memory_commit( v, 1 );
 
-    return {p, virtual_memory_page_size};
+    return {p, virtual_memory_page_size()};
   }
 
   return nullblock;
