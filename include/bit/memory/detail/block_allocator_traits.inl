@@ -30,7 +30,7 @@ inline bit::memory::allocator_info
   ::info( const BlockAllocator& alloc )
   noexcept
 {
-  return do_info( detail::block_allocator_has_info<BlockAllocator>{}, alloc );
+  return do_info( block_allocator_has_info<BlockAllocator>{}, alloc );
 }
 
 //-----------------------------------------------------------------------------

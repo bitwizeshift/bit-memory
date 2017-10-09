@@ -39,7 +39,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type size,
                                                       size_type align )
 {
-  return do_allocate( detail::allocator_has_allocate<Allocator>{}, alloc, size, align );
+  return do_allocate( allocator_has_allocate<Allocator>{}, alloc, size, align );
 }
 
 template<typename Allocator>
@@ -50,7 +50,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type align,
                                                       size_type offset )
 {
-  return do_allocate( detail::allocator_has_extended_allocate<Allocator>{}, alloc, size, align, offset );
+  return do_allocate( allocator_has_extended_allocate<Allocator>{}, alloc, size, align, offset );
 }
 
 //-----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ inline bit::memory::allocator_info
   bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
   noexcept
 {
-  return do_info( detail::allocator_has_info<Allocator>{}, alloc );
+  return do_info( allocator_has_info<Allocator>{}, alloc );
 }
 
 //-----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::max_size( const Allocator& alloc )
   noexcept
 {
-  return do_max_size( detail::allocator_has_max_size<Allocator>{}, alloc );
+  return do_max_size( allocator_has_max_size<Allocator>{}, alloc );
 }
 
 template<typename Allocator>
@@ -102,7 +102,7 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::min_size( const Allocator& alloc )
   noexcept
 {
-  return do_min_size( detail::allocator_has_min_size<Allocator>{}, alloc );
+  return do_min_size( allocator_has_min_size<Allocator>{}, alloc );
 }
 
 //=============================================================================

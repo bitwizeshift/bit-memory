@@ -8,8 +8,9 @@
 #ifndef BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
 
-#include "../detail/ebo_storage.hpp"               // detail::ebo_storage
-#include "../detail/allocator_function_traits.hpp" // detail::allocator_has_xyz
+#include "../detail/ebo_storage.hpp"         // detail::ebo_storage
+#include "../concepts/Allocator.hpp"         // Allocator
+#include "../concepts/ExtendedAllocator.hpp" // ExtendedAllocator
 
 #include "../debugging.hpp"      // debug_tag_...
 #include "../errors.hpp"         // get_leak_handler, get_out_of_memory_handler, etc
@@ -75,11 +76,11 @@ namespace bit {
       // otherwise default back to the same defaults that the allocator_traits
       // will choose.
 
-      using is_always_equal            = detail::allocator_is_always_equal<ExtendedAllocator>;
-      using default_alignment          = detail::allocator_default_alignment<ExtendedAllocator>;
-      using max_alignment              = detail::allocator_max_alignment<ExtendedAllocator>;
-      using can_truncate_deallocations = detail::allocator_can_truncate_deallocations<ExtendedAllocator>;
-      using is_stateless = std::integral_constant<bool,detail::allocator_is_stateless<ExtendedAllocator>::value &&
+      using is_always_equal            = allocator_is_always_equal<ExtendedAllocator>;
+      using default_alignment          = allocator_default_alignment<ExtendedAllocator>;
+      using max_alignment              = allocator_max_alignment<ExtendedAllocator>;
+      using can_truncate_deallocations = allocator_can_truncate_deallocations<ExtendedAllocator>;
+      using is_stateless = std::integral_constant<bool,is_stateless<ExtendedAllocator>::value &&
                                                        std::is_empty<MemoryTagger>::value &&
                                                        std::is_empty<MemoryTracker>::value &&
                                                        std::is_empty<BoundsChecker>::value &&
@@ -168,7 +169,7 @@ namespace bit {
       //-----------------------------------------------------------------------
 
       /// \brief Deallocates all memory in this allocator
-      template<typename U = ExtendedAllocator, typename = std::enable_if_t<detail::allocator_has_deallocate_all<U>::value>>
+      template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_can_truncate_deallocations<U>::value>>
       void deallocate_all();
 
       //-----------------------------------------------------------------------
@@ -176,10 +177,10 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      template<typename U = ExtendedAllocator, typename = std::enable_if_t<detail::allocator_has_owns<U>::value>>
+      template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_knows_ownership<U>::value>>
       bool owns( const void* p ) const noexcept;
 
-      template<typename U = ExtendedAllocator, typename = std::enable_if_t<detail::allocator_has_info<U>::value>>
+      template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
 
       //----------------------------------------------------------------------
@@ -197,7 +198,7 @@ namespace bit {
       /// \param alloc the allocator to get the max size from
       /// \return the amount of bytes available for the largest possible
       ///         allocation
-      template<typename U = ExtendedAllocator, typename = std::enable_if_t<detail::allocator_has_max_size<U>::value>>
+      template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_has_max_size<U>::value>>
       std::size_t max_size() const noexcept;
 
       /// \brief Gets the minimum size allocateable from this allocator
@@ -206,7 +207,7 @@ namespace bit {
       ///
       /// \param alloc the allocator to get the min size from
       /// \return the minimum amount of bytes able to allocated
-      template<typename U = ExtendedAllocator, typename = std::enable_if_t<detail::allocator_has_min_size<U>::value>>
+      template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_has_min_size<U>::value>>
       std::size_t min_size() const noexcept;
 
       //-----------------------------------------------------------------------

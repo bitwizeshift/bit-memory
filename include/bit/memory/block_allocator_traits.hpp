@@ -12,7 +12,8 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "detail/block_allocator_function_traits.hpp" // detail::is_block_allocator
+#include "concepts/Stateless.hpp"      // is_stateless
+#include "concepts/BlockAllocator.hpp" // is_block_allocator
 
 #include "allocator_reference.hpp" // allocator_reference
 #include "allocator_info.hpp"      // allocator_info
@@ -26,25 +27,6 @@
 
 namespace bit {
   namespace memory {
-
-    /// \brief Type-trait to determine whether \p T is a block allocator
-    ///
-    /// The result is \c std::true_type if \p T satisfies the BlockAllocator
-    /// concept, which minimally requires the following to be well formed:
-    ///
-    /// \code
-    /// std::declval<T&>().allocate_block();
-    /// std::declval<T&>().deallocate_block( std::declval<memory_block>() );
-    /// \endcode
-    ///
-    /// The result is accessible as \c ::value
-    template<typename T>
-    using is_block_allocator = detail::is_block_allocator<T>;
-
-    /// \brief Convenience template variable to extract whether \p T is a
-    ///        block allocator
-    template<typename T>
-    constexpr bool is_block_allocator_v = is_block_allocator<T>::value;
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief The block_allocator_traits class template provides a
@@ -71,9 +53,9 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      using has_block_alignment = detail::block_allocator_has_block_alignment<BlockAllocator>;
-      using has_block_size      = detail::block_allocator_has_block_size<BlockAllocator>;
-      using is_stateless        = detail::block_allocator_is_stateless<BlockAllocator>;
+      using has_block_alignment = block_allocator_has_block_alignment<BlockAllocator>;
+      using has_block_size      = block_allocator_has_block_size<BlockAllocator>;
+      using is_stateless        = is_stateless<BlockAllocator>;
 
       //----------------------------------------------------------------------
       // Block Allocations

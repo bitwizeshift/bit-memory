@@ -8,8 +8,10 @@
 #ifndef BIT_MEMORY_ALLOCATOR_REFERENCE_HPP
 #define BIT_MEMORY_ALLOCATOR_REFERENCE_HPP
 
-#include "detail/allocator_function_traits.hpp"       // detail::allocator_is_stateless
-#include "detail/block_allocator_function_traits.hpp" // detail::is_block_allocator
+#include "concepts/Stateless.hpp"      // Stateless
+#include "concepts/Allocator.hpp"      // Allocator
+#include "concepts/BlockAllocator.hpp" // BlockAllocator
+
 #include "macros.hpp"  // BIT_MEMORY_UNUSED
 
 #include <type_traits> // std::is_final
@@ -20,7 +22,7 @@ namespace bit {
     namespace detail {
 
       template<typename Allocator,
-               bool IsStateless = allocator_is_stateless<Allocator>::value && !std::is_final<Allocator>::value>
+               bool IsStateless = is_stateless<Allocator>::value && !std::is_final<Allocator>::value>
       class allocator_reference_base;
 
       template<typename Allocator>
@@ -101,8 +103,8 @@ namespace bit {
     {
       using base_type = detail::allocator_reference_base<Allocator>;
 
-      static_assert( detail::is_allocator<Allocator>::value ||
-                     detail::is_block_allocator<Allocator>::value,
+      static_assert( is_allocator<Allocator>::value ||
+                     is_block_allocator<Allocator>::value,
                      "Allocator must satisfy either Allocator or BlockAllocator" );
 
       //-----------------------------------------------------------------------

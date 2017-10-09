@@ -10,8 +10,9 @@
 #ifndef BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 #define BIT_MEMORY_STD_ALLOCATOR_ADAPTER_HPP
 
-#include "detail/ebo_storage.hpp"               // detail::ebo_storage
-#include "detail/allocator_function_traits.hpp" // detail::allocator_has_max_size
+#include "detail/ebo_storage.hpp" // detail::ebo_storage
+
+#include "concepts/Allocator.hpp" // detail::allocator_has_max_size
 
 #include "allocator_reference.hpp"              // allocator_reference
 #include "allocator_traits.hpp"                 // allocator_traits
@@ -120,7 +121,7 @@ namespace bit {
       /// \brief Gets the maximum size this allocator supports
       ///
       /// \return the maximum size able to be allocated
-      template<typename U = Allocator, typename = std::enable_if<detail::allocator_has_max_size<U>::value>>
+      template<typename U = Allocator, typename = std::enable_if<allocator_has_max_size<U>::value>>
       size_type max_size() const noexcept;
 
       /// \brief Gets the underlying allocator

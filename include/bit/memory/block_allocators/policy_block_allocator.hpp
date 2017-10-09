@@ -9,8 +9,8 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_POLICY_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_POLICY_BLOCK_ALLOCATOR_HPP
 
-#include "../detail/ebo_storage.hpp"                     // detail::ebo_storage
-#include "../detail/block_allocator_function_traits.hpp" // detail::block_allocator_has...
+#include "../detail/ebo_storage.hpp"      // detail::ebo_storage
+#include "../concepts/BlockAllocator.hpp" // block_allocator_has
 
 #include "../owner.hpp"                  // owner
 #include "../memory_block.hpp"           // memory_block
@@ -96,7 +96,7 @@ namespace bit {
 
       using lock_type    = BasicLockable;
       using tracker_type = MemoryTracker;
-      using is_stateless = std::integral_constant<bool,detail::block_allocator_is_stateless<BlockAllocator>::value &&
+      using is_stateless = std::integral_constant<bool,is_stateless<BlockAllocator>::value &&
                                                        std::is_empty<MemoryTagger>::value &&
                                                        std::is_empty<MemoryTracker>::value &&
                                                        std::is_empty<BasicLockable>::value>;
@@ -190,7 +190,7 @@ namespace bit {
       ///       \c info()
       ///
       /// \return the allocator info
-      template<typename U = BlockAllocator, typename = std::enable_if_t<detail::block_allocator_has_info<U>::value>>
+      template<typename U = BlockAllocator, typename = std::enable_if_t<block_allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
 
       //-----------------------------------------------------------------------

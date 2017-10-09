@@ -58,6 +58,11 @@ This allows for greater composition with other allocators, since an allocator th
 The optional `allocate` function _may_ throw. If this is not defined, then `allocator_traits<Allocator>::allocate(...)` defines a custom
 one that -- on failure -- calls a global out-of-memory handler.
 
+### 4. Allocator info
+
+The Allocator concept in this library optionally supports a member function named `infO()` that returns an `allocator_info` object.
+This object is used for _naming_ the allocator so that it can be uniquely identified in case an error handler is called.
+
 ## Memory Management
 
 The Allocators in this library are designed around a few crucial concepts:

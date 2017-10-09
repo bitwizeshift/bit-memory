@@ -10,7 +10,8 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_TRAITS_HPP
 
-#include "detail/allocator_function_traits.hpp" // is_allocator, etc
+#include "concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
+#include "concepts/ExtendedAllocator.hpp" // allocator_has_extended_try_allocate
 
 #include "allocator_reference.hpp" // allocator_reference
 #include "allocator_info.hpp"      // allocator_info
@@ -26,49 +27,7 @@
 namespace bit {
   namespace memory {
 
-    /// \brief Type-trait to determine whether \p T is an allocator
-    ///
-    /// The result is \c std::true_type if \p T satisfies the Allocator concept,
-    /// which minimally requires the following to be well formed:
-    ///
-    /// \code
-    /// std::declval<T&>().try_allocate( std::declval<size_type>(), std::declval<size_type>() );
-    /// std::declval<T&>().deallocate( std::declval<pointer>(), std::declval<size_type>() );
-    /// \endcode
-    ///
-    /// The result is accessible as \c ::value
-    template<typename T>
-    using is_allocator = detail::is_allocator<T>;
-
-    /// \brief Convenience template variable to extract whether \p T is an
-    ///        allocator
-    template<typename T>
-    constexpr bool is_allocator_v = is_allocator<T>::value;
-
-
-    /// \brief Type-trait to determine whether \p T is an extended allocator
-    ///
-    /// The result is \c std::true_type if \p T satisfies the ExtendedAllocator
-    /// concept, which requires the following:
-    ///
-    /// \c T must satisfy \c Allocator, and the expressions must be
-    /// well-formed:
-    ///
-    /// \code
-    /// std::declval<T&>().try_allocate( std::declval<size_type>(), std::declval<size_type>(), std::declval<size_type>() );
-    /// std::declval<T&>().owns( std::declval<pointer>() );
-    /// \endcode
-    ///
-    /// The result is accessible as \c ::value
-    template<typename T>
-    using is_extended_allocator = detail::is_allocator<T>;
-
-    /// \brief Convenience template variable to extract whether \p T is an
-    ///        extended allocator
-    template<typename T>
-    constexpr bool is_extended_allocator_v = is_extended_allocator<T>::value;
-
-    //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
     /// \brief The allocator_traits class template provides a standardized
     ///        way to access allocator functionality
     ///
@@ -88,17 +47,17 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      using size_type       = detail::allocator_size_type_t<Allocator>;
-      using difference_type = detail::allocator_difference_type_t<Allocator>;
-      using pointer         = detail::allocator_pointer_t<Allocator>;
-      using const_pointer   = detail::allocator_const_pointer_t<Allocator>;
+      using size_type       = allocator_size_type_t<Allocator>;
+      using difference_type = allocator_difference_type_t<Allocator>;
+      using pointer         = allocator_pointer_t<Allocator>;
+      using const_pointer   = allocator_const_pointer_t<Allocator>;
 
-      using is_always_equal   = detail::allocator_is_always_equal<Allocator>;
-      using is_stateless      = detail::allocator_is_stateless<Allocator>;
-      using default_alignment = detail::allocator_default_alignment<Allocator>;
-      using max_alignment     = detail::allocator_max_alignment<Allocator>;
-      using can_truncate_deallocations = detail::allocator_can_truncate_deallocations<Allocator>;
-      using knows_ownership   = detail::allocator_has_owns<Allocator>;
+      using is_always_equal            = allocator_is_always_equal<Allocator>;
+      using is_stateless               = is_stateless<Allocator>;
+      using default_alignment          = allocator_default_alignment<Allocator>;
+      using max_alignment              = allocator_max_alignment<Allocator>;
+      using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
+      using knows_ownership            = allocator_knows_ownership<Allocator>;
 
       //----------------------------------------------------------------------
       // Allocation
@@ -128,7 +87,7 @@ namespace bit {
       /// \param align the alignment of the allocation
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated memory
-      template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
+      template<typename U = Allocator, typename = std::enable_if<is_extended_allocator<U>::value>>
       static pointer try_allocate( Allocator& alloc,
                                    size_type size,
                                    size_type align,
@@ -159,7 +118,7 @@ namespace bit {
       /// \param align the alignment of the allocation
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated member
-      template<typename U = Allocator, typename = std::enable_if<detail::is_extended_allocator<U>::value>>
+      template<typename U = Allocator, typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
       static pointer allocate( Allocator& alloc,
                                size_type size,
                                size_type align,
