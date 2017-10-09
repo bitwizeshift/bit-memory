@@ -13,10 +13,12 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
 #include "detail/block_allocator_function_traits.hpp" // detail::is_block_allocator
-#include "allocator_reference.hpp"                    // allocator_reference
 
-#include "owner.hpp"         // owner
-#include "memory_block.hpp"  // memory_block
+#include "allocator_reference.hpp" // allocator_reference
+#include "allocator_info.hpp"      // allocator_info
+#include "macros.hpp"              // BIT_MEMORY_UNUSED
+#include "memory_block.hpp"        // memory_block
+#include "owner.hpp"               // owner
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t

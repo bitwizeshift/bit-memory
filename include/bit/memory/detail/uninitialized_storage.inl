@@ -30,6 +30,18 @@ inline T* bit::memory::uninitialized_construct_from_tuple( void* p, Tuple&& tupl
   return detail::uninitialized_construct_from_tuple<T>( p, std::forward<Tuple>(tuple), seq );
 }
 
+template<typename T>
+inline T* bit::memory::uninitialized_construct_array_at( void* p,
+                                                         std::size_t n )
+{
+  auto current   = static_cast<T*>(p);
+  const auto end = current + n;
+
+  while( current != end ) {
+    uninitialized_construct_at(current++);
+  }
+}
+
 namespace bit { namespace memory { namespace detail {
 
   template<typename T, typename Tuple, std::size_t...Idxs>
@@ -46,19 +58,6 @@ inline T bit::memory::make_from_tuple( Tuple&& tuple )
   const auto seq = std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{};
 
   return detail::make_from_tuple<T>( std::forward<Tuple>(tuple), seq );
-}
-
-
-template<typename T>
-inline T* bit::memory::uninitialized_construct_array_at( void* p,
-                                                         std::size_t n )
-{
-  auto current   = static_cast<T*>(p);
-  const auto end = current + n;
-
-  while( current != end ) {
-    uninitialized_construct_at(current++);
-  }
 }
 
 //----------------------------------------------------------------------------

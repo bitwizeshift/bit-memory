@@ -115,7 +115,7 @@ inline void bit::memory::memory_block_cache::store_block( owner<memory_block> bl
 {
   assert( alignof(memory_block) <= align_of(block.data()) );
 
-  new (block.data()) memory_block(m_head);
+  uninitialized_construct_at<memory_block>( block.data(), m_head );
   m_head = block;
 }
 

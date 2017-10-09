@@ -78,12 +78,8 @@ inline void bit::memory::freelist::store( void* p )
 
   using pointer = void*;
 
-  new (p) pointer(m_head);
+  uninitialized_construct_at<pointer>(p,m_head);
   m_head = p;
 }
-
-
-
-
 
 #endif /* BIT_MEMORY_DETAIL_FREELIST_INL */

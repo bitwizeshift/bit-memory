@@ -189,6 +189,8 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::do_max_size( std::false_type,
                                                          const Allocator& alloc )
 {
+  BIT_MEMORY_UNUSED(alloc);
+
   return std::numeric_limits<std::size_t>::max();
 }
 
@@ -207,6 +209,8 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::do_min_size( std::false_type,
                                                          const Allocator& alloc )
 {
+  BIT_MEMORY_UNUSED(alloc);
+
   return 1;
 }
 
@@ -225,6 +229,8 @@ inline bit::memory::allocator_info
   bit::memory::allocator_traits<Allocator>::do_info( std::false_type,
                                                      const Allocator& alloc )
 {
+  BIT_MEMORY_UNUSED(alloc);
+
   return {"Unnamed",std::addressof(alloc)};
 }
 

@@ -8,11 +8,11 @@
 #ifndef BIT_MEMORY_FREELIST_HPP
 #define BIT_MEMORY_FREELIST_HPP
 
-#include "pointer_utilities.hpp" // align_of
+#include "pointer_utilities.hpp"     // align_of
+#include "uninitialized_storage.hpp" // uninitialized_construct_at
 
 #include <cstddef> // std::size_t
 #include <cassert> // assert
-#include <new>     // placement new
 
 namespace bit {
   namespace memory {
