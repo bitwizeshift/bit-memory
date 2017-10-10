@@ -143,9 +143,9 @@ inline void* bit::memory::offset_align_backward( void* ptr,
   assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
 
   const auto address = reinterpret_cast<std::uintptr_t>(ptr);
-  void* new_ptr      = reinterpret_cast<void*>(((address) & (~static_cast<std::uintptr_t>(alignment-1))) - offset);
+  void* new_ptr      = reinterpret_cast<void*>(((address + offset) & (~static_cast<std::uintptr_t>(alignment-1))) - offset);
   if( adjust ) {
-    *adjust = static_cast<std::size_t>(address & static_cast<std::uintptr_t>(alignment-1));
+    *adjust = static_cast<std::size_t>( address - reinterpret_cast<std::uintptr_t>(new_ptr) );
   }
   return new_ptr;
 }
