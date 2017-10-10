@@ -44,7 +44,7 @@ inline void* bit::memory::bump_up_allocator::try_allocate( std::size_t size,
   // bump the pointer
   m_current = p_end;
 
-  return p_end;
+  return p;
 }
 
 //----------------------------------------------------------------------------
