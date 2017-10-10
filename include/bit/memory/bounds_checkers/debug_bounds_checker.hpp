@@ -26,15 +26,19 @@ namespace bit {
     ///
     /// \satisfies{BoundsChecker}
     ///////////////////////////////////////////////////////////////////////////
+    template<std::size_t FrontSize, std::size_t BackSize = FrontSize>
     class debug_bounds_checker
     {
+      static_assert( FrontSize > 0, "FrontSize must be greater than 0" );
+      static_assert( BackSize > 0, "BackSize must be greater than 0" );
+
       //-----------------------------------------------------------------------
       // Public Static Members
       //-----------------------------------------------------------------------
     public:
 
-      static constexpr std::size_t front_size = 8;
-      static constexpr std::size_t back_size  = 8;
+      static constexpr std::size_t front_size = FrontSize;
+      static constexpr std::size_t back_size  = BackSize;
 
       //-----------------------------------------------------------------------
       // Preparation
@@ -59,7 +63,7 @@ namespace bit {
                              std::size_t size ) noexcept;
     };
 
-    static_assert( is_bounds_checker_v<debug_bounds_checker>,
+    static_assert( is_bounds_checker_v<debug_bounds_checker<1,1>>,
                    "debug_bounds_checker must satisfy BoundsChecker" );
 
   } // namespace memory

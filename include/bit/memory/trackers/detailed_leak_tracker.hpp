@@ -69,11 +69,11 @@ namespace bit {
       std::ptrdiff_t m_allocated = 0;
     };
 
-    using stat_recording_detailed_tracker = detail::stat_recording_tracker<detailed_leak_tracker>;
+    using stat_recording_detailed_leak_tracker = detail::stat_recording_tracker<detailed_leak_tracker>;
 
     static_assert( is_memory_tracker_v<detailed_leak_tracker>,
                    "detailed_leak_tracker must satisfy MemoryTracker" );
-    static_assert( is_memory_tracker_v<stat_recording_detailed_tracker>,
+    static_assert( is_memory_tracker_v<stat_recording_detailed_leak_tracker>,
                    "stat_recording_detailed_tracker must satisfy MemoryTracker" );
 
   } // namespace memory
