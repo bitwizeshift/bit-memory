@@ -168,6 +168,9 @@ namespace bit {
       //-----------------------------------------------------------------------
 
       /// \brief Deallocates all memory in this allocator
+      ///
+      /// \note This function is only enabled if the underlying
+      ///       \c ExtendedAllocator supports it
       template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_can_truncate_deallocations<U>::value>>
       void deallocate_all();
 
@@ -176,9 +179,23 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
+      /// \brief Checks if \p p is owned by the underlying allocator
+      ///
+      /// \note This function is only enabled if the underlying
+      ///       \c ExtendedAllocator supports it
+      ///
+      /// \param p the pointer to check
+      /// \return \c true if \p p is owned by this allocator
       template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_knows_ownership<U>::value>>
       bool owns( const void* p ) const noexcept;
 
+      /// \brief Retrieves info about this allocator
+      ///
+      ///
+      /// \note This function is only enabled if the underlying
+      ///       \c ExtendedAllocator supports it
+      ///
+      /// \return the info about this allocator
       template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
 
@@ -214,6 +231,12 @@ namespace bit {
       //-----------------------------------------------------------------------
     private:
 
+      /// \brief Determines equality between two policy allocators
+      ///
+      /// \note This function exists to circumvent an issue where casting to a
+      ///       private base-class from a friend function is illegal
+      ///
+      /// \param other the allocator to compare to
       bool equals( const policy_allocator& other ) const noexcept;
 
       template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>

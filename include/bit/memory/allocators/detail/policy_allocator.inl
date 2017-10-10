@@ -114,6 +114,8 @@ void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   }
 }
 
+//-----------------------------------------------------------------------------
+
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
 template<typename, typename>
 void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
@@ -125,6 +127,33 @@ void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   tracker.on_deallocate_all();
 
   allocator_traits<ExtendedAllocator>::deallocate_all( allocator );
+}
+
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+template<typename, typename>
+bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+  ::owns( const void* p )
+  const noexcept
+{
+  auto& allocator = detail::get<0>(*this);
+
+  return allocator_traits<ExtendedAllocator>::owns( allocator, p );
+}
+
+template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
+template<typename, typename>
+bit::memory::allocator_info
+  bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
+  ::info()
+  const noexcept
+{
+  auto& allocator = detail::get<0>(*this);
+
+  return allocator_traits<ExtendedAllocator>::info( allocator );
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
