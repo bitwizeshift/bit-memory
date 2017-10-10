@@ -35,8 +35,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using max_alignment              = std::integral_constant<std::size_t,(1 << (sizeof(std::size_t)-1))>;
-      using can_truncate_deallocations = std::true_type;
+      using max_alignment = std::integral_constant<std::size_t,(1 << (sizeof(std::size_t)-1))>;
 
       //-----------------------------------------------------------------------
       // Constructors

@@ -76,10 +76,9 @@ namespace bit {
       // otherwise default back to the same defaults that the allocator_traits
       // will choose.
 
-      using is_always_equal            = allocator_is_always_equal<ExtendedAllocator>;
-      using default_alignment          = allocator_default_alignment<ExtendedAllocator>;
-      using max_alignment              = allocator_max_alignment<ExtendedAllocator>;
-      using can_truncate_deallocations = allocator_can_truncate_deallocations<ExtendedAllocator>;
+      using is_always_equal   = allocator_is_always_equal<ExtendedAllocator>;
+      using default_alignment = allocator_default_alignment<ExtendedAllocator>;
+      using max_alignment     = allocator_max_alignment<ExtendedAllocator>;
       using is_stateless = std::integral_constant<bool,is_stateless<ExtendedAllocator>::value &&
                                                        std::is_empty<MemoryTagger>::value &&
                                                        std::is_empty<MemoryTracker>::value &&

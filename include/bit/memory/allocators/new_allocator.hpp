@@ -35,8 +35,8 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using is_always_equal = std::true_type;
-      using is_stateless    = std::true_type;
+      using is_always_equal   = std::true_type;
+      using is_stateless      = std::true_type;
       using default_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
 
       //-----------------------------------------------------------------------
