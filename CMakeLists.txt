@@ -122,6 +122,7 @@ set(headers
   include/bit/memory/allocators/aligned_offset_allocator.hpp
   include/bit/memory/allocators/any_allocator.hpp
   include/bit/memory/allocators/bump_down_allocator.hpp
+  include/bit/memory/allocators/bump_down_lifo_allocator.hpp
   include/bit/memory/allocators/bump_up_allocator.hpp
   include/bit/memory/allocators/bump_up_lifo_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp

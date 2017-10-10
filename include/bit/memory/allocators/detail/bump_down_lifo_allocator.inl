@@ -1,15 +1,15 @@
-#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_ALLOCATOR_INL
-#define BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_LIFO_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_LIFO_ALLOCATOR_INL
 
 //============================================================================
-// bump_down_allocator
+// bump_down_lifo_allocator
 //============================================================================
 
 //----------------------------------------------------------------------------
 // Constructors
 //----------------------------------------------------------------------------
 
-inline bit::memory::bump_down_allocator::bump_down_allocator( memory_block block )
+inline bit::memory::bump_down_lifo_allocator::bump_down_lifo_allocator( memory_block block )
   noexcept
   : m_block(block),
     m_current(m_block.end_address())
@@ -21,9 +21,10 @@ inline bit::memory::bump_down_allocator::bump_down_allocator( memory_block block
 // Allocation / Deallocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::bump_down_allocator::try_allocate( std::size_t size,
-                                                             std::size_t align,
-                                                             std::size_t offset )
+inline void* bit::memory::bump_down_lifo_allocator
+  ::try_allocate( std::size_t size,
+                  std::size_t align,
+                  std::size_t offset )
   noexcept
 {
   assert( size && "cannot allocate 0 bytes");
@@ -33,32 +34,48 @@ inline void* bit::memory::bump_down_allocator::try_allocate( std::size_t size,
   using byte_t = unsigned char;
 
   auto adjust = std::size_t{};
-  auto* p = offset_align_backward( static_cast<byte_t*>(m_current)-size,align,offset,&adjust);
+  auto* p = offset_align_backward( static_cast<byte_t*>(m_current)-size-1,align,offset+1,&adjust);
 
   // If allocated outside the range, return nullptr
   if( BIT_MEMORY_UNLIKELY( p < m_block.start_address() ) )
     return nullptr;
 
+  auto* byte_ptr = static_cast<byte_t*>(p);
+  *byte_ptr      = static_cast<byte_t>(adjust);
+
+  ++byte_ptr;
+
   // bump the pointer down
   m_current = p;
 
-  return p;
+  return byte_ptr;
 }
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::bump_down_allocator::deallocate( void* p,
-                                                          std::size_t size )
+inline void bit::memory::bump_down_lifo_allocator
+  ::deallocate( void* p, std::size_t size )
 {
-  BIT_MEMORY_UNUSED(p);
   BIT_MEMORY_UNUSED(size);
 
   assert( m_block.contains( p ) && "Pointer must be contained by block" );
+  assert( m_current < p && "Deallocations occurred out-of-order" );
+
+  using byte_t = unsigned char;
+
+  // Adjust the pointer
+  auto* byte_ptr = static_cast<byte_t*>(p);
+  --byte_ptr;
+
+  auto adjust = static_cast<std::size_t>(*byte_ptr);
+  byte_ptr += adjust + size;
+
+  m_current = byte_ptr;
 }
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::bump_down_allocator::deallocate_all()
+inline void bit::memory::bump_down_lifo_allocator::deallocate_all()
   noexcept
 {
   m_current = m_block.data();
@@ -68,7 +85,7 @@ inline void bit::memory::bump_down_allocator::deallocate_all()
 // Observers
 //----------------------------------------------------------------------------
 
-inline bool bit::memory::bump_down_allocator::owns( void* p )
+inline bool bit::memory::bump_down_lifo_allocator::owns( void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;
@@ -78,18 +95,18 @@ inline bool bit::memory::bump_down_allocator::owns( void* p )
 // Comparisons
 //----------------------------------------------------------------------------
 
-bool bit::memory::operator==( const bump_down_allocator& lhs,
-                              const bump_down_allocator& rhs )
+bool bit::memory::operator==( const bump_down_lifo_allocator& lhs,
+                              const bump_down_lifo_allocator& rhs )
   noexcept
 {
   return lhs.m_current == rhs.m_current && lhs.m_block == rhs.m_block;
 }
 
-bool bit::memory::operator!=( const bump_down_allocator& lhs,
-                              const bump_down_allocator& rhs )
+bool bit::memory::operator!=( const bump_down_lifo_allocator& lhs,
+                              const bump_down_lifo_allocator& rhs )
   noexcept
 {
   return !(lhs==rhs);
 }
 
-#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_LIFO_ALLOCATOR_INL */
