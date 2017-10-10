@@ -123,6 +123,7 @@ set(headers
   include/bit/memory/allocators/any_allocator.hpp
   include/bit/memory/allocators/bump_down_allocator.hpp
   include/bit/memory/allocators/bump_up_allocator.hpp
+  include/bit/memory/allocators/bump_up_lifo_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
   include/bit/memory/allocators/min_aligned_allocator.hpp
