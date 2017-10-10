@@ -135,7 +135,7 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    using named_linear_allocator = detail::named_allocator<bump_down_allocator>;
+    using named_bump_down_allocator = detail::named_allocator<bump_down_allocator>;
 
   } // namespace memory
 } // namespace bit
