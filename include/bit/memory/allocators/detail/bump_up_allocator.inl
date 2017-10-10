@@ -1,15 +1,15 @@
-#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_LINEAR_ALLOCATOR_INL
-#define BIT_MEMORY_ALLOCATORS_DETAIL_LINEAR_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_UP_ALLOCATOR_INL
+#define BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_UP_ALLOCATOR_INL
 
 //============================================================================
-// linear_allocator
+// bump_up_allocator
 //============================================================================
 
 //----------------------------------------------------------------------------
 // Constructors
 //----------------------------------------------------------------------------
 
-inline bit::memory::linear_allocator::linear_allocator( memory_block block )
+inline bit::memory::bump_up_allocator::bump_up_allocator( memory_block block )
   noexcept
   : m_block(block),
     m_current(m_block.data())
@@ -21,9 +21,9 @@ inline bit::memory::linear_allocator::linear_allocator( memory_block block )
 // Allocation / Deallocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::linear_allocator::try_allocate( std::size_t size,
-                                                          std::size_t align,
-                                                          std::size_t offset )
+inline void* bit::memory::bump_up_allocator::try_allocate( std::size_t size,
+                                                           std::size_t align,
+                                                           std::size_t offset )
   noexcept
 {
   assert( size && "cannot allocate 0 bytes");
@@ -47,18 +47,20 @@ inline void* bit::memory::linear_allocator::try_allocate( std::size_t size,
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::linear_allocator::deallocate( void* p,
-                                                       std::size_t size )
+inline void bit::memory::bump_up_allocator::deallocate( void* p,
+                                                        std::size_t size )
 {
-  assert( m_block.contains( p ) );
+  BIT_MEMORY_UNUSED(size);
 
-  (void) p;
-  (void) size;
+  assert( m_block.contains( p ) && "Pointer must be contained by block" );
+  assert( m_current > p && "Deallocations occurred out-of-order" );
+
+  m_current = p;
 }
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::linear_allocator::deallocate_all()
+inline void bit::memory::bump_up_allocator::deallocate_all()
   noexcept
 {
   m_current = m_block.data();
@@ -68,7 +70,7 @@ inline void bit::memory::linear_allocator::deallocate_all()
 // Observers
 //----------------------------------------------------------------------------
 
-inline bool bit::memory::linear_allocator::owns( void* p )
+inline bool bit::memory::bump_up_allocator::owns( void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;
@@ -78,18 +80,18 @@ inline bool bit::memory::linear_allocator::owns( void* p )
 // Comparisons
 //----------------------------------------------------------------------------
 
-bool bit::memory::operator==( const linear_allocator& lhs,
-                              const linear_allocator& rhs )
+bool bit::memory::operator==( const bump_up_allocator& lhs,
+                              const bump_up_allocator& rhs )
   noexcept
 {
   return lhs.m_current == rhs.m_current && lhs.m_block == rhs.m_block;
 }
 
-bool bit::memory::operator!=( const linear_allocator& lhs,
-                              const linear_allocator& rhs )
+bool bit::memory::operator!=( const bump_up_allocator& lhs,
+                              const bump_up_allocator& rhs )
   noexcept
 {
   return !(lhs==rhs);
 }
 
-#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_LINEAR_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_UP_ALLOCATOR_INL */
