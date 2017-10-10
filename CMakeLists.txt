@@ -121,6 +121,7 @@ set(headers
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/aligned_offset_allocator.hpp
   include/bit/memory/allocators/any_allocator.hpp
+  include/bit/memory/allocators/bump_down_allocator.hpp
   include/bit/memory/allocators/bump_up_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
@@ -182,6 +183,7 @@ set(inline_headers
   include/bit/memory/allocators/detail/aligned_allocator.inl
   include/bit/memory/allocators/detail/aligned_offset_allocator.inl
   include/bit/memory/allocators/detail/any_allocator.inl
+  include/bit/memory/allocators/detail/bump_down_allocator.inl
   include/bit/memory/allocators/detail/bump_up_allocator.inl
   include/bit/memory/allocators/detail/malloc_allocator.inl
   include/bit/memory/allocators/detail/min_aligned_allocator.inl
