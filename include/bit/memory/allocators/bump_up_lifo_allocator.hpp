@@ -14,7 +14,7 @@
 
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../memory_block.hpp"      // memory_block
-#include "../pointer_utilities.hpp" // align_forward
+#include "../pointer_utilities.hpp" // offset_align_forward
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -38,7 +38,7 @@ namespace bit {
     ///
     /// \note The bump_up_lifo_allocator requires an additional byte for
     ///       restorying the bump pointer to the original location after
-    ///       deallocation; this can lead to a high-degree of fragmentation
+    ///       deallocation. This can lead to a high-degree of fragmentation
     ///       when allocating small-sized chunks of memory with high-allignment
     ///       requirements.
     ///
@@ -51,7 +51,8 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using max_alignment = std::integral_constant<std::size_t,(1 << (sizeof(std::size_t)-1))>;
+      // limited to 256 byte alignment due to requiring an adjustment byte
+      using max_alignment = std::integral_constant<std::size_t,256>;
 
       //-----------------------------------------------------------------------
       // Constructors

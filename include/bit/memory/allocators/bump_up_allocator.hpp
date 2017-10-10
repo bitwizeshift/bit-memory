@@ -13,7 +13,7 @@
 
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../memory_block.hpp"      // memory_block
-#include "../pointer_utilities.hpp" // align_forward
+#include "../pointer_utilities.hpp" // offset_align_forward
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t, std::ptrdiff_t
