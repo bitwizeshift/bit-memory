@@ -65,6 +65,15 @@ inline void bit::memory::allocator_traits<Allocator>
   alloc.deallocate( p, size );
 }
 
+template<typename Allocator>
+template<typename,typename>
+inline void bit::memory::allocator_traits<Allocator>
+  ::deallocate_all( Allocator& alloc )
+{
+  // Only enabled if alloc has deallocate_all
+  alloc.deallocate_all();
+}
+
 //-----------------------------------------------------------------------------
 // Observers
 //-----------------------------------------------------------------------------

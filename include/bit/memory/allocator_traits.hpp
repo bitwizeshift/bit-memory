@@ -137,6 +137,14 @@ namespace bit {
       /// \param size the size of the allocation
       static void deallocate( Allocator& alloc, pointer p, size_type size );
 
+      /// \brief Deallocates all memory from the given allocator
+      ///
+      /// This is only enabled if the underlying allocator supports it
+      ///
+      /// \param alloc the allocator to deallocate everything from
+      template<typename U = Allocator, typename = std::enable_if<can_truncate_deallocations::value>>
+      static void deallocate_all( Allocator& alloc );
+
       //----------------------------------------------------------------------
       // Observers
       //----------------------------------------------------------------------
