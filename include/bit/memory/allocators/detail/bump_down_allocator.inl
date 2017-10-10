@@ -61,7 +61,7 @@ inline void bit::memory::bump_down_allocator::deallocate( void* p,
 inline void bit::memory::bump_down_allocator::deallocate_all()
   noexcept
 {
-  m_current = m_block.data();
+  m_current = m_block.end_address();
 }
 
 //----------------------------------------------------------------------------
