@@ -45,8 +45,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using max_alignment            = std::integral_constant<std::size_t,Align>;
-      using can_truncate_allocations = std::true_type;
+      using max_alignment = std::integral_constant<std::size_t,Align>;
 
       //-----------------------------------------------------------------------
       // Constructors
