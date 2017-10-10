@@ -2,7 +2,7 @@
  * \file bump_up_allocator.hpp
  *
  * \brief This header contains the definition of the ExtendedAllocator class,
- *        linear_allocator.
+ *        bump_up_allocator.
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
@@ -28,16 +28,8 @@ namespace bit {
     ///
     /// Allocations are distributed in an increasing memory-address pattern.
     ///
-    /// This allocator offers 2 options for deallocations:
-    /// - Truncated deallocations, managed through \c deallocate_all
-    /// - LIFO deallocations, through \c deallocate
-    ///
-    /// The two forms of deallocations are incompatible; either truncated
-    /// deallocations can be used OR LIFO deallocations can be used.
-    ///
-    /// The two deallocation patterns allow for this to act as a simple
-    /// linear/contiguous temporary allocator, or it can be used as a
-    /// stack-based allocator.
+    /// This allocator can only deallocate memory with truncated deallocations
+    /// through \c deallocate_all
     ///
     /// \satisfies{ExtendedAllocator}
     ///////////////////////////////////////////////////////////////////////////
@@ -55,12 +47,12 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Constructs a linear_allocator
+      /// \brief Constructs a bump_up_allocator
       explicit bump_up_allocator( memory_block block ) noexcept;
 
-      /// \brief Move-constructs a linear_allocator from another allocator
+      /// \brief Move-constructs a bump_up_allocator from another allocator
       ///
-      /// \param other the other linear_allocator to move
+      /// \param other the other bump_up_allocator to move
       bump_up_allocator( bump_up_allocator&& other ) noexcept = default;
 
       // Deleted copy constructor
@@ -93,7 +85,7 @@ namespace bit {
                           std::size_t align,
                           std::size_t offset = 0 ) noexcept;
 
-      /// \brief Does nothing for linear_allocator. Use deallocate_all
+      /// \brief Does nothing for bump_up_allocator. Use deallocate_all
       ///
       /// \param p the pointer
       /// \param size the size of the allocation
@@ -107,7 +99,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Checks whether \p linear_allocator contains the pointer \p p
+      /// \brief Checks whether \p bump_up_allocator contains the pointer \p p
       ///
       /// \param p the pointer to check
       /// \return \c true if \p p is contained in this allocator

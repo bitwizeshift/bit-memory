@@ -33,21 +33,18 @@ inline void* bit::memory::bump_up_allocator::try_allocate( std::size_t size,
   using byte_t = unsigned char;
 
   auto adjust = std::size_t{};
-  auto* p = offset_align_forward(m_current,align,offset+1,&adjust);
+  auto* p = offset_align_forward(m_current,align,offset,&adjust);
 
-  auto* p_end = static_cast<byte_t*>(p) + size + 1;
+  auto* p_end = static_cast<byte_t*>(p) + size;
 
   // If allocated outside the range, return nullptr
   if( BIT_MEMORY_UNLIKELY( p_end > m_block.end_address() ) )
     return nullptr;
 
-  auto* byte_ptr = static_cast<byte_t*>(p);
-  *byte_ptr      = static_cast<byte_t>(adjust);
-
   // bump the pointer
   m_current = p_end;
 
-  return byte_ptr + 1;
+  return p_end;
 }
 
 //----------------------------------------------------------------------------
@@ -55,21 +52,12 @@ inline void* bit::memory::bump_up_allocator::try_allocate( std::size_t size,
 inline void bit::memory::bump_up_allocator::deallocate( void* p,
                                                         std::size_t size )
 {
+  BIT_MEMORY_UNUSED(p);
   BIT_MEMORY_UNUSED(size);
 
   assert( m_block.contains( p ) && "Pointer must be contained by block" );
-  assert( m_current > p && "Deallocations occurred out-of-order" );
 
-  using byte_t = unsigned char;
-
-  // Adjust the pointer
-  auto* byte_ptr = static_cast<byte_t*>(p);
-  --byte_ptr;
-
-  auto adjust = static_cast<std::size_t>(*byte_ptr);
-  byte_ptr -= adjust;
-
-  m_current = byte_ptr;
+  // bump_up_allocator only uses truncated deallocations with deallocate_all
 }
 
 //----------------------------------------------------------------------------
