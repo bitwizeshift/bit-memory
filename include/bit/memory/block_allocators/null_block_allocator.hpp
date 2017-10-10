@@ -1,11 +1,10 @@
 /**
  * \file null_block_allocator.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header defines the null block allocator, null_block_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_NULL_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_NULL_BLOCK_ALLOCATOR_HPP
 

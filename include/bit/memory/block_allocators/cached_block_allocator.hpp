@@ -6,7 +6,6 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 

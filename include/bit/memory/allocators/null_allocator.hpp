@@ -1,11 +1,10 @@
 /**
  * \file null_allocator.hpp
  *
- * \brief todo: fill in documentation
+ * \brief This header defines the null allocator policy, null_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 

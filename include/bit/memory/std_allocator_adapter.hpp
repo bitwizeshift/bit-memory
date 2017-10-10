@@ -1,5 +1,5 @@
 /**
- * \file standard_allocator.hpp
+ * \file std_allocator_adapter.hpp
  *
  * \brief This header contains an implementation of a standard allocator
  *        adapter, used to adapt bit::memory allocators into standard

@@ -5,7 +5,6 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-
 #ifndef BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 
