@@ -9,6 +9,7 @@
 #define BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
 
 #include "../owner.hpp"            // owner
+#include "../allocator_info.hpp"   // allocator_info
 #include "../allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -26,18 +27,18 @@ namespace bit {
         using allocate_fn_t     = void*(*)( void*, std::size_t, std::size_t );
         using try_allocate_fn_t = void*(*)( void*, std::size_t, std::size_t );
         using deallocate_fn_t   = void(*)( void*, void*,std::size_t );
-        using max_size_fn_t     = std::size_t(*)(const void*);
-        using used_fn_t         = std::size_t(*)(const void*);
+        using info_fn_t         = allocator_info(*)(const void*);
 
         allocate_fn_t     allocate_fn;
         try_allocate_fn_t try_allocate_fn;
         deallocate_fn_t   deallocate_fn;
-        max_size_fn_t     max_size_fn;
-        used_fn_t         used_fn;
+        info_fn_t         info_fn;
 
         template<typename Allocator>
         static allocator_vtable* get_vtable()
         {
+          using traits_type = allocator_traits<Allocator>;
+
           static auto s_vtable = []()
           {
             allocator_vtable table;
@@ -45,31 +46,25 @@ namespace bit {
             table.allocate_fn = +[](void* p, std::size_t size, std::size_t align )
             {
               auto* instance = static_cast<Allocator*>(p);
-              return allocator_traits<Allocator>::allocate( instance, size, align );
+              return traits_type::allocate( *instance, size, align );
             };
 
             table.try_allocate_fn = +[](void* p, std::size_t size, std::size_t align )
             {
               auto* instance = static_cast<Allocator*>(p);
-              return allocator_traits<Allocator>::try_allocate( instance, size, align );
+              return traits_type::try_allocate( *instance, size, align );
             };
 
             table.deallocate_fn = +[](void* p, void* ptr, std::size_t size )
             {
               auto* instance = static_cast<Allocator*>(p);
-              return allocator_traits<Allocator>::deallocate( ptr, size );
+              return traits_type::deallocate( *instance, ptr, size );
             };
 
-            table.max_size_fn = +[](const void* p)
+            table.info_fn = +[](const void* p) -> allocator_info
             {
               auto* instance = static_cast<const Allocator*>(p);
-              return allocator_traits<Allocator>::max_size(*instance);
-            };
-
-            table.used_fn = +[](const void* p)
-            {
-              auto* instance = static_cast<const Allocator*>(p);
-              return allocator_traits<Allocator>::used(*instance);
+              return traits_type::info( *instance );
             };
 
             return table;
@@ -102,6 +97,13 @@ namespace bit {
       using is_enabled = std::integral_constant<bool,
         is_allocator<A>::value && !std::is_same<any_allocator,A>::value
       >;
+
+      //----------------------------------------------------------------------
+      // Public Member Types
+      //----------------------------------------------------------------------
+    public:
+
+      using default_alignment = std::integral_constant<std::size_t,1>;
 
       //----------------------------------------------------------------------
       // Constructor / Assignment
@@ -166,19 +168,14 @@ namespace bit {
       void deallocate( owner<void*> p, std::size_t n );
 
       //----------------------------------------------------------------------
-      // Capacity
+      // Observers
       //----------------------------------------------------------------------
     public:
-
-      /// \brief Gets the max size of a given allocation for this allocator
-      ///
-      /// \return the max size
-      std::size_t max_size() const noexcept;
 
       /// \brief Gets the amount of bytes used for this allocator
       ///
       /// \return the amount of bytes used
-      std::size_t used() const noexcept;
+      allocator_info info() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Member Types

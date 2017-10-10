@@ -8,8 +8,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
 
-#include "../owner.hpp"        // owner
-#include "../memory_block.hpp" // memory_block
+#include "../owner.hpp"          // owner
+#include "../memory_block.hpp"   // memory_block
+#include "../allocator_info.hpp" // allocator_info
 
 #include "../block_allocator_traits.hpp"
 
@@ -21,29 +22,40 @@ namespace bit {
       {
         using deallocate_block_fn_t = void(*)( void*, memory_block );
         using allocate_block_fn_t   = memory_block(*)( void* );
+        using info_fn_t             = allocator_info(*)( const void* );
 
         deallocate_block_fn_t deallocate_fn;
         allocate_block_fn_t   allocate_fn;
+        info_fn_t             info_fn;
 
         template<typename BlockAllocator>
         static any_block_allocator_vtable* get_vtable()
         {
+          using traits_type = block_allocator_traits<BlockAllocator>;
+
           static auto s_vtable = []()
           {
             any_block_allocator_vtable table;
 
-            table.allocate_fn = +[](void* p)
+            table.allocate_fn = +[](void* p) -> void*
             {
-              auto instance = static_cast<BlockAllocator*>(p);
+              auto* instance = static_cast<BlockAllocator*>(p);
 
-              return block_allocator_traits<BlockAllocator>::allocate_block(*instance);
+              return traits_type::allocate_block( *instance );
             };
 
             table.deallocate_fn = +[](void* p, memory_block block)
             {
-              auto instance = static_cast<BlockAllocator*>(p);
+              auto* instance = static_cast<BlockAllocator*>(p);
 
-              block_allocator_traits<BlockAllocator>::deallocate_block(*instance, block);
+              traits_type::deallocate_block( *instance, block );
+            };
+
+            table.info_fn = +[]( const void* p ) -> allocator_info
+            {
+              auto* instance = static_cast<const BlockAllocator*>(p);
+
+              return traits_type::info( *instance );
             };
 
             return table;
@@ -121,6 +133,16 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block );
+
+      //----------------------------------------------------------------------
+      // Observers
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Gets information about this allocator
+      ///
+      /// \return the allocator information
+      allocator_info info() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Member Types

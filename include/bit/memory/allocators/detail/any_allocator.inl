@@ -13,7 +13,7 @@ template<typename Allocator, typename>
 inline bit::memory::any_allocator::any_allocator( Allocator&& any_allocator )
   noexcept
   : m_ptr( std::addressof(any_allocator) ),
-    m_vtable(vtable_type::get_vtable<Allocator>())
+    m_vtable(vtable_type::get_vtable<std::decay_t<Allocator>>())
 {
 
 }
@@ -47,17 +47,10 @@ inline void bit::memory::any_allocator::deallocate( owner<void*> p,
 // Capacity
 //----------------------------------------------------------------------------
 
-inline std::size_t bit::memory::any_allocator::max_size()
+inline bit::memory::allocator_info bit::memory::any_allocator::info()
   const noexcept
 {
-  return m_vtable->max_size_fn( m_ptr );
+  return m_vtable->info_fn( m_ptr );
 }
-
-inline std::size_t bit::memory::any_allocator::used()
-  const noexcept
-{
-  return m_vtable->used_fn( m_ptr );
-}
-
 
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ANY_ALLOCATOR_INL */
