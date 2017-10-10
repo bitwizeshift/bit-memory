@@ -1,19 +1,20 @@
 /**
- * \file linear_allocator.hpp
+ * \file bump_down_lifo_allocator.hpp
  *
- * \brief This header contains the definition of the ExtendedAllocator class,
- *        linear_allocator.
+ * \brief This header contains the definition of a bump-down allocator that
+ *        allows for stack-based LIFO deallocations alongside truncated
+ *        deallocations
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
-#define BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_BUMP_DOWN_LIFO_ALLOCATOR_HPP
+#define BIT_MEMORY_ALLOCATORS_BUMP_DOWN_LIFO_ALLOCATOR_HPP
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../memory_block.hpp"      // memory_block
-#include "../pointer_utilities.hpp" // align_forward
+#include "../pointer_utilities.hpp" // offset_align_backward
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -22,20 +23,36 @@
 namespace bit {
   namespace memory {
 
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief A linear allocator is an allocator that allocates data
-    ///        contiguously
+    ///////////////////////////////////////////////////////////////////////////
+    /// \brief An allocator that allocates memory in contiguous memory by
+    ///        'bumping' the head pointer to lower memory addresses
+    ///
+    /// Allocations are distributed in a decreasing memory-address pattern.
+    ///
+    /// This allocator offers 2 options for deallocations:
+    /// - Truncated deallocations, managed through \c deallocate_all
+    /// - LIFO deallocations, through \c deallocate
+    ///
+    /// The two forms of deallocations are incompatible; either truncated
+    /// deallocations can be used OR LIFO deallocations can be used.
+    ///
+    /// \note The bump_down_lifo_allocator requires an additional byte for
+    ///       restorying the bump pointer to the original location after
+    ///       deallocation. This can lead to a high-degree of fragmentation
+    ///       when allocating small-sized chunks of memory with high-allignment
+    ///       requirements.
     ///
     /// \satisfies{ExtendedAllocator}
-    //////////////////////////////////////////////////////////////////////////
-    class linear_allocator
+    ///////////////////////////////////////////////////////////////////////////
+    class bump_down_lifo_allocator
     {
       //-----------------------------------------------------------------------
       // Public Member Types
       //-----------------------------------------------------------------------
     public:
 
-      using max_alignment = std::integral_constant<std::size_t,(1 << (sizeof(std::size_t)-1))>;
+      // limited to 256 byte alignment due to requiring an adjustment byte
+      using max_alignment = std::integral_constant<std::size_t,256>;
 
       //-----------------------------------------------------------------------
       // Constructors
@@ -43,26 +60,26 @@ namespace bit {
     public:
 
       /// \brief Constructs a linear_allocator
-      explicit linear_allocator( memory_block block ) noexcept;
+      explicit bump_down_lifo_allocator( memory_block block ) noexcept;
 
       /// \brief Move-constructs a linear_allocator from another allocator
       ///
       /// \param other the other linear_allocator to move
-      linear_allocator( linear_allocator&& other ) noexcept = default;
+      bump_down_lifo_allocator( bump_down_lifo_allocator&& other ) noexcept = default;
 
       // Deleted copy constructor
-      linear_allocator( const linear_allocator& other ) = delete;
+      bump_down_lifo_allocator( const bump_down_lifo_allocator& other ) = delete;
 
       // Deleted nullblock constructor
-      linear_allocator( nullblock_t ) = delete;
+      bump_down_lifo_allocator( nullblock_t ) = delete;
 
       //----------------------------------------------------------------------
 
       // Deleted copy assignment
-      linear_allocator& operator=( const linear_allocator& ) = delete;
+      bump_down_lifo_allocator& operator=( const bump_down_lifo_allocator& ) = delete;
 
       // Deleted move assignment
-      linear_allocator& operator=( linear_allocator&& other ) = delete;
+      bump_down_lifo_allocator& operator=( bump_down_lifo_allocator&& other ) = delete;
 
       //-----------------------------------------------------------------------
       // Allocations / Deallocations
@@ -108,25 +125,25 @@ namespace bit {
       memory_block m_block;
       void*        m_current;
 
-      friend bool operator==( const linear_allocator&, const linear_allocator& ) noexcept;
+      friend bool operator==( const bump_down_lifo_allocator&, const bump_down_lifo_allocator& ) noexcept;
     };
 
     //-------------------------------------------------------------------------
     // Comparisons
     //-------------------------------------------------------------------------
 
-    bool operator==( const linear_allocator& lhs, const linear_allocator& rhs ) noexcept;
-    bool operator!=( const linear_allocator& lhs, const linear_allocator& rhs ) noexcept;
+    bool operator==( const bump_down_lifo_allocator& lhs, const bump_down_lifo_allocator& rhs ) noexcept;
+    bool operator!=( const bump_down_lifo_allocator& lhs, const bump_down_lifo_allocator& rhs ) noexcept;
 
     //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 
-    using named_linear_allocator = detail::named_allocator<linear_allocator>;
+    using named_bump_down_lifo_allocator = detail::named_allocator<bump_down_lifo_allocator>;
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/linear_allocator.inl"
+#include "detail/bump_down_lifo_allocator.inl"
 
-#endif /* BIT_MEMORY_ALLOCATORS_LINEAR_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_BUMP_DOWN_LIFO_ALLOCATOR_HPP */
