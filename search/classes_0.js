@@ -13,7 +13,6 @@ var searchData=
   ['allocator_5fhas_5fmax_5fsize',['allocator_has_max_size',['../d4/d64/structbit_1_1memory_1_1allocator__has__max__size.html',1,'bit::memory']]],
   ['allocator_5fhas_5fmin_5fsize',['allocator_has_min_size',['../da/d1d/structbit_1_1memory_1_1allocator__has__min__size.html',1,'bit::memory']]],
   ['allocator_5finfo',['allocator_info',['../d4/d12/classbit_1_1memory_1_1allocator__info.html',1,'bit::memory']]],
-  ['allocator_5fis_5falways_5fequal',['allocator_is_always_equal',['../d7/dde/structbit_1_1memory_1_1allocator__is__always__equal.html',1,'bit::memory']]],
   ['allocator_5fknows_5fownership',['allocator_knows_ownership',['../d3/d9f/structbit_1_1memory_1_1allocator__knows__ownership.html',1,'bit::memory']]],
   ['allocator_5fmax_5falignment',['allocator_max_alignment',['../d4/de2/structbit_1_1memory_1_1allocator__max__alignment.html',1,'bit::memory']]],
   ['allocator_5freference',['allocator_reference',['../d3/db5/classbit_1_1memory_1_1allocator__reference.html',1,'bit::memory']]],

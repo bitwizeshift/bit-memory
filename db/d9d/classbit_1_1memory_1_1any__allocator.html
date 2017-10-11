@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A non-owning allocator type that type-erases an underlying allocator. </p>
 <p>This view is non-owning, and thus does not participate in the lifetime of a given allocator.</p>
-<dl class="section note"><dt>Note</dt><dd>Since this is type-erased, any static information &ndash; such as <code><a class="el" href="../../d4/dd5/structbit_1_1memory_1_1is__stateless.html" title="Type-trait to check for whether a given type T is Stateless. ">is_stateless</a></code>, <code>is_always_equal</code>, etc &ndash; is lost. It is NOT intended as a drop-in replacement for allocators; only a means of type-erasing the allocator so that underlying APIs need-not require the type of allocator embedded in the class.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Since this is type-erased, any static information &ndash; such as <code><a class="el" href="../../d4/dd5/structbit_1_1memory_1_1is__stateless.html" title="Type-trait to check for whether a given type T is Stateless. ">is_stateless</a></code>, etc &ndash; is lost. It is NOT intended as a drop-in replacement for allocators; only a means of type-erasing the allocator so that underlying APIs need-not require the type of allocator embedded in the class.</dd></dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../df/d4d/group___allocator.html">Allocator</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d38/any__allocator_8hpp_source.html#l00094">94</a> of file <a class="el" href="../../df/d38/any__allocator_8hpp_source.html">any_allocator.hpp</a>.</p>

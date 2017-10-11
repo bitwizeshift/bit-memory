@@ -135,9 +135,6 @@ Classes</h2></td></tr>
 <div class="fragment"><div class="line">a.min_size()</div></div><!-- fragment --><p>Returns the minimum size the allocator can support</p>
 <p>Default is <code>1</code> </p>
 <hr/>
-<div class="fragment"><div class="line">A::is_always_equal::value</div></div><!-- fragment --><p> Returns a <code>bool</code> indicating whether two instances of the same allocator will always compare equal.</p>
-<p>Default is <code>std::false_type</code> </p>
-<hr/>
 <div class="fragment"><div class="line">A::default_alignment::value</div></div><!-- fragment --><p> Determines the default-alignment of allocations from the given allocator. This allows certain optimizations to be made by making assumptions about the allocated results (such as avoiding the need of storing padding-offset for alignment, if it's always guaranteed to align to the correct boundary).</p>
 <p>Default is <code>1</code>.</p>
 <hr/>
