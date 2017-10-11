@@ -11,8 +11,9 @@
 
 #include "detail/ebo_storage.hpp"  // detail::ebo_storage
 
-#include "allocator_reference.hpp" // allocator_reference
-#include "allocator_traits.hpp"    // allocator_traits
+#include "allocator_reference.hpp"   // allocator_reference
+#include "allocator_traits.hpp"      // allocator_traits
+#include "uninitialized_storage.hpp" // uninitialized_construct_at
 
 #include <cstddef> // std::size_t
 #include <tuple>   // std::forward_as_tuple
@@ -169,6 +170,100 @@ namespace bit {
 
       std::size_t m_size;
     };
+
+    namespace detail {
+      template<typename T, typename Allocator>
+      struct unique_ptr_if
+      {
+        using single_type = std::unique_ptr<T,allocator_deleter<T,Allocator>>;
+      };
+
+      template<typename T, typename Allocator>
+      struct unique_ptr_if<T[],Allocator>
+      {
+        using array_type = std::unique_ptr<T[],allocator_deleter<T[],Allocator>>;
+      };
+
+      template<typename T, typename Allocator, std::size_t N>
+      struct unique_ptr_if<T[N],Allocator>{};
+
+      template<typename T, typename Allocator>
+      using unique_ptr_single_t = typename unique_ptr_if<T,Allocator>::single_type;
+
+      template<typename T, typename Allocator>
+      using unique_ptr_array_t = typename unique_ptr_if<T,Allocator>::array_type;
+
+      template<typename T>
+      struct shared_ptr_if
+      {
+        using single_type = std::shared_ptr<T>;
+      };
+
+      template<typename T>
+      struct shared_ptr_if<T[]>
+      {
+        using array_type = std::shared_ptr<T[]>;
+      };
+
+      template<typename T, std::size_t N>
+      struct shared_ptr_if<T[N]>{};
+
+      template<typename T>
+      using shared_ptr_single_t = typename shared_ptr_if<T>::single_type;
+
+      template<typename T>
+      using shared_ptr_array_t = typename shared_ptr_if<T>::array_type;
+    }
+
+    //-------------------------------------------------------------------------
+    // Free Functions
+    //-------------------------------------------------------------------------
+
+    /// \brief Allocates a single element with the given \p allocator, using an
+    ///        allocator_deleter
+    ///
+    /// \tparam T the type to construct
+    /// \param allocator the allocator to allocate the memory
+    /// \param args the arguments to forward to \p T
+    /// \return the unique_ptr
+    template<typename T, typename Allocator, typename... Args>
+    detail::unique_ptr_single_t<T,Allocator>
+      allocate_unique( Allocator& allocator, Args&&...args );
+
+    /// \brief Allocates an array with the given \p allocator, using an
+    ///        allocator_deleter
+    ///
+    /// \tparam T the type to construct
+    /// \param allocator the allocator to allocate the memory
+    /// \param n the number of elements to default construct
+    /// \return the unique_ptr
+    template<typename T, typename Allocator, typename... Args>
+    detail::unique_ptr_array_t<T,Allocator>
+      allocate_unique( Allocator& allocator, std::size_t n );
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Allocates a single element with the given \p allocator, using an
+    ///        allocator_deleter
+    ///
+    /// \tparam T the type to construct
+    /// \param allocator the allocator to allocate the memory
+    /// \param args the arguments to forward to \p T
+    /// \return the shared_ptr
+    template<typename T, typename Allocator, typename... Args>
+    detail::shared_ptr_single_t<T>
+      allocate_shared( Allocator& allocator, Args&&...args );
+
+    /// \brief Allocates an array with the given \p allocator, using an
+    ///        allocator_deleter
+    ///
+    /// \tparam T the type to construct
+    /// \param allocator the allocator to allocate the memory
+    /// \param n the number of elements to default construct
+    /// \return the shared_ptr
+    template<typename T, typename Allocator, typename... Args>
+    detail::shared_ptr_array_t<T>
+      allocate_shared( Allocator& allocator, std::size_t n );
 
   } // namespace memory
 } // namespace bit
