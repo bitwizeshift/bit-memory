@@ -62,7 +62,7 @@ namespace bit {
 
       template<typename U> struct rebind { using other = std_allocator_adapter<U,Allocator>; };
 
-      using is_always_equal = typename traits_type::is_always_equal;
+      using is_always_equal = typename traits_type::is_stateless;
 
       //----------------------------------------------------------------------
       // Constructors

@@ -84,7 +84,7 @@ namespace bit {
     /// of a given allocator.
     ///
     /// \note Since this is type-erased, any static information -- such as
-    ///       \c is_stateless, \c is_always_equal, etc -- is lost. It is
+    ///       \c is_stateless, etc -- is lost. It is
     ///       NOT intended as a drop-in replacement for allocators; only a
     ///       means of type-erasing the allocator so that underlying APIs
     ///       need-not require the type of allocator embedded in the class.

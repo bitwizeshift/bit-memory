@@ -54,7 +54,6 @@ namespace bit {
 
       // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
       using is_stateless               = bit::memory::is_stateless<Allocator>;
-      using is_always_equal            = allocator_is_always_equal<Allocator>;
       using default_alignment          = allocator_default_alignment<Allocator>;
       using max_alignment              = allocator_max_alignment<Allocator>;
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;

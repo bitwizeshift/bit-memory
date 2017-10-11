@@ -43,7 +43,6 @@ namespace bit {
     //-----------------------------------------------------------------------
   public:
 
-    using is_always_equal   = typename traits_type::is_always_equal;
     using is_stateless      = typename traits_type::is_stateless;
     using default_alignment = std::integral_constant<std::size_t,MinAlign>;
     using max_alignment     = typename traits_type::max_alignment;

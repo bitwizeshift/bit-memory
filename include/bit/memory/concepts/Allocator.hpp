@@ -156,16 +156,6 @@ namespace bit {
     /// - - - - -
     ///
     /// \code
-    /// A::is_always_equal::value
-    /// \endcode
-    /// Returns a \c bool indicating whether two instances of the same
-    /// allocator will always compare equal.
-    ///
-    /// Default is \c std::false_type
-    ///
-    /// - - - - -
-    ///
-    /// \code
     /// A::default_alignment::value
     /// \endcode
     /// Determines the default-alignment of allocations from the given
@@ -283,14 +273,6 @@ namespace bit {
       struct allocator_has_min_size_impl<T,
         void_t<decltype( std::declval<allocator_size_type_t<T>&>() = std::declval<const T&>().min_size() )>
       > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct allocator_is_always_equal_impl : std::false_type{};
-
-      template<typename T>
-      struct allocator_is_always_equal_impl<T,void_t<decltype(T::is_always_equal)>> : T::is_always_equal{};
 
       //----------------------------------------------------------------------
 
@@ -419,25 +401,6 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr bool allocator_has_min_size_v = allocator_has_min_size<T>::value;
-
-    //-------------------------------------------------------------------------
-
-    /// \brief Type-trait to determine whether all Allocators of type \p T
-    ///        are equal
-    ///
-    /// The result is aliased as \c ::value
-    ///
-    /// \tparam T the type to check
-    template<typename T>
-    struct allocator_is_always_equal
-      : detail::allocator_is_always_equal_impl<T>{};
-
-    /// \brief Convenience template bool for accessing
-    ///        \c allocator_is_always_equal<T>::value
-    ///
-    /// \tparam T the type to check
-    template<typename T>
-    constexpr bool allocator_is_always_equal_v = allocator_is_always_equal<T>::value;
 
     //-------------------------------------------------------------------------
 
