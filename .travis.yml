@@ -56,16 +56,15 @@ install:
   - wget https://github.com/philsquared/Catch/releases/download/v1.10.0/catch.hpp -P catch/include
   - export CATCH_DIR=$(pwd)/catch/include
 
-  # Install cmake 3.9.4 for Linux or OSX
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-  -   wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz
-  -   tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz
-  -   export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake
-  - elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  -   wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz
-  -   tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64
-  -   export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake
-  - fi
+  # Install cmake 3.9.4 for Linux
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake; fi
+
+  # Install cmake 3.9.4 for MacOS
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake; fi
 
   - export CXX=$TOOLSET
   - $CXX --version
