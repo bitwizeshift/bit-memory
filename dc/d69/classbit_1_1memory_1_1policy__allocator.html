@@ -96,9 +96,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>default_alignment</b
 <tr class="memitem:af66929d738cf090261a12850d8a6fb0e"><td class="memItemLeft" align="right" valign="top"><a id="af66929d738cf090261a12850d8a6fb0e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>max_alignment</b> = <a class="el" href="../../d4/de2/structbit_1_1memory_1_1allocator__max__alignment.html">allocator_max_alignment</a>&lt; ExtendedAllocator &gt;</td></tr>
 <tr class="separator:af66929d738cf090261a12850d8a6fb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab16b1e13804d29f1ea634b53899a2938"><td class="memItemLeft" align="right" valign="top"><a id="ab16b1e13804d29f1ea634b53899a2938"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>can_truncate_deallocations</b> = <a class="el" href="../../da/d3f/structbit_1_1memory_1_1allocator__can__truncate__deallocations.html">allocator_can_truncate_deallocations</a>&lt; ExtendedAllocator &gt;</td></tr>
-<tr class="separator:ab16b1e13804d29f1ea634b53899a2938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae13d2f7986ffad7e23dc50fc37bc1323"><td class="memItemLeft" align="right" valign="top"><a id="ae13d2f7986ffad7e23dc50fc37bc1323"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = std::integral_constant&lt; bool, is_stateless&lt; ExtendedAllocator &gt;::value &amp;&amp;std::is_empty&lt; MemoryTagger &gt;::value &amp;&amp;std::is_empty&lt; MemoryTracker &gt;::value &amp;&amp;std::is_empty&lt; BoundsChecker &gt;::value &amp;&amp;std::is_empty&lt; BasicLockable &gt;::value &gt;</td></tr>
 <tr class="separator:ae13d2f7986ffad7e23dc50fc37bc1323"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,18 +137,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a099ef05ecec20bef667171146e745648"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a099ef05ecec20bef667171146e745648">deallocate</a> (void *p, std::size_t size)</td></tr>
 <tr class="memdesc:a099ef05ecec20bef667171146e745648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates the pointer <code>p</code> with the size <code>size</code>.  <a href="#a099ef05ecec20bef667171146e745648">More...</a><br /></td></tr>
 <tr class="separator:a099ef05ecec20bef667171146e745648"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a672f8b4216e6404be9a694db2bdede3b"><td class="memTemplParams" colspan="2"><a id="a672f8b4216e6404be9a694db2bdede3b"></a>
-template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_can_truncate_deallocations&lt;U&gt;::value&gt;&gt; </td></tr>
+<tr class="memitem:a672f8b4216e6404be9a694db2bdede3b"><td class="memTemplParams" colspan="2">template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_can_truncate_deallocations&lt;U&gt;::value&gt;&gt; </td></tr>
 <tr class="memitem:a672f8b4216e6404be9a694db2bdede3b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a672f8b4216e6404be9a694db2bdede3b">deallocate_all</a> ()</td></tr>
-<tr class="memdesc:a672f8b4216e6404be9a694db2bdede3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates all memory in this allocator. <br /></td></tr>
+<tr class="memdesc:a672f8b4216e6404be9a694db2bdede3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates all memory in this allocator.  <a href="#a672f8b4216e6404be9a694db2bdede3b">More...</a><br /></td></tr>
 <tr class="separator:a672f8b4216e6404be9a694db2bdede3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa030fa6527a6d1d3f84fc1a92db13836"><td class="memTemplParams" colspan="2"><a id="aa030fa6527a6d1d3f84fc1a92db13836"></a>
-template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_knows_ownership&lt;U&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:aa030fa6527a6d1d3f84fc1a92db13836"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>owns</b> (const void *p) const noexcept</td></tr>
+<tr class="memitem:aa030fa6527a6d1d3f84fc1a92db13836"><td class="memTemplParams" colspan="2">template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_knows_ownership&lt;U&gt;::value&gt;&gt; </td></tr>
+<tr class="memitem:aa030fa6527a6d1d3f84fc1a92db13836"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#aa030fa6527a6d1d3f84fc1a92db13836">owns</a> (const void *p) const noexcept</td></tr>
+<tr class="memdesc:aa030fa6527a6d1d3f84fc1a92db13836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if <code>p</code> is owned by the underlying allocator.  <a href="#aa030fa6527a6d1d3f84fc1a92db13836">More...</a><br /></td></tr>
 <tr class="separator:aa030fa6527a6d1d3f84fc1a92db13836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0841030fe24c21718f8c4f443a4b5452"><td class="memTemplParams" colspan="2"><a id="a0841030fe24c21718f8c4f443a4b5452"></a>
-template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_info&lt;U&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:a0841030fe24c21718f8c4f443a4b5452"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>info</b> () const noexcept</td></tr>
+<tr class="memitem:a0841030fe24c21718f8c4f443a4b5452"><td class="memTemplParams" colspan="2">template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_info&lt;U&gt;::value&gt;&gt; </td></tr>
+<tr class="memitem:a0841030fe24c21718f8c4f443a4b5452"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a0841030fe24c21718f8c4f443a4b5452">info</a> () const noexcept</td></tr>
+<tr class="memdesc:a0841030fe24c21718f8c4f443a4b5452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves info about this allocator.  <a href="#a0841030fe24c21718f8c4f443a4b5452">More...</a><br /></td></tr>
 <tr class="separator:a0841030fe24c21718f8c4f443a4b5452"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45c812fd6b92cf725bc68668ebeec3f2"><td class="memTemplParams" colspan="2">template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_max_size&lt;U&gt;::value&gt;&gt; </td></tr>
 <tr class="memitem:a45c812fd6b92cf725bc68668ebeec3f2"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a45c812fd6b92cf725bc68668ebeec3f2">max_size</a> () const noexcept</td></tr>
@@ -334,6 +330,63 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 
 </div>
 </div>
+<a id="a672f8b4216e6404be9a694db2bdede3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672f8b4216e6404be9a694db2bdede3b">&#9670;&nbsp;</a></span>deallocate_all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+<div class="memtemplate">
+template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_can_truncate_deallocations&lt;U&gt;::value&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">bit::memory::policy_allocator</a>&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt;::deallocate_all </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deallocates all memory in this allocator. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is only enabled if the underlying <code>ExtendedAllocator</code> supports it </dd></dl>
+
+</div>
+</div>
+<a id="a0841030fe24c21718f8c4f443a4b5452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0841030fe24c21718f8c4f443a4b5452">&#9670;&nbsp;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+<div class="memtemplate">
+template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_info&lt;U&gt;::value&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">bit::memory::policy_allocator</a>&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt;::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves info about this allocator. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is only enabled if the underlying <code>ExtendedAllocator</code> supports it</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the info about this allocator </dd></dl>
+
+</div>
+</div>
 <a id="a45c812fd6b92cf725bc68668ebeec3f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45c812fd6b92cf725bc68668ebeec3f2">&#9670;&nbsp;</a></span>max_size()</h2>
 
@@ -483,6 +536,46 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa030fa6527a6d1d3f84fc1a92db13836"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa030fa6527a6d1d3f84fc1a92db13836">&#9670;&nbsp;</a></span>owns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+<div class="memtemplate">
+template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_knows_ownership&lt;U&gt;::value&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">bit::memory::policy_allocator</a>&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt;::owns </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if <code>p</code> is owned by the underlying allocator. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is only enabled if the underlying <code>ExtendedAllocator</code> supports it</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>the pointer to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>p</code> is owned by this allocator </dd></dl>
 
 </div>
 </div>

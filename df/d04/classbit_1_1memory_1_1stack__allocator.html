@@ -82,9 +82,6 @@ Public Types</h2></td></tr>
 <tr class="memitem:a9bc58eabec0babfeaa8855126ac5605d"><td class="memItemLeft" align="right" valign="top"><a id="a9bc58eabec0babfeaa8855126ac5605d"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>max_alignment</b> = std::integral_constant&lt; std::size_t, Align &gt;</td></tr>
 <tr class="separator:a9bc58eabec0babfeaa8855126ac5605d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0dfce699eff146d429567663d231563"><td class="memItemLeft" align="right" valign="top"><a id="ac0dfce699eff146d429567663d231563"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>can_truncate_allocations</b> = std::true_type</td></tr>
-<tr class="separator:ac0dfce699eff146d429567663d231563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,14 +109,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac4daf9bf43af92b5e9ed7952ba2fff57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to allocate memory of size <code>size</code>, aligned to the boundary <code>align</code>, offset by <code>offset</code>.  <a href="#ac4daf9bf43af92b5e9ed7952ba2fff57">More...</a><br /></td></tr>
 <tr class="separator:ac4daf9bf43af92b5e9ed7952ba2fff57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bbe0d0bec2659516d61cda026f1b530"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d04/classbit_1_1memory_1_1stack__allocator.html#a7bbe0d0bec2659516d61cda026f1b530">deallocate</a> (void *p, std::size_t size)</td></tr>
-<tr class="memdesc:a7bbe0d0bec2659516d61cda026f1b530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing for <a class="el" href="../../dd/db8/classbit_1_1memory_1_1linear__allocator.html" title="A linear allocator is an allocator that allocates data contiguously. ">linear_allocator</a>. Use deallocate_all.  <a href="#a7bbe0d0bec2659516d61cda026f1b530">More...</a><br /></td></tr>
+<tr class="memdesc:a7bbe0d0bec2659516d61cda026f1b530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing for linear_allocator. Use deallocate_all.  <a href="#a7bbe0d0bec2659516d61cda026f1b530">More...</a><br /></td></tr>
 <tr class="separator:a7bbe0d0bec2659516d61cda026f1b530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18942a59976a43a5121364e3887d98e9"><td class="memItemLeft" align="right" valign="top"><a id="a18942a59976a43a5121364e3887d98e9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d04/classbit_1_1memory_1_1stack__allocator.html#a18942a59976a43a5121364e3887d98e9">deallocate_all</a> ()</td></tr>
 <tr class="memdesc:a18942a59976a43a5121364e3887d98e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates all memory in this allocator. <br /></td></tr>
 <tr class="separator:a18942a59976a43a5121364e3887d98e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d9e7afc497c2c67bba6fde347fdcc91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d04/classbit_1_1memory_1_1stack__allocator.html#a3d9e7afc497c2c67bba6fde347fdcc91">owns</a> (void *p) const noexcept</td></tr>
-<tr class="memdesc:a3d9e7afc497c2c67bba6fde347fdcc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code><a class="el" href="../../dd/db8/classbit_1_1memory_1_1linear__allocator.html" title="A linear allocator is an allocator that allocates data contiguously. ">linear_allocator</a></code> contains the pointer <code>p</code>.  <a href="#a3d9e7afc497c2c67bba6fde347fdcc91">More...</a><br /></td></tr>
+<tr class="memdesc:a3d9e7afc497c2c67bba6fde347fdcc91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>linear_allocator</code> contains the pointer <code>p</code>.  <a href="#a3d9e7afc497c2c67bba6fde347fdcc91">More...</a><br /></td></tr>
 <tr class="separator:a3d9e7afc497c2c67bba6fde347fdcc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -175,7 +172,7 @@ template&lt;std::size_t Size, std::size_t Align = alignof(std::max_align_t)&gt; 
       </table>
 </div><div class="memdoc">
 
-<p>Does nothing for <a class="el" href="../../dd/db8/classbit_1_1memory_1_1linear__allocator.html" title="A linear allocator is an allocator that allocates data contiguously. ">linear_allocator</a>. Use deallocate_all. </p>
+<p>Does nothing for linear_allocator. Use deallocate_all. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>the pointer </td></tr>
@@ -212,7 +209,7 @@ template&lt;std::size_t Size, std::size_t Align = alignof(std::max_align_t)&gt; 
 </table>
 </div><div class="memdoc">
 
-<p>Checks whether <code><a class="el" href="../../dd/db8/classbit_1_1memory_1_1linear__allocator.html" title="A linear allocator is an allocator that allocates data contiguously. ">linear_allocator</a></code> contains the pointer <code>p</code>. </p>
+<p>Checks whether <code>linear_allocator</code> contains the pointer <code>p</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>the pointer to check </td></tr>

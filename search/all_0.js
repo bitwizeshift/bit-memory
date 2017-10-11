@@ -1,11 +1,11 @@
 var searchData=
 [
   ['address',['address',['../d4/d12/classbit_1_1memory_1_1allocator__info.html#ac155bff152553cbddf0dd258a9e15632',1,'bit::memory::allocator_info']]],
-  ['advance',['advance',['../d5/dbf/pointer__utilities_8hpp.html#abb2707186b7159d0c87e47527992dd92',1,'bit::memory']]],
+  ['advance',['advance',['../d5/dbf/pointer__utilities_8hpp.html#abb2707186b7159d0c87e47527992dd92',1,'bit::memory::advance(void *p, std::ptrdiff_t bytes) noexcept'],['../d5/dbf/pointer__utilities_8hpp.html#af42c11c2153b285bcedd181cc0547fec',1,'bit::memory::advance(const void *p, std::ptrdiff_t bytes) noexcept']]],
   ['align',['align',['../d5/dbf/pointer__utilities_8hpp.html#a3d4e2becad05df260922296e92084a92',1,'bit::memory']]],
-  ['align_5fbackward_5foffset',['align_backward_offset',['../d5/dbf/pointer__utilities_8hpp.html#a1df1e8d92664a2c3ec52274202e0d768',1,'bit::memory']]],
+  ['align_5fbackward_5foffset',['align_backward_offset',['../d5/dbf/pointer__utilities_8hpp.html#a1df1e8d92664a2c3ec52274202e0d768',1,'bit::memory::align_backward_offset(void *ptr, std::size_t align) noexcept'],['../d5/dbf/pointer__utilities_8hpp.html#aa6c6f9f242f4b12adeea874f4187fcfe',1,'bit::memory::align_backward_offset(void *ptr, std::size_t align, std::size_t offset) noexcept']]],
   ['align_5fforward',['align_forward',['../d5/dbf/pointer__utilities_8hpp.html#a6e066986d01e30bc493b07986679f819',1,'bit::memory']]],
-  ['align_5fforward_5foffset',['align_forward_offset',['../d5/dbf/pointer__utilities_8hpp.html#aa0319a9667a69e388b154da80750ad9f',1,'bit::memory']]],
+  ['align_5fforward_5foffset',['align_forward_offset',['../d5/dbf/pointer__utilities_8hpp.html#aa0319a9667a69e388b154da80750ad9f',1,'bit::memory::align_forward_offset(void *ptr, std::size_t align) noexcept'],['../d5/dbf/pointer__utilities_8hpp.html#acce8417da5ad616e9019d1df68e902ab',1,'bit::memory::align_forward_offset(void *ptr, std::size_t align, std::size_t offset) noexcept']]],
   ['align_5fof',['align_of',['../d5/dbf/pointer__utilities_8hpp.html#a550de916d0cd1dcc801c676033bc0c87',1,'bit::memory']]],
   ['aligned_5fallocator',['aligned_allocator',['../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html',1,'bit::memory::aligned_allocator'],['../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#aaf19cebc7e3f089427fcb9c99b2b9262',1,'bit::memory::aligned_allocator::aligned_allocator()=default'],['../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#a6d19d64784808bc5b7641e8a73793a3c',1,'bit::memory::aligned_allocator::aligned_allocator(aligned_allocator &amp;&amp;other) noexcept=default'],['../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#ad6d69ad522592c11197c6c7407aab60b',1,'bit::memory::aligned_allocator::aligned_allocator(const aligned_allocator &amp;other) noexcept=default']]],
   ['aligned_5fallocator_2ehpp',['aligned_allocator.hpp',['../de/d0e/aligned__allocator_8hpp.html',1,'']]],

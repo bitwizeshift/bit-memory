@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bit::memory: bit::memory::debug_bounds_checker Class Reference</title>
+<title>bit::memory: bit::memory::debug_bounds_checker&lt; FrontSize, BackSize &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -67,7 +67,7 @@ $(function() {
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="../../d0/d18/classbit_1_1memory_1_1debug__bounds__checker-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::debug_bounds_checker Class Reference<div class="ingroups"><a class="el" href="../../d2/da2/group___bounds_checker.html">BoundsChecker</a></div></div>  </div>
+<div class="title">bit::memory::debug_bounds_checker&lt; FrontSize, BackSize &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d2/da2/group___bounds_checker.html">BoundsChecker</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -78,34 +78,37 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4d6ccef2b3848db1afb18df525e74776"><td class="memItemLeft" align="right" valign="top"><a id="a4d6ccef2b3848db1afb18df525e74776"></a>
+<tr class="memitem:ac41d8e04625bbe028ea9b9a2adb88b79"><td class="memItemLeft" align="right" valign="top"><a id="ac41d8e04625bbe028ea9b9a2adb88b79"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare_front_fence</b> (void *p, std::size_t size) noexcept</td></tr>
-<tr class="separator:a4d6ccef2b3848db1afb18df525e74776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac397d846d04c8548fa8c1ccb41716be4"><td class="memItemLeft" align="right" valign="top"><a id="ac397d846d04c8548fa8c1ccb41716be4"></a>
+<tr class="separator:ac41d8e04625bbe028ea9b9a2adb88b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b519de0edd025dec23bcf99cb17f4c1"><td class="memItemLeft" align="right" valign="top"><a id="a3b519de0edd025dec23bcf99cb17f4c1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare_back_fence</b> (void *p, std::size_t size) noexcept</td></tr>
-<tr class="separator:ac397d846d04c8548fa8c1ccb41716be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0292826da61c9549cf8f1889b36eb4ce"><td class="memItemLeft" align="right" valign="top"><a id="a0292826da61c9549cf8f1889b36eb4ce"></a>
+<tr class="separator:a3b519de0edd025dec23bcf99cb17f4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cecdea1f890857247def282eb191eb0"><td class="memItemLeft" align="right" valign="top"><a id="a9cecdea1f890857247def282eb191eb0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>check_front_fence</b> (const <a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> &amp;info, void *p, std::size_t size) noexcept</td></tr>
-<tr class="separator:a0292826da61c9549cf8f1889b36eb4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ceba7d1ff380082a108d56188ccc30e"><td class="memItemLeft" align="right" valign="top"><a id="a8ceba7d1ff380082a108d56188ccc30e"></a>
+<tr class="separator:a9cecdea1f890857247def282eb191eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1b101415d8b257ee63aab3da6910e9b"><td class="memItemLeft" align="right" valign="top"><a id="af1b101415d8b257ee63aab3da6910e9b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>check_back_fence</b> (const <a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> &amp;info, void *p, std::size_t size) noexcept</td></tr>
-<tr class="separator:a8ceba7d1ff380082a108d56188ccc30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:af1b101415d8b257ee63aab3da6910e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a5c76d4aaef28127e641f1286c52d3e73"><td class="memItemLeft" align="right" valign="top"><a id="a5c76d4aaef28127e641f1286c52d3e73"></a>
-static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>front_size</b> = 8</td></tr>
-<tr class="separator:a5c76d4aaef28127e641f1286c52d3e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a102aea2c89f1ca587c48aa22c7e3cc86"><td class="memItemLeft" align="right" valign="top"><a id="a102aea2c89f1ca587c48aa22c7e3cc86"></a>
-static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>back_size</b> = 8</td></tr>
-<tr class="separator:a102aea2c89f1ca587c48aa22c7e3cc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3451b2d2224e496d557935dae574f641"><td class="memItemLeft" align="right" valign="top"><a id="a3451b2d2224e496d557935dae574f641"></a>
+static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>front_size</b> = FrontSize</td></tr>
+<tr class="separator:a3451b2d2224e496d557935dae574f641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85504d55737c14f5240f7193c0c8e315"><td class="memItemLeft" align="right" valign="top"><a id="a85504d55737c14f5240f7193c0c8e315"></a>
+static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>back_size</b> = BackSize</td></tr>
+<tr class="separator:a85504d55737c14f5240f7193c0c8e315"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This type is used for checking boundaries around memory allocations to determine if buffer-overflows have occurred. </p>
+<div class="textblock"><h3>template&lt;std::size_t FrontSize, std::size_t BackSize = FrontSize&gt;<br />
+class bit::memory::debug_bounds_checker&lt; FrontSize, BackSize &gt;</h3>
+
+<p>This type is used for checking boundaries around memory allocations to determine if buffer-overflows have occurred. </p>
 <p>On any failure, the buffer overflow handler will be called</p>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d2/da2/group___bounds_checker.html">BoundsChecker</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d32/debug__bounds__checker_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d5/d32/debug__bounds__checker_8hpp_source.html">debug_bounds_checker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d32/debug__bounds__checker_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d5/d32/debug__bounds__checker_8hpp_source.html">debug_bounds_checker.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="../../d5/d32/debug__bounds__checker_8hpp_source.html">debug_bounds_checker.hpp</a></li>
 </ul>
