@@ -1,5 +1,5 @@
 /**
- * \file bump_up_allocator.hpp
+ * \file bump_down_allocator.hpp
  *
  * \brief This header contains the definition of the ExtendedAllocator class,
  *        linear_allocator.
