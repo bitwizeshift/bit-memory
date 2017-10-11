@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['segregating_5fallocator_2ehpp',['segregating_allocator.hpp',['../d9/d69/segregating__allocator_8hpp.html',1,'']]],
   ['set_5fbuffer_5foverflow_5fhandler',['set_buffer_overflow_handler',['../df/d52/errors_8hpp.html#ac5c5fd4d96128b39b1d87bf993141849',1,'bit::memory']]],
   ['set_5fdouble_5fdelete_5fhandler',['set_double_delete_handler',['../df/d52/errors_8hpp.html#a50926f8c7e0edee217232461ed86d56b',1,'bit::memory']]],
   ['set_5fleak_5fhandler',['set_leak_handler',['../df/d52/errors_8hpp.html#a003cf26d286c54dd37cda5965a3b1a6f',1,'bit::memory']]],
