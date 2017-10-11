@@ -25,7 +25,5 @@ var searchData=
   ['detailed_5fleak_5ftracker_2ehpp',['detailed_leak_tracker.hpp',['../d0/d80/detailed__leak__tracker_8hpp.html',1,'']]],
   ['difference',['difference',['../d5/dbf/pointer__utilities_8hpp.html#a4b84c314b551045a300e5815ab0ca51a',1,'bit::memory']]],
   ['distance',['distance',['../d5/dbf/pointer__utilities_8hpp.html#adc7427065722d474a3f21027bcd03061',1,'bit::memory']]],
-  ['double_5fdelete_5fhandler_5ft',['double_delete_handler_t',['../df/d52/errors_8hpp.html#aaffee7d3540c193e0c1e573c9f2db9b8',1,'bit::memory']]],
-  ['dynamic_5fsize',['dynamic_size',['../d6/d5f/dynamic__size__type_8hpp.html#aa9420e08f8f96240abcbd6bf6b62388a',1,'bit::memory']]],
-  ['dynamic_5fsize_5ftype_2ehpp',['dynamic_size_type.hpp',['../d6/d5f/dynamic__size__type_8hpp.html',1,'']]]
+  ['double_5fdelete_5fhandler_5ft',['double_delete_handler_t',['../df/d52/errors_8hpp.html#aaffee7d3540c193e0c1e573c9f2db9b8',1,'bit::memory']]]
 ];

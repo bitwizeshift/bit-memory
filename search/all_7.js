@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['identity_2ehpp',['identity.hpp',['../d7/d0e/identity_8hpp.html',1,'']]],
-  ['identity_5ft',['identity_t',['../d7/d0e/identity_8hpp.html#a8db8b847dc5514d1abf116634c74d2c4',1,'bit::memory::detail']]],
   ['info',['info',['../dc/d0e/classbit_1_1memory_1_1allocator__traits.html#a55ca15247f927dba4c279cf58735ae8c',1,'bit::memory::allocator_traits::info()'],['../db/d9d/classbit_1_1memory_1_1any__allocator.html#adfbca635508886ad935e314d05974c20',1,'bit::memory::any_allocator::info()'],['../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a0841030fe24c21718f8c4f443a4b5452',1,'bit::memory::policy_allocator::info()'],['../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#ad846322498733f08f10d19146fc91551',1,'bit::memory::block_allocator_traits::info()'],['../d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#a36175ca291dd5163b87fb4ce4c2d590c',1,'bit::memory::any_block_allocator::info()'],['../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a15eeaee8da7d7a4054a814e09da387a4',1,'bit::memory::policy_block_allocator::info()']]],
   ['is_5fallocator',['is_allocator',['../d3/dc5/structbit_1_1memory_1_1is__allocator.html',1,'bit::memory']]],
   ['is_5fallocator_5freference',['is_allocator_reference',['../d2/d64/structbit_1_1memory_1_1is__allocator__reference.html',1,'bit::memory']]],

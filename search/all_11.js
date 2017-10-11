@@ -8,6 +8,5 @@ var searchData=
   ['virtual_5fmemory_5fdecommit',['virtual_memory_decommit',['../d6/df2/virtual__memory_8hpp.html#ae622e9d918be793cdaf6875edbe8ef97',1,'bit::memory']]],
   ['virtual_5fmemory_5fpage_5fsize',['virtual_memory_page_size',['../d6/df2/virtual__memory_8hpp.html#a3d9c7882791b130c3cee239c200cd157',1,'bit::memory']]],
   ['virtual_5fmemory_5frelease',['virtual_memory_release',['../d6/df2/virtual__memory_8hpp.html#ac15277c6b518fea899a87d23e35b09cf',1,'bit::memory']]],
-  ['virtual_5fmemory_5freserve',['virtual_memory_reserve',['../d6/df2/virtual__memory_8hpp.html#a1f52773c613d5b5cbdaa7c6cd72c013e',1,'bit::memory']]],
-  ['void_5ft_2ehpp',['void_t.hpp',['../d9/dce/void__t_8hpp.html',1,'']]]
+  ['virtual_5fmemory_5freserve',['virtual_memory_reserve',['../d6/df2/virtual__memory_8hpp.html#a1f52773c613d5b5cbdaa7c6cd72c013e',1,'bit::memory']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['double_5fdelete_5fhandler_5ft',['double_delete_handler_t',['../df/d52/errors_8hpp.html#aaffee7d3540c193e0c1e573c9f2db9b8',1,'bit::memory']]]
+  ['leak_5fhandler_5ft',['leak_handler_t',['../df/d52/errors_8hpp.html#a85d0c7d9ca3f23df5cf041a970c89d1f',1,'bit::memory']]]
 ];

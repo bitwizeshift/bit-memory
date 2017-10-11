@@ -10,7 +10,6 @@ var searchData=
   ['allocator_5freference_2ehpp',['allocator_reference.hpp',['../d8/dd1/allocator__reference_8hpp.html',1,'']]],
   ['allocator_5ftagger_2ehpp',['allocator_tagger.hpp',['../de/d4d/allocator__tagger_8hpp.html',1,'']]],
   ['allocator_5ftraits_2ehpp',['allocator_traits.hpp',['../d2/d58/allocator__traits_8hpp.html',1,'']]],
-  ['allocator_5futilities_2ehpp',['allocator_utilities.hpp',['../d1/dd8/allocator__utilities_8hpp.html',1,'']]],
   ['any_5fallocator_2ehpp',['any_allocator.hpp',['../df/d38/any__allocator_8hpp.html',1,'']]],
   ['any_5fblock_5fallocator_2ehpp',['any_block_allocator.hpp',['../d6/ddb/any__block__allocator_8hpp.html',1,'']]]
 ];

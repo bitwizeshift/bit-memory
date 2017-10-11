@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['pointer_5futilities_2ehpp',['pointer_utilities.hpp',['../d5/dbf/pointer__utilities_8hpp.html',1,'']]],
-  ['policy_5fallocator_2ehpp',['policy_allocator.hpp',['../d8/daf/policy__allocator_8hpp.html',1,'']]],
-  ['policy_5fblock_5fallocator_2ehpp',['policy_block_allocator.hpp',['../dc/d56/policy__block__allocator_8hpp.html',1,'']]],
-  ['pool_5fallocator_2ehpp',['pool_allocator.hpp',['../d5/dd4/pool__allocator_8hpp.html',1,'']]]
+  ['stack_5fallocator_2ehpp',['stack_allocator.hpp',['../d1/df9/stack__allocator_8hpp.html',1,'']]],
+  ['stack_5fblock_5fallocator_2ehpp',['stack_block_allocator.hpp',['../dd/d17/stack__block__allocator_8hpp.html',1,'']]],
+  ['stateless_2ehpp',['Stateless.hpp',['../d3/df6/_stateless_8hpp.html',1,'']]],
+  ['static_5fblock_5fallocator_2ehpp',['static_block_allocator.hpp',['../db/d80/static__block__allocator_8hpp.html',1,'']]],
+  ['std_5fallocator_5fadapter_2ehpp',['std_allocator_adapter.hpp',['../dc/dd3/std__allocator__adapter_8hpp.html',1,'']]]
 ];

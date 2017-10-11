@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cached_5faligned_5fblock_5fallocator',['cached_aligned_block_allocator',['../d1/db1/aligned__block__allocator_8hpp.html#a0dedb05cfe528f9f2b78086f31003233',1,'bit::memory']]]
+  ['double_5fdelete_5fhandler_5ft',['double_delete_handler_t',['../df/d52/errors_8hpp.html#aaffee7d3540c193e0c1e573c9f2db9b8',1,'bit::memory']]]
 ];

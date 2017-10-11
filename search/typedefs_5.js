@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['leak_5fhandler_5ft',['leak_handler_t',['../df/d52/errors_8hpp.html#a85d0c7d9ca3f23df5cf041a970c89d1f',1,'bit::memory']]]
+  ['nullblock_5ft',['nullblock_t',['../d6/d1f/memory__block_8hpp.html#a9c085545b68c6f30934ffd70242ebd37',1,'bit::memory']]]
 ];
