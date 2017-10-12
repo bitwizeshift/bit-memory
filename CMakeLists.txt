@@ -95,6 +95,7 @@ set(headers
   include/bit/memory/trackers/detailed_leak_tracker.hpp
   include/bit/memory/trackers/leak_tracker.hpp
   include/bit/memory/trackers/null_tracker.hpp
+  include/bit/memory/trackers/stdout_tracker.hpp
 
   # Bounds Checkers
   include/bit/memory/bounds_checkers/debug_bounds_checker.hpp
@@ -166,6 +167,7 @@ set(inline_headers
   include/bit/memory/trackers/detail/detailed_leak_tracker.inl
   include/bit/memory/trackers/detail/leak_tracker.inl
   include/bit/memory/trackers/detail/stat_recording_tracker.inl
+  include/bit/memory/trackers/detail/stdout_tracker.inl
 
   # Bounds Checkers
   include/bit/memory/bounds_checkers/detail/debug_bounds_checker.inl
