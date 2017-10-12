@@ -16,9 +16,10 @@
 #include "../macros.hpp"           // BIT_MEMORY_UNUSED
 #include "../allocator_traits.hpp" // allocator_traits
 
-#include <tuple>   // std::forward_as_tuple
-#include <utility> // std::forward
-#include <cstddef> // std::size_t
+#include <tuple>     // std::forward_as_tuple
+#include <utility>   // std::forward
+#include <cstddef>   // std::size_t
+#include <algorithm> // std::max, std::min
 
 namespace bit {
   namespace memory {
