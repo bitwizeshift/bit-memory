@@ -158,7 +158,7 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \param p the pointer
-      static bool owns( Allocator& alloc, const_pointer p ) noexcept;
+      static bool owns( const Allocator& alloc, const_pointer p ) noexcept;
 
       /// \brief Gets the name of the specified allocator
       ///

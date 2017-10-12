@@ -84,7 +84,7 @@ inline void bit::memory::bump_up_lifo_allocator::deallocate_all()
 // Observers
 //----------------------------------------------------------------------------
 
-inline bool bit::memory::bump_up_lifo_allocator::owns( void* p )
+inline bool bit::memory::bump_up_lifo_allocator::owns( const void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;

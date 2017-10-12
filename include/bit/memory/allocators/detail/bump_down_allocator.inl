@@ -68,7 +68,7 @@ inline void bit::memory::bump_down_allocator::deallocate_all()
 // Observers
 //----------------------------------------------------------------------------
 
-inline bool bit::memory::bump_down_allocator::owns( void* p )
+inline bool bit::memory::bump_down_allocator::owns( const void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;
