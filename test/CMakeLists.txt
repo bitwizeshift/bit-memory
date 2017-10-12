@@ -16,7 +16,6 @@ set(source_files
   bit/memory/endian.test.cpp
 
   # Memory Allocations
-  bit/memory/allocators/policy_allocator.test.cpp
 
   # Block Allocators
   bit/memory/block_allocators/null_block_allocator.test.cpp
