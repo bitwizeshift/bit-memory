@@ -80,7 +80,7 @@ inline void bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 inline bool bit::memory::allocator_traits<Allocator>
-  ::owns( Allocator& alloc, const_pointer p )
+  ::owns( const Allocator& alloc, const_pointer p )
   noexcept
 {
   return alloc.owns(p);

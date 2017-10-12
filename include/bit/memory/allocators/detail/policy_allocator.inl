@@ -139,7 +139,7 @@ bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   ::owns( const void* p )
   const noexcept
 {
-  auto& allocator = detail::get<0>(*this);
+  const auto& allocator = detail::get<0>(*this);
 
   return allocator_traits<ExtendedAllocator>::owns( allocator, p );
 }
