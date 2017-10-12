@@ -34,7 +34,7 @@ template<typename...Allocators>
 void bit::memory::fallback_allocator<Allocators...>
   ::deallocate( void* p, std::size_t size )
 {
-  return do_deallocate( std::integral_constant<std::size_t,0>{}, p, size );
+  do_deallocate( std::integral_constant<std::size_t,0>{}, p, size );
 }
 
 template<typename...Allocators>
@@ -66,7 +66,7 @@ void* bit::memory::fallback_allocator<Allocators...>
                      std::size_t align )
   noexcept
 {
-  auto& allocator = detail::get<Idx>(*this);
+  auto& allocator = detail::get<Idx>(static_cast<base_type&>(*this));
   using traits_type = allocator_traits<decltype(allocator)>;
 
   // If a pointer is allocated, return it. Otherwise fallback to the next
@@ -80,25 +80,25 @@ void* bit::memory::fallback_allocator<Allocators...>
 
 template<typename...Allocators>
 void* bit::memory::fallback_allocator<Allocators...>
-  ::do_try_allocate( std::integral_constant<std::size_t,sizeof...(Allocators)>,
+  ::do_try_allocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
                      std::size_t size,
                      std::size_t align )
   noexcept
 {
-  BIT_MEMORY_UNUSED(size);
-  BIT_MEMORY_UNUSED(align);
+  auto& allocator = detail::get<sizeof...(Allocators)-1>(static_cast<base_type&>(*this));
+  using traits_type = allocator_traits<decltype(allocator)>;
 
-  return nullptr;
+  return traits_type::try_allocate( allocator, size, align );;
 }
 
 template<typename...Allocators>
 template<std::size_t Idx>
-void* bit::memory::fallback_allocator<Allocators...>
+void bit::memory::fallback_allocator<Allocators...>
   ::do_deallocate( std::integral_constant<std::size_t,Idx>,
                    void* p,
                    std::size_t size)
 {
-  auto& allocator = detail::get<Idx>(*this);
+  auto& allocator = detail::get<Idx>(static_cast<base_type&>(*this));
   using traits_type = allocator_traits<decltype(allocator)>;
 
   // If the allocator is known to own it, deallocate it using that allocator
@@ -111,13 +111,15 @@ void* bit::memory::fallback_allocator<Allocators...>
 }
 
 template<typename...Allocators>
-void* bit::memory::fallback_allocator<Allocators...>
-  ::do_deallocate( std::integral_constant<std::size_t,sizeof...(Allocators)>,
+void bit::memory::fallback_allocator<Allocators...>
+  ::do_deallocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
                    void* p,
                    std::size_t size )
 {
-  BIT_MEMORY_UNUSED(p);
-  BIT_MEMORY_UNUSED(size);
+  auto& allocator = detail::get<sizeof...(Allocators)-1>(static_cast<base_type&>(*this));
+  using traits_type = allocator_traits<decltype(allocator)>;
+
+  traits_type::deallocate( allocator, p, size );
 }
 
 template<typename...Allocators>
@@ -127,7 +129,7 @@ inline bool bit::memory::fallback_allocator<Allocators...>
   const noexcept
 {
   // max of a bunch of bools is the disjunction (logical or)
-  return std::max( { allocator_traits<Allocators>::owns( detail::get<Idxs>(*this), p )... } );
+  return std::max( { allocator_traits<Allocators>::owns( detail::get<Idxs>(static_cast<base_type&>(*this)), p )... } );
 }
 
 
@@ -137,7 +139,7 @@ std::size_t bit::memory::fallback_allocator<Allocators...>
   ::do_max_size( std::index_sequence<Idxs...> )
   const noexcept
 {
-  return std::max( { allocator_traits<Allocators>::max_size( detail::get<Idxs>(*this) )... } );
+  return std::max( { allocator_traits<Allocators>::max_size( detail::get<Idxs>(static_cast<base_type&>(*this)) )... } );
 }
 template<typename...Allocators>
 template<std::size_t...Idxs>
@@ -145,7 +147,7 @@ std::size_t bit::memory::fallback_allocator<Allocators...>
   ::do_min_size( std::index_sequence<Idxs...> )
   const noexcept
 {
-  return std::min( { allocator_traits<Allocators>::min_size( detail::get<Idxs>(*this) )... } );
+  return std::min( { allocator_traits<Allocators>::min_size( detail::get<Idxs>(static_cast<base_type&>(*this)) )... } );
 }
 
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_FALLBACK_ALLOCATOR_INL */

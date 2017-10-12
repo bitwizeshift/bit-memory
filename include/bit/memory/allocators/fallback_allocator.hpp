@@ -95,18 +95,18 @@ namespace bit {
                              std::size_t size,
                              std::size_t align ) noexcept;
 
-      void* do_try_allocate( std::integral_constant<std::size_t,sizeof...(Allocators)>,
+      void* do_try_allocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
                              std::size_t size,
                              std::size_t align ) noexcept;
 
       template<std::size_t Idx>
-      void* do_deallocate( std::integral_constant<std::size_t,Idx>,
-                           void* p,
-                           std::size_t size );
+      void do_deallocate( std::integral_constant<std::size_t,Idx>,
+                          void* p,
+                          std::size_t size );
 
-      void* do_deallocate( std::integral_constant<std::size_t,sizeof...(Allocators)>,
-                           void* p,
-                           std::size_t size );
+      void do_deallocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
+                          void* p,
+                          std::size_t size );
 
 
       template<std::size_t...Idxs>
