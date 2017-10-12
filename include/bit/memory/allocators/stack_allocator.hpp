@@ -108,7 +108,7 @@ namespace bit {
       ///
       /// \param p the pointer to check
       /// \return \c true if \p p is contained in this allocator
-      bool owns( void* p ) const noexcept;
+      bool owns( const void* p ) const noexcept;
 
       //-----------------------------------------------------------------------
       // Private Members

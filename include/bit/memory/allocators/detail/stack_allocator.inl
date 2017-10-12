@@ -92,7 +92,7 @@ inline void bit::memory::stack_allocator<Size,Align>::deallocate_all()
 //-----------------------------------------------------------------------------
 
 template<std::size_t Size, std::size_t Align>
-inline bool bit::memory::stack_allocator<Size,Align>::owns( void* p )
+inline bool bit::memory::stack_allocator<Size,Align>::owns( const void* p )
   const noexcept
 {
   return static_cast<const void*>(&m_storage[0]) <= p && p < static_cast<const void*>(&m_storage[Size]);
