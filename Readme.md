@@ -63,6 +63,47 @@ one that -- on failure -- calls a global out-of-memory handler.
 The Allocator concept in this library optionally supports a member function named `infO()` that returns an `allocator_info` object.
 This object is used for _naming_ the allocator so that it can be uniquely identified in case an error handler is called.
 
-## Memory Management
+## Building
 
-The Allocators in this library follow strictly followed concepts, documented [here](http://bitwizeshift.github.io/bit-memory/modules.html)
+Building `bit::memory` is simple, and only requires a CMake version greater than 3.1, and a compatible compiler.
+
+Fist, make a directory to build the library in, then build with CMake
+
+```bash
+mkdir build
+cd build
+
+cmake . -DBIT_MEMORY_BUILD_UNIT_TESTS=Off -DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off  # ... any additional toolchain parameters ...
+cmake --build .
+```
+
+Omitting the `-DBIT_MEMORY_BUILD_UNIT_TESTS=Off` will build unit tests; likewise `DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off` will
+build header-independence checks (building each header independently to ensure there are no header-order based transitive dependencies).
+
+To install, run:
+
+```bash
+cmake --build . --target install
+```
+
+To change the output directory of the installation, you can export `BIT_HOME` to install to a specific directory
+
+```bash
+export BIT_HOME=/etc/bit
+cmake --build . --target install
+```
+
+will install into `/etc/bit/`.
+
+
+##<a name="tested-compilers"></a> Tested Compilers
+
+The following compilers are currently being tested through continuous integration with [Travis](https://travis-ci.org/bitwizeshift/bit-memory).
+
+Note that `bit-memory` only works on compiler that provide proper conformance for c++14
+
+| Compiler              | Operating System                   |
+|-----------------------|------------------------------------|
+| g++ 6.3.0             | Ubuntu 14.04.3 TLS                 |
+| clang xcode 7.3       | Darwin Kernel 15.6.0 (OSX 10.11.6) |
+| Visual Studio 15 2017	| Windows Server 2012 R2 (x64)       |
