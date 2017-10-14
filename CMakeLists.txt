@@ -115,6 +115,7 @@ set(headers
   include/bit/memory/block_allocators/policy_block_allocator.hpp
   include/bit/memory/block_allocators/stack_block_allocator.hpp
   include/bit/memory/block_allocators/static_block_allocator.hpp
+  include/bit/memory/block_allocators/thread_local_block_allocator.hpp
   include/bit/memory/block_allocators/virtual_block_allocator.hpp
 
   # Allocators
@@ -182,6 +183,7 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/null_block_allocator.inl
   include/bit/memory/block_allocators/detail/policy_block_allocator.inl
   include/bit/memory/block_allocators/detail/stack_block_allocator.inl
+  include/bit/memory/block_allocators/detail/thread_local_block_allocator.inl
   include/bit/memory/block_allocators/detail/static_block_allocator.inl
 
   # Allocators

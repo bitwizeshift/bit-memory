@@ -1,13 +1,13 @@
 /**
- * \file static_block_allocator.hpp
+ * \file thread_local_block_allocator.hpp
  *
- * \brief This header contains the definition for an allocator that can only
- *        allocate a single static block
+ * \brief This header defines a thread-local variant of the static block
+ *        allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_THREAD_LOCAL_BLOCK_ALLOCATOR_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_THREAD_LOCAL_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 #include "../owner.hpp"              // owner
@@ -21,15 +21,16 @@ namespace bit {
   namespace memory {
 
     //////////////////////////////////////////////////////////////////////////
-    /// \brief This is a block allocator that distributes blocks of memory
-    ///        stored statically.
+    /// \brief This is a block allocator that distributes blocks of static
+    ///        memory that is local to the specific thread.
     ///
     /// This type is templated on both the size of the static block, and an
     /// additional Tag type that may be used to create individual instantiations
     ///
     /// \note Since this type creates static storage data, two instantiations
-    ///       with the same size/tag will point to the same data -- hence the
-    ///       ability to use type-tagging to produce unique instances.
+    ///       with the same size/tag will point to the same data on the same
+    ///       thread -- hence the option to use type-tagging to produce
+    ///       unique instances.
     ///
     /// \tparam BlockSize the size of the static allocation
     /// \tparam Blocks the number of blocks
@@ -43,7 +44,7 @@ namespace bit {
              std::size_t Blocks = 1,
              std::size_t Align = alignof(std::max_align_t),
              typename Tag = void>
-    class static_block_allocator
+    class thread_local_block_allocator
     {
       static_assert( Blocks > 0,"Must have at least one block" );
       static_assert( is_power_of_two(Align), "Alignment must be a power of two" );
@@ -57,38 +58,39 @@ namespace bit {
       using block_size      = std::integral_constant<std::size_t,BlockSize>;
       using block_alignment = std::integral_constant<std::size_t,Align>;
 
+
       //----------------------------------------------------------------------
       // Constructor
       //----------------------------------------------------------------------
     public:
 
-      /// \brief Default constructs a static_block_allocator
-      static_block_allocator() noexcept = default;
+      /// \brief Default constructs a thread_local_block_allocator
+      thread_local_block_allocator() noexcept = default;
 
-      /// \brief Move-constructs a static_block_allocator from another one
+      /// \brief Move-constructs a thread_local_block_allocator from another one
       ///
       /// \param other the other allocator to move
-      static_block_allocator( static_block_allocator&& other ) noexcept = default;
+      thread_local_block_allocator( thread_local_block_allocator&& other ) noexcept = default;
 
-      /// \brief Copy-constructs a static_block_allocator from another one
+      /// \brief Copy-constructs a thread_local_block_allocator from another one
       ///
       /// \param other the other allocator to copy
-      static_block_allocator( const static_block_allocator& other ) noexcept = default;
+      thread_local_block_allocator( const thread_local_block_allocator& other ) noexcept = default;
 
 
       //----------------------------------------------------------------------
 
-      /// \brief Move-assigns a static_block_allocator from another one
+      /// \brief Move-assigns a thread_local_block_allocator from another one
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
-      static_block_allocator& operator=( static_block_allocator&& other ) noexcept = default;
+      thread_local_block_allocator& operator=( thread_local_block_allocator&& other ) noexcept = default;
 
-      /// \brief Move-assigns a static_block_allocator from another one
+      /// \brief Move-assigns a thread_local_block_allocator from another one
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
-      static_block_allocator& operator=( const static_block_allocator& other ) noexcept = default;
+      thread_local_block_allocator& operator=( const thread_local_block_allocator& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations
@@ -110,7 +112,7 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      alignas(Align) static char s_storage[BlockSize * Blocks];
+      alignas(Align) static thread_local char s_storage[BlockSize * Blocks];
 
       /// \brief Gets the static memory_block_cache for this allocator
       ///
@@ -118,14 +120,8 @@ namespace bit {
       static memory_block_cache& block_cache() noexcept;
     };
 
-    //-------------------------------------------------------------------------
-
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using named_static_block_allocator = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align>>;
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/static_block_allocator.inl"
-
-#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_THREAD_LOCAL_BLOCK_ALLOCATOR_HPP */
