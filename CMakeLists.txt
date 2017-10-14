@@ -115,7 +115,6 @@ set(headers
   include/bit/memory/block_allocators/policy_block_allocator.hpp
   include/bit/memory/block_allocators/stack_block_allocator.hpp
   include/bit/memory/block_allocators/static_block_allocator.hpp
-  include/bit/memory/block_allocators/thread_local_block_allocator.hpp
   include/bit/memory/block_allocators/virtual_block_allocator.hpp
 
   # Allocators
@@ -183,7 +182,6 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/null_block_allocator.inl
   include/bit/memory/block_allocators/detail/policy_block_allocator.inl
   include/bit/memory/block_allocators/detail/stack_block_allocator.inl
-  include/bit/memory/block_allocators/detail/thread_local_block_allocator.inl
   include/bit/memory/block_allocators/detail/static_block_allocator.inl
 
   # Allocators
@@ -204,6 +202,14 @@ set(inline_headers
   include/bit/memory/allocators/detail/pool_allocator.inl
   include/bit/memory/allocators/detail/stack_allocator.inl
 )
+
+# Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
+# avoid failing independence tests, they have been appended here
+if( NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
+  list(APPEND headers include/bit/memory/block_allocators/thread_local_block_allocator.hpp)
+  list(APPEND inline_headers include/bit/memory/block_allocators/detail/thread_local_block_allocator.inl)
+endif()
+
 
 if( WIN32 )
   set(platform_source_files
@@ -257,7 +263,7 @@ target_compile_definitions(memory PUBLIC
 )
 
 # Add compiler-specific flags
-if( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+if( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
   target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
   target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
