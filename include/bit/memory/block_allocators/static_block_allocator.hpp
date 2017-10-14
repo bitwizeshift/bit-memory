@@ -21,10 +21,8 @@ namespace bit {
   namespace memory {
 
     //////////////////////////////////////////////////////////////////////////
-    /// \brief This is a block allocator that dolls out a single block of
-    ///        static memory
-    ///
-    /// Repeated allocations will result in \c nullblock entries.
+    /// \brief This is a block allocator that distributes blocks of memory
+    ///        stored statically.
     ///
     /// This type is templated on both the size of the static block, and an
     /// additional Tag type that may be used to create individual instantiations
@@ -97,10 +95,7 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      /// \brief Allocates a single memory block of size \c Size
-      ///
-      /// This function can only be called once, since it allocates from the
-      /// static storage
+      /// \brief Allocates a memory block of size \c Size
       ///
       /// \return a newly allocated memory_block
       owner<memory_block> allocate_block() noexcept;
