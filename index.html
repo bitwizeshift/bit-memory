@@ -88,8 +88,26 @@ $(function() {
 <p>The optional <code>allocate</code> function <em>may</em> throw. If this is not defined, then <code>allocator_traits&lt;Allocator&gt;::allocate(...)</code> defines a custom one that &ndash; on failure &ndash; calls a global out-of-memory handler.</p>
 <h3>4. Allocator info</h3>
 <p>The Allocator concept in this library optionally supports a member function named <code>infO()</code> that returns an <code>allocator_info</code> object. This object is used for <em>naming</em> the allocator so that it can be uniquely identified in case an error handler is called.</p>
-<h2>Memory Management</h2>
-<p>The Allocators in this library follow strictly followed concepts, documented <a href="http://bitwizeshift.github.io/bit-memory/modules.html">here</a> </p>
+<h2>Building</h2>
+<p>Building <code>bit::memory</code> is simple, and only requires a CMake version greater than 3.1, and a compatible compiler.</p>
+<p>Fist, make a directory to build the library in, then build with CMake</p>
+<div class="fragment"><div class="line">mkdir build</div><div class="line">cd build</div><div class="line"></div><div class="line">cmake . -DBIT_MEMORY_BUILD_UNIT_TESTS=Off -DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off  # ... any additional toolchain parameters ...</div><div class="line">cmake --build .</div></div><!-- fragment --><p>Omitting the <code>-DBIT_MEMORY_BUILD_UNIT_TESTS=Off</code> will build unit tests; likewise <code>DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off</code> will build header-independence checks (building each header independently to ensure there are no header-order based transitive dependencies).</p>
+<p>To install, run:</p>
+<div class="fragment"><div class="line">cmake --build . --target install</div></div><!-- fragment --><p>To change the output directory of the installation, you can export <code>BIT_HOME</code> to install to a specific directory</p>
+<div class="fragment"><div class="line">export BIT_HOME=/etc/bit</div><div class="line">cmake --build . --target install</div></div><!-- fragment --><p>will install into <code>/etc/bit/</code>.</p>
+<h2><a class="anchor" id="tested-compilers"></a> Tested Compilers</h2>
+<p>The following compilers are currently being tested through continuous integration with <a href="https://travis-ci.org/bitwizeshift/bit-memory">Travis</a>.</p>
+<p>Note that <code>bit-memory</code> only works on compiler that provide proper conformance for c++14</p>
+<table class="doxtable">
+<tr>
+<th>Compiler </th><th>Operating System  </th></tr>
+<tr>
+<td>g++ 6.3.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
+<td>clang xcode 7.3 </td><td>Darwin Kernel 15.6.0 (OSX 10.11.6) </td></tr>
+<tr>
+<td>Visual Studio 15 2017 </td><td>Windows Server 2012 R2 (x64) </td></tr>
+</table>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
