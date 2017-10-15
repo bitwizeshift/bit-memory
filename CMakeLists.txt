@@ -106,10 +106,10 @@ set(headers
   include/bit/memory/lockables/null_lock.hpp
 
   # Block Allocators
+  include/bit/memory/block_allocators/detail/cached_block_allocator.hpp
   include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/any_block_allocator.hpp
-  include/bit/memory/block_allocators/cached_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
