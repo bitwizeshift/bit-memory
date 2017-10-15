@@ -77,8 +77,7 @@ install:
 #-----------------------------------------------------------------------------
 script:
   - mkdir build/ && cd build/
-  - echo $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DCMAKE_CXX_FLAGS="-Wall -Wextra -pedantic $CXX_FLAGS" -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
-  - $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DCMAKE_CXX_FLAGS="-Wall -Wextra -pedantic $CXX_FLAGS" -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
+  - $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DCMAKE_CXX_FLAGS="-Wall -Wextra -pedantic $CXX_FLAGS" -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
   - $CMAKE --build .
-  - ./test/memory_test
+  - ./test/bit_memory_test
   - $CMAKE --build . --target test
