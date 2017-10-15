@@ -26,9 +26,9 @@ set(source_files
   ${platform_source_files}
 )
 
-add_executable(memory_test ${source_files})
+add_executable(bit_memory_test ${source_files})
 
-target_link_libraries(memory_test PRIVATE "bit::memory" "philsquared::Catch")
+target_link_libraries(bit_memory_test PRIVATE "bit::memory" "philsquared::Catch")
 
 #-----------------------------------------------------------------------------
 # Testing
@@ -36,10 +36,10 @@ target_link_libraries(memory_test PRIVATE "bit::memory" "philsquared::Catch")
 
 add_test( NAME "memory_test_default"
           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-          COMMAND "$<TARGET_FILE:memory_test>" )
+          COMMAND "$<TARGET_FILE:bit_memory_test>" )
 
 #-----------------------------------------------------------------------------
 
 add_test( NAME "memory_test_all"
           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-          COMMAND "$<TARGET_FILE:memory_test>" "*" )
+          COMMAND "$<TARGET_FILE:bit_memory_test>" "*" )

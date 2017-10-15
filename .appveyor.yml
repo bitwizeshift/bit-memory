@@ -5,12 +5,9 @@ os: Visual Studio 2017
 build:
   verbosity: detailed
 
-configuration: Debug
-
-environment:
-  matrix:
-    - BUILD_UNIT_TESTS: true
-    - BUILD_INDEPENDENCE_TESTS: true
+configuration:
+  - Debug
+  - Release
 
 init: []
 
@@ -61,8 +58,8 @@ before_build:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_INCLUDE_PATH=%CATCH_DIR% -DCMAKE_CXX_FLAGS="-fms-compatibility-version=19 -Wall -Wextra -pedantic -Xclang -fexceptions -Xclang -fcxx-exceptions -Xclang -fnew-ms-eh" -DBIT_MEMORY_COMPILE_UNIT_TESTS=%BUILD_UNIT_TESTS% -DBIT_MEMORY_COMPILE_INDEPENDENCE_TESTS=%BUILD_INDEPENDENCE_TESTS%
-  - cmake --build . --config Release
+  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_INCLUDE_PATH=%CATCH_DIR% -DCMAKE_CXX_FLAGS="-fms-compatibility-version=19 -Wall -Wextra -pedantic -Xclang -fexceptions -Xclang -fcxx-exceptions -Xclang -fnew-ms-eh" -DBIT_MEMORY_COMPILE_UNIT_TESTS=On -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On
+  - cmake --build . --config %CONFIGURATION%
 
 test_script:
   - cmake --build . --target test

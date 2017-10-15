@@ -4,15 +4,16 @@ enable_testing()
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 
-include(AddIndependenceCheck)
+include(AddHeaderSelfContainmentTest)
 include(MakeVersionHeader)
+include(CopyTargetProperties)
 
 #-----------------------------------------------------------------------------
 # Project Setup
 #-----------------------------------------------------------------------------
 
-option(BIT_MEMORY_COMPILE_INDEPENDENCE_TESTS "Include each header independently in a .cpp file to determine header independence" on)
-option(BIT_MEMORY_COMPILE_UNIT_TESTS "Compile and run the unit tests for this library" on)
+option(BIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS "Include each header independently in a .cpp file to determine header self-containment" off)
+option(BIT_MEMORY_COMPILE_UNIT_TESTS "Compile and run the unit tests for this library" off)
 option(BIT_MEMORY_GENERATE_DOCUMENTATION "Generates doxygen documentation" off)
 
 project("BitMemory")
@@ -247,46 +248,45 @@ set(source_files
 # bit::memory: Library
 #-----------------------------------------------------------------------------
 
-add_library(memory ${source_files} ${headers} ${inline_headers})
-add_library(bit::memory ALIAS memory)
+add_library(bit_memory ${source_files} ${headers} ${inline_headers})
+add_library(bit::memory ALIAS bit_memory)
 
 # Add include directories
-target_include_directories(memory PUBLIC
+target_include_directories(bit_memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
 )
 
 # Add DEBUG, NDEBUG, and RELEASE macro definitions
-target_compile_definitions(memory PUBLIC
+target_compile_definitions(bit_memory PUBLIC
   $<$<CONFIG:DEBUG>:DEBUG>
   $<$<CONFIG:RELEASE>:DEBUG RELEASE>
 )
 
 # Add compiler-specific flags
 if( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-  target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+  target_compile_options(bit_memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
-  target_compile_options(memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+  target_compile_options(bit_memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" )
   # TODO: Determine MSVC necessary compiler flags
 endif()
 
 #-----------------------------------------------------------------------------
-# bit::memory : Independence Tests
+# bit::memory : Header-self-containment Tests
 #-----------------------------------------------------------------------------
 
-if( BIT_MEMORY_COMPILE_INDEPENDENCE_TESTS )
+if( BIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS )
 
-  add_independence_check(memory_independence ${headers})
+  # Add containment test and alias as 'bit::memory::header_self_containment_test
+  add_header_self_containment_test(bit_memory_header_self_containment_test ${headers})
+  add_library(bit::memory::header_self_containment_test ALIAS bit_memory_header_self_containment_test)
 
-  target_compile_definitions(memory_independence PUBLIC
-    $<$<CONFIG:DEBUG>:DEBUG>
-    $<$<CONFIG:RELEASE>:DEBUG RELEASE>
+  copy_target_properties(bit_memory_header_self_containment_test bit_memory PROPERTIES
+    COMPILE_DEFINITIONS
+    COMPILE_OPTIONS
+    INCLUDE_DIRECTORIES
   )
-
-  target_include_directories(memory_independence PRIVATE $<TARGET_PROPERTY:memory,INCLUDE_DIRECTORIES>)
-
-  add_library(bit::memory::independence ALIAS memory_independence)
 
 endif()
 
@@ -316,7 +316,7 @@ if( EXISTS "$ENV{BIT_HOME}" )
   set(CMAKE_INSTALL_PREFIX "$ENV{BIT_HOME}")
 endif()
 
-export_library( TARGETS memory
+export_library( TARGETS bit_memory
                 PACKAGE Memory
                 VERSION ${BIT_MEMORY_VERSION}
                 MAJOR_VERSION ${BIT_MEMORY_VERSION_MAJOR}
