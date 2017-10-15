@@ -6,6 +6,8 @@ inline void bit::memory::stdout_tracker::on_allocate( void* p,
                                                       std::size_t align )
   noexcept
 {
+  BIT_MEMORY_UNUSED(align);
+
   std::printf("Memory Allocated:\n  Address=%p\n  Size=%zu\n", p, bytes );
 }
 

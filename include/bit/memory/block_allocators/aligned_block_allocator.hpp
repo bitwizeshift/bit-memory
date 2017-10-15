@@ -9,15 +9,14 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_ALIGNED_BLOCK_ALLOCATOR_HPP
 
-#include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../detail/dynamic_size_type.hpp"  // dynamic_size, detail::dynamic_size_type
+#include "detail/cached_block_allocator.hpp" // cached_block_allocator
+#include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
+#include "../detail/dynamic_size_type.hpp"   // dynamic_size, detail::dynamic_size_type
 
 #include "../owner.hpp"             // owner
 #include "../memory_block.hpp"      // memory_block
 #include "../pointer_utilities.hpp" // is_power_of_two
 #include "../aligned_memory.hpp"    // aligned_allocate
-
-#include "cached_block_allocator.hpp" // cached_block_allocator
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t
@@ -191,11 +190,11 @@ namespace bit {
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     template<std::size_t Size,std::size_t Align>
-    using cached_aligned_block_allocator = cached_block_allocator<aligned_block_allocator<Size,Align>>;
+    using cached_aligned_block_allocator = detail::cached_block_allocator<aligned_block_allocator<Size,Align>>;
 
     using dynamic_aligned_block_allocator = aligned_block_allocator<dynamic_size,dynamic_size>;
 
-    using cached_dynamic_aligned_block_allocator = cached_block_allocator<dynamic_aligned_block_allocator>;
+    using cached_dynamic_aligned_block_allocator = detail::cached_block_allocator<dynamic_aligned_block_allocator>;
 
     //-------------------------------------------------------------------------
 

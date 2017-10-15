@@ -58,7 +58,6 @@ namespace bit {
       using block_size      = std::integral_constant<std::size_t,BlockSize>;
       using block_alignment = std::integral_constant<std::size_t,Align>;
 
-
       //----------------------------------------------------------------------
       // Constructor
       //----------------------------------------------------------------------
