@@ -37,4 +37,17 @@ inline void bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
   m_cache.store_block( block );
 }
 
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align>
+inline std::size_t bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
+  ::next_block_size()
+  const noexcept
+{
+  return BlockSize;
+}
+
+
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STACK_BLOCK_ALLOCATOR_INL */

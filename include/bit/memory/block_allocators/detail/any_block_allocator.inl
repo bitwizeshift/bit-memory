@@ -46,4 +46,10 @@ inline bit::memory::allocator_info bit::memory::any_block_allocator::info()
   return m_vtable->info_fn( m_ptr );
 }
 
+inline std::size_t bit::memory::any_block_allocator::next_block_size()
+  const noexcept
+{
+  return m_vtable->next_block_fn( m_ptr );
+}
+
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ANY_BLOCK_ALLOCATOR_INL */

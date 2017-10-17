@@ -1,9 +1,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_LOCAL_BLOCK_ALLOCATOR_INL
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_LOCAL_BLOCK_ALLOCATOR_INL
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Block Allocation
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
 bit::memory::owner<bit::memory::memory_block>
@@ -14,7 +14,7 @@ bit::memory::owner<bit::memory::memory_block>
   return block_cache().request_block();
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
 void bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
@@ -23,6 +23,22 @@ void bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
 {
   block_cache().store_block( block );
 }
+
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
+std::size_t bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
+  ::next_block_size()
+  const noexcept
+{
+  return BlockSize;
+}
+
+//-----------------------------------------------------------------------------
+// Private Static Member Functions
+//-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
 bit::memory::memory_block_cache&

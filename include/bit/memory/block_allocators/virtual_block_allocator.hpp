@@ -12,7 +12,6 @@
 
 #include "../owner.hpp"              // owner
 #include "../memory_block_cache.hpp" // memory_block_cache
-#include "../virtual_memory.hpp"     // virtual_alloc, etc
 
 #include <cstddef> // std::size_t
 
@@ -77,6 +76,16 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block ) noexcept;
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Members

@@ -50,13 +50,23 @@ namespace bit {
     /// a.allocate_block()
     /// \endcode
     ///
-    /// - - - - -
-    ///
     /// Allocates a \c memory_block of implementation-specific size
+    ///
+    /// - - - - -
     ///
     /// \code
     /// a.deallocate_block( b );
     /// \endcode
+    ///
+    /// Deallocates the specified block
+    ///
+    /// - - - - -
+    ///
+    /// \code
+    /// std::size_t s = a.next_block_size()
+    /// \endcode
+    ///
+    /// \c s contains the size of the next block to be allocated
     ///////////////////////////////////////////////////////////////////////////
 #if __cplusplus >= 202000L
   // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
@@ -66,6 +76,7 @@ namespace bit {
     {
       { b.allocate_block() } -> memory_block;
       { b.deallocate_block( block ) } -> void;
+      { b.next_block_size() } -> std::size_t;
     };
 #endif
 
@@ -92,21 +103,31 @@ namespace bit {
       //-----------------------------------------------------------------------
 
       template<typename T, typename = void>
-      struct block_allocator_has_block_alignment_impl : std::false_type{};
+      struct block_allocator_has_default_block_alignment_impl : std::false_type{};
 
       template<typename T>
-      struct block_allocator_has_block_alignment_impl<T,void_t<
-        decltype(T::block_alignment)>
+      struct block_allocator_has_default_block_alignment_impl<T,void_t<
+        decltype(T::default_block_alignment)>
       > : std::true_type{};
 
       //-----------------------------------------------------------------------
 
       template<typename T, typename = void>
-      struct block_allocator_has_block_size_impl : std::false_type{};
+      struct block_allocator_has_next_block_size_impl : std::false_type{};
 
       template<typename T>
-      struct block_allocator_has_block_size_impl<T,void_t<
-        decltype(T::block_size)>
+      struct block_allocator_has_next_block_size_impl<T,void_t<
+        decltype(std::declval<std::size_t&>() = std::declval<const T&>().next_block_size())>
+      > : std::true_type{};
+
+      //-----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct block_allocator_has_next_block_alignment_impl : std::false_type{};
+
+      template<typename T>
+      struct block_allocator_has_next_block_alignment_impl<T,void_t<
+        decltype(std::declval<std::size_t&>() = std::declval<const T&>().next_block_alignment())>
       > : std::true_type{};
 
       //-----------------------------------------------------------------------
@@ -121,21 +142,21 @@ namespace bit {
 
     } // namespace detail
 
-    /// \brief Type-trait to determine whether \p T defines 'block_alignment'
+    /// \brief Type-trait to determine whether \p T defines 'default_block_alignment'
     ///
     /// The result is aliased as \c ::value
     ///
     /// \tparam T the type to check
     template<typename T>
-    struct block_allocator_has_block_alignment
-      : detail::block_allocator_has_block_alignment_impl<T>{};
+    struct block_allocator_has_default_block_alignment
+      : detail::block_allocator_has_default_block_alignment_impl<T>{};
 
     /// \brief Convenience template to extract the result from
-    ///        \c block_allocator_has_block_alignment<T>::value
+    ///        \c block_allocator_has_default_block_alignment<T>::value
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr std::size_t block_allocator_has_block_alignment_v = block_allocator_has_block_alignment<T>::value;
+    constexpr std::size_t block_allocator_default_block_alignment_v = block_allocator_has_default_block_alignment<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -145,15 +166,33 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    struct block_allocator_has_block_size
-      : detail::block_allocator_has_block_size_impl<T>{};
+    struct block_allocator_has_next_block_size
+      : detail::block_allocator_has_next_block_size_impl<T>{};
 
     /// \brief Convenience template to extract the result from
     ///        \c block_allocator_has_block_size<T>::value
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr std::size_t block_allocator_has_block_size_v = block_allocator_has_block_size<T>::value;
+    constexpr std::size_t block_allocator_has_next_block_size_v = block_allocator_has_next_block_size<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T defines 'block_size'
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct block_allocator_has_next_block_alignment
+      : detail::block_allocator_has_next_block_alignment_impl<T>{};
+
+    /// \brief Convenience template to extract the result from
+    ///        \c block_allocator_has_block_size<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    constexpr std::size_t block_allocator_has_next_block_alignment_v = block_allocator_has_next_block_alignment<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -184,7 +223,8 @@ namespace bit {
     template<typename T>
     struct is_block_allocator : std::integral_constant<bool,
       detail::block_allocator_has_allocate_block_impl<T>::value &&
-      detail::block_allocator_has_deallocate_block_impl<T>::value
+      detail::block_allocator_has_deallocate_block_impl<T>::value &&
+      detail::block_allocator_has_next_block_size_impl<T>::value
     >{};
 
     /// \brief Convenience template to extract the result from

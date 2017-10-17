@@ -53,9 +53,9 @@ namespace bit {
       using block_size      = std::integral_constant<std::size_t,BlockSize>;
       using block_alignment = std::integral_constant<std::size_t,Align>;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Constructors
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Constructs a stack_block_allocator that will distribute
@@ -78,9 +78,9 @@ namespace bit {
       // Deleted copy assignment
       stack_block_allocator& operator=( const stack_block_allocator& other ) = delete;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Block Allocations
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Allocates stack memory
@@ -95,6 +95,16 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block ) noexcept;
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
 
       //-----------------------------------------------------------------------
       // Private Members

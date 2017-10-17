@@ -55,8 +55,7 @@ namespace bit {
 
       // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
       using is_stateless        = bit::memory::is_stateless<BlockAllocator>;
-      using has_block_alignment = block_allocator_has_block_alignment<BlockAllocator>;
-      using has_block_size      = block_allocator_has_block_size<BlockAllocator>;
+      using has_block_alignment = block_allocator_has_default_block_alignment<BlockAllocator>;
 
       //----------------------------------------------------------------------
       // Block Allocations
@@ -93,31 +92,22 @@ namespace bit {
       /// \return the name of the allocator
       static allocator_info info( const BlockAllocator& alloc ) noexcept;
 
-      //----------------------------------------------------------------------
-      // Capacity
-      //----------------------------------------------------------------------
-    public:
+      /// \brief Gets the size of the next block from the block allocator
+      ///
+      /// \param alloc the block allocator to get the block size
+      /// \return the next block size from the allocator
+      static std::size_t next_block_size( const BlockAllocator& alloc ) noexcept;
 
-      /// \brief Returns the block allignment for each block from the given
-      ///        block allocator
+      /// \brief Gets the alignment of the next block from the block allocator
       ///
-      /// \note This is only well-formed for block allocators where
-      ///       \ref has_block_alignment is \c std::true_type
+      /// If the block alignment is statically defined as 'default_alignment',
+      /// then this value is returned. Otherwise it falls back to
+      /// 'next_block_alignment()' if it exists; and returning '1' if it
+      /// cannot be determined.
       ///
-      /// \param alloc the block allocator
-      /// \return the block alignment
-      static constexpr std::size_t block_alignment( BlockAllocator& alloc ) noexcept;
-
-      /// \brief Returns the block size for each block from a given block
-      ///        allocator
-      ///
-      /// \note This is only well-formed for block allocators where
-      ///       \ref has_block_alignment is \c std::true_type
-      ///
-      /// \param alloc the block allocator
-      /// \return the block alignment
-      static constexpr std::size_t block_size( BlockAllocator& alloc ) noexcept;
-
+      /// \param alloc the block allocator to get the block alignment
+      /// \return the next block size from the allocator
+      static std::size_t next_block_alignment( const BlockAllocator& alloc ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Implementation
@@ -133,6 +123,11 @@ namespace bit {
       static allocator_info do_info( std::true_type, const BlockAllocator& alloc );
       static allocator_info do_info( std::false_type, const BlockAllocator& alloc );
       /// \}
+
+      static std::size_t do_next_block_align_from_type( std::true_type, const BlockAllocator& alloc );
+      static std::size_t do_next_block_align_from_type( std::false_type, const BlockAllocator& alloc);
+      static std::size_t do_next_block_align_from_fn( std::true_type, const BlockAllocator& alloc );
+      static std::size_t do_next_block_align_from_fn( std::false_type, const BlockAllocator& alloc );
     };
 
     template<typename BlockAllocator>

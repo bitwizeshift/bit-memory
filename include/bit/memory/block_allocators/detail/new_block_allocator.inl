@@ -2,20 +2,6 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NEW_BLOCK_ALLOCATOR_INL
 
 //-----------------------------------------------------------------------------
-// Constructors
-//-----------------------------------------------------------------------------
-
-template<std::size_t Size>
-template<std::size_t,typename>
-inline bit::memory::new_block_allocator<Size>
-  ::new_block_allocator( std::size_t size )
-  noexcept
-  : block_size_member( size )
-{
-
-}
-
-//-----------------------------------------------------------------------------
 // Block Allocations
 //-----------------------------------------------------------------------------
 
@@ -24,10 +10,12 @@ inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::new_block_allocator<Size>::allocate_block()
   noexcept
 {
-  auto p = ::operator new(block_size_member::value(), std::nothrow);
+  const auto size = next_block_size();
+
+  auto p = ::operator new(size, std::nothrow);
 
   if( BIT_MEMORY_UNLIKELY(!p) ) return nullblock;
-  return {p, block_size_member::value() };
+  return {p, size};
 }
 
 template<std::size_t Size>
@@ -38,6 +26,17 @@ inline void bit::memory::new_block_allocator<Size>
   ::operator delete( block.data() );
 }
 
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<std::size_t Size>
+inline std::size_t bit::memory::new_block_allocator<Size>
+  ::next_block_size()
+  const noexcept
+{
+  return block_size_member::value();
+}
 
 //-----------------------------------------------------------------------------
 // Comparisons
@@ -48,7 +47,7 @@ inline bool bit::memory::operator==( const new_block_allocator<Size>& lhs,
                                      const new_block_allocator<Size>& rhs )
   noexcept
 {
-  return lhs.value() == rhs.value();
+  return lhs.next_block_size() == rhs.next_block_size();
 }
 
 template<std::size_t Size>
@@ -56,7 +55,7 @@ inline bool bit::memory::operator!=( const new_block_allocator<Size>& lhs,
                                      const new_block_allocator<Size>& rhs )
   noexcept
 {
-  return !(lhs == rhs.value);
+  return !(lhs == rhs);
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NEW_BLOCK_ALLOCATOR_INL */

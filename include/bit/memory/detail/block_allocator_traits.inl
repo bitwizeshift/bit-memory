@@ -33,32 +33,20 @@ inline bit::memory::allocator_info
   return do_info( block_allocator_has_info<BlockAllocator>{}, alloc );
 }
 
-//-----------------------------------------------------------------------------
-// Capacity / Alignment
-//-----------------------------------------------------------------------------
-
 template<typename BlockAllocator>
-inline constexpr std::size_t bit::memory::block_allocator_traits<BlockAllocator>
-  ::block_alignment( BlockAllocator& alloc )
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::next_block_size( const BlockAllocator& alloc )
   noexcept
 {
-  BIT_MEMORY_UNUSED(alloc);
-
-  static_assert( has_block_alignment::value, "Only valid for BlockAllocators that know their alignment" );
-
-  return BlockAllocator::block_alignment::value;
+  return do_next_block_size_from_type( block_allocator_has_next_block_size<BlockAllocator>{}, alloc );
 }
 
 template<typename BlockAllocator>
-inline constexpr std::size_t bit::memory::block_allocator_traits<BlockAllocator>
-  ::block_size( BlockAllocator& alloc )
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::next_block_alignment( const BlockAllocator& alloc )
   noexcept
 {
-  BIT_MEMORY_UNUSED(alloc);
-
-  static_assert( has_block_size::value, "Only valid for BlockAllocators that know their size" );
-
-  return BlockAllocator::block_size::value;
+  return do_next_block_align_from_type( has_block_alignment{}, alloc );
 }
 
 //-----------------------------------------------------------------------------
@@ -83,5 +71,41 @@ inline bit::memory::allocator_info
 
   return {"Unnamed",std::addressof(alloc)};
 }
+
+//-----------------------------------------------------------------------------
+
+template<typename BlockAllocator>
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_next_block_align_from_type( std::true_type,
+                                   const BlockAllocator& alloc )
+{
+  return BlockAllocator::default_block_alignment::value;
+}
+
+template<typename BlockAllocator>
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_next_block_align_from_type( std::false_type,
+                                   const BlockAllocator& alloc)
+{
+  return do_next_block_align_from_fn( block_allocator_has_next_block_alignment<BlockAllocator>{},
+                                      alloc );
+}
+
+template<typename BlockAllocator>
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_next_block_align_from_fn( std::true_type,
+                                 const BlockAllocator& alloc )
+{
+  return alloc.next_block_alignment();
+}
+
+template<typename BlockAllocator>
+inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
+  ::do_next_block_align_from_fn( std::false_type,
+                                 const BlockAllocator& alloc )
+{
+  return 1;
+}
+
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL */
