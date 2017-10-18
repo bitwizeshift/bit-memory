@@ -112,6 +112,7 @@ set(headers
   include/bit/memory/block_allocators/any_block_allocator.hpp
   include/bit/memory/block_allocators/growing_malloc_block_allocator.hpp
   include/bit/memory/block_allocators/growing_new_block_allocator.hpp
+  include/bit/memory/block_allocators/growing_virtual_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
@@ -243,6 +244,7 @@ set(source_files
 
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp
+  src/bit/memory/block_allocators/growing_virtual_block_allocator.cpp
 
   # memory-specific
   ${platform_source_files}
