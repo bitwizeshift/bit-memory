@@ -128,13 +128,13 @@ namespace bit {
     } // namespace detail
 
     ///////////////////////////////////////////////////////////////////////////
-    /// \brief An allocator that allocates over-aligned memory
+    /// \brief An allocator that allocates over-aligned memory that grows with
+    ///        each allocation
     ///
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     ///
     /// \satisfies{BlockAllocator}
-    /// \satisfies{Stateless}
     ///////////////////////////////////////////////////////////////////////////
     template<std::size_t Size,std::size_t Align>
     class growing_aligned_block_allocator
