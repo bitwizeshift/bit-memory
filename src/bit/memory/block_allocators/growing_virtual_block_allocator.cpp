@@ -94,12 +94,3 @@ std::size_t bit::memory::growing_virtual_block_allocator::next_block_size()
 {
   return virtual_memory_page_size() * static_cast<std::size_t>(m_active_page + 1);
 }
-
-void bit::memory::growing_virtual_block_allocator::grow()
-{
-  if( m_active_page == 0 ) {
-    ++m_active_page;
-  } else {
-    m_active_page += 2 * m_active_page;
-  }
-}

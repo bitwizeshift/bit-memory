@@ -99,9 +99,6 @@ namespace bit {
       std::ptrdiff_t     m_active_page; ///< The currently active page
       std::size_t        m_multiplier;  ///< The current multiplier
       memory_block_cache m_cache;       ///< Cache of already committed pages
-
-      /// \brief Attempts to grow the size of block allocations
-      void grow();
     };
 
     //-------------------------------------------------------------------------
