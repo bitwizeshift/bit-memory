@@ -73,12 +73,12 @@ $(function() {
 
 <p>This header contains an API for allocating memory blocks that use ::operator new as the underlying allocation scheme.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
+<div class="textblock"><code>#include &quot;detail/cached_block_allocator.hpp&quot;</code><br />
+<code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
 <code>#include &quot;../detail/dynamic_size_type.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/dbe/macros_8hpp_source.html">../macros.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/dc0/owner_8hpp_source.html">../owner.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/d1f/memory__block_8hpp_source.html">../memory_block.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/dbc/cached__block__allocator_8hpp_source.html">cached_block_allocator.hpp</a>&quot;</code><br />
 <code>#include &lt;new&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &quot;detail/new_block_allocator.inl&quot;</code><br />
@@ -93,16 +93,16 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ace0a362c1dcd0600ac8dc7af510b4717"><td class="memTemplParams" colspan="2"><a id="ace0a362c1dcd0600ac8dc7af510b4717"></a>
+<tr class="memitem:a166e69b69dfa0d4d71d7cc4f6eecb1f3"><td class="memTemplParams" colspan="2"><a id="a166e69b69dfa0d4d71d7cc4f6eecb1f3"></a>
 template&lt;std::size_t Size&gt; </td></tr>
-<tr class="memitem:ace0a362c1dcd0600ac8dc7af510b4717"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::cached_new_block_allocator</b> = cached_block_allocator&lt; new_block_allocator&lt; Size &gt; &gt;</td></tr>
-<tr class="separator:ace0a362c1dcd0600ac8dc7af510b4717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a166e69b69dfa0d4d71d7cc4f6eecb1f3"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::cached_new_block_allocator</b> = detail::cached_block_allocator&lt; new_block_allocator&lt; Size &gt; &gt;</td></tr>
+<tr class="separator:a166e69b69dfa0d4d71d7cc4f6eecb1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ee58f3a43875650ab37785c17ecba59"><td class="memItemLeft" align="right" valign="top"><a id="a1ee58f3a43875650ab37785c17ecba59"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::dynamic_new_block_allocator</b> = new_block_allocator&lt; dynamic_size &gt;</td></tr>
 <tr class="separator:a1ee58f3a43875650ab37785c17ecba59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77dc81fa30c518eb4e4010ef4ea4ae7c"><td class="memItemLeft" align="right" valign="top"><a id="a77dc81fa30c518eb4e4010ef4ea4ae7c"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_new_block_allocator</b> = cached_block_allocator&lt; dynamic_new_block_allocator &gt;</td></tr>
-<tr class="separator:a77dc81fa30c518eb4e4010ef4ea4ae7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8367a0b9c490e97b68ac8711d4b7663"><td class="memItemLeft" align="right" valign="top"><a id="ae8367a0b9c490e97b68ac8711d4b7663"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_new_block_allocator</b> = detail::cached_block_allocator&lt; dynamic_new_block_allocator &gt;</td></tr>
+<tr class="separator:ae8367a0b9c490e97b68ac8711d4b7663"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e4f840a87968f0d8b303e6eca6ccce"><td class="memTemplParams" colspan="2"><a id="a95e4f840a87968f0d8b303e6eca6ccce"></a>
 template&lt;std::size_t Size&gt; </td></tr>
 <tr class="memitem:a95e4f840a87968f0d8b303e6eca6ccce"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::named_new_block_allocator</b> = detail::named_block_allocator&lt; new_block_allocator&lt; Size &gt; &gt;</td></tr>

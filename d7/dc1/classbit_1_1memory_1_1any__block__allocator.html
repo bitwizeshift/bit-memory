@@ -102,13 +102,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a36175ca291dd5163b87fb4ce4c2d590c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#a36175ca291dd5163b87fb4ce4c2d590c">info</a> () const noexcept</td></tr>
 <tr class="memdesc:a36175ca291dd5163b87fb4ce4c2d590c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets information about this allocator.  <a href="#a36175ca291dd5163b87fb4ce4c2d590c">More...</a><br /></td></tr>
 <tr class="separator:a36175ca291dd5163b87fb4ce4c2d590c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc099377a8b4156faedc1a860611e81a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#acc099377a8b4156faedc1a860611e81a">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:acc099377a8b4156faedc1a860611e81a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next available block size for this allocator.  <a href="#acc099377a8b4156faedc1a860611e81a">More...</a><br /></td></tr>
+<tr class="separator:acc099377a8b4156faedc1a860611e81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A type erased view of allocators that satisfy the BlockAllocator concept. </p>
 <p>This view is non-owning, and thus does not participate in the lifetime of a given allocator.</p>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/ddb/any__block__allocator_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d6/ddb/any__block__allocator_8hpp_source.html">any_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/ddb/any__block__allocator_8hpp_source.html#l00088">88</a> of file <a class="el" href="../../d6/ddb/any__block__allocator_8hpp_source.html">any_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a235b3ee86462c3b71e0afcde7a713afe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a235b3ee86462c3b71e0afcde7a713afe">&#9670;&nbsp;</a></span>any_block_allocator() <span class="overload">[1/3]</span></h2>
@@ -286,6 +289,34 @@ template&lt;typename BlockAllocator , typename  = std::enable_if_t&lt;is_enabled
 
 <p>Gets information about this allocator. </p>
 <dl class="section return"><dt>Returns</dt><dd>the allocator information </dd></dl>
+
+</div>
+</div>
+<a id="acc099377a8b4156faedc1a860611e81a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc099377a8b4156faedc1a860611e81a">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bit::memory::any_block_allocator::next_block_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the next available block size for this allocator. </p>
+<dl class="section return"><dt>Returns</dt><dd>the next block size </dd></dl>
 
 </div>
 </div>

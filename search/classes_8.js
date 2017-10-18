@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['new_5fallocator',['new_allocator',['../d5/d84/classbit_1_1memory_1_1new__allocator.html',1,'bit::memory']]],
-  ['new_5fblock_5fallocator',['new_block_allocator',['../de/de6/classbit_1_1memory_1_1new__block__allocator.html',1,'bit::memory']]],
-  ['not_5fnull',['not_null',['../da/dd2/classbit_1_1memory_1_1not__null.html',1,'bit::memory']]],
-  ['null_5fallocator',['null_allocator',['../de/dc6/classbit_1_1memory_1_1null__allocator.html',1,'bit::memory']]],
-  ['null_5fblock_5fallocator',['null_block_allocator',['../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html',1,'bit::memory']]],
-  ['null_5fbounds_5fchecker',['null_bounds_checker',['../d2/d6b/classbit_1_1memory_1_1null__bounds__checker.html',1,'bit::memory']]],
-  ['null_5flock',['null_lock',['../d3/d93/classbit_1_1memory_1_1null__lock.html',1,'bit::memory']]],
-  ['null_5ftagger',['null_tagger',['../de/d73/classbit_1_1memory_1_1null__tagger.html',1,'bit::memory']]],
-  ['null_5ftracker',['null_tracker',['../d6/d65/structbit_1_1memory_1_1null__tracker.html',1,'bit::memory']]]
+  ['malloc_5fallocator',['malloc_allocator',['../d1/df3/classbit_1_1memory_1_1malloc__allocator.html',1,'bit::memory']]],
+  ['malloc_5fblock_5fallocator',['malloc_block_allocator',['../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html',1,'bit::memory']]],
+  ['memory_5fblock',['memory_block',['../d7/da9/classbit_1_1memory_1_1memory__block.html',1,'bit::memory']]],
+  ['memory_5fblock_5fcache',['memory_block_cache',['../d1/d05/classbit_1_1memory_1_1memory__block__cache.html',1,'bit::memory']]],
+  ['min_5faligned_5fallocator',['min_aligned_allocator',['../db/da7/classbit_1_1memory_1_1min__aligned__allocator.html',1,'bit::memory']]]
 ];

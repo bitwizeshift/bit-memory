@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['virtual_5fblock_5fallocator',['virtual_block_allocator',['../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html',1,'bit::memory']]],
-  ['virtual_5fmemory',['virtual_memory',['../d0/d8b/classbit_1_1memory_1_1virtual__memory.html',1,'bit::memory']]]
+  ['thread_5flocal_5fblock_5fallocator',['thread_local_block_allocator',['../de/dda/classbit_1_1memory_1_1thread__local__block__allocator.html',1,'bit::memory']]]
 ];

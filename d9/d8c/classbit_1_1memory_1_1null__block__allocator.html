@@ -78,12 +78,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a82f2ad0958a1953a645ffb32b6d734a5"><td class="memItemLeft" align="right" valign="top"><a id="a82f2ad0958a1953a645ffb32b6d734a5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>block_size</b> = std::integral_constant&lt; std::size_t, 0 &gt;</td></tr>
-<tr class="separator:a82f2ad0958a1953a645ffb32b6d734a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9317d30a1a24b2bf7846db82e3fadef9"><td class="memItemLeft" align="right" valign="top"><a id="a9317d30a1a24b2bf7846db82e3fadef9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>block_alignment</b> = std::integral_constant&lt; std::size_t, 1 &gt;</td></tr>
-<tr class="separator:a9317d30a1a24b2bf7846db82e3fadef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5323d38853ba24d3abf4c03f33ba9ec"><td class="memItemLeft" align="right" valign="top"><a id="ae5323d38853ba24d3abf4c03f33ba9ec"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>default_block_alignment</b> = std::integral_constant&lt; std::size_t, 1 &gt;</td></tr>
+<tr class="separator:ae5323d38853ba24d3abf4c03f33ba9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a656905545b6b4ba65085e54bfa8071c5"><td class="memItemLeft" align="right" valign="top"><a id="a656905545b6b4ba65085e54bfa8071c5"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = std::true_type</td></tr>
 <tr class="separator:a656905545b6b4ba65085e54bfa8071c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2f6105c9214529ea03bdc7fa64283022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html#a2f6105c9214529ea03bdc7fa64283022">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
 <tr class="memdesc:a2f6105c9214529ea03bdc7fa64283022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a2f6105c9214529ea03bdc7fa64283022">More...</a><br /></td></tr>
 <tr class="separator:a2f6105c9214529ea03bdc7fa64283022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93d0dea3c36ed5931aa82f8c65426fef"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html#a93d0dea3c36ed5931aa82f8c65426fef">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a93d0dea3c36ed5931aa82f8c65426fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a93d0dea3c36ed5931aa82f8c65426fef">More...</a><br /></td></tr>
+<tr class="separator:a93d0dea3c36ed5931aa82f8c65426fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A block allocator that only distributes null blocks. </p>
@@ -248,6 +248,34 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a93d0dea3c36ed5931aa82f8c65426fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93d0dea3c36ed5931aa82f8c65426fef">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bit::memory::null_block_allocator::next_block_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queries the next block size expected from this allocator. </p>
+<dl class="section return"><dt>Returns</dt><dd>the size of the next allocated block </dd></dl>
 
 </div>
 </div>

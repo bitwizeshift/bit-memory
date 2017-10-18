@@ -73,12 +73,12 @@ $(function() {
 
 <p>This header contains an implementation of a non-aligned, malloc block allocator.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
+<div class="textblock"><code>#include &quot;detail/cached_block_allocator.hpp&quot;</code><br />
+<code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
 <code>#include &quot;../detail/dynamic_size_type.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/dbe/macros_8hpp_source.html">../macros.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/dc0/owner_8hpp_source.html">../owner.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/d1f/memory__block_8hpp_source.html">../memory_block.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/dbc/cached__block__allocator_8hpp_source.html">cached_block_allocator.hpp</a>&quot;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
@@ -97,13 +97,13 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ab8bf89bcb12eeda474cf5b149172cf7b"><td class="memItemLeft" align="right" valign="top"><a id="ab8bf89bcb12eeda474cf5b149172cf7b"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::dynamic_malloc_block_allocator</b> = malloc_block_allocator&lt; dynamic_size &gt;</td></tr>
 <tr class="separator:ab8bf89bcb12eeda474cf5b149172cf7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f043c42af9c29fdac1685ed40ee220a"><td class="memTemplParams" colspan="2"><a id="a1f043c42af9c29fdac1685ed40ee220a"></a>
+<tr class="memitem:a036843e8e5526f425ff1a15447d68acd"><td class="memTemplParams" colspan="2"><a id="a036843e8e5526f425ff1a15447d68acd"></a>
 template&lt;std::size_t Size&gt; </td></tr>
-<tr class="memitem:a1f043c42af9c29fdac1685ed40ee220a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::cached_malloc_block_allocator</b> = cached_block_allocator&lt; malloc_block_allocator&lt; Size &gt; &gt;</td></tr>
-<tr class="separator:a1f043c42af9c29fdac1685ed40ee220a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0f9c9819a2dd42450119e174c33fd4d"><td class="memItemLeft" align="right" valign="top"><a id="ad0f9c9819a2dd42450119e174c33fd4d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_malloc_block_allocator</b> = cached_block_allocator&lt; dynamic_malloc_block_allocator &gt;</td></tr>
-<tr class="separator:ad0f9c9819a2dd42450119e174c33fd4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a036843e8e5526f425ff1a15447d68acd"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::cached_malloc_block_allocator</b> = detail::cached_block_allocator&lt; malloc_block_allocator&lt; Size &gt; &gt;</td></tr>
+<tr class="separator:a036843e8e5526f425ff1a15447d68acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace520d43fe7c040b11c866448406ff69"><td class="memItemLeft" align="right" valign="top"><a id="ace520d43fe7c040b11c866448406ff69"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_malloc_block_allocator</b> = detail::cached_block_allocator&lt; dynamic_malloc_block_allocator &gt;</td></tr>
+<tr class="separator:ace520d43fe7c040b11c866448406ff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62c57a5fe4f92a898950e50e504597f7"><td class="memTemplParams" colspan="2"><a id="a62c57a5fe4f92a898950e50e504597f7"></a>
 template&lt;std::size_t Size&gt; </td></tr>
 <tr class="memitem:a62c57a5fe4f92a898950e50e504597f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::named_malloc_block_allocator</b> = detail::named_block_allocator&lt; malloc_block_allocator&lt; Size &gt; &gt;</td></tr>

@@ -82,11 +82,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df4/structbit_1_1memory_1_1block__allocator__has__block__alignment.html">bit::memory::block_allocator_has_block_alignment&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines 'block_alignment'.  <a href="../../dc/df4/structbit_1_1memory_1_1block__allocator__has__block__alignment.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d3b/structbit_1_1memory_1_1block__allocator__has__default__block__alignment.html">bit::memory::block_allocator_has_default_block_alignment&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines 'default_block_alignment'.  <a href="../../d3/d3b/structbit_1_1memory_1_1block__allocator__has__default__block__alignment.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d65/structbit_1_1memory_1_1block__allocator__has__block__size.html">bit::memory::block_allocator_has_block_size&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines 'block_size'.  <a href="../../d5/d65/structbit_1_1memory_1_1block__allocator__has__block__size.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d43/structbit_1_1memory_1_1block__allocator__has__next__block__size.html">bit::memory::block_allocator_has_next_block_size&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines 'block_size'.  <a href="../../d0/d43/structbit_1_1memory_1_1block__allocator__has__next__block__size.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/ddc/structbit_1_1memory_1_1block__allocator__has__next__block__alignment.html">bit::memory::block_allocator_has_next_block_alignment&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines 'block_size'.  <a href="../../d3/ddc/structbit_1_1memory_1_1block__allocator__has__next__block__alignment.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d71/structbit_1_1memory_1_1block__allocator__has__info.html">bit::memory::block_allocator_has_info&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-trait to determine whether <code>T</code> defines an 'info' function.  <a href="../../d1/d71/structbit_1_1memory_1_1block__allocator__has__info.html#details">More...</a><br /></td></tr>
@@ -97,14 +100,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a27053251e54f791dc28e0691551b1ff0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a27053251e54f791dc28e0691551b1ff0"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#a27053251e54f791dc28e0691551b1ff0">bit::memory::block_allocator_has_block_alignment_v</a> = block_allocator_has_block_alignment&lt;T&gt;::value</td></tr>
-<tr class="memdesc:a27053251e54f791dc28e0691551b1ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_block_alignment&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#a27053251e54f791dc28e0691551b1ff0">More...</a><br /></td></tr>
-<tr class="separator:a27053251e54f791dc28e0691551b1ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1fae42625b5c51420cc0d17859930e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa1fae42625b5c51420cc0d17859930e8"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#aa1fae42625b5c51420cc0d17859930e8">bit::memory::block_allocator_has_block_size_v</a> = block_allocator_has_block_size&lt;T&gt;::value</td></tr>
-<tr class="memdesc:aa1fae42625b5c51420cc0d17859930e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#aa1fae42625b5c51420cc0d17859930e8">More...</a><br /></td></tr>
-<tr class="separator:aa1fae42625b5c51420cc0d17859930e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d0ff49e4f7f39c7d122c52ddb8bd70d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a2d0ff49e4f7f39c7d122c52ddb8bd70d"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#a2d0ff49e4f7f39c7d122c52ddb8bd70d">bit::memory::block_allocator_default_block_alignment_v</a> = block_allocator_has_default_block_alignment&lt;T&gt;::value</td></tr>
+<tr class="memdesc:a2d0ff49e4f7f39c7d122c52ddb8bd70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_default_block_alignment&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#a2d0ff49e4f7f39c7d122c52ddb8bd70d">More...</a><br /></td></tr>
+<tr class="separator:a2d0ff49e4f7f39c7d122c52ddb8bd70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51622a07afc558ae7d4039eed08c7bb4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a51622a07afc558ae7d4039eed08c7bb4"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#a51622a07afc558ae7d4039eed08c7bb4">bit::memory::block_allocator_has_next_block_size_v</a> = block_allocator_has_next_block_size&lt;T&gt;::value</td></tr>
+<tr class="memdesc:a51622a07afc558ae7d4039eed08c7bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#a51622a07afc558ae7d4039eed08c7bb4">More...</a><br /></td></tr>
+<tr class="separator:a51622a07afc558ae7d4039eed08c7bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d65129a6368da80214d5e73ec85107"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a14d65129a6368da80214d5e73ec85107"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#a14d65129a6368da80214d5e73ec85107">bit::memory::block_allocator_has_next_block_alignment_v</a> = block_allocator_has_next_block_alignment&lt;T&gt;::value</td></tr>
+<tr class="memdesc:a14d65129a6368da80214d5e73ec85107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#a14d65129a6368da80214d5e73ec85107">More...</a><br /></td></tr>
+<tr class="separator:a14d65129a6368da80214d5e73ec85107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97010fb5b16130383cec89fd72dd176f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a97010fb5b16130383cec89fd72dd176f"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/dcd/_block_allocator_8hpp.html#a97010fb5b16130383cec89fd72dd176f">bit::memory::block_allocator_has_info_v</a> = block_allocator_has_info&lt;T&gt;::value</td></tr>
 <tr class="memdesc:a97010fb5b16130383cec89fd72dd176f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience template to extract the result from <code>block_allocator_has_info&lt;T&gt;::value</code>.  <a href="../../d0/dcd/_block_allocator_8hpp.html#a97010fb5b16130383cec89fd72dd176f">More...</a><br /></td></tr>
@@ -120,8 +127,8 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
 </div><h2 class="groupheader">Variable Documentation</h2>
-<a id="file_a27053251e54f791dc28e0691551b1ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_a27053251e54f791dc28e0691551b1ff0">&#9670;&nbsp;</a></span>block_allocator_has_block_alignment_v</h2>
+<a id="file_a2d0ff49e4f7f39c7d122c52ddb8bd70d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a2d0ff49e4f7f39c7d122c52ddb8bd70d">&#9670;&nbsp;</a></span>block_allocator_default_block_alignment_v</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,12 +136,12 @@ Variables</h2></td></tr>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::size_t bit::memory::block_allocator_has_block_alignment_v = block_allocator_has_block_alignment&lt;T&gt;::value</td>
+          <td class="memname">constexpr std::size_t bit::memory::block_allocator_default_block_alignment_v = block_allocator_has_default_block_alignment&lt;T&gt;::value</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convenience template to extract the result from <code>block_allocator_has_block_alignment&lt;T&gt;::value</code>. </p>
+<p>Convenience template to extract the result from <code>block_allocator_has_default_block_alignment&lt;T&gt;::value</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>the type to check </td></tr>
@@ -142,33 +149,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00138">138</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="file_aa1fae42625b5c51420cc0d17859930e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_aa1fae42625b5c51420cc0d17859930e8">&#9670;&nbsp;</a></span>block_allocator_has_block_size_v</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::size_t bit::memory::block_allocator_has_block_size_v = block_allocator_has_block_size&lt;T&gt;::value</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>the type to check </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00156">156</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00159">159</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
 
 </div>
 </div>
@@ -194,7 +175,59 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00174">174</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00213">213</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="file_a14d65129a6368da80214d5e73ec85107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a14d65129a6368da80214d5e73ec85107">&#9670;&nbsp;</a></span>block_allocator_has_next_block_alignment_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t bit::memory::block_allocator_has_next_block_alignment_v = block_allocator_has_next_block_alignment&lt;T&gt;::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00195">195</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="file_a51622a07afc558ae7d4039eed08c7bb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a51622a07afc558ae7d4039eed08c7bb4">&#9670;&nbsp;</a></span>block_allocator_has_next_block_size_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t bit::memory::block_allocator_has_next_block_size_v = block_allocator_has_next_block_size&lt;T&gt;::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience template to extract the result from <code>block_allocator_has_block_size&lt;T&gt;::value</code>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>the type to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00177">177</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +253,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00195">195</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html#l00235">235</a> of file <a class="el" href="../../d0/dcd/_block_allocator_8hpp_source.html">BlockAllocator.hpp</a>.</p>
 
 </div>
 </div>

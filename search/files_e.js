@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['virtual_5fblock_5fallocator_2ehpp',['virtual_block_allocator.hpp',['../d0/dcc/virtual__block__allocator_8hpp.html',1,'']]],
-  ['virtual_5fmemory_2ehpp',['virtual_memory.hpp',['../d6/df2/virtual__memory_8hpp.html',1,'']]]
+  ['unaligned_5fmemory_2ehpp',['unaligned_memory.hpp',['../dc/d26/unaligned__memory_8hpp.html',1,'']]],
+  ['uninitialized_5fstorage_2ehpp',['uninitialized_storage.hpp',['../da/d9c/uninitialized__storage_8hpp.html',1,'']]]
 ];

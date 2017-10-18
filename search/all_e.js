@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['segregating_5fallocator_2ehpp',['segregating_allocator.hpp',['../d9/d69/segregating__allocator_8hpp.html',1,'']]],
   ['set_5fbuffer_5foverflow_5fhandler',['set_buffer_overflow_handler',['../df/d52/errors_8hpp.html#ac5c5fd4d96128b39b1d87bf993141849',1,'bit::memory']]],
   ['set_5fdouble_5fdelete_5fhandler',['set_double_delete_handler',['../df/d52/errors_8hpp.html#a50926f8c7e0edee217232461ed86d56b',1,'bit::memory']]],
   ['set_5fleak_5fhandler',['set_leak_handler',['../df/d52/errors_8hpp.html#a003cf26d286c54dd37cda5965a3b1a6f',1,'bit::memory']]],
@@ -25,5 +26,7 @@ var searchData=
   ['store',['store',['../d0/d2c/classbit_1_1memory_1_1freelist.html#ac364443721ff83c0eee1b5a71abc47d2',1,'bit::memory::freelist']]],
   ['store_5fblock',['store_block',['../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a782d93eceb92d11e090499dcf2163cb7',1,'bit::memory::memory_block_cache']]],
   ['store_5funaligned',['store_unaligned',['../dc/d26/unaligned__memory_8hpp.html#a18bea697bbc4e29b2c8c31aec440343c',1,'bit::memory']]],
+  ['streaming_5fpool_5fallocator',['streaming_pool_allocator',['../d9/d17/classbit_1_1memory_1_1streaming__pool__allocator.html',1,'bit::memory']]],
+  ['streaming_5fpool_5fallocator_2ehpp',['streaming_pool_allocator.hpp',['../d0/d4b/streaming__pool__allocator_8hpp.html',1,'']]],
   ['swap',['swap',['../d0/d2c/classbit_1_1memory_1_1freelist.html#af066d0ea801e1193264641b01fd1d706',1,'bit::memory::freelist::swap()'],['../d7/da9/classbit_1_1memory_1_1memory__block.html#ab47f32cf9c07ee9165274eca09c92221',1,'bit::memory::memory_block::swap()'],['../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a32e92284c4ca509b16cc05f1dbe568e4',1,'bit::memory::memory_block_cache::swap()'],['../d6/d1f/memory__block_8hpp.html#af270a2f0d7d16df9aef4475f125a4c3a',1,'bit::memory::swap(memory_block &amp;lhs, memory_block &amp;rhs) noexcept'],['../df/d7b/memory__block__cache_8hpp.html#abbdf440b49bcd7383dac0c09cc05bcf8',1,'bit::memory::swap(memory_block_cache &amp;lhs, memory_block_cache &amp;rhs) noexcept']]]
 ];

@@ -64,7 +64,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">aligned_block_allocator.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -72,13 +73,13 @@ $(function() {
 
 <p>This header contains the implementation of a block allocator that allocates aligned memory.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
+<div class="textblock"><code>#include &quot;detail/cached_block_allocator.hpp&quot;</code><br />
+<code>#include &quot;detail/named_block_allocator.hpp&quot;</code><br />
 <code>#include &quot;../detail/dynamic_size_type.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/dc0/owner_8hpp_source.html">../owner.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/d1f/memory__block_8hpp_source.html">../memory_block.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/dbf/pointer__utilities_8hpp_source.html">../pointer_utilities.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d90/aligned__memory_8hpp_source.html">../aligned_memory.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d5/dbc/cached__block__allocator_8hpp_source.html">cached_block_allocator.hpp</a>&quot;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
@@ -89,21 +90,21 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator&lt; Size, Align &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A raw allocator that allocates over-aligned memory.  <a href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An allocator that allocates over-aligned memory.  <a href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a0dedb05cfe528f9f2b78086f31003233"><td class="memTemplParams" colspan="2">template&lt;std::size_t Size, std::size_t Align&gt; </td></tr>
-<tr class="memitem:a0dedb05cfe528f9f2b78086f31003233"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/db1/aligned__block__allocator_8hpp.html#a0dedb05cfe528f9f2b78086f31003233">bit::memory::cached_aligned_block_allocator</a> = cached_block_allocator&lt; aligned_block_allocator&lt; Size, Align &gt; &gt;</td></tr>
-<tr class="memdesc:a0dedb05cfe528f9f2b78086f31003233"><td class="mdescLeft">&#160;</td><td class="mdescRight">A cached version of <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="A raw allocator that allocates over-aligned memory. ">aligned_block_allocator</a>.  <a href="../../d1/db1/aligned__block__allocator_8hpp.html#a0dedb05cfe528f9f2b78086f31003233">More...</a><br /></td></tr>
-<tr class="separator:a0dedb05cfe528f9f2b78086f31003233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5395da8b403b6aab9d219d7bd3f21bff"><td class="memTemplParams" colspan="2">template&lt;std::size_t Size, std::size_t Align&gt; </td></tr>
+<tr class="memitem:a5395da8b403b6aab9d219d7bd3f21bff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/db1/aligned__block__allocator_8hpp.html#a5395da8b403b6aab9d219d7bd3f21bff">bit::memory::cached_aligned_block_allocator</a> = detail::cached_block_allocator&lt; aligned_block_allocator&lt; Size, Align &gt; &gt;</td></tr>
+<tr class="memdesc:a5395da8b403b6aab9d219d7bd3f21bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A cached version of <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a>.  <a href="../../d1/db1/aligned__block__allocator_8hpp.html#a5395da8b403b6aab9d219d7bd3f21bff">More...</a><br /></td></tr>
+<tr class="separator:a5395da8b403b6aab9d219d7bd3f21bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abad681471b22695ac3523c515c406c32"><td class="memItemLeft" align="right" valign="top"><a id="abad681471b22695ac3523c515c406c32"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::dynamic_aligned_block_allocator</b> = aligned_block_allocator&lt; dynamic_size, dynamic_size &gt;</td></tr>
 <tr class="separator:abad681471b22695ac3523c515c406c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b46293a13f1f0a10f0309ea43f220b5"><td class="memItemLeft" align="right" valign="top"><a id="a7b46293a13f1f0a10f0309ea43f220b5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_aligned_block_allocator</b> = cached_block_allocator&lt; dynamic_aligned_block_allocator &gt;</td></tr>
-<tr class="separator:a7b46293a13f1f0a10f0309ea43f220b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ee232885aab57db346abfe5d84f783"><td class="memItemLeft" align="right" valign="top"><a id="a24ee232885aab57db346abfe5d84f783"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::cached_dynamic_aligned_block_allocator</b> = detail::cached_block_allocator&lt; dynamic_aligned_block_allocator &gt;</td></tr>
+<tr class="separator:a24ee232885aab57db346abfe5d84f783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abad6e5f9a7668e4106b6e6d2f67ca789"><td class="memTemplParams" colspan="2"><a id="abad6e5f9a7668e4106b6e6d2f67ca789"></a>
 template&lt;std::size_t Size, std::size_t Align&gt; </td></tr>
 <tr class="memitem:abad6e5f9a7668e4106b6e6d2f67ca789"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::named_aligned_block_allocator</b> = detail::named_block_allocator&lt; aligned_block_allocator&lt; Size, Align &gt; &gt;</td></tr>
@@ -118,6 +119,17 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::named_d
 <tr class="memitem:a17b4b7a62e93d7648a94be65b23e6aa2"><td class="memItemLeft" align="right" valign="top"><a id="a17b4b7a62e93d7648a94be65b23e6aa2"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::named_cached_dynamic_aligned_block_allocator</b> = detail::named_block_allocator&lt; cached_dynamic_aligned_block_allocator &gt;</td></tr>
 <tr class="separator:a17b4b7a62e93d7648a94be65b23e6aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a76cf981a0f10cfe25693f59a7a06cb93"><td class="memTemplParams" colspan="2"><a id="a76cf981a0f10cfe25693f59a7a06cb93"></a>
+template&lt;std::size_t Size, std::size_t Align&gt; </td></tr>
+<tr class="memitem:a76cf981a0f10cfe25693f59a7a06cb93"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::operator==</b> (const aligned_block_allocator&lt; Size, Align &gt; &amp;lhs, const aligned_block_allocator&lt; Size, Align &gt; &amp;rhs) noexcept</td></tr>
+<tr class="separator:a76cf981a0f10cfe25693f59a7a06cb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a43603dc9769b7abf2a57fbeba600ae"><td class="memTemplParams" colspan="2"><a id="a8a43603dc9769b7abf2a57fbeba600ae"></a>
+template&lt;std::size_t Size, std::size_t Align&gt; </td></tr>
+<tr class="memitem:a8a43603dc9769b7abf2a57fbeba600ae"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>bit::memory::operator!=</b> (const aligned_block_allocator&lt; Size, Align &gt; &amp;lhs, const aligned_block_allocator&lt; Size, Align &gt; &amp;rhs) noexcept</td></tr>
+<tr class="separator:a8a43603dc9769b7abf2a57fbeba600ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This header contains the implementation of a block allocator that allocates aligned memory. </p>
@@ -125,8 +137,8 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::named_c
 
 <p class="definition">Definition in file <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="file_a0dedb05cfe528f9f2b78086f31003233"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_a0dedb05cfe528f9f2b78086f31003233">&#9670;&nbsp;</a></span>cached_aligned_block_allocator</h2>
+<a id="file_a5395da8b403b6aab9d219d7bd3f21bff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a5395da8b403b6aab9d219d7bd3f21bff">&#9670;&nbsp;</a></span>cached_aligned_block_allocator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +146,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>bit::memory::named_c
 template&lt;std::size_t Size, std::size_t Align&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp.html#a0dedb05cfe528f9f2b78086f31003233">bit::memory::cached_aligned_block_allocator</a> = typedef cached_block_allocator&lt;aligned_block_allocator&lt;Size,Align&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp.html#a5395da8b403b6aab9d219d7bd3f21bff">bit::memory::cached_aligned_block_allocator</a> = typedef detail::cached_block_allocator&lt;aligned_block_allocator&lt;Size,Align&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -148,7 +160,7 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html#l00194">194</a> of file <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html#l00212">212</a> of file <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>.</p>
 
 </div>
 </div>

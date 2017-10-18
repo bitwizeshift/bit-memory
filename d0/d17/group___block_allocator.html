@@ -71,13 +71,19 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator&lt; Size, Align &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A raw allocator that allocates over-aligned memory.  <a href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An allocator that allocates over-aligned memory.  <a href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc1/classbit_1_1memory_1_1any__block__allocator.html">bit::memory::any_block_allocator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type erased view of allocators that satisfy the BlockAllocator concept.  <a href="../../d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d16/classbit_1_1memory_1_1cached__block__allocator.html">bit::memory::cached_block_allocator&lt; BlockAllocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class is an adapter around a given block allocator that caches any allocated blocks for reuse.  <a href="../../d7/d16/classbit_1_1memory_1_1cached__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/classbit_1_1memory_1_1growing__malloc__block__allocator.html">bit::memory::growing_malloc_block_allocator&lt; Size &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that wraps around raw calls to std::malloc and std::free, where the block allocations double in size until it reaches a final threshhold.  <a href="../../d9/d9e/classbit_1_1memory_1_1growing__malloc__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd6/classbit_1_1memory_1_1growing__new__block__allocator.html">bit::memory::growing_new_block_allocator&lt; Size &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that wraps around raw calls to std::malloc and std::free, where the block allocations double in size until it reaches a final threshhold.  <a href="../../d1/dd6/classbit_1_1memory_1_1growing__new__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d9a/classbit_1_1memory_1_1growing__virtual__block__allocator.html">bit::memory::growing_virtual_block_allocator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This block allocator is used for creating virtual memory blocks that double in size with each subsequent block.  <a href="../../d4/d9a/classbit_1_1memory_1_1growing__virtual__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator&lt; Size &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that wraps around raw calls to std::malloc and std::free.  <a href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#details">More...</a><br /></td></tr>
@@ -114,9 +120,12 @@ Classes</h2></td></tr>
 <li><code>b</code> - a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a></li>
 </ul>
 <p>the following expressions must be well-formed with the expected side-effects:</p>
-<div class="fragment"><div class="line">a.allocate_block()</div></div><!-- fragment --><hr/>
-<p>Allocates a <code><a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a></code> of implementation-specific size</p>
-<div class="fragment"><div class="line">a.deallocate_block( b );</div></div><!-- fragment --> </div><!-- contents -->
+<div class="fragment"><div class="line">a.allocate_block()</div></div><!-- fragment --><p>Allocates a <code><a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a></code> of implementation-specific size</p>
+<hr/>
+<div class="fragment"><div class="line">a.deallocate_block( b );</div></div><!-- fragment --><p>Deallocates the specified block</p>
+<hr/>
+<div class="fragment"><div class="line">std::size_t s = a.next_block_size()</div></div><!-- fragment --><p><code>s</code> contains the size of the next block to be allocated </p>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

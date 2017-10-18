@@ -108,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0a4f77377a51988ae9979f2085f7b06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db7/classbit_1_1memory_1_1stack__block__allocator.html#ad0a4f77377a51988ae9979f2085f7b06">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
 <tr class="memdesc:ad0a4f77377a51988ae9979f2085f7b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a stack memory block.  <a href="#ad0a4f77377a51988ae9979f2085f7b06">More...</a><br /></td></tr>
 <tr class="separator:ad0a4f77377a51988ae9979f2085f7b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63e6b9b39b3aaca50f53ca52828eb0d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/db7/classbit_1_1memory_1_1stack__block__allocator.html#ab63e6b9b39b3aaca50f53ca52828eb0d">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:ab63e6b9b39b3aaca50f53ca52828eb0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#ab63e6b9b39b3aaca50f53ca52828eb0d">More...</a><br /></td></tr>
+<tr class="separator:ab63e6b9b39b3aaca50f53ca52828eb0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;std::size_t BlockSize, std::size_t Blocks = 1u, std::size_t Align = alignof(std::max_align_t)&gt;<br />
@@ -126,7 +129,7 @@ class bit::memory::stack_block_allocator&lt; BlockSize, Blocks, Align &gt;</h3>
 </dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d17/stack__block__allocator_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../dd/d17/stack__block__allocator_8hpp_source.html">stack_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d17/stack__block__allocator_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../dd/d17/stack__block__allocator_8hpp_source.html">stack_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2296b8a6194f4e8fd60a663befc7917a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2296b8a6194f4e8fd60a663befc7917a">&#9670;&nbsp;</a></span>stack_block_allocator()</h2>
@@ -228,6 +231,36 @@ template&lt;std::size_t BlockSize, std::size_t Blocks = 1u, std::size_t Align = 
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab63e6b9b39b3aaca50f53ca52828eb0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63e6b9b39b3aaca50f53ca52828eb0d">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t BlockSize, std::size_t Blocks = 1u, std::size_t Align = alignof(std::max_align_t)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../d2/db7/classbit_1_1memory_1_1stack__block__allocator.html">bit::memory::stack_block_allocator</a>&lt; BlockSize, Blocks, Align &gt;::next_block_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queries the next block size expected from this allocator. </p>
+<dl class="section return"><dt>Returns</dt><dd>the size of the next allocated block </dd></dl>
 
 </div>
 </div>

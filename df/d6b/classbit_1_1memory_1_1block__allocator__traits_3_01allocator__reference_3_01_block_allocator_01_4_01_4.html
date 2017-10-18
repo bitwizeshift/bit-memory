@@ -85,12 +85,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:a42cd81e81a3c112f6531abf20cf95c9a"><td class="memItemLeft" align="right" valign="top"><a id="a42cd81e81a3c112f6531abf20cf95c9a"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = <a class="el" href="../../d4/dd5/structbit_1_1memory_1_1is__stateless.html">bit::memory::is_stateless</a>&lt; BlockAllocator &gt;</td></tr>
 <tr class="separator:a42cd81e81a3c112f6531abf20cf95c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7c24a5411329d94af8cac4fd4b5560"><td class="memItemLeft" align="right" valign="top"><a id="ada7c24a5411329d94af8cac4fd4b5560"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>has_block_alignment</b> = <a class="el" href="../../dc/df4/structbit_1_1memory_1_1block__allocator__has__block__alignment.html">block_allocator_has_block_alignment</a>&lt; BlockAllocator &gt;</td></tr>
-<tr class="separator:ada7c24a5411329d94af8cac4fd4b5560"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b13168a20f90bd153f85476c345748d"><td class="memItemLeft" align="right" valign="top"><a id="a9b13168a20f90bd153f85476c345748d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>has_block_size</b> = <a class="el" href="../../d5/d65/structbit_1_1memory_1_1block__allocator__has__block__size.html">block_allocator_has_block_size</a>&lt; BlockAllocator &gt;</td></tr>
-<tr class="separator:a9b13168a20f90bd153f85476c345748d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ebe677bfbe776ca48cf517357b8558d"><td class="memItemLeft" align="right" valign="top"><a id="a6ebe677bfbe776ca48cf517357b8558d"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>has_block_alignment</b> = <a class="el" href="../../d3/d3b/structbit_1_1memory_1_1block__allocator__has__default__block__alignment.html">block_allocator_has_default_block_alignment</a>&lt; BlockAllocator &gt;</td></tr>
+<tr class="separator:a6ebe677bfbe776ca48cf517357b8558d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -103,19 +100,19 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad846322498733f08f10d19146fc91551"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#ad846322498733f08f10d19146fc91551">info</a> (const BlockAllocator &amp;alloc) noexcept</td></tr>
 <tr class="memdesc:ad846322498733f08f10d19146fc91551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the specified block allocator.  <a href="#ad846322498733f08f10d19146fc91551">More...</a><br /></td></tr>
 <tr class="separator:ad846322498733f08f10d19146fc91551"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1688cbe4419e4be21913a0f77d74289"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#af1688cbe4419e4be21913a0f77d74289">block_alignment</a> (BlockAllocator &amp;alloc) noexcept</td></tr>
-<tr class="memdesc:af1688cbe4419e4be21913a0f77d74289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the block allignment for each block from the given block allocator.  <a href="#af1688cbe4419e4be21913a0f77d74289">More...</a><br /></td></tr>
-<tr class="separator:af1688cbe4419e4be21913a0f77d74289"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1249fc1e60c4fd19c0c74d58bdd9766"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#ab1249fc1e60c4fd19c0c74d58bdd9766">block_size</a> (BlockAllocator &amp;alloc) noexcept</td></tr>
-<tr class="memdesc:ab1249fc1e60c4fd19c0c74d58bdd9766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the block size for each block from a given block allocator.  <a href="#ab1249fc1e60c4fd19c0c74d58bdd9766">More...</a><br /></td></tr>
-<tr class="separator:ab1249fc1e60c4fd19c0c74d58bdd9766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a231752391909471a9caf49e01d8aa0c0"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#a231752391909471a9caf49e01d8aa0c0">next_block_size</a> (const BlockAllocator &amp;alloc) noexcept</td></tr>
+<tr class="memdesc:a231752391909471a9caf49e01d8aa0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of the next block from the block allocator.  <a href="#a231752391909471a9caf49e01d8aa0c0">More...</a><br /></td></tr>
+<tr class="separator:a231752391909471a9caf49e01d8aa0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a154b35e84c1bb46d50b7f536b78148d9"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#a154b35e84c1bb46d50b7f536b78148d9">next_block_alignment</a> (const BlockAllocator &amp;alloc) noexcept</td></tr>
+<tr class="memdesc:a154b35e84c1bb46d50b7f536b78148d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the alignment of the next block from the block allocator.  <a href="#a154b35e84c1bb46d50b7f536b78148d9">More...</a><br /></td></tr>
+<tr class="separator:a154b35e84c1bb46d50b7f536b78148d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename BlockAllocator&gt;<br />
 class bit::memory::block_allocator_traits&lt; allocator_reference&lt; BlockAllocator &gt; &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d89/block__allocator__traits_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../d9/d89/block__allocator__traits_8hpp_source.html">block_allocator_traits.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d89/block__allocator__traits_8hpp_source.html#l00134">134</a> of file <a class="el" href="../../d9/d89/block__allocator__traits_8hpp_source.html">block_allocator_traits.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="addcf9529ddfdca6756c8bdbaefc6e85d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#addcf9529ddfdca6756c8bdbaefc6e85d">&#9670;&nbsp;</a></span>allocate_block()</h2>
@@ -151,82 +148,6 @@ template&lt;typename BlockAllocator &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the memory block </dd></dl>
-
-</div>
-</div>
-<a id="af1688cbe4419e4be21913a0f77d74289"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1688cbe4419e4be21913a0f77d74289">&#9670;&nbsp;</a></span>block_alignment()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename BlockAllocator &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static constexpr std::size_t <a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html">bit::memory::block_allocator_traits</a>&lt; BlockAllocator &gt;::block_alignment </td>
-          <td>(</td>
-          <td class="paramtype">BlockAllocator &amp;&#160;</td>
-          <td class="paramname"><em>alloc</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the block allignment for each block from the given block allocator. </p>
-<dl class="section note"><dt>Note</dt><dd>This is only well-formed for block allocators where has_block_alignment is <code>std::true_type</code> </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">alloc</td><td>the block allocator </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the block alignment </dd></dl>
-
-</div>
-</div>
-<a id="ab1249fc1e60c4fd19c0c74d58bdd9766"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1249fc1e60c4fd19c0c74d58bdd9766">&#9670;&nbsp;</a></span>block_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename BlockAllocator &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static constexpr std::size_t <a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html">bit::memory::block_allocator_traits</a>&lt; BlockAllocator &gt;::block_size </td>
-          <td>(</td>
-          <td class="paramtype">BlockAllocator &amp;&#160;</td>
-          <td class="paramname"><em>alloc</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the block size for each block from a given block allocator. </p>
-<dl class="section note"><dt>Note</dt><dd>This is only well-formed for block allocators where has_block_alignment is <code>std::true_type</code> </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">alloc</td><td>the block allocator </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the block alignment </dd></dl>
 
 </div>
 </div>
@@ -314,6 +235,81 @@ The lifetime of the pointer returned is unmanaged, and is NOT the responsibility
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the name of the allocator </dd></dl>
+
+</div>
+</div>
+<a id="a154b35e84c1bb46d50b7f536b78148d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154b35e84c1bb46d50b7f536b78148d9">&#9670;&nbsp;</a></span>next_block_alignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BlockAllocator &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::size_t <a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html">bit::memory::block_allocator_traits</a>&lt; BlockAllocator &gt;::next_block_alignment </td>
+          <td>(</td>
+          <td class="paramtype">const BlockAllocator &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the alignment of the next block from the block allocator. </p>
+<p>If the block alignment is statically defined as 'default_alignment', then this value is returned. Otherwise it falls back to '<a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#a154b35e84c1bb46d50b7f536b78148d9" title="Gets the alignment of the next block from the block allocator. ">next_block_alignment()</a>' if it exists; and returning '1' if it cannot be determined.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alloc</td><td>the block allocator to get the block alignment </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the next block size from the allocator </dd></dl>
+
+</div>
+</div>
+<a id="a231752391909471a9caf49e01d8aa0c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a231752391909471a9caf49e01d8aa0c0">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BlockAllocator &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::size_t <a class="el" href="../../d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html">bit::memory::block_allocator_traits</a>&lt; BlockAllocator &gt;::next_block_size </td>
+          <td>(</td>
+          <td class="paramtype">const BlockAllocator &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the size of the next block from the block allocator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alloc</td><td>the block allocator to get the block size </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the next block size from the allocator </dd></dl>
 
 </div>
 </div>

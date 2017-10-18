@@ -12,8 +12,6 @@ var searchData=
   ['is_5fblock_5fallocator_5fv',['is_block_allocator_v',['../d0/dcd/_block_allocator_8hpp.html#a20d558347ba087dc56d2ca19a46fd5bd',1,'bit::memory']]],
   ['is_5fbounds_5fchecker',['is_bounds_checker',['../d9/d1b/structbit_1_1memory_1_1is__bounds__checker.html',1,'bit::memory']]],
   ['is_5fbounds_5fchecker_5fv',['is_bounds_checker_v',['../dc/dd6/_bounds_checker_8hpp.html#a0a04a6ee96df655856bc09ec35b4854e',1,'bit::memory']]],
-  ['is_5fcached_5fblock_5fallocator',['is_cached_block_allocator',['../d4/d37/structbit_1_1memory_1_1is__cached__block__allocator.html',1,'bit::memory']]],
-  ['is_5fcached_5fblock_5fallocator_3c_20cached_5fblock_5fallocator_3c_20t_20_3e_20_3e',['is_cached_block_allocator&lt; cached_block_allocator&lt; T &gt; &gt;',['../d2/dbf/structbit_1_1memory_1_1is__cached__block__allocator_3_01cached__block__allocator_3_01_t_01_4_01_4.html',1,'bit::memory']]],
   ['is_5fextended_5fallocator',['is_extended_allocator',['../df/d76/structbit_1_1memory_1_1is__extended__allocator.html',1,'bit::memory']]],
   ['is_5fextended_5fallocator_5fv',['is_extended_allocator_v',['../da/dd0/_extended_allocator_8hpp.html#ade14889b7f7fcb87471f80c0917c75e4',1,'bit::memory']]],
   ['is_5fmemory_5ftagger',['is_memory_tagger',['../d6/d7f/structbit_1_1memory_1_1is__memory__tagger.html',1,'bit::memory']]],
