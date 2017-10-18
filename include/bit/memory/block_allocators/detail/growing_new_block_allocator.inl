@@ -43,9 +43,9 @@ template<std::size_t Size>
 inline void bit::memory::growing_new_block_allocator<Size>
   ::grow()
 {
-  if( base_type::m_growths_available == 0 ) return;
+  if( base_type::m_growths_remaining == 0 ) return;
 
-  --base_type::m_growths_available;
+  --base_type::m_growths_remaining;
   base_type::m_multiplier *= 2;
 }
 

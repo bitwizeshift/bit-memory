@@ -152,11 +152,8 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      std::size_t m_growths_remaining;
-      std::size_t m_multiplier;
-
+      /// \brief Grows the size of each block, if possible
       void grow();
-
 
       template<std::size_t S>
       friend bool operator==( const growing_new_block_allocator<S>&,
