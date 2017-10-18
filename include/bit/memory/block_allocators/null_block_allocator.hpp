@@ -32,9 +32,8 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      using block_size      = std::integral_constant<std::size_t,0>;
-      using block_alignment = std::integral_constant<std::size_t,1>;
-      using is_stateless    = std::true_type;
+      using default_block_alignment = std::integral_constant<std::size_t,1>;
+      using is_stateless            = std::true_type;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment
@@ -82,6 +81,16 @@ namespace bit {
       ///
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block ) noexcept;
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
     };
 
     //-------------------------------------------------------------------------

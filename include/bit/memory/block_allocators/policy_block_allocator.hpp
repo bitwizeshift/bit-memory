@@ -31,32 +31,17 @@ namespace bit {
       ///
       /////////////////////////////////////////////////////////////////////////
       template<typename BlockAllocator,
-               bool HasAlignment = block_allocator_has_block_alignment<BlockAllocator>::value,
-               bool HasSize = block_allocator_has_block_size<BlockAllocator>::value>
+               bool HasAlignment = block_allocator_has_default_block_alignment<BlockAllocator>::value>
       struct policy_block_allocator_base
       {
 
       };
 
-      template<typename BlockAllocator, bool HasSize>
-      struct policy_block_allocator_base<BlockAllocator,true,HasSize>
-      {
-        using block_alignment = typename BlockAllocator::block_alignment;
-      };
-
-      template<typename BlockAllocator, bool HasAlignment>
-      struct policy_block_allocator_base<BlockAllocator,HasAlignment,true>
-      {
-        using block_size = typename BlockAllocator::block_size;
-      };
-
       template<typename BlockAllocator>
-      struct policy_block_allocator_base<BlockAllocator,true,true>
+      struct policy_block_allocator_base<BlockAllocator,true>
       {
-        using block_alignment = typename BlockAllocator::block_alignment;
-        using block_size = typename BlockAllocator::block_size;
+        using default_block_alignment = typename BlockAllocator::default_block_alignment;
       };
-
     } // namespae detail
 
 
@@ -193,14 +178,19 @@ namespace bit {
       template<typename U = BlockAllocator, typename = std::enable_if_t<block_allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
 
-      //-----------------------------------------------------------------------
-      // Private Members
-      //-----------------------------------------------------------------------
-    private:
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
 
-      std::size_t block_align( std::true_type ) const noexcept;
-      std::size_t block_align( std::false_type ) const noexcept;
-
+      /// \brief Queries the next block alignment expected from this allocator
+      ///
+      /// \note This is only enabled if the underlying BlockAllocator supports
+      ///       \c next_block_alignment()
+      ///
+      /// \return the next block alignment
+      template<typename U = BlockAllocator, typename = std::enable_if_t<block_allocator_has_next_block_alignment<U>::value>>
+      std::size_t next_block_alignment() const noexcept;
     };
 
   } // namespace memory

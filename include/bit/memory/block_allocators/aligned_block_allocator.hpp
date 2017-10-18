@@ -31,9 +31,8 @@ namespace bit {
         : detail::dynamic_size_type<0,Size>,
           detail::dynamic_size_type<1,Align>
       {
-        using block_size      = std::integral_constant<std::size_t,Size>;
-        using block_alignment = std::integral_constant<std::size_t,Align>;
-        using is_stateless    = std::true_type;
+        using default_block_alignment = std::integral_constant<std::size_t,Align>;
+        using is_stateless            = std::true_type;
 
         aligned_block_allocator_base() noexcept = default;
         aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
@@ -49,7 +48,6 @@ namespace bit {
         : detail::dynamic_size_type<0,Size>,
           detail::dynamic_size_type<1,dynamic_size>
       {
-        using block_size   = std::integral_constant<std::size_t,Size>;
         using is_stateless = std::false_type;
 
         aligned_block_allocator_base( std::size_t align ) noexcept
@@ -70,8 +68,8 @@ namespace bit {
         : detail::dynamic_size_type<0,dynamic_size>,
           detail::dynamic_size_type<1,Align>
       {
-        using block_alignment = std::integral_constant<std::size_t,Align>;
-        using is_stateless    = std::false_type;
+        using default_block_alignment = std::integral_constant<std::size_t,Align>;
+        using is_stateless            = std::false_type;
 
         aligned_block_allocator_base( std::size_t size ) noexcept
           : detail::dynamic_size_type<0,dynamic_size>( size )
@@ -108,15 +106,15 @@ namespace bit {
 
     } // namespace detail
 
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief A raw allocator that allocates over-aligned memory
+    ///////////////////////////////////////////////////////////////////////////
+    /// \brief An allocator that allocates over-aligned memory
     ///
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     ///
     /// \satisfies{BlockAllocator}
     /// \satisfies{Stateless}
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     template<std::size_t Size,std::size_t Align>
     class aligned_block_allocator
         : private detail::aligned_block_allocator_base<Size,Align>
@@ -127,9 +125,9 @@ namespace bit {
 
       static_assert( is_power_of_two(Align) || Align == dynamic_size, "Alignment must be a power of two!" );
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Constructors / Allocators
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Constructs a aligned_block_allocator that will distribute
@@ -163,9 +161,9 @@ namespace bit {
       /// \return reference to \c (*this)
       aligned_block_allocator& operator=( const aligned_block_allocator& other ) = default;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Block Allocations
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Allocates a memory_block of size \ref block_size with
@@ -179,7 +177,28 @@ namespace bit {
       /// \param block the block to deallocate
       void deallocate_block( owner<memory_block> block ) noexcept;
 
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Comparisons
+    //-------------------------------------------------------------------------
+
+    template<std::size_t Size, std::size_t Align>
+    bool operator==( const aligned_block_allocator<Size,Align>& lhs,
+                     const aligned_block_allocator<Size,Align>& rhs ) noexcept;
+
+    template<std::size_t Size, std::size_t Align>
+    bool operator!=( const aligned_block_allocator<Size,Align>& lhs,
+                     const aligned_block_allocator<Size,Align>& rhs ) noexcept;
 
     //-------------------------------------------------------------------------
     // Utilities

@@ -23,10 +23,12 @@ namespace bit {
         using deallocate_block_fn_t = void(*)( void*, memory_block );
         using allocate_block_fn_t   = memory_block(*)( void* );
         using info_fn_t             = allocator_info(*)( const void* );
+        using next_block_size_fn_t  = std::size_t(*)( const void* );
 
         deallocate_block_fn_t deallocate_fn;
         allocate_block_fn_t   allocate_fn;
         info_fn_t             info_fn;
+        next_block_size_fn_t  next_block_fn;
 
         template<typename BlockAllocator>
         static any_block_allocator_vtable* get_vtable()
@@ -56,6 +58,13 @@ namespace bit {
               auto* instance = static_cast<const BlockAllocator*>(p);
 
               return traits_type::info( *instance );
+            };
+
+            table.next_block_fn = +[]( const void* p ) -> std::size_t
+            {
+              auto* instance = static_cast<const BlockAllocator*>(p);
+
+              return traits_type::next_block_size( *instance );
             };
 
             return table;
@@ -143,6 +152,11 @@ namespace bit {
       ///
       /// \return the allocator information
       allocator_info info() const noexcept;
+
+      /// \brief Gets the next available block size for this allocator
+      ///
+      /// \return the next block size
+      std::size_t next_block_size() const noexcept;
 
       //----------------------------------------------------------------------
       // Private Member Types

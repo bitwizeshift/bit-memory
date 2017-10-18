@@ -27,8 +27,8 @@ namespace bit {
     namespace detail {
       template<std::size_t Size>
       struct malloc_block_allocator_base
+        : detail::dynamic_size_type<0,Size>
       {
-        using block_size   = std::integral_constant<std::size_t,Size>;
         using is_stateless = std::true_type;
 
         malloc_block_allocator_base() noexcept = default;
@@ -40,10 +40,16 @@ namespace bit {
 
       template<>
       struct malloc_block_allocator_base<dynamic_size>
+        : detail::dynamic_size_type<0,dynamic_size>
       {
         using is_stateless = std::false_type;
 
-        malloc_block_allocator_base() noexcept = default;
+        explicit malloc_block_allocator_base( std::size_t size )
+          : detail::dynamic_size_type<0,dynamic_size>(size)
+        {
+
+        }
+
         malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
         malloc_block_allocator_base( const malloc_block_allocator_base& ) = delete;
         malloc_block_allocator_base& operator=( malloc_block_allocator_base&& ) = delete;
@@ -60,17 +66,17 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     template<std::size_t Size>
     class malloc_block_allocator
-      : private detail::dynamic_size_type<0,Size>,
-        private detail::malloc_block_allocator_base<(Size!=std::size_t(-1))>
+      : private detail::malloc_block_allocator_base<Size>
     {
       using block_size_member = detail::dynamic_size_type<0,Size>;
+      using base_type = detail::malloc_block_allocator_base<Size>;
 
       //----------------------------------------------------------------------
       // Public Member Types
       //----------------------------------------------------------------------
     public:
 
-      using block_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
+      using default_block_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
 
       //----------------------------------------------------------------------
       // Constructors
@@ -82,12 +88,8 @@ namespace bit {
       /// This is only enabled for non-dynamic new_block_allocators
       malloc_block_allocator() noexcept = default;
 
-      /// \brief Constructs a malloc_block_allocator that will distribute
-      ///        blocks of the specified \p size
-      ///
-      /// \param size the size of each block allocation
-      template<std::size_t I = Size, typename = std::enable_if_t<!detail::dynamic_size_type<0,I>::is_stateless::value>>
-      explicit malloc_block_allocator( std::size_t size ) noexcept;
+      // Inherit the dynamic constructor
+      using base_type::base_type;
 
       /// \brief Move-constructs a malloc_block_allocator from another allocator
       ///
@@ -129,13 +131,14 @@ namespace bit {
       void deallocate_block( owner<memory_block> block ) noexcept;
 
       //----------------------------------------------------------------------
-      // Private Members
+      // Observers
       //----------------------------------------------------------------------
-    private:
+    public:
 
-      template<std::size_t S>
-      friend bool operator==( const malloc_block_allocator<S>&,
-                              const malloc_block_allocator<S>& ) noexcept;
+      /// \brief Queries the next block size expected from this allocator
+      ///
+      /// \return the size of the next allocated block
+      std::size_t next_block_size() const noexcept;
     };
 
     //-------------------------------------------------------------------------
