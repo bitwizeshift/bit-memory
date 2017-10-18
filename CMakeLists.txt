@@ -111,6 +111,7 @@ set(headers
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/any_block_allocator.hpp
   include/bit/memory/block_allocators/growing_malloc_block_allocator.hpp
+  include/bit/memory/block_allocators/growing_new_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
