@@ -25,14 +25,14 @@
 namespace bit {
   namespace memory {
 
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     /// \brief The adapter to make an Allocator behave like a standard
     ///        allocator
     ///
     /// \tparam T the underlying allocator type
     /// \tparam Allocator the underlying allocator that satisfies the
     ///         Allocator requirements
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     template<typename T, typename Allocator>
     class std_allocator_adapter
       : private detail::ebo_storage<allocator_reference<Allocator>>
@@ -44,9 +44,9 @@ namespace bit {
       static_assert( !std::is_const<T>::value, "Unable to allocate const type" );
       static_assert( is_allocator<Allocator>::value, "Allocator must satisfy Allocator requirements" );
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Public Member Types
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       using void_pointer       = typename traits_type::pointer;
@@ -64,9 +64,9 @@ namespace bit {
 
       using is_always_equal = typename traits_type::is_stateless;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Constructors
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Constructs a std_allocator_adapter that references the
@@ -97,9 +97,9 @@ namespace bit {
       template<typename U>
       std_allocator_adapter( std_allocator_adapter<U,Allocator>&& other ) noexcept;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Allocation
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Allocates memory using the underlying Allocator
@@ -114,9 +114,9 @@ namespace bit {
       /// \param n the number of entries to deallocate
       void deallocate( pointer p, size_type n );
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Observers
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
 
       /// \brief Gets the maximum size this allocator supports
       ///
@@ -130,9 +130,13 @@ namespace bit {
       Allocator& get() const noexcept;
     };
 
-    //------------------------------------------------------------------------
+    template<typename T, typename Allocator>
+    class std_allocator_adapter<T[],Allocator>
+      : public std_allocator_adapter<T,Allocator>{};
+
+    //-------------------------------------------------------------------------
     // Utilities
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     /// \brief Makes an allocator adapter from a given allocator
     ///
@@ -142,9 +146,9 @@ namespace bit {
     std_allocator_adapter<T,Allocator>
       make_allocator_adapter( Allocator& allocator ) noexcept;
 
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Equality Comparisons
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     template<typename T1, typename T2, typename Allocator>
     bool operator==( const std_allocator_adapter<T1,Allocator>& lhs,
