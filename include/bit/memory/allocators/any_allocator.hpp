@@ -191,7 +191,16 @@ namespace bit {
 
       void*        m_ptr;
       vtable_type* m_vtable;
+
+      friend bool operator==( const any_allocator&, const any_allocator& ) noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Equality Comparison
+    //-------------------------------------------------------------------------
+
+    bool operator==( const any_allocator& lhs, const any_allocator& rhs ) noexcept;
+    bool operator!=( const any_allocator& lhs, const any_allocator& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit
