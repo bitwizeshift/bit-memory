@@ -53,4 +53,23 @@ inline bit::memory::allocator_info bit::memory::any_allocator::info()
   return m_vtable->info_fn( m_ptr );
 }
 
+//----------------------------------------------------------------------------
+// Equality Comparison
+//----------------------------------------------------------------------------
+
+inline bool bit::memory::operator==( const any_allocator& lhs,
+                                     const any_allocator& rhs )
+  noexcept
+{
+  return lhs.m_vtable == rhs.m_vtable &&
+         lhs.m_ptr == rhs.m_ptr;
+}
+
+inline bool bit::memory::operator!=( const any_allocator& lhs,
+                                     const any_allocator& rhs )
+  noexcept
+{
+  return !(lhs==rhs);
+}
+
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ANY_ALLOCATOR_INL */
