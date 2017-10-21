@@ -33,9 +33,10 @@ inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
 // Allocation / Deallocation
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::pool_allocator::try_allocate( std::size_t size,
-                                                        std::size_t align,
-                                                        std::size_t offset )
+inline bit::memory::owner<void*>
+  bit::memory::pool_allocator::try_allocate( std::size_t size,
+                                             std::size_t align,
+                                             std::size_t offset )
   noexcept
 {
   using byte_t = unsigned char;
@@ -54,7 +55,8 @@ inline void* bit::memory::pool_allocator::try_allocate( std::size_t size,
   return static_cast<char*>(p) + 1;
 }
 
-inline void bit::memory::pool_allocator::deallocate( void* p, std::size_t size )
+inline void bit::memory::pool_allocator::deallocate( owner<void*> p,
+                                                     std::size_t size )
 {
   BIT_MEMORY_UNUSED(size);
 
@@ -81,6 +83,14 @@ inline std::size_t bit::memory::pool_allocator::max_size()
   const noexcept
 {
   return m_chunk_size;
+}
+
+//-----------------------------------------------------------------------------
+
+inline bit::memory::allocator_info bit::memory::pool_allocator::info()
+  const noexcept
+{
+  return {"pool_allocator",this};
 }
 
 //-----------------------------------------------------------------------------
