@@ -2,23 +2,11 @@
 #define BIT_MEMORY_ALLOCATORS_DETAIL_NEW_ALLOCATOR_INL
 
 inline bit::memory::owner<void*>
-  bit::memory::new_allocator::allocate( std::size_t size,
-                                        std::size_t align )
-{
-  auto p = try_allocate( size, align );
-
-  if( p == nullptr ) {
-    get_out_of_memory_handler()({"new_allocator",nullptr},size);
-  }
-  return p;
-}
-
-inline bit::memory::owner<void*>
   bit::memory::new_allocator::try_allocate( std::size_t size,
                                             std::size_t align )
   noexcept
 {
-  (void) align;
+  BIT_MEMORY_UNUSED(align);
 
   return ::operator new( size, std::nothrow );
 }
@@ -26,13 +14,24 @@ inline bit::memory::owner<void*>
 inline void bit::memory::new_allocator::deallocate( owner<void*> p,
                                                     std::size_t size )
 {
-  (void) size;
+  BIT_MEMORY_UNUSED(size);
 
   ::operator delete(p);
 }
 
+
 //-----------------------------------------------------------------------------
-// Comparisons
+// Observers
+//-----------------------------------------------------------------------------
+
+inline bit::memory::allocator_info bit::memory::new_allocator::info()
+  const noexcept
+{
+  return {"new_allocator",this};
+}
+
+//-----------------------------------------------------------------------------
+// Equality
 //-----------------------------------------------------------------------------
 
 inline bool bit::memory::operator==( const new_allocator&,

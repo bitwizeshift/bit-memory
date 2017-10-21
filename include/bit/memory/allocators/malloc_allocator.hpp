@@ -9,8 +9,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_MALLOC_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_MALLOC_ALLOCATOR_HPP
 
-#include "../owner.hpp"  // owner
-#include "../errors.hpp" // out_of_memory_handler
+#include "detail/named_allocator.hpp" // detail::named_allocator
+
+#include "../allocator_info.hpp" // allocator_info
+#include "../owner.hpp"          // owner
+#include "../macros.hpp"         // BIT_MEMORY_UNUSED
 
 #include <cstdlib>     // std::malloc, std::free, std::size_t
 #include <cstddef>     // std::max_align_t
@@ -35,7 +38,7 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using is_stateless    = std::true_type;
+      using is_stateless      = std::true_type;
       using default_alignment = std::integral_constant<std::size_t,alignof(std::max_align_t)>;
 
       //-----------------------------------------------------------------------
@@ -75,16 +78,6 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Allocates memory of size \p size
-      ///
-      /// The alignment is ignored for calls to this allocator. The alignment
-      /// is always guaranteed to be at least \c alignof(std::max_align_t)
-      ///
-      /// \param size the size of this allocation
-      /// \param align the requested alignment (ignored)
-      /// \return the allocated pointer
-      owner<void*> allocate( std::size_t size, std::size_t align );
-
       /// \brief Attempts to allocate memory of size \p size, returning nullptr
       ///        on failure
       ///
@@ -101,7 +94,24 @@ namespace bit {
       /// \param p the pointer to deallocate
       /// \param size the size to deallocate
       void deallocate( owner<void*> p, std::size_t size );
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'malloc_allocator'. Use a
+      /// named_malloc_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Equality
+    //-------------------------------------------------------------------------
 
     /// \{
     /// \brief Compares equality between two malloc_allocators
@@ -112,6 +122,12 @@ namespace bit {
     bool operator!=( const malloc_allocator& lhs,
                      const malloc_allocator& rhs ) noexcept;
     /// \}
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_malloc_allocator = detail::named_allocator<malloc_allocator>;
 
   } // namespace memory
 } // namespace bit
