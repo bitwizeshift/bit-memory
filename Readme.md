@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/bitwizeshift/bit-memory.svg?branch=master)](https://travis-ci.org/bitwizeshift/bit-memory)
 [![Build status](https://ci.appveyor.com/api/projects/status/ou5sraydky6tjxv9?svg=true)](https://ci.appveyor.com/project/bitwizeshift/bit-memory)
 [![Github Issues](https://img.shields.io/github/issues/bitwizeshift/bit-memory.svg)](http://github.com/bitwizeshift/bit-memory/issues)
-[![Tested Compilers](https://img.shields.io/badge/compilers-gcc%20%7C%20clang-blue.svg)](#tested-compilers)
+[![Tested Compilers](https://img.shields.io/badge/compilers-gcc%20%7C%20clang%20%7C%20msvc-blue.svg)](#tested-compilers)
 [![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](http://bitwizeshift.github.io/bit-memory)
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bitwizeshift/bit-memory/blob/master/LICENSE.md)
 [![Github Releases](https://img.shields.io/github/release/bitwizeshift/bit-memory.svg)](https://github.com/bitwizeshift/bit-memory/releases)
@@ -28,9 +28,9 @@ conform to the concepts defined here.
 
 The `Allocator` concept in this library differs from the C++ standard's allocators in a few ways
 
-### 1. Allocators are heterogenious
+### 1. Allocators are heterogeneous
 
-The C++ Standard Library's `Allocator` concept defines every `Allocator` to be homogenous in its allocations; always allocating
+The C++ Standard Library's `Allocator` concept defines every `Allocator` to be homogeneous in its allocations; always allocating
 a specific type `T`, and only converting to different allocators using `rebind`. This offers some level of optimizations, since
 all allocations are of fixed size; but also can cause large amounts of code duplication due to the requirement of templates to
 produce different instances of the same type, all based on type `T`.
@@ -60,7 +60,7 @@ one that -- on failure -- calls a global out-of-memory handler.
 
 ### 4. Allocator info
 
-The Allocator concept in this library optionally supports a member function named `infO()` that returns an `allocator_info` object.
+The Allocator concept in this library optionally supports a member function named `info()` that returns an `allocator_info` object.
 This object is used for _naming_ the allocator so that it can be uniquely identified in case an error handler is called.
 
 ## Building
@@ -96,7 +96,7 @@ cmake --build . --target install
 will install into `/etc/bit/`.
 
 
-##<a name="tested-compilers"></a> Tested Compilers
+## <a name="tested-compilers"></a>Tested Compilers
 
 The following compilers are currently being tested through continuous integration with [Travis](https://travis-ci.org/bitwizeshift/bit-memory).
 
@@ -105,5 +105,15 @@ Note that `bit-memory` only works on compiler that provide proper conformance fo
 | Compiler              | Operating System                   |
 |-----------------------|------------------------------------|
 | g++ 6.3.0             | Ubuntu 14.04.3 TLS                 |
+| g++ 7.2.0             | Ubuntu 14.04.3 TLS                 |
+| clang++ 3.9.0         | Ubuntu 14.04.3 TLS                 |
+| clang++ 4.0.1         | Ubuntu 14.04.3 TLS                 |
+| g++ 7.2.0             | Ubuntu 14.04.3 TLS                 |
 | clang xcode 7.3       | Darwin Kernel 15.6.0 (OSX 10.11.6) |
-| Visual Studio 15 2017	| Windows Server 2012 R2 (x64)       |
+| clang xcode 8.0       | Darwin Kernel 15.6.0 (OSX 10.11.6) |
+| clang xcode 8.1       | Darwin Kernel 16.1.0 (OSX 10.12.1) |
+| clang xcode 8.2       | Darwin Kernel 16.1.0 (OSX 10.12.1) |
+| clang xcode 8.3       | Darwin Kernel 16.6.0 (OSX 10.12.5) |
+| clang xcode 9.0       | Darwin Kernel 16.7.0 (OSX 10.12.6) |
+| Visual Studio 2015    | Windows Server 2012 R2 (x64)       |
+| Visual Studio 2017    | Windows Server 2016 (x64)          |
