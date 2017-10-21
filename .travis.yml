@@ -64,13 +64,15 @@ matrix:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
           packages: ['g++-6', 'clang-4.0']
 
-    - os: linux
-      compiler: clang
-      env: COMPILER=clang++-5.0 CONFIGURATION=Release
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-          packages: ['g++-6', 'clang-5.0']
+    # clang++-5.0 is commented out since travis is failing to acquire llvm-5.0 packages
+
+    # - os: linux
+    #   compiler: clang
+    #   env: COMPILER=clang++-5.0 CONFIGURATION=Release
+    #   addons:
+    #     apt:
+    #       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+    #       packages: ['g++-6', 'clang-5.0']
 
     #############
     # OSX clang #
