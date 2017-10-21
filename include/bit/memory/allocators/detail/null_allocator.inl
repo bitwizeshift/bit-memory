@@ -1,13 +1,13 @@
 #ifndef BIT_MEMORY_ALLOCATORS_DETAIL_NULL_ALLOCATOR_INL
 #define BIT_MEMORY_ALLOCATORS_DETAIL_NULL_ALLOCATOR_INL
 
-//============================================================================
+//=============================================================================
 // null_allocator
-//============================================================================
+//=============================================================================
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Allocation
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 inline bit::memory::owner<void*>
   bit::memory::null_allocator::try_allocate( std::size_t size,
@@ -15,9 +15,9 @@ inline bit::memory::owner<void*>
                                              std::size_t offset )
   noexcept
 {
-  (void) size;
-  (void) align;
-  (void) offset;
+  BIT_MEMORY_UNUSED(size);
+  BIT_MEMORY_UNUSED(align);
+  BIT_MEMORY_UNUSED(offset);
 
   return nullptr;
 }
@@ -27,13 +27,13 @@ inline void bit::memory::null_allocator::deallocate( owner<void*> p,
                                                      std::size_t size )
   noexcept
 {
-  (void) p;
-  (void) size;
+  BIT_MEMORY_UNUSED(p);
+  BIT_MEMORY_UNUSED(size);
 }
 
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Observers
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 inline bool bit::memory::null_allocator::owns( const void* p )
   const noexcept
@@ -47,9 +47,17 @@ inline bool bit::memory::null_allocator::owns( std::nullptr_t )
   return true;
 }
 
-//----------------------------------------------------------------------------
-// Comparisons
-//----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+inline bit::memory::allocator_info bit::memory::null_allocator::info()
+  const noexcept
+{
+  return {"null_allocator",this};
+}
+
+//-----------------------------------------------------------------------------
+// Equality
+//-----------------------------------------------------------------------------
 
 inline bool bit::memory::operator==( const null_allocator&,
                                      const null_allocator& )

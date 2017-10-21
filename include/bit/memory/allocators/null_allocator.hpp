@@ -8,8 +8,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_NULL_ALLOCATOR_HPP
 
-#include "../owner.hpp"  // owner
-#include "../errors.hpp" // out_of_memory_handler
+#include "detail/named_allocator.hpp" // detail::named_allocator
+
+#include "../allocator_info.hpp" // allocator_info
+#include "../macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../owner.hpp"          // owner
 
 #include <cstddef>     // std::size_t
 #include <type_traits> // std::true_type
@@ -109,8 +112,20 @@ namespace bit {
       /// \return true
       bool owns( std::nullptr_t ) const noexcept;
 
+      //----------------------------------------------------------------------
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'null_allocator'. Use a
+      /// named_null_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
 
+    //-------------------------------------------------------------------------
+    // Equality
+    //-------------------------------------------------------------------------
 
     /// \{
     /// \brief Compares equality between two null_allocators
@@ -121,6 +136,12 @@ namespace bit {
     bool operator!=( const null_allocator& lhs,
                      const null_allocator& rhs ) noexcept;
     /// \}
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_null_allocator = detail::named_allocator<null_allocator>;
 
   } // namespace memory
 } // namespace bit
