@@ -20,7 +20,7 @@ inline bit::memory::stack_allocator<Size,Align>::~stack_allocator()
 {
   // This destructor should be trivial -- but instead calls
   // 'deallocate_all' so that the memory trackers can accurately reflect
-  // that the memory has accurately been deallocated on destruction
+  // that the memory has been deallocated on destruction
   deallocate_all();
 }
 
@@ -98,8 +98,15 @@ inline bool bit::memory::stack_allocator<Size,Align>::owns( const void* p )
   return static_cast<const void*>(&m_storage[0]) <= p && p < static_cast<const void*>(&m_storage[Size]);
 }
 
+template<std::size_t Size, std::size_t Align>
+inline bit::memory::allocator_info bit::memory::stack_allocator<Size,Align>::info()
+  const noexcept
+{
+  return {"stack_allocator",this};
+}
+
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
 template<std::size_t S, std::size_t A>

@@ -110,6 +110,14 @@ namespace bit {
       /// \return \c true if \p p is contained in this allocator
       bool owns( const void* p ) const noexcept;
 
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'stack_allocator'. Use a
+      /// named_stack_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
+
       //-----------------------------------------------------------------------
       // Private Members
       //-----------------------------------------------------------------------
@@ -123,7 +131,7 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Comparison
+    // Equality
     //-------------------------------------------------------------------------
 
     template<std::size_t S, std::size_t A>
