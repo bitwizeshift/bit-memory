@@ -30,7 +30,7 @@ matrix:
 
     - os: linux
       compiler: gcc
-      env: COMPILER=g++6 CONFIGURATION=Release
+      env: COMPILER=g++-6 CONFIGURATION=Release
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
