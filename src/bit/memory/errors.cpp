@@ -4,6 +4,27 @@
 #include <iostream>
 #include <cassert>
 
+#ifdef BIT_MEMORY_BREAKPOINT
+#error BIT_MEMORY_BREAKPOINT cannot be redefined
+#endif
+
+#if defined(NDEBUG)
+# define BIT_MEMORY_BREAKPOINT() ((void)0)
+#else
+#  if defined(_MSC_VER) && (_MSC_VER >= 1300)
+#    define BIT_MEMORY_BREAKPOINT() __debugbreak()   // MSVC-specific breakpoint
+#  elif defined(__clang__) || defined(__GNUC__)
+#    define BIT_MEMORY_BREAKPOINT() __builtin_trap() // __builtin_trap for compilers that support it
+#  else // Backup option for breakpoint creation
+#    include <csignal>
+#    if defined(SIGTRAP)
+#      define BIT_MEMORY_BREAKPOINT() std::raise(SIGTRAP)
+#    else
+#      define BIT_MEMORY_BREAKPOINT() std::raise(SIGABRT)
+#    endif
+#  endif
+#endif
+
 //-----------------------------------------------------------------------------
 // Forward Declarations
 //-----------------------------------------------------------------------------
@@ -20,8 +41,8 @@ namespace {
 
 
   void default_buffer_overflow_handler( const bit::memory::allocator_info& info,
-                              const void* ptr,
-                              std::ptrdiff_t size );
+                                        const void* ptr,
+                                        std::ptrdiff_t size );
 
   void default_double_delete_handler( const bit::memory::allocator_info& info,
                                       const void* ptr,
@@ -132,7 +153,7 @@ namespace {
               << "\", " << info.address() << "}.\n"
               << size << " bytes leaked at address " << ptr << "\n";
 
-    assert(false);
+    BIT_MEMORY_BREAKPOINT();
   }
 
 
@@ -146,7 +167,7 @@ namespace {
               << size << " bytes overwritten at address "
               << ptr << ".\n";
 
-    assert(false);
+    BIT_MEMORY_BREAKPOINT();
   }
 
   void default_double_delete_handler( const bit::memory::allocator_info& info,
@@ -159,7 +180,7 @@ namespace {
               << size << " bytes double-deleted at address "
               << ptr << ".\n";
 
-    assert(false);
+    BIT_MEMORY_BREAKPOINT();
   }
 
   void default_out_of_memory_handler( const bit::memory::allocator_info& info,
@@ -170,7 +191,7 @@ namespace {
               << "\", " << info.address() << "}.\n"
               << "Requested allocation size: " << size << " bytes\n";
 
-    assert(false);
+    BIT_MEMORY_BREAKPOINT();
   }
 
 } // anonymous namespace
