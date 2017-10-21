@@ -9,12 +9,13 @@
 #ifndef BIT_MEMORY_ALLOCATORS_FALLBACK_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_FALLBACK_ALLOCATOR_HPP
 
-#include "../detail/ebo_storage.hpp" // detail::ebo_storage
+#include "detail/named_allocator.hpp" // detail::named_allocator
 
 #include "../concepts/Allocator.hpp" // allocator_pointer_t, etc
-
-#include "../macros.hpp"           // BIT_MEMORY_UNUSED
-#include "../allocator_traits.hpp" // allocator_traits
+#include "../detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../allocator_traits.hpp"   // allocator_traits
+#include "../macros.hpp"             // BIT_MEMORY_UNUSED
+#include "../owner.hpp"              // owner
 
 #include <tuple>     // std::forward_as_tuple
 #include <utility>   // std::forward
@@ -124,8 +125,8 @@ namespace bit {
       /// \param size the size of the allocation request
       /// \param align the alignment of the allocation request
       /// \return a pointer on success, \c nullptr on failure
-      void* try_allocate( std::size_t size,
-                          std::size_t align ) noexcept;
+      owner<void*> try_allocate( std::size_t size,
+                                 std::size_t align ) noexcept;
 
       /// \brief Deallocates the pointer \p p of size \p size from the
       ///        underlying allocator
@@ -137,7 +138,7 @@ namespace bit {
       ///
       /// \param p the pointer to memory to deallocate
       /// \param size the size of the memory to deallocate
-      void deallocate( void* p, std::size_t size );
+      void deallocate( owner<void*> p, std::size_t size );
 
       //-----------------------------------------------------------------------
       // Observers
@@ -208,6 +209,13 @@ namespace bit {
       std::size_t do_min_size( std::index_sequence<Idxs...> ) const noexcept;
 
     };
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    template<typename...Allocators>
+    using named_fallback_allocator = detail::named_allocator<fallback_allocator<Allocators...>>;
 
   } // namespace memory
 } // namespace bit

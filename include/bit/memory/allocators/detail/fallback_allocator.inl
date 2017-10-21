@@ -21,9 +21,9 @@ bit::memory::fallback_allocator<Allocators...>
 }
 
 template<typename...Allocators>
-void* bit::memory::fallback_allocator<Allocators...>
-  ::try_allocate( std::size_t size,
-                  std::size_t align )
+bit::memory::owner<void*>
+  bit::memory::fallback_allocator<Allocators...>::try_allocate( std::size_t size,
+                                                                std::size_t align )
   noexcept
 {
   return do_try_allocate( std::integral_constant<std::size_t,0>{}, size, align );
@@ -32,7 +32,7 @@ void* bit::memory::fallback_allocator<Allocators...>
 
 template<typename...Allocators>
 void bit::memory::fallback_allocator<Allocators...>
-  ::deallocate( void* p, std::size_t size )
+  ::deallocate( owner<void*> p, std::size_t size )
 {
   do_deallocate( std::integral_constant<std::size_t,0>{}, p, size );
 }
