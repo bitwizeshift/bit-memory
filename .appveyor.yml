@@ -1,65 +1,74 @@
+#########################
+# project configuration #
+#########################
+
 version: '{build}'
 
-os: Visual Studio 2017
+os:
+  - Visual Studio 2015
+  - Visual Studio 2017
+
+################
+# build matrix #
+################
+
+environment:
+  matrix:
+  - additional_flags: ""
+  - additional_flags: "/permissive- /std:c++latest /utf-8"
+
+matrix:
+  exclude:
+    - additional_flags: "/permissive- /std:c++latest /utf-8"
+      os: Visual Studio 2015
 
 build:
   verbosity: detailed
 
-configuration:
-  - Debug
-  - Release
+configuration: Release
 
 init: []
 
+######################
+# Installation Steps #
+######################
 install:
-  ############################################################################
-  # All external dependencies are installed in C:\projects\deps
-  ############################################################################
   - mkdir C:\projects\deps
   - cd C:\projects\deps
 
-  ############################################################################
-  # Install Ninja
-  ############################################################################
-  - set NINJA_URL="https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip"
-  - appveyor DownloadFile %NINJA_URL% -FileName ninja.zip
-  - 7z x ninja.zip -oC:\projects\deps\ninja > nul
-  - set PATH=C:\projects\deps\ninja;%PATH%
-  - ninja --version
-
-  ############################################################################
   # Install a recent CMake
-  ############################################################################
   - set CMAKE_URL="https://cmake.org/files/v3.9/cmake-3.9.4-win64-x64.zip"
   - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
   - 7z x cmake.zip -oC:\projects\deps\cmake > nul
   - set PATH=C:\projects\deps\cmake\bin;%PATH%
   - cmake --version
 
-  ############################################################################
-  # Setup the path to Clang-cl
-  ############################################################################
-  - set PATH="C:\Program Files\LLVM\bin";%PATH%
-  - clang-cl -v
-
-  ############################################################################
   # Download Catch
-  ############################################################################
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd" -arch=x64
   - set CATCH_DIR=%cd%\catch\include
   - mkdir %CATCH_DIR%
   - appveyor DownloadFile https://github.com/philsquared/Catch/releases/download/v1.10.0/catch.hpp -FileName %CATCH_DIR%\catch.hpp
 
+#####################
+# Update Submodules #
+#####################
 before_build:
   - cd "C:\projects\bit-memory"
   - git submodule init
   - git submodule update
 
+##############
+# Build Step #
+##############
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_INCLUDE_PATH=%CATCH_DIR% -DCMAKE_CXX_FLAGS="-fms-compatibility-version=19 -Wall -Wextra -pedantic -Xclang -fexceptions -Xclang -fcxx-exceptions -Xclang -fnew-ms-eh" -DBIT_MEMORY_COMPILE_UNIT_TESTS=On -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On
+  - IF "%APPVEYOR_BUILD_WORKER_IMAGE%" == "Visual Studio 2015" ( SET GEN="Visual Studio 14 2015") ELSE (SET GEN="Visual Studio 15 2017")
+  - cmake .. -G%GEN% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DCMAKE_INCLUDE_PATH=%CATCH_DIR% -DBIT_MEMORY_COMPILE_UNIT_TESTS=On -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On
   - cmake --build . --config %CONFIGURATION%
 
+#############
+# Test Step #
+#############
 test_script:
-  - cmake --build . --target test
+  - SET CTEST_OUTPUT_ON_FAILURE=1
+  - ctest -C %CONFIGURATION%
