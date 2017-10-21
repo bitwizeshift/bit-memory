@@ -70,4 +70,5 @@ build_script:
 # Test Step #
 #############
 test_script:
-  - cmake --build . --target test --config %CONFIGURATION%
+  - SET CTEST_OUTPUT_ON_FAILURE=1
+  - ctest -C %CONFIGURATION%
