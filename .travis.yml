@@ -120,14 +120,20 @@ install:
   - export CATCH_DIR=$(pwd)/catch/include
 
   # Install cmake 3.9.4 for Linux
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake; fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz
+      tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz
+      export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake
+    fi
 
   # Install cmake 3.9.4 for MacOS
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake; fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz
+      tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64
+      export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake
+    fi
 
   # make sure CXX is correctly set
   - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
@@ -138,8 +144,9 @@ install:
 # Build Step #
 ##############
 script:
-  # show OS/compiler/cmake version
+  # show OS/compiler/cmake version (MacOS uses sw_vers)
   - uname -a
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sw_vers; fi
   - $CXX --version
   - $CMAKE --version
 
