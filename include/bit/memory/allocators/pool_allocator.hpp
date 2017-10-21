@@ -14,6 +14,7 @@
 #include "../freelist.hpp"          // freelist
 #include "../macros.hpp"            // BIT_MEMORY_ASSUME
 #include "../memory_block.hpp"      // memory_block
+#include "../owner.hpp"             // owner
 #include "../pointer_utilities.hpp" // is_power_of_two
 
 #include <cassert>
