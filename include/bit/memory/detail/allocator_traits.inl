@@ -240,7 +240,7 @@ inline bit::memory::allocator_info
 {
   BIT_MEMORY_UNUSED(alloc);
 
-  return {"Unnamed",std::addressof(alloc)};
+  return {typeid(Allocator).name(),std::addressof(alloc)};
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALLOCATOR_TRAITS_INL */

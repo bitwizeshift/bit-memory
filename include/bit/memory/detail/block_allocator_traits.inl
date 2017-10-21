@@ -69,7 +69,7 @@ inline bit::memory::allocator_info
 {
   BIT_MEMORY_UNUSED(alloc);
 
-  return {"Unnamed",std::addressof(alloc)};
+  return {typeid(BlockAllocator).name(),std::addressof(alloc)};
 }
 
 //-----------------------------------------------------------------------------
