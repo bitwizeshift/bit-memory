@@ -32,8 +32,7 @@ inline void* bit::memory::bump_up_allocator::try_allocate( std::size_t size,
 
   using byte_t = unsigned char;
 
-  auto adjust = std::size_t{};
-  auto* p = offset_align_forward(m_current,align,offset,&adjust);
+  auto* p = offset_align_forward(m_current,align,offset);
 
   auto* p_end = static_cast<byte_t*>(p) + size;
 

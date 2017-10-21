@@ -32,8 +32,7 @@ inline void* bit::memory::bump_down_allocator::try_allocate( std::size_t size,
 
   using byte_t = unsigned char;
 
-  auto adjust = std::size_t{};
-  auto* p = offset_align_backward( static_cast<byte_t*>(m_current)-size,align,offset,&adjust);
+  auto* p = offset_align_backward( static_cast<byte_t*>(m_current)-size,align,offset);
 
   // If allocated outside the range, return nullptr
   if( BIT_MEMORY_UNLIKELY( p < m_block.start_address() ) )
