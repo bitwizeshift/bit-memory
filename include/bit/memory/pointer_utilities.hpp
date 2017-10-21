@@ -73,40 +73,94 @@ namespace bit {
     // Align
     //-------------------------------------------------------------------------
 
-    /// \brief Aligns the pointer \p ptr forward to the next
-    ///        \p align byte address
+    /// \{
+    /// \brief Aligns memory to a higher memory address at an alignment boundary
+    ///        of \p alignment
     ///
-    /// \param ptr
-    /// \param size
-    /// \param align
-    /// \return
+    /// \param p the pointer to align
+    /// \param alignment the alignment
+    /// \param adjust [out] the amount the pointer is allocated by
+    /// \return the aligned pointer
     void* align_forward( void* ptr,
                          std::size_t alignment,
-                         std::size_t* adjust = nullptr ) noexcept;
+                         std::size_t* adjust ) noexcept;
+    void* align_forward( void* ptr,
+                         std::size_t alignment,
+                         std::nullptr_t ) noexcept;
+    void* align_forward( void* ptr,
+                         std::size_t alignment ) noexcept;
+    /// \}
 
-    void* align_backward( void* ptr,
+    //-------------------------------------------------------------------------
+
+    /// \{
+    /// \brief Aligns memory to a lower memory address at an alignment boundary
+    ///        of \p alignment
+    ///
+    /// \param p the pointer to align
+    /// \param alignment the alignment
+    /// \param adjust [out] the amount the pointer is allocated by
+    /// \return the aligned pointer
+    void* align_backward( void* p,
                           std::size_t alignment,
-                          std::size_t* adjust = nullptr ) noexcept;
-
-    /// \copydoc align_forward
-    constexpr auto align = &align_forward;
+                          std::size_t* adjust ) noexcept;
+    void* align_backward( void* p,
+                          std::size_t alignment,
+                          std::nullptr_t ) noexcept;
+    void* align_backward( void* p,
+                          std::size_t alignment ) noexcept;
+    /// \}
 
     //-------------------------------------------------------------------------
     // Align with Offset
     //-------------------------------------------------------------------------
 
-    void* offset_align_forward( void* ptr,
+    /// \{
+    /// \brief Aligns memory to a higher memory address at an alignment boundary
+    ///        of \p alignment, offset by \p offset
+    ///
+    /// \param p the pointer to align
+    /// \param alignment the alignment
+    /// \param offset the amount to offset the alignment
+    /// \param adjust [out] the amount the pointer is allocated by
+    /// \return the aligned, offset pointer
+    void* offset_align_forward( void* p,
                                 std::size_t alignment,
                                 std::size_t offset,
-                                std::size_t* adjust = nullptr ) noexcept;
+                                std::size_t* adjust ) noexcept;
+    void* offset_align_forward( void* p,
+                                std::size_t alignment,
+                                std::size_t offset,
+                                std::nullptr_t ) noexcept;
+    void* offset_align_forward( void* p,
+                                std::size_t alignment,
+                                std::size_t offset ) noexcept;
+    /// \}
 
-    void* offset_align_backward( void* ptr,
+    //-------------------------------------------------------------------------
+
+    /// \{
+    /// \brief Aligns memory to a lower memory address at an alignment boundary
+    ///        of \p alignment, offset by \p offset
+    ///
+    /// \param p the pointer to align
+    /// \param alignment the alignment
+    /// \param offset the amount to offset the alignment
+    /// \param adjust [out] the amount the pointer is allocated by
+    /// \return the aligned, offset pointer.
+    void* offset_align_backward( void* p,
                                  std::size_t alignment,
                                  std::size_t offset,
-                                 std::size_t* adjust = nullptr ) noexcept;
+                                 std::size_t* adjust ) noexcept;
+    void* offset_align_backward( void* p,
+                                 std::size_t alignment,
+                                 std::size_t offset,
+                                 std::nullptr_t ) noexcept;
+    void* offset_align_backward( void* p,
+                                 std::size_t alignment,
+                                 std::size_t offset ) noexcept;
+    /// \}
 
-    /// \copydoc offset_align_forward
-    constexpr auto offset_align = &offset_align_forward;
     //-------------------------------------------------------------------------
     // Pointer Manipulation
     //-------------------------------------------------------------------------

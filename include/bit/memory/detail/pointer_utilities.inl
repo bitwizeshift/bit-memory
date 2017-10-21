@@ -80,76 +80,149 @@ inline std::size_t bit::memory::align_backward_offset( void* ptr,
 // Align
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::align_forward( void* ptr,
+inline void* bit::memory::align_forward( void* p,
                                          std::size_t alignment,
                                          std::size_t* adjust )
   noexcept
 {
+  auto new_p = align_forward(p,alignment);
+
+  if( adjust ) {
+    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(new_p) - reinterpret_cast<std::uintptr_t>(p) );
+  }
+  return new_p;
+}
+
+inline void* bit::memory::align_forward( void* p,
+                                         std::size_t alignment,
+                                         std::nullptr_t )
+  noexcept
+{
+  return align_forward( p, alignment );
+}
+
+inline void* bit::memory::align_forward( void* p,
+                                         std::size_t alignment )
+  noexcept
+{
   assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
 
-  const auto address = reinterpret_cast<std::uintptr_t>(ptr);
-  void* new_ptr      = reinterpret_cast<void*>( ((address + static_cast<std::uintptr_t>(alignment-1)) & static_cast<std::uintptr_t>(~(alignment-1))) );
-  if( adjust ) {
-    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(new_ptr) - address );
-  }
-  return new_ptr;
+  const auto address = reinterpret_cast<std::uintptr_t>(p);
+  const auto new_p   = reinterpret_cast<void*>( ((address + static_cast<std::uintptr_t>(alignment-1)) & static_cast<std::uintptr_t>(~(alignment-1))) );
+  return new_p;
 }
 
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::align_backward( void* ptr,
+inline void* bit::memory::align_backward( void* p,
                                           std::size_t alignment,
                                           std::size_t* adjust )
   noexcept
 {
   assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
 
-  const auto address = reinterpret_cast<std::uintptr_t>(ptr);
-  void* new_ptr      = reinterpret_cast<void*>(((address) & (~static_cast<std::uintptr_t>(alignment-1))));
+  auto new_p = align_backward( p, alignment );
   if( adjust ) {
-    *adjust = static_cast<std::size_t>(address & static_cast<std::uintptr_t>(alignment-1));
+    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(p) - reinterpret_cast<std::uintptr_t>(new_p) );
   }
-  return new_ptr;
+  return new_p;
+}
+
+inline void* bit::memory::align_backward( void* p,
+                                          std::size_t alignment,
+                                          std::nullptr_t )
+  noexcept
+{
+  return align_backward( p, alignment );
+}
+
+inline void* bit::memory::align_backward( void* p,
+                                          std::size_t alignment )
+  noexcept
+{
+  assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
+
+  const auto address = reinterpret_cast<std::uintptr_t>(p);
+  const auto new_p   = reinterpret_cast<void*>(((address) & (~static_cast<std::uintptr_t>(alignment-1))));
+  return new_p;
 }
 
 //-----------------------------------------------------------------------------
 // Align with Offset
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::offset_align_forward( void* ptr,
+inline void* bit::memory::offset_align_forward( void* p,
                                                 std::size_t alignment,
                                                 std::size_t offset,
                                                 std::size_t* adjust )
   noexcept
 {
+  auto new_p = offset_align_forward(  p, alignment, offset );
+
+  if( adjust ) {
+    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(new_p) - reinterpret_cast<std::uintptr_t>(p) );
+  }
+  return new_p;
+}
+
+inline void* bit::memory::offset_align_forward( void* p,
+                                                std::size_t alignment,
+                                                std::size_t offset,
+                                                std::nullptr_t )
+  noexcept
+{
+  return offset_align_forward( p, alignment, offset );
+}
+
+inline void* bit::memory::offset_align_forward( void* p,
+                                                std::size_t alignment,
+                                                std::size_t offset )
+  noexcept
+{
   assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
 
-  const auto address = reinterpret_cast<std::uintptr_t>(ptr);
-  void* new_ptr      = reinterpret_cast<void*>( ((address + offset + static_cast<std::uintptr_t>(alignment-1)) & static_cast<std::uintptr_t>(~(alignment-1))) - offset );
-  if( adjust ) {
-    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(new_ptr) - address );
-  }
-  return new_ptr;
+  const auto address = reinterpret_cast<std::uintptr_t>(p);
+  const auto new_p   = reinterpret_cast<void*>( ((address + offset + static_cast<std::uintptr_t>(alignment-1)) & static_cast<std::uintptr_t>(~(alignment-1))) - offset );
+  return new_p;
 }
+
 
 //-----------------------------------------------------------------------------
 
-inline void* bit::memory::offset_align_backward( void* ptr,
+inline void* bit::memory::offset_align_backward( void* p,
                                                  std::size_t alignment,
                                                  std::size_t offset,
                                                  std::size_t* adjust )
   noexcept
 {
-  assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
+  auto new_ptr = offset_align_backward( p, alignment, offset );
 
-  const auto address = reinterpret_cast<std::uintptr_t>(ptr);
-  void* new_ptr      = reinterpret_cast<void*>(((address + offset) & (~static_cast<std::uintptr_t>(alignment-1))) - offset);
   if( adjust ) {
-    *adjust = static_cast<std::size_t>( address - reinterpret_cast<std::uintptr_t>(new_ptr) );
+    *adjust = static_cast<std::size_t>( reinterpret_cast<std::uintptr_t>(p) - reinterpret_cast<std::uintptr_t>(new_ptr) );
   }
   return new_ptr;
 }
 
+inline void* bit::memory::offset_align_backward( void* p,
+                                                 std::size_t alignment,
+                                                 std::size_t offset,
+                                                 std::nullptr_t )
+  noexcept
+{
+ return offset_align_backward( p, alignment, offset );
+}
+
+inline void* bit::memory::offset_align_backward( void* p,
+                                                 std::size_t alignment,
+                                                 std::size_t offset )
+  noexcept
+{
+  assert( is_power_of_two(alignment) && "Alignment must be a power of 2");
+
+  const auto address = reinterpret_cast<std::uintptr_t>(p);
+  const auto new_p   = reinterpret_cast<void*>(((address + offset) & (~static_cast<std::uintptr_t>(alignment-1))) - offset);
+  return new_p;
+}
 //-----------------------------------------------------------------------------
 // Pointer Manipulation
 //-----------------------------------------------------------------------------
