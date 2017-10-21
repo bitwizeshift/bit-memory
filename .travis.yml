@@ -1,49 +1,110 @@
-#-----------------------------------------------------------------------------
-# Enable C++ language
-#-----------------------------------------------------------------------------
+#########################
+# project configuration #
+#########################
+
+# Enable C++
 language: cpp
 
-#-----------------------------------------------------------------------------
-# Branches to run
-#-----------------------------------------------------------------------------
+dist: trusty
+sudo: required
+group: edge
+
+###################
+# branch settings #
+###################
 branches:
   except:
     - prototype/.*
     - gh-pages
 
 
-#-----------------------------------------------------------------------------
-# Build Configurations
-#-----------------------------------------------------------------------------
+################
+# build matrix #
+################
 matrix:
   include:
-    # Linux gcc-6
+
+    #############
+    # Linux gcc #
+    #############
+
     - os: linux
       compiler: gcc
+      env: COMPILER=g++6
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env:
-        - TOOLSET=g++-6 BUILD_TYPE='Debug'
 
     - os: linux
       compiler: gcc
+      env: COMPILER=g++-7
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6']
-      env:
-        - TOOLSET=g++-6 BUILD_TYPE='Release'
+          packages: ['g++-7']
 
-    # OSX clang
-    - os: osx
+    ###############
+    # Linux clang #
+    ###############
+
+    - os: linux
       compiler: clang
-      env: TOOLSET=clang++ BUILD_TYPE='Debug'
+      env: COMPILER=clang++-3.9
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-6', 'clang-3.9']
+
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang++-4.0
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
+          packages: ['g++-6', 'clang-4.0']
+
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang++-5.0
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-6', 'clang-5.0']
+
+    #############
+    # OSX clang #
+    #############
 
     - os: osx
+      osx_image: xcode7.3
       compiler: clang
-      env: TOOLSET=clang++ BUILD_TYPE='Release'
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode8
+      compiler: clang
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode8.1
+      compiler: clang
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode8.2
+      compiler: clang
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: COMPILER=clang++
+
+    - os: osx
+      osx_image: xcode9
+      compiler: clang
+      env: COMPILER=clang++
 
 #-----------------------------------------------------------------------------
 # Installation Steps
@@ -66,9 +127,8 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake; fi
 
-  - export CXX=$TOOLSET
-  - $CXX --version
-  - $CMAKE --version
+  # make sure CXX is correctly set
+  - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
 
   - cd bit-memory/
 
@@ -76,8 +136,16 @@ install:
 # Build Step
 #-----------------------------------------------------------------------------
 script:
+  # show OS/compiler/cmake version
+  - uname -a
+  - $CXX --version
+  - $CMAKE --version
+
+  # Build
   - mkdir build/ && cd build/
   - export CTEST_OUTPUT_ON_FAILURE=1
-  - $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
-  - $CMAKE --build .
+  - $CMAKE .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
+  - $CMAKE --build . --config Release
+
+  # Run
   - $CMAKE --build . --target test
