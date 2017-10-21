@@ -21,9 +21,10 @@ inline bit::memory::bump_down_allocator::bump_down_allocator( memory_block block
 // Allocation / Deallocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::bump_down_allocator::try_allocate( std::size_t size,
-                                                             std::size_t align,
-                                                             std::size_t offset )
+inline bit::memory::owner<void*>
+  bit::memory::bump_down_allocator::try_allocate( std::size_t size,
+                                                  std::size_t align,
+                                                  std::size_t offset )
   noexcept
 {
   assert( size && "cannot allocate 0 bytes");
@@ -46,7 +47,7 @@ inline void* bit::memory::bump_down_allocator::try_allocate( std::size_t size,
 
 //----------------------------------------------------------------------------
 
-inline void bit::memory::bump_down_allocator::deallocate( void* p,
+inline void bit::memory::bump_down_allocator::deallocate( owner<void*> p,
                                                           std::size_t size )
 {
   BIT_MEMORY_UNUSED(p);
@@ -71,6 +72,12 @@ inline bool bit::memory::bump_down_allocator::owns( const void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;
+}
+
+inline bit::memory::allocator_info bit::memory::bump_down_allocator::info()
+  const noexcept
+{
+  return {"bump_down_allocator",this};
 }
 
 //----------------------------------------------------------------------------

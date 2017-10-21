@@ -21,10 +21,10 @@ inline bit::memory::bump_down_lifo_allocator::bump_down_lifo_allocator( memory_b
 // Allocation / Deallocation
 //----------------------------------------------------------------------------
 
-inline void* bit::memory::bump_down_lifo_allocator
-  ::try_allocate( std::size_t size,
-                  std::size_t align,
-                  std::size_t offset )
+inline bit::memory::owner<void*>
+  bit::memory::bump_down_lifo_allocator::try_allocate( std::size_t size,
+                                                       std::size_t align,
+                                                       std::size_t offset )
   noexcept
 {
   assert( size && "cannot allocate 0 bytes");
@@ -54,7 +54,7 @@ inline void* bit::memory::bump_down_lifo_allocator
 //----------------------------------------------------------------------------
 
 inline void bit::memory::bump_down_lifo_allocator
-  ::deallocate( void* p, std::size_t size )
+  ::deallocate( owner<void*> p, std::size_t size )
 {
   BIT_MEMORY_UNUSED(size);
 
@@ -89,6 +89,12 @@ inline bool bit::memory::bump_down_lifo_allocator::owns( const void* p )
   const noexcept
 {
   return m_block.start_address() <= p && p < m_current;
+}
+
+inline bit::memory::allocator_info bit::memory::bump_down_lifo_allocator::info()
+  const noexcept
+{
+  return {"bump_down_lifo_allocator",this};
 }
 
 //----------------------------------------------------------------------------

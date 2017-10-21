@@ -90,6 +90,12 @@ inline bool bit::memory::bump_up_lifo_allocator::owns( const void* p )
   return m_block.start_address() <= p && p < m_current;
 }
 
+inline bit::memory::allocator_info bit::memory::bump_up_lifo_allocator::info()
+  const noexcept
+{
+  return {"bump_up_lifo_allocator",this};
+}
+
 //----------------------------------------------------------------------------
 // Comparisons
 //----------------------------------------------------------------------------
