@@ -40,8 +40,19 @@ inline std::size_t bit::memory::growing_new_block_allocator<Size>
 }
 
 template<std::size_t Size>
-inline void bit::memory::growing_new_block_allocator<Size>
-  ::grow()
+inline bit::memory::allocator_info
+  bit::memory::growing_new_block_allocator<Size>::info()
+   const noexcept
+{
+  return {"growing_new_block_allocator",this};
+}
+
+//-----------------------------------------------------------------------------
+// Private Member Functions
+//-----------------------------------------------------------------------------
+
+template<std::size_t Size>
+inline void bit::memory::growing_new_block_allocator<Size>::grow()
 {
   if( base_type::m_growths_remaining == 0 ) return;
 
@@ -51,7 +62,7 @@ inline void bit::memory::growing_new_block_allocator<Size>
 
 
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
 template<std::size_t Size>

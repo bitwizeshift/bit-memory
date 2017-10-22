@@ -11,12 +11,12 @@
 
 #include "detail/cached_block_allocator.hpp" // detail::cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
-#include "../detail/dynamic_size_type.hpp"   // detail::dynamic_size_type
 
-#include "../macros.hpp"                   // BIT_MEMORY_UNLIKELY
-#include "../owner.hpp"                    // owner
-#include "../memory_block.hpp"             // memory_block
-
+#include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
+#include "../allocator_info.hpp" // allocator_info
+#include "../macros.hpp"         // BIT_MEMORY_UNLIKELY
+#include "../memory_block.hpp"   // memory_block
+#include "../owner.hpp"          // owner
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <cstdlib>     // std::malloc, std::free
@@ -139,10 +139,18 @@ namespace bit {
       ///
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'malloc_block_allocator'.
+      /// Use a named_malloc_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
 
     //-------------------------------------------------------------------------
-    // Comparisons
+    // Equality
     //-------------------------------------------------------------------------
 
     template<std::size_t Size>
