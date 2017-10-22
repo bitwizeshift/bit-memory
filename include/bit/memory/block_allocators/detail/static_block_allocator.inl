@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
-bit::memory::owner<bit::memory::memory_block>
+inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
   ::allocate_block()
   noexcept
@@ -17,7 +17,7 @@ bit::memory::owner<bit::memory::memory_block>
 //-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
-void bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
+inline void bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
   ::deallocate_block( owner<memory_block> block )
   noexcept
 {
@@ -29,11 +29,19 @@ void bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
 //-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
-std::size_t bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
+inline std::size_t bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
   ::next_block_size()
   const noexcept
 {
   return BlockSize;
+}
+
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
+inline bit::memory::allocator_info
+  bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>::info()
+  const noexcept
+{
+  return {"static_block_allocator",this};
 }
 
 //-----------------------------------------------------------------------------
@@ -41,7 +49,7 @@ std::size_t bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
 //-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
-bit::memory::memory_block_cache&
+inline bit::memory::memory_block_cache&
   bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>::block_cache()
   noexcept
 {

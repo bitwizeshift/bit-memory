@@ -10,9 +10,11 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_THREAD_LOCAL_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../owner.hpp"              // owner
+
+#include "../allocator_info.hpp"     // allocator_info
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
+#include "../owner.hpp"              // owner
 
 #include <cstddef> // std::size_t, std::max_align_t
 #include <cassert> // assert
@@ -116,6 +118,14 @@ namespace bit {
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
 
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'thread_local_block_allocator'.
+      /// Use a named_thread_local_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
+
       //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
@@ -129,8 +139,19 @@ namespace bit {
       static memory_block_cache& block_cache() noexcept;
     };
 
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    template<std::size_t BlockSize,
+             std::size_t Blocks = 1,
+             std::size_t Align = alignof(std::max_align_t),
+             typename Tag = void>
+    using named_thread_local_block_allocator = detail::named_block_allocator<thread_local_block_allocator<BlockSize,Blocks,Align,Tag>>;
 
   } // namespace memory
 } // namespace bit
+
+#include "detail/thread_local_block_allocator.inl"
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_THREAD_LOCAL_BLOCK_ALLOCATOR_HPP */

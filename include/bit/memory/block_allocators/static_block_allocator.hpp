@@ -115,6 +115,14 @@ namespace bit {
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
 
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'static_block_allocator'.
+      /// Use a named_static_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
+
       //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
@@ -130,8 +138,11 @@ namespace bit {
 
     //-------------------------------------------------------------------------
 
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
-    using named_static_block_allocator = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align>>;
+    template<std::size_t BlockSize,
+             std::size_t Blocks = 1,
+             std::size_t Align = alignof(std::max_align_t),
+             typename Tag = void>
+    using named_static_block_allocator = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align,Tag>>;
 
   } // namespace memory
 } // namespace bit
