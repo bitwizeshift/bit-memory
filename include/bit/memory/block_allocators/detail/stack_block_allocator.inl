@@ -49,5 +49,12 @@ inline std::size_t bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
   return BlockSize;
 }
 
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align>
+inline bit::memory::allocator_info
+  bit::memory::stack_block_allocator<BlockSize,Blocks,Align>::info()
+  const noexcept
+{
+  return {"stack_block_allocator",this};
+}
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_STACK_BLOCK_ALLOCATOR_INL */

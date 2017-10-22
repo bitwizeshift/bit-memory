@@ -53,7 +53,7 @@ namespace bit {
     /// BlockAllocator by proxying the same functions defined in the
     /// BlockAllocator concept.
     ///
-    /// \satisfies BlockAllocator
+    /// \satisfies{BlockAllocator}
     ///
     /// \tparam BlockAllocator The block allocator to use
     /// \tparam MemoryTagger A class used for tagging memory on allocations and
