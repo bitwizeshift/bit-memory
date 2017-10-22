@@ -78,3 +78,9 @@ std::size_t bit::memory::virtual_block_allocator::next_block_size()
 {
   return virtual_memory_page_size();
 }
+
+bit::memory::allocator_info bit::memory::virtual_block_allocator::info()
+  const noexcept
+{
+  return {"virtual_block_allocator",this};
+}
