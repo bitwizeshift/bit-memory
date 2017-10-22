@@ -94,3 +94,9 @@ std::size_t bit::memory::growing_virtual_block_allocator::next_block_size()
 {
   return virtual_memory_page_size() * static_cast<std::size_t>(m_active_page + 1);
 }
+
+bit::memory::allocator_info bit::memory::growing_virtual_block_allocator::info()
+  const noexcept
+{
+  return {"growing_virtual_block_allocator",this};
+}

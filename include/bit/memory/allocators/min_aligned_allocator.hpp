@@ -114,7 +114,7 @@ namespace bit {
     /// \param size the size of this allocation
     /// \param align the requested alignment
     /// \return the allocated pointer, or nullptr on failure
-    void* try_allocate( std::size_t size, std::size_t align ) noexcept;
+    owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
 
     /// \brief Deallocates a pointer \p p with the allocation size of \p size
     ///
@@ -130,12 +130,7 @@ namespace bit {
     /// \brief Gets the name of the underlying allocator
     ///
     /// \return the name of the underlying allocator
-    const char* name() const noexcept;
-
-    /// \brief Sets the name of the underlying allocator
-    ///
-    /// \param name the name to set to the underlying allocator
-    void set_name( const char* name ) noexcept;
+    allocator_info info() const noexcept;
 
     //-----------------------------------------------------------------------
     // Capacity
@@ -151,16 +146,15 @@ namespace bit {
     ///        used
     ///
     /// \return the number of bytes used
-    std::size_t used() const noexcept;
+    std::size_t min_size() const noexcept;
 
     //-----------------------------------------------------------------------
-    // Comparators
+    // Equality
     //-----------------------------------------------------------------------
   public:
 
     bool operator==( const min_aligned_allocator& rhs ) const noexcept;
     bool operator!=( const min_aligned_allocator& rhs ) const noexcept;
-
   };
 
   } // namespace memory

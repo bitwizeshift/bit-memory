@@ -9,8 +9,11 @@
 #ifndef BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_NEW_ALLOCATOR_HPP
 
-#include "../owner.hpp"  // owner
-#include "../errors.hpp" // out_of_memory_handler
+#include "detail/named_allocator.hpp" // detail::named_allocator
+
+#include "../allocator_info.hpp" // allocator_info
+#include "../macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../owner.hpp"          // owner
 
 #include <cstddef>     // std::size_t, std::max_align_t
 #include <new>         // ::operator new, ::operator delete, std::nothrow
@@ -75,16 +78,6 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Allocates memory of size \p size
-      ///
-      /// The alignment is ignored for calls to this allocator. The alignment
-      /// is always guaranteed to be at least \c alignof(std::max_align_t)
-      ///
-      /// \param size the size of this allocation
-      /// \param align the requested alignment (ignored)
-      /// \return the allocated pointer
-      owner<void*> allocate( std::size_t size, std::size_t align );
-
       /// \brief Attempts to allocate memory of size \p size, returning nullptr
       ///        on failure
       ///
@@ -101,7 +94,24 @@ namespace bit {
       /// \param p the pointer to deallocate
       /// \param size the size to deallocate
       void deallocate( owner<void*> p, std::size_t size );
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'malloc_allocator'. Use a
+      /// named_malloc_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Equality
+    //-------------------------------------------------------------------------
 
     /// \{
     /// \brief Compares equality between two new_allocators
@@ -110,6 +120,12 @@ namespace bit {
     bool operator==( const new_allocator&, const new_allocator& ) noexcept;
     bool operator!=( const new_allocator&, const new_allocator& ) noexcept;
     /// \}
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_new_allocator = detail::named_allocator<new_allocator>;
 
   } // namespace memory
 } // namespace bit

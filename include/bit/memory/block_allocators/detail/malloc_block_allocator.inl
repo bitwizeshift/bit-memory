@@ -34,10 +34,17 @@ template<std::size_t Size>
 inline std::size_t bit::memory::malloc_block_allocator<Size>
   ::next_block_size()
    const noexcept
- {
+{
   return block_size_member::value();
- }
+}
 
+template<std::size_t Size>
+inline bit::memory::allocator_info
+  bit::memory::malloc_block_allocator<Size>::info()
+  const noexcept
+{
+  return {"malloc_block_allocator",this};
+}
 
 //-----------------------------------------------------------------------------
 // Comparisons

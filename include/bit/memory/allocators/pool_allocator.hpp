@@ -14,6 +14,7 @@
 #include "../freelist.hpp"          // freelist
 #include "../macros.hpp"            // BIT_MEMORY_ASSUME
 #include "../memory_block.hpp"      // memory_block
+#include "../owner.hpp"             // owner
 #include "../pointer_utilities.hpp" // is_power_of_two
 
 #include <cassert>
@@ -80,16 +81,16 @@ namespace bit {
       /// \param align the requested alignment of the allocation
       /// \param offset the amount to offset the alignment
       /// \return pointer to the allocated memory, or \c nullptr on failure
-      void* try_allocate( std::size_t size,
-                          std::size_t align,
-                          std::size_t offset = 0 ) noexcept;
+      owner<void*> try_allocate( std::size_t size,
+                                 std::size_t align,
+                                 std::size_t offset = 0 ) noexcept;
 
       /// \brief Deallocates memory previously allocated from a call to
       ///        \c try_allocate
       ///
       /// \param p the pointer to the memory to deallocate
       /// \param size the size of the memory previously provided to try_allocate
-      void deallocate( void* p, std::size_t size );
+      void deallocate( owner<void*> p, std::size_t size );
 
       //-----------------------------------------------------------------------
       // Observers
@@ -105,6 +106,16 @@ namespace bit {
       ///
       /// \return the max size
       std::size_t max_size() const noexcept;
+
+      //----------------------------------------------------------------------
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'pool_allocator'. Use a
+      /// named_pool_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
 
       //-----------------------------------------------------------------------
       // Private Members
@@ -124,7 +135,7 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Comparison
+    // Equality
     //-------------------------------------------------------------------------
 
     bool operator==( const pool_allocator& lhs, const pool_allocator& rhs ) noexcept;

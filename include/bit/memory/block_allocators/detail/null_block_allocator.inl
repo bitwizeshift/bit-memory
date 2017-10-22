@@ -13,35 +13,41 @@ inline bit::memory::owner<bit::memory::memory_block>
 }
 
 inline void bit::memory::null_block_allocator
-  ::deallocate_block( owner<memory_block> )
+  ::deallocate_block( owner<memory_block> block )
   noexcept
 {
-  // Do nothing
+  BIT_MEMORY_UNUSED(block);
 }
 
 //-----------------------------------------------------------------------------
 // Observers
 //-----------------------------------------------------------------------------
 
-std::size_t bit::memory::null_block_allocator::next_block_size()
+inline std::size_t bit::memory::null_block_allocator::next_block_size()
   const noexcept
 {
   return 0;
 }
 
+inline bit::memory::allocator_info  bit::memory::null_block_allocator::info()
+  const noexcept
+{
+  return {"null_allocator",this};
+}
+
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
-bool bit::memory::operator==( const null_block_allocator&,
-                              const null_block_allocator& )
+inline bool bit::memory::operator==( const null_block_allocator&,
+                                     const null_block_allocator& )
   noexcept
 {
   return true;
 }
 
-bool bit::memory::operator!=( const null_block_allocator&,
-                              const null_block_allocator& )
+inline bool bit::memory::operator!=( const null_block_allocator&,
+                                     const null_block_allocator& )
   noexcept
 {
   return false;

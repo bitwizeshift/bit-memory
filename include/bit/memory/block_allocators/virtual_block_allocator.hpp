@@ -10,8 +10,9 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
-#include "../owner.hpp"              // owner
+#include "../allocator_info.hpp"     // allocator_info
 #include "../memory_block_cache.hpp" // memory_block_cache
+#include "../owner.hpp"              // owner
 
 #include <cstddef> // std::size_t
 
@@ -86,6 +87,14 @@ namespace bit {
       ///
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'virtual_block_allocator'.
+      /// Use a named_virtual_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
 
       //-----------------------------------------------------------------------
       // Private Members

@@ -10,8 +10,10 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
-#include "../owner.hpp"         // owner
-#include "../memory_block.hpp"  // memory_block
+#include "../allocator_info.hpp" // allocator_info
+#include "../macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../memory_block.hpp"   // memory_block
+#include "../owner.hpp"          // owner
 
 #include <type_traits> // std::integral_constant, std::true_false
 #include <cstddef>     // std::max_align_t
@@ -91,10 +93,18 @@ namespace bit {
       ///
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'null_block_allocator'.
+      /// Use a named_null_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
 
     //-------------------------------------------------------------------------
-    // Comparisons
+    // Equality
     //-------------------------------------------------------------------------
 
     bool operator==( const null_block_allocator& lhs,

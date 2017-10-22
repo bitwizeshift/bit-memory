@@ -9,8 +9,12 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALIGNED_OFFSET_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_ALIGNED_OFFSET_ALLOCATOR_HPP
 
-#include "../owner.hpp"          // owner
+#include "detail/named_allocator.hpp" // detail::named_allocator
+
+#include "../allocator_info.hpp" // allocator_info
 #include "../aligned_memory.hpp" // aligned_malloc, aligned_free
+#include "../macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../owner.hpp"          // owner
 
 #include <cstddef>     // std::max_align_t
 #include <type_traits> // std::true_type
@@ -79,16 +83,33 @@ namespace bit {
       /// \param align the requested alignment
       /// \param offset the offset to align to
       /// \return the allocated pointer, or nullptr on failure
-      void* try_allocate( std::size_t size,
-                          std::size_t align,
-                          std::size_t offset = 0 ) noexcept;
+      owner<void*> try_allocate( std::size_t size,
+                                 std::size_t align,
+                                 std::size_t offset = 0 ) noexcept;
 
       /// \brief Deallocates a pointer \p p with the allocation size of \p size
       ///
       /// \param p the pointer to deallocate
       /// \param size the size to deallocate
       void deallocate( owner<void*> p, std::size_t size );
+
+      //---------------------------------------------------------------------
+      // Observers
+      //---------------------------------------------------------------------
+    public:
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'aligned_offset_allocator'. Use a
+      /// named_aligned_offset_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Equality
+    //-------------------------------------------------------------------------
 
     /// \{
     /// \brief Compares equality between two aligned_allocator
@@ -99,6 +120,12 @@ namespace bit {
     bool operator!=( const aligned_offset_allocator& lhs,
                      const aligned_offset_allocator& rhs ) noexcept;
     /// \}
+
+    //-------------------------------------------------------------------------
+    // Utilities
+    //-------------------------------------------------------------------------
+
+    using named_aligned_allocator = detail::named_allocator<aligned_offset_allocator>;
 
   } // namespace memory
 } // namespace bit

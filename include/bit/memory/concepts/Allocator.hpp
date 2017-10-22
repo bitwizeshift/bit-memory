@@ -123,7 +123,8 @@ namespace bit {
     /// \endcode
     /// \c a returns an allocator_info object describing the allocator
     ///
-    /// Default returns "unknown allocator"
+    /// The default value is implementation-defined, but should somehow identify
+    /// the allocator
     ///
     /// - - - - -
     ///

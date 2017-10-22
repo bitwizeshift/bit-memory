@@ -38,6 +38,13 @@ inline std::size_t bit::memory::new_block_allocator<Size>
   return block_size_member::value();
 }
 
+template<std::size_t Size>
+inline bit::memory::allocator_info bit::memory::new_block_allocator<Size>::info()
+  const noexcept
+{
+  return {"new_block_allocator",this};
+}
+
 //-----------------------------------------------------------------------------
 // Comparisons
 //-----------------------------------------------------------------------------

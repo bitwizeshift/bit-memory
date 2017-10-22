@@ -24,6 +24,7 @@
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <memory>      // std::addressof
+#include <typeinfo>    // std::type_info
 
 namespace bit {
   namespace memory {
@@ -83,7 +84,8 @@ namespace bit {
       /// \brief Gets the name of the specified block allocator
       ///
       /// \note Not all allocators are nameable or have a name specified.
-      ///       For these allocators, the string returned is "Unnamed"
+      ///       For these allocators, the string returned is
+      ///       \c typeid(BlockAllocator).name()
       ///
       /// \note The lifetime of the pointer returned is unmanaged, and is NOT
       ///       the responsibility of the caller to free.

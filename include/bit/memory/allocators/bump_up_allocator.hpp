@@ -13,6 +13,7 @@
 
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../memory_block.hpp"      // memory_block
+#include "../owner.hpp"             // owner
 #include "../pointer_utilities.hpp" // offset_align_forward
 
 #include <cassert>     // assert
@@ -81,15 +82,15 @@ namespace bit {
       /// \param align the requested alignment of the allocation
       /// \param offset the amount to offset the alignment by
       /// \return the allocated pointer on success, \c nullptr on failure
-      void* try_allocate( std::size_t size,
-                          std::size_t align,
-                          std::size_t offset = 0 ) noexcept;
+      owner<void*> try_allocate( std::size_t size,
+                                 std::size_t align,
+                                 std::size_t offset = 0 ) noexcept;
 
       /// \brief Does nothing for bump_up_allocator. Use deallocate_all
       ///
       /// \param p the pointer
       /// \param size the size of the allocation
-      void deallocate( void* p, std::size_t size );
+      void deallocate( owner<void*> p, std::size_t size );
 
       /// \brief Deallocates everything from this allocator
       void deallocate_all() noexcept;
@@ -104,6 +105,14 @@ namespace bit {
       /// \param p the pointer to check
       /// \return \c true if \p p is contained in this allocator
       bool owns( const void* p ) const noexcept;
+
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'bump_up_allocator'. Use a
+      /// named_bump_up_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
 
       //-----------------------------------------------------------------------
       // Private Members

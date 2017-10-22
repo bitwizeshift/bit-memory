@@ -67,23 +67,13 @@ inline void bit::memory::min_aligned_allocator<Allocator,MinAlign>
 //-----------------------------------------------------------------------------
 
 template<typename Allocator, std::size_t MinAlign>
-inline const char* bit::memory::min_aligned_allocator<Allocator,MinAlign>
-  ::name()
+inline bit::memory::allocator_info
+  bit::memory::min_aligned_allocator<Allocator,MinAlign>::info()
   const noexcept
 {
   auto& allocator = detail::get<0>( *this );
 
-  return traits_type::name( allocator );
-}
-
-template<typename Allocator, std::size_t MinAlign>
-inline void bit::memory::min_aligned_allocator<Allocator,MinAlign>
-  ::set_name( const char* name )
-  noexcept
-{
-  auto& allocator = detail::get<0>( *this );
-
-  return traits_type::set_name( allocator, name );
+  return traits_type::info( allocator );
 }
 
 //-----------------------------------------------------------------------------
@@ -102,16 +92,16 @@ inline std::size_t bit::memory::min_aligned_allocator<Allocator,MinAlign>
 
 template<typename Allocator, std::size_t MinAlign>
 inline std::size_t bit::memory::min_aligned_allocator<Allocator,MinAlign>
-  ::used()
+  ::min_size()
   const noexcept
 {
   auto& allocator = detail::get<0>( *this );
 
-  return traits_type::used( allocator );
+  return traits_type::min_size( allocator );
 }
 
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
 template<typename Allocator, std::size_t MinAlign>
