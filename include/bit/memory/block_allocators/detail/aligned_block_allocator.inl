@@ -46,8 +46,17 @@ inline std::size_t
   return block_size_member::value();
 }
 
+
+template<std::size_t Size, std::size_t Align>
+inline bit::memory::allocator_info
+  bit::memory::aligned_block_allocator<Size,Align>::info()
+  const noexcept
+{
+  return {"aligned_block_allocator",this};
+}
+
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
 template<std::size_t Size, std::size_t Align>

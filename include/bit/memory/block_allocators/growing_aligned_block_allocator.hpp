@@ -11,12 +11,13 @@
 
 #include "detail/cached_block_allocator.hpp" // cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
-#include "../detail/dynamic_size_type.hpp"   // dynamic_size, detail::dynamic_size_type
 
-#include "../owner.hpp"             // owner
-#include "../memory_block.hpp"      // memory_block
-#include "../pointer_utilities.hpp" // is_power_of_two
+#include "../detail/dynamic_size_type.hpp" // dynamic_size, detail::dynamic_size_type
 #include "../aligned_memory.hpp"    // aligned_allocate
+#include "../allocator_info.hpp"    // allocator_info
+#include "../memory_block.hpp"      // memory_block
+#include "../owner.hpp"             // owner
+#include "../pointer_utilities.hpp" // is_power_of_two
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t
@@ -196,6 +197,14 @@ namespace bit {
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
 
+      /// \brief Gets the info about this allocator
+      ///
+      /// This defaults to 'growing_aligned_block_allocator'.
+      /// Use a named_growing_aligned_block_allocator to override this
+      ///
+      /// \return the info for this allocator
+      allocator_info info() const noexcept;
+
       //-----------------------------------------------------------------------
       // Private Member Functions
       //-----------------------------------------------------------------------
@@ -206,7 +215,7 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Comparisons
+    // Equality
     //-------------------------------------------------------------------------
 
     template<std::size_t Size, std::size_t Align>

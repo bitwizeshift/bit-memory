@@ -49,6 +49,18 @@ inline std::size_t
 }
 
 template<std::size_t Size, std::size_t Align>
+inline bit::memory::allocator_info
+  bit::memory::growing_aligned_block_allocator<Size,Align>::info()
+  const noexcept
+{
+  return {"growing_aligned_block_allocator",this};
+}
+
+//-----------------------------------------------------------------------------
+// Private Member Functions
+//-----------------------------------------------------------------------------
+
+template<std::size_t Size, std::size_t Align>
 inline void bit::memory::growing_aligned_block_allocator<Size,Align>::grow()
 {
   if( base_type::m_growths_remaining == 0 ) return;
@@ -58,7 +70,7 @@ inline void bit::memory::growing_aligned_block_allocator<Size,Align>::grow()
 }
 
 //-----------------------------------------------------------------------------
-// Comparisons
+// Equality
 //-----------------------------------------------------------------------------
 
 template<std::size_t Size, std::size_t Align>
