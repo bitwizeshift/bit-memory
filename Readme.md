@@ -63,7 +63,9 @@ one that -- on failure -- calls a global out-of-memory handler.
 The Allocator concept in this library optionally supports a member function named `info()` that returns an `allocator_info` object.
 This object is used for _naming_ the allocator so that it can be uniquely identified in case an error handler is called.
 
-## Building
+## Using `bit::memory`
+
+### Building & Installing
 
 Building `bit::memory` is simple, and only requires a CMake version greater than 3.1, and a compatible compiler.
 
@@ -95,10 +97,15 @@ cmake --build . --target install
 
 will install into `/etc/bit/`.
 
+### Through a `cmake` subdirectory
+
+Clone/copy/subtree the contents of this repository to a subdirectory, and `add_subdirectory` the directory containing `bit::memory`.
+
+To add a dependency to the library, just add `target_link_libraries(<your target> [PUBLIC|INTERFACE|PRIVATE] bit::memory)`
 
 ## <a name="tested-compilers"></a>Tested Compilers
 
-The following compilers are currently being tested through continuous integration with [Travis](https://travis-ci.org/bitwizeshift/bit-memory).
+The following compilers are currently being tested through continuous integration with [Travis](https://travis-ci.org/bitwizeshift/bit-memory) and [AppVeyor](https://ci.appveyor.com/project/bitwizeshift/bit-memory/)
 
 Note that `bit-memory` only works on compiler that provide proper conformance for c++14
 
@@ -117,3 +124,29 @@ Note that `bit-memory` only works on compiler that provide proper conformance fo
 | clang xcode 9.0       | Darwin Kernel 16.7.0 (OSX 10.12.6) |
 | Visual Studio 2015    | Windows Server 2012 R2 (x64)       |
 | Visual Studio 2017    | Windows Server 2016 (x64)          |
+
+## <a name="license"></a>License
+
+<img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
+
+The class is licensed under the [MIT License](http://opensource.org/licenses/MIT):
+
+Copyright &copy; 2017 Matthew Rodusek
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
