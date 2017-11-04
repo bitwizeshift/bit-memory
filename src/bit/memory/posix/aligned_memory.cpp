@@ -13,7 +13,10 @@ void* bit::memory::aligned_malloc( std::size_t size, std::size_t align )
   noexcept
 {
   void* result_ptr = nullptr;
-  ::posix_memalign(&result_ptr, align, size);
+  if( ::posix_memalign(&result_ptr, align, size) )
+  {
+    return nullptr;
+  }
   return result_ptr;
 }
 
