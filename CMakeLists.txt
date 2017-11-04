@@ -15,6 +15,7 @@ include(CopyTargetProperties)
 option(BIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS "Include each header independently in a .cpp file to determine header self-containment" off)
 option(BIT_MEMORY_COMPILE_UNIT_TESTS "Compile and run the unit tests for this library" off)
 option(BIT_MEMORY_GENERATE_DOCUMENTATION "Generates doxygen documentation" off)
+option(BIT_MEMORY_COMPILE_BENCHMARKS "Compile the benchmark tests for this library" off)
 
 project("BitMemory")
 
@@ -39,7 +40,8 @@ message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
 #-----------------------------------------------------------------------------
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
+set(CMAKE_CXX_EXTENSIONS off)
 
 make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
   MAJOR ${BIT_MEMORY_VERSION_MAJOR}
@@ -270,14 +272,14 @@ target_include_directories(bit_memory PUBLIC
 # Add DEBUG, NDEBUG, and RELEASE macro definitions
 target_compile_definitions(bit_memory PUBLIC
   $<$<CONFIG:DEBUG>:DEBUG>
-  $<$<CONFIG:RELEASE>:DEBUG RELEASE>
+  $<$<CONFIG:RELEASE>:RELEASE>
 )
 
 # Add compiler-specific flags
 if( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-  target_compile_options(bit_memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+  target_compile_options(bit_memory PRIVATE -Wall -Wstrict-aliasing -pedantic -Werror)
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" )
-  target_compile_options(bit_memory PUBLIC -Wall -Wstrict-aliasing -pedantic)
+  target_compile_options(bit_memory PRIVATE -Wall -Wstrict-aliasing -pedantic -Werror)
 elseif( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" )
   # TODO: Determine MSVC necessary compiler flags
 endif()
@@ -306,6 +308,14 @@ endif()
 
 if( BIT_MEMORY_COMPILE_UNIT_TESTS )
   add_subdirectory(test)
+endif()
+
+#-----------------------------------------------------------------------------
+# bit::memory : Benchmarks
+#-----------------------------------------------------------------------------
+
+if( BIT_MEMORY_COMPILE_BENCHMARKS )
+  add_subdirectory(benchmarks)
 endif()
 
 #-----------------------------------------------------------------------------
