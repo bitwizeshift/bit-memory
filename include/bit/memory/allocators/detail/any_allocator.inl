@@ -91,7 +91,7 @@ inline bit::memory::any_allocator::any_allocator( Allocator& any_allocator )
   : m_ptr( std::addressof(any_allocator) ),
     m_vtable( vtable_type::get_vtable<std::decay_t<Allocator>>() )
 {
-  using traits_type = allocator_traits<std::decay_t<Allocator>>;
+
 }
 
 //-----------------------------------------------------------------------------
