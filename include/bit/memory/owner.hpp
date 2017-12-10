@@ -3,8 +3,8 @@
  *
  * \brief This header defines the alias 'owner' for indicating memory ownership
  *
- * \note This is quite possibly the smallest header in this library; but also
- *       a very useful utility for self-documenting code
+ * \remark This is quite possibly the smallest header in this library; but also
+ *         a very useful utility for self-documenting code
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
