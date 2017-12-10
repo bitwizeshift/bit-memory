@@ -105,7 +105,9 @@ inline bit::memory::owner<bit::memory::memory_block>
 inline void bit::memory::memory_block_cache::steal_block( memory_block_cache& other )
   noexcept
 {
-  store_block( other.request_block() );
+  if( auto block = other.request_block() ) {
+    store_block( block );
+  }
 }
 
 //----------------------------------------------------------------------------

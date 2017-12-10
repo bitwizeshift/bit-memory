@@ -92,6 +92,9 @@ namespace bit {
       /// \param size the size of the memory previously provided to try_allocate
       void deallocate( owner<void*> p, std::size_t size );
 
+      /// \brief Deallocates all memory in this pool_allocator
+      void deallocate_all();
+
       //-----------------------------------------------------------------------
       // Observers
       //-----------------------------------------------------------------------
@@ -130,6 +133,9 @@ namespace bit {
       // Private Member Functions
       //-----------------------------------------------------------------------
     private:
+
+      /// \brief Creates the pool of instances to be used by the allocator
+      void create_pool();
 
       friend bool operator==( const pool_allocator&, const pool_allocator&) noexcept;
     };
