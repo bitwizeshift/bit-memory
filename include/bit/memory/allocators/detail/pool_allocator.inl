@@ -18,15 +18,7 @@ inline bit::memory::pool_allocator::pool_allocator( std::size_t chunk_size,
   assert( chunk_size >= alignof(void*) );
   assert( chunk_size <= m_block.size() );
 
-  using byte_t = unsigned char;
-
-  auto* p = m_block.data();
-  const auto chunks = m_block.size() / chunk_size;
-
-  // Store each entry in the freelist in reverse order
-  for( auto i = chunks-1; i != 0; --i ) {
-    m_freelist.store( static_cast<byte_t*>(p) + (i*chunk_size) );
-  }
+  create_pool();
 }
 
 //-----------------------------------------------------------------------------
@@ -41,7 +33,10 @@ inline bit::memory::owner<void*>
 {
   using byte_t = unsigned char;
 
-  auto p      = m_freelist.request();
+  auto p = m_freelist.request();
+
+  if( BIT_MEMORY_UNLIKELY(p==nullptr) ) return nullptr;
+
   auto adjust = std::size_t{};
   p           = offset_align_forward(p, align, offset+1, &adjust);
 
@@ -52,7 +47,7 @@ inline bit::memory::owner<void*>
   // Store the adjustment made to align correctly
   *static_cast<byte_t*>(p) = static_cast<byte_t>(adjust);
 
-  return static_cast<char*>(p) + 1;
+  return static_cast<byte_t*>(p) + 1;
 }
 
 inline void bit::memory::pool_allocator::deallocate( owner<void*> p,
@@ -67,6 +62,12 @@ inline void bit::memory::pool_allocator::deallocate( owner<void*> p,
   p           = static_cast<byte_t*>(p) - adjust;
 
   m_freelist.store( p );
+}
+
+inline void bit::memory::pool_allocator::deallocate_all()
+{
+  m_freelist.clear();
+  create_pool();
 }
 
 //-----------------------------------------------------------------------------
@@ -93,8 +94,21 @@ inline bit::memory::allocator_info bit::memory::pool_allocator::info()
   return {"pool_allocator",this};
 }
 
+void bit::memory::pool_allocator::create_pool()
+{
+  using byte_t = unsigned char;
+
+  auto* p = m_block.data();
+  const auto chunks = m_block.size() / m_chunk_size;
+
+  // Store each entry in the freelist in reverse order
+  for( auto i = chunks-1; i != 0; --i ) {
+    m_freelist.store( static_cast<byte_t*>(p) + (i * m_chunk_size) );
+  }
+}
+
 //-----------------------------------------------------------------------------
-// Comparison
+// Equality
 //-----------------------------------------------------------------------------
 
 inline bool bit::memory::operator==( const pool_allocator& lhs,

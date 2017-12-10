@@ -18,62 +18,7 @@
 namespace bit {
   namespace memory {
     namespace detail {
-
-      struct allocator_vtable
-      {
-        //---------------------------------------------------------------------
-        // Public Member Types
-        //---------------------------------------------------------------------
-        using allocate_fn_t     = void*(*)( void*, std::size_t, std::size_t );
-        using try_allocate_fn_t = void*(*)( void*, std::size_t, std::size_t );
-        using deallocate_fn_t   = void(*)( void*, void*,std::size_t );
-        using info_fn_t         = allocator_info(*)(const void*);
-
-        allocate_fn_t     allocate_fn;
-        try_allocate_fn_t try_allocate_fn;
-        deallocate_fn_t   deallocate_fn;
-        info_fn_t         info_fn;
-
-        template<typename Allocator>
-        static allocator_vtable* get_vtable()
-        {
-          using traits_type = allocator_traits<Allocator>;
-
-          static auto s_vtable = []()
-          {
-            allocator_vtable table;
-
-            table.allocate_fn = +[](void* p, std::size_t size, std::size_t align )
-            {
-              auto* instance = static_cast<Allocator*>(p);
-              return traits_type::allocate( *instance, size, align );
-            };
-
-            table.try_allocate_fn = +[](void* p, std::size_t size, std::size_t align )
-            {
-              auto* instance = static_cast<Allocator*>(p);
-              return traits_type::try_allocate( *instance, size, align );
-            };
-
-            table.deallocate_fn = +[](void* p, void* ptr, std::size_t size )
-            {
-              auto* instance = static_cast<Allocator*>(p);
-              return traits_type::deallocate( *instance, ptr, size );
-            };
-
-            table.info_fn = +[](const void* p) -> allocator_info
-            {
-              auto* instance = static_cast<const Allocator*>(p);
-              return traits_type::info( *instance );
-            };
-
-            return table;
-          }();
-
-          return &s_vtable;
-        }
-      };
-
+      struct allocator_vtable;
     } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
@@ -95,7 +40,8 @@ namespace bit {
     {
       template<typename A>
       using is_enabled = std::integral_constant<bool,
-        is_allocator<A>::value && !std::is_same<any_allocator,A>::value
+        is_allocator<std::decay_t<A>>::value &&
+        !std::is_same<any_allocator,std::decay_t<A>>::value
       >;
 
       //----------------------------------------------------------------------
@@ -115,7 +61,7 @@ namespace bit {
       ///
       /// \param allocator the allocator to type-erase
       template<typename Allocator, typename = std::enable_if_t<is_enabled<Allocator>::value>>
-      any_allocator( Allocator&& allocator ) noexcept;
+      any_allocator( Allocator& allocator ) noexcept;
 
       /// \brief Copy-constructs an allocator from an existing one
       ///

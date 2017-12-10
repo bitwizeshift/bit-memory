@@ -40,6 +40,15 @@ inline std::size_t bit::memory::freelist::size()
 // Modifiers
 //-----------------------------------------------------------------------------
 
+inline void bit::memory::freelist::clear()
+{
+  m_head = nullptr;
+}
+
+//-----------------------------------------------------------------------------
+// Modifiers
+//-----------------------------------------------------------------------------
+
 inline void bit::memory::freelist::swap( freelist& other )
   noexcept
 {
