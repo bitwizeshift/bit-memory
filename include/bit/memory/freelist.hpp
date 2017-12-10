@@ -49,7 +49,6 @@ namespace bit {
       // Deleted copy construction
       freelist& operator=( const freelist& other ) = delete;
 
-
       //----------------------------------------------------------------------
       // Modifiers
       //----------------------------------------------------------------------
@@ -74,6 +73,14 @@ namespace bit {
       ///
       /// \return the number of entries in this freelist
       std::size_t size() const noexcept;
+
+      //----------------------------------------------------------------------
+      // Modifiers
+      //----------------------------------------------------------------------
+    public:
+
+      /// \brief Empties the freelist cache
+      void clear();
 
       //----------------------------------------------------------------------
       // Caching
