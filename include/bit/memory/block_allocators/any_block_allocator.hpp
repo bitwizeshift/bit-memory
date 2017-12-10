@@ -17,63 +17,7 @@
 namespace bit {
   namespace memory {
     namespace detail {
-
-      struct any_block_allocator_vtable
-      {
-        using deallocate_block_fn_t = void(*)( void*, memory_block );
-        using allocate_block_fn_t   = memory_block(*)( void* );
-        using info_fn_t             = allocator_info(*)( const void* );
-        using next_block_size_fn_t  = std::size_t(*)( const void* );
-
-        deallocate_block_fn_t deallocate_fn;
-        allocate_block_fn_t   allocate_fn;
-        info_fn_t             info_fn;
-        next_block_size_fn_t  next_block_fn;
-
-        template<typename BlockAllocator>
-        static any_block_allocator_vtable* get_vtable()
-        {
-          using traits_type = block_allocator_traits<BlockAllocator>;
-
-          static auto s_vtable = []()
-          {
-            any_block_allocator_vtable table;
-
-            table.allocate_fn = +[](void* p) -> void*
-            {
-              auto* instance = static_cast<BlockAllocator*>(p);
-
-              return traits_type::allocate_block( *instance );
-            };
-
-            table.deallocate_fn = +[](void* p, memory_block block)
-            {
-              auto* instance = static_cast<BlockAllocator*>(p);
-
-              traits_type::deallocate_block( *instance, block );
-            };
-
-            table.info_fn = +[]( const void* p ) -> allocator_info
-            {
-              auto* instance = static_cast<const BlockAllocator*>(p);
-
-              return traits_type::info( *instance );
-            };
-
-            table.next_block_fn = +[]( const void* p ) -> std::size_t
-            {
-              auto* instance = static_cast<const BlockAllocator*>(p);
-
-              return traits_type::next_block_size( *instance );
-            };
-
-            return table;
-          }();
-
-          return &s_vtable;
-        }
-      };
-
+      struct any_block_allocator_vtable;
     } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
@@ -89,7 +33,8 @@ namespace bit {
     {
       template<typename A>
       using is_enabled = std::integral_constant<bool,
-        is_block_allocator<A>::value && !std::is_same<any_block_allocator,A>::value
+        is_block_allocator<std::decay_t<A>>::value &&
+        !std::is_same<any_block_allocator,std::decay_t<A>>::value
       >;
 
       //----------------------------------------------------------------------
@@ -102,7 +47,7 @@ namespace bit {
       ///
       /// \param allocator the block allocator to type-erase
       template<typename BlockAllocator, typename = std::enable_if_t<is_enabled<BlockAllocator>::value>>
-      any_block_allocator( BlockAllocator&& allocator ) noexcept;
+      any_block_allocator( BlockAllocator& allocator ) noexcept;
 
       /// \brief Move-constructs a block_allocator from an existing one
       ///
