@@ -126,6 +126,9 @@ namespace bit {
       static allocator_info do_info( std::false_type, const BlockAllocator& alloc );
       /// \}
 
+      static std::size_t do_next_block_size( std::true_type, const BlockAllocator& alloc );
+      static std::size_t do_next_block_size( std::false_type, const BlockAllocator& alloc );
+
       static std::size_t do_next_block_align_from_type( std::true_type, const BlockAllocator& alloc );
       static std::size_t do_next_block_align_from_type( std::false_type, const BlockAllocator& alloc);
       static std::size_t do_next_block_align_from_fn( std::true_type, const BlockAllocator& alloc );

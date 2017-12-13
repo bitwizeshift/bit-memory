@@ -38,7 +38,7 @@ inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
   ::next_block_size( const BlockAllocator& alloc )
   noexcept
 {
-  return do_next_block_size_from_type( block_allocator_has_next_block_size<BlockAllocator>{}, alloc );
+  return alloc.next_block_size();
 }
 
 template<typename BlockAllocator>
@@ -52,7 +52,6 @@ inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
 //-----------------------------------------------------------------------------
 // Private Implementation
 //-----------------------------------------------------------------------------
-
 
 template<typename BlockAllocator>
 inline bit::memory::allocator_info

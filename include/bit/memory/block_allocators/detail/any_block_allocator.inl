@@ -48,7 +48,7 @@ bit::memory::detail::any_block_allocator_vtable*
   {
     any_block_allocator_vtable table;
 
-    table.allocate_fn = +[](void* p) -> void*
+    table.allocate_fn = +[](void* p) -> bit::memory::memory_block
     {
       auto* instance = static_cast<BlockAllocator*>(p);
 
