@@ -47,25 +47,25 @@ inline bit::memory::detail::allocator_vtable*
   {
     allocator_vtable table;
 
-    table.allocate_fn = +[](void* p, std::size_t size, std::size_t align )
+    table.allocate_fn = [](void* p, std::size_t size, std::size_t align )
     {
       auto* instance = static_cast<Allocator*>(p);
       return traits_type::allocate( *instance, size, align );
     };
 
-    table.try_allocate_fn = +[](void* p, std::size_t size, std::size_t align )
+    table.try_allocate_fn = [](void* p, std::size_t size, std::size_t align )
     {
       auto* instance = static_cast<Allocator*>(p);
       return traits_type::try_allocate( *instance, size, align );
     };
 
-    table.deallocate_fn = +[](void* p, void* ptr, std::size_t size )
+    table.deallocate_fn = [](void* p, void* ptr, std::size_t size )
     {
       auto* instance = static_cast<Allocator*>(p);
       return traits_type::deallocate( *instance, ptr, size );
     };
 
-    table.info_fn = +[](const void* p) -> allocator_info
+    table.info_fn = [](const void* p) -> allocator_info
     {
       auto* instance = static_cast<const Allocator*>(p);
       return traits_type::info( *instance );
