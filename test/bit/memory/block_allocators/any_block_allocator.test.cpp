@@ -50,7 +50,7 @@ namespace {
 TEST_CASE("any_block_allocator::allocate_block()")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator(underlying_allocator);
+  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
 
   SECTION("Allocates memory using the underlying allocator")
   {
@@ -65,7 +65,7 @@ TEST_CASE("any_block_allocator::allocate_block()")
 TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator(underlying_allocator);
+  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
 
   SECTION("Deallocates memory using the underlying allocator")
   {
