@@ -122,8 +122,12 @@ Note that `bit-memory` only works on compiler that provide proper conformance fo
 | clang xcode 8.2       | Darwin Kernel 16.1.0 (OSX 10.12.1) |
 | clang xcode 8.3       | Darwin Kernel 16.6.0 (OSX 10.12.5) |
 | clang xcode 9.0       | Darwin Kernel 16.7.0 (OSX 10.12.6) |
-| Visual Studio 2015    | Windows Server 2012 R2 (x64)       |
 | Visual Studio 2017    | Windows Server 2016 (x64)          |
+
+**Note:** Unfortunately, support for Visual Studio 2015 had to be dropped due to issues properly performing SFINAE
+with some non-owning type-erased classes (`any_allocator` and `any_block_allocator`).
+It has just not been worth the hassle to attempt to support a non-standards-conforming compiler. Fortunately,
+Visual Studios 2017 is still supported, and will continue to be.
 
 ## <a name="license"></a>License
 

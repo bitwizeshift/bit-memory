@@ -48,28 +48,28 @@ bit::memory::detail::any_block_allocator_vtable*
   {
     any_block_allocator_vtable table;
 
-    table.allocate_fn = +[](void* p) -> void*
+    table.allocate_fn = [](void* p) -> bit::memory::memory_block
     {
       auto* instance = static_cast<BlockAllocator*>(p);
 
       return traits_type::allocate_block( *instance );
     };
 
-    table.deallocate_fn = +[](void* p, memory_block block)
+    table.deallocate_fn = [](void* p, memory_block block)
     {
       auto* instance = static_cast<BlockAllocator*>(p);
 
       traits_type::deallocate_block( *instance, block );
     };
 
-    table.info_fn = +[]( const void* p ) -> allocator_info
+    table.info_fn = []( const void* p ) -> allocator_info
     {
       auto* instance = static_cast<const BlockAllocator*>(p);
 
       return traits_type::info( *instance );
     };
 
-    table.next_block_fn = +[]( const void* p ) -> std::size_t
+    table.next_block_fn = []( const void* p ) -> std::size_t
     {
       auto* instance = static_cast<const BlockAllocator*>(p);
 
