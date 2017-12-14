@@ -38,12 +38,6 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     class any_allocator
     {
-      template<typename A>
-      using is_enabled = std::integral_constant<bool,
-        is_allocator<std::decay_t<A>>::value &&
-        !std::is_same<any_allocator,std::decay_t<A>>::value
-      >;
-
       //----------------------------------------------------------------------
       // Public Member Types
       //----------------------------------------------------------------------
@@ -60,7 +54,9 @@ namespace bit {
       ///        allocator
       ///
       /// \param allocator the allocator to type-erase
-      template<typename Allocator, typename = std::enable_if_t<is_enabled<Allocator>::value>>
+      template<typename Allocator,
+               typename = std::enable_if_t<is_allocator<std::decay_t<Allocator>>::value &&
+                          !std::is_same<any_allocator,std::decay_t<Allocator>>::value>>
       any_allocator( Allocator& allocator ) noexcept;
 
       /// \brief Copy-constructs an allocator from an existing one

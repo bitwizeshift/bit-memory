@@ -31,11 +31,6 @@ namespace bit {
     //////////////////////////////////////////////////////////////////////////
     class any_block_allocator final
     {
-      template<typename A>
-      using is_enabled = std::integral_constant<bool,
-        is_block_allocator<std::decay_t<A>>::value &&
-        !std::is_same<any_block_allocator,std::decay_t<A>>::value
-      >;
 
       //----------------------------------------------------------------------
       // Constructor / Assignment
@@ -46,7 +41,9 @@ namespace bit {
       ///        allocator
       ///
       /// \param allocator the block allocator to type-erase
-      template<typename BlockAllocator, typename = std::enable_if_t<is_enabled<BlockAllocator>::value>>
+      template<typename BlockAllocator,
+              typename = std::enable_if_t<is_block_allocator<std::decay_t<BlockAllocator>>::value &&
+                                         !std::is_same<any_block_allocator,std::decay_t<BlockAllocator>>::value>>
       any_block_allocator( BlockAllocator& allocator ) noexcept;
 
       /// \brief Move-constructs a block_allocator from an existing one
