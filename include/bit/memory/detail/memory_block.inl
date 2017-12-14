@@ -69,7 +69,7 @@ inline bool bit::memory::memory_block::contains( const void* ptr )
 inline constexpr bit::memory::memory_block::operator bool()
   const noexcept
 {
-  return m_data;
+  return m_data != nullptr;
 }
 
 //----------------------------------------------------------------------------

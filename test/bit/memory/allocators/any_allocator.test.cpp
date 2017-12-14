@@ -45,7 +45,7 @@ namespace {
 TEST_CASE("any_allocator::try_allocate( std::size_t, std::size_t )")
 {
   auto underlying_allocator = test_allocator{};
-  auto allocator = bit::memory::any_allocator{underlying_allocator};
+  auto allocator = bit::memory::any_allocator(underlying_allocator);
 
   SECTION("Allocates memory using the underlying allocator")
   {
@@ -60,7 +60,7 @@ TEST_CASE("any_allocator::try_allocate( std::size_t, std::size_t )")
 TEST_CASE("any_allocator::deallocate( void*, std::size_t )")
 {
   auto underlying_allocator = test_allocator{};
-  auto allocator = bit::memory::any_allocator{underlying_allocator};
+  auto allocator = bit::memory::any_allocator(underlying_allocator);
 
   SECTION("Deallocates memory using the underlying allocator")
   {
