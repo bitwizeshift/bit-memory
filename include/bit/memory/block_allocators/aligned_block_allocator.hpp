@@ -33,7 +33,6 @@ namespace bit {
           detail::dynamic_size_type<1,Align>
       {
         using default_block_alignment = std::integral_constant<std::size_t,Align>;
-        using is_stateless            = std::true_type;
 
         aligned_block_allocator_base() noexcept = default;
         aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
@@ -49,7 +48,6 @@ namespace bit {
         : detail::dynamic_size_type<0,Size>,
           detail::dynamic_size_type<1,dynamic_size>
       {
-        using is_stateless = std::false_type;
 
         aligned_block_allocator_base( std::size_t align ) noexcept
           : detail::dynamic_size_type<1,dynamic_size>( align )
@@ -70,7 +68,6 @@ namespace bit {
           detail::dynamic_size_type<1,Align>
       {
         using default_block_alignment = std::integral_constant<std::size_t,Align>;
-        using is_stateless            = std::false_type;
 
         aligned_block_allocator_base( std::size_t size ) noexcept
           : detail::dynamic_size_type<0,dynamic_size>( size )
@@ -90,8 +87,6 @@ namespace bit {
         : detail::dynamic_size_type<0,dynamic_size>,
           detail::dynamic_size_type<1,dynamic_size>
       {
-        using is_stateless = std::false_type;
-
         aligned_block_allocator_base( std::size_t size, std::size_t align ) noexcept
           : detail::dynamic_size_type<0,dynamic_size>( size ),
             detail::dynamic_size_type<1,dynamic_size>( align )
