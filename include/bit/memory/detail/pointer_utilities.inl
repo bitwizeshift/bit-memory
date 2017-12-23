@@ -16,7 +16,13 @@ inline std::size_t bit::memory::align_of( const void* ptr )
 {
   auto address = reinterpret_cast<std::uintptr_t>(ptr);
 
-  auto align   = std::size_t{1};
+#ifdef __GNUC__
+
+  return 1 << __builtin_clz(address);
+
+#else
+
+  auto align = std::size_t{1};
 
   while( (address & 1) == 0 ) {
     address >>= 1;
@@ -24,6 +30,7 @@ inline std::size_t bit::memory::align_of( const void* ptr )
   }
 
   return align;
+#endif
 }
 
 //-----------------------------------------------------------------------------

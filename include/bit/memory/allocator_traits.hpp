@@ -13,11 +13,12 @@
 #include "concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
 #include "concepts/ExtendedAllocator.hpp" // allocator_has_extended_try_allocate
 
-#include "allocator_reference.hpp" // allocator_reference
-#include "allocator_info.hpp"      // allocator_info
-#include "errors.hpp"              // get_out_of_memory_handler
-#include "macros.hpp"              // BIT_MEMORY_UNUSED
-#include "owner.hpp"               // owner
+#include "allocator_reference.hpp"   // allocator_reference
+#include "allocator_info.hpp"        // allocator_info
+#include "errors.hpp"                // get_out_of_memory_handler
+#include "macros.hpp"                // BIT_MEMORY_UNUSED
+#include "owner.hpp"                 // owner
+#include "uninitialized_storage.hpp" // uninitialized_construct_at, destroy_at, etc
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
@@ -28,7 +29,7 @@
 namespace bit {
   namespace memory {
 
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     /// \brief The allocator_traits class template provides a standardized
     ///        way to access allocator functionality
     ///
@@ -36,22 +37,22 @@ namespace bit {
     /// present in the allocator
     ///
     /// \tparam Allocator the allocator type. Must satisfy Allocator concept
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     template<typename Allocator>
     class allocator_traits
     {
+      static_assert( is_allocator<Allocator>::value,
+                     "Allocator must be an Allocator" );
 
-      static_assert( is_allocator<Allocator>::value, "Allocator must be an Allocator" );
-
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Public Members
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
-      using size_type       = allocator_size_type_t<Allocator>;
-      using difference_type = allocator_difference_type_t<Allocator>;
       using pointer         = allocator_pointer_t<Allocator>;
       using const_pointer   = allocator_const_pointer_t<Allocator>;
+      using size_type       = allocator_size_type_t<Allocator>;
+      using difference_type = allocator_difference_type_t<Allocator>;
 
       // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
       using is_stateless               = bit::memory::is_stateless<Allocator>;
@@ -60,40 +61,61 @@ namespace bit {
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
       using knows_ownership            = allocator_knows_ownership<Allocator>;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Allocation
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
+      /// \{
       /// \brief Attempts to allocate memory of at least \p size bytes,
       ///        aligned to \p align boundary
       ///
       /// On failure, this function returns \p nullptr
       ///
       /// \param alloc the allocator to allocate from
+      /// \param hint pointer to a nearby memory location to allocate near
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the pointer to the allocated memory
       static pointer try_allocate( Allocator& alloc,
                                    size_type size,
                                    size_type align ) noexcept;
+      static pointer try_allocate( Allocator& alloc,
+                                   const_pointer hint,
+                                   size_type size,
+                                   size_type align ) noexcept;
+      /// \}
 
+      /// \{
       /// \brief Attempts to allocate memory of at least \p size bytes,
       ///        aligned to \p align boundary with an offset of \p offset bytes
       ///
       /// On failure, this function returns \p nullptr
       ///
       /// \param alloc the allocator to allocate from
+      /// \param hint pointer to a nearby memory location to allocate near
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated memory
-      template<typename U = Allocator, typename = std::enable_if<is_extended_allocator<U>::value>>
+      template<typename U = Allocator,
+               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
       static pointer try_allocate( Allocator& alloc,
                                    size_type size,
                                    size_type align,
                                    size_type offset ) noexcept;
+      template<typename U = Allocator,
+               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
+      static pointer try_allocate( Allocator& alloc,
+                                   const_pointer hint,
+                                   size_type size,
+                                   size_type align,
+                                   size_type offset ) noexcept;
+      /// \}
 
+      //-----------------------------------------------------------------------
+
+      /// \{
       /// \brief Allocates memory of at least \p size bytes, aligned to \p
       ///        align boundary
       ///
@@ -101,13 +123,20 @@ namespace bit {
       /// handler before returning \p nullptr
       ///
       /// \param alloc the allocator to allocate from
+      /// \param hint pointer to a nearby memory location to allocate near
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the pointer to the allocated member
       static pointer allocate( Allocator& alloc,
                                size_type size,
                                size_type align );
+      static pointer allocate( Allocator& alloc,
+                               const_pointer hint,
+                               size_type size,
+                               size_type align );
+      /// \}
 
+      /// \{
       /// \brief Allocates memory of at least \p size bytes, aligned to \p
       ///        align boundary
       ///
@@ -115,19 +144,54 @@ namespace bit {
       /// handler before returning \p nullptr
       ///
       /// \param alloc the allocator to allocate from
+      /// \param hint pointer to a nearby memory location to allocate near
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \param offset the offset of the allocation
       /// \return the pointer to the allocated member
-      template<typename U = Allocator, typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
+      template<typename U = Allocator,
+               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
       static pointer allocate( Allocator& alloc,
                                size_type size,
                                size_type align,
                                size_type offset );
+      template<typename U = Allocator,
+               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
+      static pointer allocate( Allocator& alloc,
+                               const_pointer hint,
+                               size_type size,
+                               size_type align,
+                               size_type offset );
+      /// \}
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Expands the memory addres located at \p p to contain \p
+      ///        new_size bytes
+      ///
+      /// This function returns a boolean indicating whether the memory
+      /// region was able to be expanded to contain the new size. If the region
+      /// could not contain the new size, nothing is changed, and \c false is
+      /// returned.
+      ///
+      /// \note The default implementation if this is not specified in
+      ///       \c Allocator is to simply do nothing and return \c false
+      ///
+      /// \param p the pointer to expand
+      /// \param new_size the new size to expand to
+      /// \return \c true if the memory region was expanded, \c false otherwise
+      static bool expand( pointer p,
+                          size_type new_size );
+      static bool expand( pointer p,
+                          size_type new_size,
+                          size_type new_alignment );
+      /// \}
+
+      //-----------------------------------------------------------------------
       // Deallocation
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+    public:
 
       /// \brief Deallocates a pointer previously allocated with \p allocate
       ///        or try_allocate
@@ -145,9 +209,25 @@ namespace bit {
       template<typename U = Allocator, typename = std::enable_if<can_truncate_deallocations::value>>
       static void deallocate_all( Allocator& alloc );
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Observers
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Determines the recommended allocation size of \p requested
+      ///        bytes from the given allocator
+      ///
+      /// \note This invokes \c alloc.recommended_allocation_size(requested) if
+      ///       it is defined for the specified Allocator -- otherwise it
+      ///       defaults to rounding 'requested' up to the next aligned value
+      ///
+      /// \param alloc the allocator
+      /// \param requested the amount of requested bytes
+      /// \return the recommended amount to allocate
+      size_type recommended_allocation_size( const Allocator& alloc,
+                                             size_type requested );
+
+      //-----------------------------------------------------------------------
 
       /// \brief Checks if the given allocator is known to own the specified
       ///        pointer \p p
@@ -174,9 +254,162 @@ namespace bit {
       /// \return the name of the allocator
       static allocator_info info( const Allocator& alloc ) noexcept;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      // Constructions
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Attempts to allocate and constructs a type \p T with the
+      ///        arguments \p args
+      ///
+      /// \note This will return \c nullptr if the allocator fails to allocate
+      ///       memory.
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \tparam T the type to construct
+      /// \param alloc the allocator to use for construction
+      /// \param args the arguments to forward to T's constructor
+      /// \return pointer to the constructed type
+      template<typename T, typename...Args>
+      static T* try_make( Allocator& alloc, Args&&...args )
+        noexcept( std::is_nothrow_constructible<T,Args...>::value );
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Attempts to allocate and construct an array of type \p T
+      ///
+      /// \note This will return \c nullptr if the allocator fails to allocate
+      ///       memory.
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \tparam T the type to construct
+      /// \param alloc the allocator to use for construction
+      /// \param n the size of the array
+      /// \param copy an instance to copy to each array entry
+      /// \return pointer to the constructed array
+      template<typename T>
+      static T* try_make_array( Allocator& alloc, size_type n )
+        noexcept( std::is_nothrow_default_constructible<T>::value );
+      template<typename T>
+      static T* try_make_array( Allocator& alloc, size_type n, const T& copy )
+        noexcept( std::is_nothrow_copy_constructible<T>::value );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Allocates and constructs a type \p T with the arguments
+      ///        \p args
+      ///
+      /// \note This will call the out-of-memory handler if an allocation fails
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \tparam T the type to construct
+      /// \param alloc the allocator to use for construction
+      /// \param args the arguments to forward to T's constructor
+      /// \return pointer to the constructed type
+      template<typename T, typename...Args>
+      static T* make( Allocator& alloc, Args&&...args );
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Allocates and construct an array of type \p T
+      ///
+      /// \note This will call the out-of-memory handler if an allocation fails
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \tparam T the type to construct
+      /// \param alloc the allocator to use for construction
+      /// \param n the size of the array
+      /// \param copy an instance to copy to each array entry
+      /// \return pointer to the constructed array
+      template<typename T>
+      static T* make_array( Allocator& alloc, size_type n );
+      template<typename T>
+      static T* make_array( Allocator& alloc, size_type n, const T& copy );
+      /// \}
+
+      //-----------------------------------------------------------------------
+      // Destruction
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Disposes of the given type \p T
+      ///
+      /// This calls T's destructor, and then deallocates it with \p alloc
+      ///
+      /// \note It is undefined behavior to call 'dispose' with type different
+      ///       than the original type used in the 'make' call. This is a
+      ///       result of requiring the size of the allocation, which is
+      ///       inferred from the size of type \c T
+      ///
+      /// \note It is undefined behavior if T's destructor throws during a
+      ///       call to dispose
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \param alloc the allocater to use for deallocation
+      /// \param pointer to the type to destroy
+      template<typename T>
+      static void dispose( Allocator& alloc, T* p );
+
+      /// \brief Disposes of the given array of T
+      ///
+      /// This calls the destructor of each T, and then deallocates it
+      /// with \p alloc
+      ///
+      /// \note It is undefined behaviour to call 'dispose_array' with a size
+      ///       that is different than the original size allocated with a
+      ///       'make_array' call.
+      ///
+      /// \note It is undefined behavior to call 'dispose_array' with a type
+      ///       different than the original type used in the 'make' call. This
+      ///       is a result of requiring the size of the allocation, which is
+      ///       inferred from the size of type \c T. Additionally, casting an
+      ///       array to a different type is usually UB anyway.
+      ///
+      /// \note It is undefined behavior if T's destructor throws during a
+      ///       call to dispose
+      ///
+      /// \note This function cannot be overrided in any allocator
+      ///       implementation; the behaviour is fixed in the allocator_traits
+      ///       type
+      ///
+      /// \param alloc the allocater to use for deallocation
+      /// \param pointer to the type to destroy
+      template<typename T>
+      static void dispose_array( Allocator& alloc, T* p, size_type n );
+
+      //-----------------------------------------------------------------------
       // Capacity
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Determines if an allocator is unbounded
+      ///
+      /// The default behavior is to check for if \c max_size() returns
+      /// the largest possible value for \c size_type.
+      ///
+      /// \param alloc the allocato to check
+      /// \return \c true if \p alloc is unbounded
+      static bool is_unbounded( const Allocator& alloc ) noexcept;
+
+      //-----------------------------------------------------------------------
 
       /// \brief Gets the maximum size allocateable from this allocator
       ///
@@ -198,10 +431,83 @@ namespace bit {
       /// \return the minimum amount of bytes able to allocated
       static size_type min_size( const Allocator& alloc ) noexcept;
 
-      //----------------------------------------------------------------------
-      // Private Implementation
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      // Private Allocation
+      //-----------------------------------------------------------------------
     private:
+
+      /// \{
+      /// \brief Performs the allocation with a hint, either by calling
+      ///        the underlying hint allocator if it exists -- or ignoring
+      ///        the hint.
+      ///
+      /// \param alloc the allocator to allocate
+      /// \param hint the hint to provide
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \return the allocated pointer
+      static pointer do_try_allocate_hint( std::true_type,
+                                           Allocator& alloc,
+                                           const_pointer hint,
+                                           size_type size,
+                                           size_type align );
+      static pointer do_try_allocate_hint( std::false_type,
+                                           Allocator& alloc,
+                                           const_pointer hint,
+                                           size_type size,
+                                           size_type align );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Performs the allocation with a hint, either by calling
+      ///        the underlying hint allocator if it exists -- or ignoring
+      ///        the hint.
+      ///
+      /// \param alloc the allocator to allocate
+      /// \param hint the hint to provide
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \param offset the offset of the alignment
+      /// \return the allocated pointer
+      static pointer do_extended_try_allocate_hint( std::true_type,
+                                                    Allocator& alloc,
+                                                    const_pointer p,
+                                                    size_type size,
+                                                    size_type align,
+                                                    size_type offset );
+      static pointer do_extended_try_allocate_hint( std::false_type,
+                                                    Allocator& alloc,
+                                                    const_pointer p,
+                                                    size_type size,
+                                                    size_type align,
+                                                    size_type offset );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Performs the allocation, either by calling
+      ///        \c Allocator::allocate, or by calling into
+      ///        \c Allocator::try_allocate and defining a boilerplate
+      ///        allocate function
+      ///
+      /// \param alloc the allocator to allocate
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \return the allocated pointer
+      static pointer do_allocate( std::true_type,
+                                  Allocator& alloc,
+                                  size_type size,
+                                  size_type align );
+      static pointer do_allocate( std::false_type,
+                                  Allocator& alloc,
+                                  size_type size,
+                                  size_type align );
+      /// \}
+
+      //-----------------------------------------------------------------------
 
       /// \{
       /// \brief Performs the allocation, either by calling
@@ -214,13 +520,138 @@ namespace bit {
       /// \param align the alignment of the allocation
       /// \param offset the offset of the alignment
       /// \return the allocated pointer
-      static pointer do_allocate( std::true_type, Allocator& alloc, size_type size, size_type align );
-      static pointer do_allocate( std::false_type, Allocator& alloc, size_type size, size_type align );
-      static pointer do_allocate( std::true_type, Allocator& alloc, size_type size, size_type align, size_type offset );
-      static pointer do_allocate( std::false_type, Allocator& alloc, size_type size, size_type align, size_type offset );
+      static pointer do_extended_allocate( std::true_type,
+                                           Allocator& alloc,
+                                           size_type size,
+                                           size_type align,
+                                           size_type offset );
+      static pointer do_extended_allocate( std::false_type,
+                                           Allocator& alloc,
+                                           size_type size,
+                                           size_type align,
+                                           size_type offset );
       /// \}
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Performs the allocation with a hint, either by calling
+      ///        the underlying hint allocator if it exists -- or ignoring
+      ///        the hint.
+      ///
+      /// \param alloc the allocator to allocate
+      /// \param hint the hint to provide
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \return the allocated pointer
+      static pointer do_allocate_hint( std::true_type,
+                                       Allocator& alloc,
+                                       const_pointer p,
+                                       size_type size,
+                                       size_type align );
+      static pointer do_allocate_hint( std::false_type,
+                                       Allocator& alloc,
+                                       const_pointer p,
+                                       size_type size,
+                                       size_type align );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Performs the allocation with a hint, either by calling
+      ///        the underlying hint allocator if it exists -- or ignoring
+      ///        the hint.
+      ///
+      /// \param alloc the allocator to allocate
+      /// \param hint the hint to provide
+      /// \param size the size of the allocation
+      /// \param align the alignment of the allocation
+      /// \param offset the offset of the alignment
+      /// \return the allocated pointer
+      static pointer do_extended_allocate_hint( std::true_type,
+                                                Allocator& alloc,
+                                                const_pointer p,
+                                                size_type size,
+                                                size_type align,
+                                                size_type offset );
+      static pointer do_extended_allocate_hint( std::false_type,
+                                                Allocator& alloc,
+                                                const_pointer p,
+                                                size_type size,
+                                                size_type align,
+                                                size_type offset );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Performs the expansion of a given pointer \p p, returning the
+      ///        success
+      ///
+      /// The default always returns \c false
+      ///
+      /// \param alloc the allocator to perform the expansion
+      /// \param p the pointer to expand
+      /// \param new_size the new size to request
+      /// \return \c true if it was expanded
+      static bool do_expand( std::true_type,
+                             Allocator& alloc,
+                             pointer p,
+                             size_type new_size );
+      static bool do_expand( std::false_type,
+                             Allocator& alloc,
+                             pointer p,
+                             size_type new_size );
+      /// \}
+
+      //-----------------------------------------------------------------------
+      // Private Observers
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Returns the recommended allocation size given the \p requested
+      ///        size
+      ///
+      /// \param alloc the allocator to make the recommendation
+      /// \param requested the amount of bytes originally being requested
+      /// \return the recommended size
+      size_type do_recommended_allocation_size( std::true_type,
+                                                const Allocator& alloc,
+                                                size_type requested );
+      size_type do_recommended_allocation_size( std::false_type,
+                                                const Allocator& alloc,
+                                                size_type requested );
+      /// \}
+
+      /// \{
+      /// \brief Determines the info for the allocator, either by calling
+      ///        \c Allocator::info or by assuming "Unnamed" for the name
+      ///
+      /// \param alloc the allocator
+      /// \return the name of the allocator
+      static allocator_info do_info( std::true_type, const Allocator& alloc );
+      static allocator_info do_info( std::false_type, const Allocator& alloc );
+      /// \}
+
+      //-----------------------------------------------------------------------
+      // Private Capacity
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Determines whether the allocator is considered unbounded
+      ///
+      /// By default, this is determined by checking the max value of the given
+      /// 'size_type' using 'std::numeric_limits' with 'max_size'
+      ///
+      /// \param alloc the allocator
+      /// \return the max size
+      static bool do_is_unbounded( std::true_type, const Allocator& alloc );
+      static bool do_is_unbounded( std::false_type, const Allocator& alloc );
+      /// \}
+
 
       /// \{
       /// \brief Determines the max size of the allocator, either by
@@ -233,7 +664,7 @@ namespace bit {
       static size_type do_max_size( std::false_type, const Allocator& alloc );
       /// \}
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
 
       /// \{
       /// \brief Determines the min size of an allocation, either by
@@ -245,19 +676,6 @@ namespace bit {
       static size_type do_min_size( std::true_type, const Allocator& alloc );
       static size_type do_min_size( std::false_type, const Allocator& alloc );
       /// \}
-
-      //----------------------------------------------------------------------
-
-      /// \{
-      /// \brief Determines the info for the allocator, either by calling
-      ///        \c Allocator::info or by assuming "Unnamed" for the name
-      ///
-      /// \param alloc the allocator
-      /// \return the name of the allocator
-      static allocator_info do_info( std::true_type, const Allocator& alloc );
-      static allocator_info do_info( std::false_type, const Allocator& alloc );
-      /// \}
-
     };
 
     template<typename Allocator>

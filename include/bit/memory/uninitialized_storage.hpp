@@ -38,6 +38,17 @@ namespace bit {
     template<typename T>
     T* uninitialized_construct_array_at( void* p, std::size_t n );
 
+    /// \brief Constructs an array of the specified size at pointer \p p by
+    ///        copying \p copy to each array member
+    ///
+    /// \tparam T the type to construct
+    /// \tparam p the pointer to construct the array at
+    /// \param n the size of the array
+    /// \param copy the instance to copy to each array member
+    /// \return the pointer to the constructed array
+    template<typename T>
+    T* uninitialized_construct_array_at( void* p, std::size_t n, const T& copy );
+
     /// \brief Constructs an instance of type \p T from a given \p tuple
     ///
     /// \tparam T the type to construct
