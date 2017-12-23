@@ -29,8 +29,6 @@ namespace bit {
       struct new_block_allocator_base
         : detail::dynamic_size_type<0,Size>
       {
-        using is_stateless = std::true_type;
-
         new_block_allocator_base() noexcept = default;
         new_block_allocator_base( new_block_allocator_base&& ) noexcept = default;
         new_block_allocator_base( const new_block_allocator_base& ) noexcept = default;

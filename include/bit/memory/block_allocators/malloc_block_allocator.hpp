@@ -29,8 +29,6 @@ namespace bit {
       struct malloc_block_allocator_base
         : detail::dynamic_size_type<0,Size>
       {
-        using is_stateless = std::true_type;
-
         malloc_block_allocator_base() noexcept = default;
         malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
         malloc_block_allocator_base( const malloc_block_allocator_base& ) noexcept = default;
@@ -42,8 +40,6 @@ namespace bit {
       struct malloc_block_allocator_base<dynamic_size>
         : detail::dynamic_size_type<0,dynamic_size>
       {
-        using is_stateless = std::false_type;
-
         explicit malloc_block_allocator_base( std::size_t size )
           : detail::dynamic_size_type<0,dynamic_size>(size)
         {

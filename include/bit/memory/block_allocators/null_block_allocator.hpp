@@ -35,7 +35,6 @@ namespace bit {
     public:
 
       using default_block_alignment = std::integral_constant<std::size_t,1>;
-      using is_stateless            = std::true_type;
 
       //-----------------------------------------------------------------------
       // Constructor / Assignment

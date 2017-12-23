@@ -40,7 +40,6 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      using is_stateless      = std::true_type;
       using default_alignment = std::integral_constant<std::size_t,1>;
 
       //-----------------------------------------------------------------------

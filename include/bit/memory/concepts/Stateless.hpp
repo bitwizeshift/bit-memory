@@ -33,36 +33,23 @@ namespace bit {
   ///
   /// **Requirements**
   ///
-  /// - DefaultConstructible
-  /// - CopyConstructible
-  /// - MoveConstructible
-  /// - CopyAssignable
-  /// - MoveASsignable
-  /// - EqualityComparable
+  /// - Empty
+  /// - TriviallyDefaultConstructible
+  /// - TriviallyCopyConstructible
+  /// - TriviallyMoveConstructible
+  /// - TriviallyCopyAssignable
+  /// - TriviallyMoveASsignable
   ///
-  /// Additionally, it must satisfy the followowing:
+  /// Alternatively, the following state may be specified to override the
+  /// determination of a concept.
   ///
   /// **Provided**
   ///
   /// - \c S - a Stateless type
-  /// - \c s - an instance of type \c S
+  /// - \c s - an instance of \c S
   ///
   /// the following expressions must be well-formed with the expected
   /// reproduceable side-effects:
-  ///
-  /// \code
-  /// S() == S()
-  /// \endcode
-  /// returns true
-  ///
-  /// - - - - -
-  ///
-  /// \code
-  /// S() != S()
-  /// \endcode
-  /// returns false
-  ///
-  /// - - - - -
   ///
   /// \code
   /// S s1{};              // default ctor
@@ -86,37 +73,17 @@ namespace bit {
     concept bool Stateless = requires(T a, T b) {
         { a == b } -> bool;
         { a != b } -> bool;
-    } && std::is_empty<T>::value
+    } || (std::is_empty<T>::value
       && std::is_trivially_constructible<T>::value
       && std::is_trivially_destructible<T>::value
-      && std::is_move_constructible<T>::value
-      && std::is_copy_constructible<T>::value
-      && std::is_move_assignable<T>::value
-      && std::is_copy_assignable<T>::value;
+      && std::is_trivially_move_constructible<T>::value
+      && std::is_trivially_copy_constructible<T>::value
+      && std::is_trivially_copyable<T>::value
+      && std::is_trivial<T>::value)
 
 #endif
 
     namespace detail {
-
-      template<typename T, typename = void>
-      struct is_equality_comparable : std::false_type{};
-
-      template<typename T>
-      struct is_equality_comparable<T,void_t<
-        decltype(std::declval<bool&>() = (std::declval<T&>()==std::declval<T&>()))>
-      > : std::true_type{};
-
-      //-----------------------------------------------------------------------
-
-      template<typename T, typename = void>
-      struct is_inequality_comparable : std::false_type{};
-
-      template<typename T>
-      struct is_inequality_comparable<T,void_t<
-        decltype(std::declval<bool&>() = (std::declval<T&>()!=std::declval<T&>()))>
-      > : std::true_type{};
-
-      //-----------------------------------------------------------------------
 
       template<typename T, typename = void>
       struct concept_is_stateless : std::false_type{};
@@ -135,16 +102,15 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     struct is_stateless : std::integral_constant<bool,
-      detail::concept_is_stateless<T>::value &&
-      detail::is_equality_comparable<T>::value &&
-      detail::is_inequality_comparable<T>::value &&
-      std::is_empty<T>::value &&
+      detail::concept_is_stateless<T>::value ||
+     (std::is_empty<T>::value &&
       std::is_trivially_constructible<T>::value &&
       std::is_trivially_destructible<T>::value &&
-      std::is_move_constructible<T>::value &&
-      std::is_copy_constructible<T>::value &&
-      std::is_move_assignable<T>::value &&
-      std::is_copy_assignable<T>::value
+      std::is_trivially_move_constructible<T>::value &&
+      std::is_trivially_copy_constructible<T>::value &&
+      std::is_trivially_copy_assignable<T>::value &&
+      std::is_trivially_move_assignable<T>::value &&
+      std::is_trivial<T>::value)
     >{};
 
     /// \brief Convenience template variable to extract the \c ::value member
