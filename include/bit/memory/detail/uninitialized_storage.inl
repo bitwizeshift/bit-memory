@@ -37,9 +37,40 @@ inline T* bit::memory::uninitialized_construct_array_at( void* p,
   auto current   = static_cast<T*>(p);
   const auto end = current + n;
 
-  while( current != end ) {
-    uninitialized_construct_at(current++);
+  try {
+    while( current != end ) {
+      uninitialized_construct_at(current++);
+    }
+  } catch ( ... ) {
+    const auto rend = static_cast<T*>(p)--;
+    while( current != rend ) {
+      destroy_at(current--);
+    }
+    throw;
   }
+  return static_cast<T*>(p);
+}
+
+template<typename T>
+inline T* bit::memory::uninitialized_construct_array_at( void* p,
+                                                         std::size_t n,
+                                                         const T& copy )
+{
+  auto current   = static_cast<T*>(p);
+  const auto end = current + n;
+
+  try {
+    while( current != end ) {
+      uninitialized_construct_at(current++, copy);
+    }
+  } catch ( ... ) {
+    const auto rend = static_cast<T*>(p) - 1;
+    while( current != rend ) {
+      destroy_at(current--);
+    }
+    throw;
+  }
+  return static_cast<T*>(p);
 }
 
 namespace bit { namespace memory { namespace detail {

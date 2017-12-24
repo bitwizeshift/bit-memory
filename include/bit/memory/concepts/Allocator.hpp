@@ -202,7 +202,24 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_allocate_impl<T,
-        void_t<decltype(std::declval<allocator_pointer_t<T>&>() = std::declval<T&>().allocate( std::declval<allocator_size_type_t<T>>(), std::declval<allocator_size_type_t<T>>() ) )>
+        void_t<decltype(std::declval<allocator_pointer_t<T>&>()
+          = std::declval<T&>().allocate( std::declval<allocator_size_type_t<T>>(),
+                                         std::declval<allocator_size_type_t<T>>() ))
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct allocator_has_allocate_hint_impl : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_allocate_hint_impl<T,
+        void_t<decltype(std::declval<allocator_pointer_t<T>&>()
+          = std::declval<T&>().allocate( std::declval<allocator_const_pointer_t<T>>(),
+                                         std::declval<allocator_size_type_t<T>>(),
+                                         std::declval<allocator_size_type_t<T>>() ))
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -212,7 +229,24 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_try_allocate_impl<T,
-        void_t<decltype(std::declval<allocator_pointer_t<T>&>() = std::declval<T&>().try_allocate( std::declval<allocator_size_type_t<T>>(), std::declval<allocator_size_type_t<T>>() ) )>
+        void_t<decltype(std::declval<allocator_pointer_t<T>&>()
+          = std::declval<T&>().try_allocate( std::declval<allocator_size_type_t<T>>(),
+                                             std::declval<allocator_size_type_t<T>>() ))
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct allocator_has_try_allocate_hint_impl : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_try_allocate_hint_impl<T,
+        void_t<decltype(std::declval<allocator_pointer_t<T>&>()
+          = std::declval<T&>().try_allocate( std::declval<allocator_const_pointer_t<T>>(),
+                                             std::declval<allocator_size_type_t<T>>(),
+                                             std::declval<allocator_size_type_t<T>>() ))
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -222,7 +256,9 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_deallocate_impl<T,
-        void_t<decltype(std::declval<T&>().deallocate( std::declval<allocator_pointer_t<T>&>(), std::declval<allocator_size_type_t<T>>() ) )>
+        void_t<decltype(std::declval<T&>().deallocate( std::declval<allocator_pointer_t<T>&>(),
+                                                       std::declval<allocator_size_type_t<T>>() ))
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -238,11 +274,25 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
+      struct allocator_has_recommended_allocation_size_impl : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_recommended_allocation_size_impl<T,
+        void_t<decltype(std::declval<allocator_size_type_t<T>&>()
+          = std::declval<const T&>().recommended_allocation_size( std::declval<allocator_size_type_t<T>>() ))
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
       struct allocator_has_owns_impl : std::false_type{};
 
       template<typename T>
       struct allocator_has_owns_impl<T,
-        void_t<decltype(std::declval<bool&>() = std::declval<T&>().owns( std::declval<allocator_const_pointer_t<T>>() ))>
+        void_t<decltype(std::declval<bool&>()
+          = std::declval<const T&>().owns( std::declval<allocator_const_pointer_t<T>>() ))
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -258,11 +308,25 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
+      struct allocator_has_is_unbounded_impl : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_is_unbounded_impl<T,
+        void_t<decltype( std::declval<bool&>()
+          = std::declval<const T&>().is_unbounded())
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
       struct allocator_has_max_size_impl : std::false_type{};
 
       template<typename T>
       struct allocator_has_max_size_impl<T,
-        void_t<decltype( std::declval<allocator_size_type_t<T>&>() = std::declval<const T&>().max_size() )>
+        void_t<decltype( std::declval<allocator_size_type_t<T>&>()
+          = std::declval<const T&>().max_size())
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -272,29 +336,56 @@ namespace bit {
 
       template<typename T>
       struct allocator_has_min_size_impl<T,
-        void_t<decltype( std::declval<allocator_size_type_t<T>&>() = std::declval<const T&>().min_size() )>
+        void_t<decltype( std::declval<allocator_size_type_t<T>&>()
+          = std::declval<const T&>().min_size())
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
-      struct allocator_default_alignment_impl : std::integral_constant<allocator_size_type_t<T>,1>{};
+      struct allocator_default_alignment_impl
+        : std::integral_constant<allocator_size_type_t<T>,1>{};
 
       template<typename T>
-      struct allocator_default_alignment_impl<T,void_t<decltype(T::default_alignment)>> : T::default_alignment{};
+      struct allocator_default_alignment_impl<T,
+        void_t<decltype(T::default_alignment)>>
+        : T::default_alignment{};
 
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
-      struct allocator_max_alignment_impl : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
+      struct allocator_max_alignment_impl
+        : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
 
       template<typename T>
-      struct allocator_max_alignment_impl<T,void_t<decltype(T::max_alignment)>> : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
+      struct allocator_max_alignment_impl<T,
+        void_t<decltype(T::max_alignment)>>
+        : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
 
       //----------------------------------------------------------------------
 
     } // namespace detail
 
+    /// \brief Type-trait to determine whether \p T has a 'try_allocate'
+    ///        function that accepts a hint
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_try_allocate_hint
+      : detail::allocator_has_try_allocate_hint_impl<T>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_try_allocate_hint<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_try_allocate_hint_v
+      = allocator_has_try_allocate_hint<T>::value;
+
+    //-------------------------------------------------------------------------
 
     /// \brief Type-trait to determine whether \p T has an 'allocate' function
     ///
@@ -310,7 +401,27 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr bool allocator_has_allocate_v = allocator_has_allocate<T>::value;
+    constexpr bool allocator_has_allocate_v
+      = allocator_has_allocate<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has an 'allocate' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_allocate_hint
+      : detail::allocator_has_allocate_hint_impl<T>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_allocate_hint<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_allocate_hint_v
+      = allocator_has_allocate_hint<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -330,6 +441,24 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr bool allocator_can_truncate_deallocations_v = allocator_can_truncate_deallocations<T>::value;
+
+    /// \brief Type-trait to determine whether \p T has a
+    ///        'recommended_allocation_size' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_recommended_allocation_size
+      : detail::allocator_has_recommended_allocation_size_impl<T>{};
+
+      /// \brief Convenience template bool for accessing
+      ///        \c recommended_allocation_size<T>::value
+      ///
+      /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_recommended_allocation_size_v
+      = allocator_has_recommended_allocation_size<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -366,6 +495,24 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr bool allocator_has_info_v = allocator_has_info<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has a 'is_unbounded' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_is_unbounded
+      : detail::allocator_has_is_unbounded_impl<T>{};
+
+      /// \brief Convenience template bool for accessing
+      ///        \c allocator_has_is_unbounded<T>::value
+      ///
+      /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_is_unbounded_v = allocator_has_is_unbounded<T>::value;
 
     //-------------------------------------------------------------------------
 
