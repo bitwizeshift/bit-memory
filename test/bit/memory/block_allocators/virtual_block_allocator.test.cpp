@@ -6,11 +6,30 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/debugging.hpp>
-#include <bit/memory/virtual_memory.hpp>
 #include <bit/memory/block_allocators/virtual_block_allocator.hpp>
+#include <bit/memory/virtual_memory.hpp>
+#include <bit/memory/concepts/BlockAllocator.hpp>
 
 #include <catch.hpp>
+
+//=============================================================================
+// Static Requirements
+//=============================================================================
+
+using static_type       = bit::memory::virtual_block_allocator;
+using named_static_type = bit::memory::named_virtual_block_allocator;
+
+//=============================================================================
+
+static_assert( bit::memory::is_block_allocator<static_type>::value,
+               "virtual block allocator must be a block allocator" );
+
+static_assert( bit::memory::is_block_allocator<named_static_type>::value,
+               "named virtual block allocator must be a block allocator" );
+
+//=============================================================================
+// Unit Tests
+//=============================================================================
 
 //----------------------------------------------------------------------------
 // Block Allocations
