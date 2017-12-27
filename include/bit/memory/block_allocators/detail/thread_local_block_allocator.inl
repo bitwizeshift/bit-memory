@@ -6,7 +6,7 @@
 //-----------------------------------------------------------------------------
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
-alignas(Align) char bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
+alignas(Align) thread_local char bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
   ::s_storage[bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>::s_storage_size];
 
 //-----------------------------------------------------------------------------

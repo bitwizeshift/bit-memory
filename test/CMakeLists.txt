@@ -31,6 +31,13 @@ set(source_files
   ${platform_source_files}
 )
 
+# Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
+# avoid failing independence tests, they have been appended here
+if( NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
+  list(APPEND source_files bit/memory/block_allocators/thread_local_block_allocator.test.cpp)
+endif()
+
+
 add_executable(bit_memory_test ${source_files})
 
 target_link_libraries(bit_memory_test PRIVATE "bit::memory" "philsquared::Catch")
