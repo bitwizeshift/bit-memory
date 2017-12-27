@@ -10,9 +10,9 @@
 #include <bit/memory/concepts/BlockAllocator.hpp>
 #include <bit/memory/concepts/Stateless.hpp>
 
-#include <cstring> // std::memset
-
 #include <catch.hpp>
+
+#include <cstring> // std::memset
 
 //=============================================================================
 // Static Requirements
