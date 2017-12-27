@@ -97,13 +97,14 @@ template<typename BlockAllocator>
 inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::memory_block_cache::request_block( BlockAllocator& alloc )
 {
-  auto block = m_head;
   if( m_head.data() ) {
+    auto block = m_head;
+
     m_head = (*static_cast<memory_block*>(block.data()));
-  } else {
-    block = alloc.allocate_block();
+
+    return block;
   }
-  return block;
+  return alloc.allocate_block();
 }
 
 //-----------------------------------------------------------------------------
