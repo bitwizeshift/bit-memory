@@ -46,13 +46,11 @@ namespace bit {
              typename Tag = void>
     class static_block_allocator
     {
-      static constexpr auto s_min_alignment = ((BlockSize > Align) ? Align : BlockSize);
-
       static_assert( Blocks > 0,
                      "Must have at least one block" );
       static_assert( is_power_of_two(Align),
                      "Alignment must be a power of two" );
-      static_assert( BlockSize % s_min_alignment == 0,
+      static_assert( Blocks == 1 || BlockSize % Align == 0,
                      "Block size must must be an increment of the alignment" );
 
       //-----------------------------------------------------------------------
@@ -133,7 +131,8 @@ namespace bit {
       //-----------------------------------------------------------------------
     private:
 
-      alignas(Align) static char s_storage[BlockSize * Blocks];
+      static constexpr auto s_storage_size = BlockSize * Blocks;
+      alignas(Align) static char s_storage[s_storage_size];
 
       /// \brief Gets the static memory_block_cache for this allocator
       ///

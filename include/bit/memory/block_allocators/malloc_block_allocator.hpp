@@ -161,24 +161,31 @@ namespace bit {
     // Utiltiies
     //-------------------------------------------------------------------------
 
-    using dynamic_malloc_block_allocator = malloc_block_allocator<dynamic_size>;
+    using dynamic_malloc_block_allocator
+      = malloc_block_allocator<dynamic_size>;
 
     template<std::size_t Size>
-    using cached_malloc_block_allocator = detail::cached_block_allocator<malloc_block_allocator<Size>>;
+    using cached_malloc_block_allocator
+      = detail::cached_block_allocator<malloc_block_allocator<Size>>;
 
-    using cached_dynamic_malloc_block_allocator = detail::cached_block_allocator<dynamic_malloc_block_allocator>;
+    using cached_dynamic_malloc_block_allocator
+      = detail::cached_block_allocator<dynamic_malloc_block_allocator>;
 
     //-------------------------------------------------------------------------
 
     template<std::size_t Size>
-    using named_malloc_block_allocator = detail::named_block_allocator<malloc_block_allocator<Size>>;
+    using named_malloc_block_allocator
+      = detail::named_block_allocator<malloc_block_allocator<Size>>;
 
     template<std::size_t Size>
-    using named_cached_malloc_block_allocator = detail::named_block_allocator<cached_malloc_block_allocator<Size>>;
+    using named_cached_malloc_block_allocator
+      = detail::named_block_allocator<cached_malloc_block_allocator<Size>>;
 
-    using named_dynamic_malloc_block_allocator = detail::named_block_allocator<dynamic_malloc_block_allocator>;
+    using named_dynamic_malloc_block_allocator
+      = detail::named_block_allocator<dynamic_malloc_block_allocator>;
 
-    using named_cached_dynamic_malloc_block_allocator = detail::named_block_allocator<cached_dynamic_malloc_block_allocator>;
+    using named_cached_dynamic_malloc_block_allocator
+      = detail::named_block_allocator<cached_dynamic_malloc_block_allocator>;
 
   } // namespace memory
 } // namespace bit

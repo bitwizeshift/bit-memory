@@ -24,6 +24,7 @@ set(source_files
   bit/memory/block_allocators/null_block_allocator.test.cpp
   bit/memory/block_allocators/malloc_block_allocator.test.cpp
   bit/memory/block_allocators/new_block_allocator.test.cpp
+  bit/memory/block_allocators/stack_block_allocator.test.cpp
   bit/memory/block_allocators/static_block_allocator.test.cpp
   bit/memory/block_allocators/virtual_block_allocator.test.cpp
 

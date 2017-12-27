@@ -12,6 +12,8 @@
 #include "detail/cached_block_allocator.hpp" // cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
+#include "malloc_block_allocator.hpp"
+
 #include "../detail/dynamic_size_type.hpp" // dynamic_size, detail::dynamic_size_type
 #include "../aligned_memory.hpp"    // aligned_allocate
 #include "../allocator_info.hpp"    // allocator_info
@@ -20,7 +22,7 @@
 #include "../pointer_utilities.hpp" // is_power_of_two
 
 #include <type_traits> // std::true_type, std::false_type, etc
-#include <cstddef>     // std::size_t
+#include <cstddef>     // std::size_t, std::max_align_t
 #include <cassert>     // assert
 
 namespace bit {
@@ -104,6 +106,14 @@ namespace bit {
 
     ///////////////////////////////////////////////////////////////////////////
     /// \brief An allocator that allocates over-aligned memory
+    ///
+    /// \note This allocator should only be used for over-aligned memory blocks
+    ///       where required. It does not make sense to be used if the required
+    ///       alignment of each block is less than or equal to
+    ///       \c alignof(std::max_align_t) -- as this fundamental alignment is
+    ///       required of both the 'new_block_allocator' and
+    ///       'malloc_block_allocator' without requiring any additional
+    ///       overhead
     ///
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
@@ -213,23 +223,30 @@ namespace bit {
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
     template<std::size_t Size,std::size_t Align>
-    using cached_aligned_block_allocator = detail::cached_block_allocator<aligned_block_allocator<Size,Align>>;
+    using cached_aligned_block_allocator
+      = detail::cached_block_allocator<aligned_block_allocator<Size,Align>>;
 
-    using dynamic_aligned_block_allocator = aligned_block_allocator<dynamic_size,dynamic_size>;
+    using dynamic_aligned_block_allocator
+      = aligned_block_allocator<dynamic_size,dynamic_size>;
 
-    using cached_dynamic_aligned_block_allocator = detail::cached_block_allocator<dynamic_aligned_block_allocator>;
+    using cached_dynamic_aligned_block_allocator
+      = detail::cached_block_allocator<dynamic_aligned_block_allocator>;
 
     //-------------------------------------------------------------------------
 
     template<std::size_t Size,std::size_t Align>
-    using named_aligned_block_allocator = detail::named_block_allocator<aligned_block_allocator<Size,Align>>;
+    using named_aligned_block_allocator
+      = detail::named_block_allocator<aligned_block_allocator<Size,Align>>;
 
     template<std::size_t Size,std::size_t Align>
-    using named_cached_aligned_block_allocator = detail::named_block_allocator<cached_aligned_block_allocator<Size,Align>>;
+    using named_cached_aligned_block_allocator
+      = detail::named_block_allocator<cached_aligned_block_allocator<Size,Align>>;
 
-    using named_dynamic_aligned_block_allocator = detail::named_block_allocator<dynamic_aligned_block_allocator>;
+    using named_dynamic_aligned_block_allocator
+      = detail::named_block_allocator<dynamic_aligned_block_allocator>;
 
-    using named_cached_dynamic_aligned_block_allocator = detail::named_block_allocator<cached_dynamic_aligned_block_allocator>;
+    using named_cached_dynamic_aligned_block_allocator
+      = detail::named_block_allocator<cached_dynamic_aligned_block_allocator>;
 
   } // namespace memory
 } // namespace bit

@@ -7,7 +7,7 @@
 
 template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
 alignas(Align) char bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
-  ::s_storage[BlockSize*Blocks] = {};
+  ::s_storage[bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>::s_storage_size];
 
 //-----------------------------------------------------------------------------
 // Block Allocation
@@ -29,6 +29,10 @@ inline void bit::memory::static_block_allocator<BlockSize,Blocks,Align,Tag>
   ::deallocate_block( owner<memory_block> block )
   noexcept
 {
+  assert( block.data() >= static_cast<void*>(&s_storage[0]) );
+  assert( block.data() < static_cast<void*>(&s_storage[s_storage_size]) );
+  assert( block != nullblock );
+
   block_cache().store_block( block );
 }
 
@@ -69,8 +73,9 @@ inline bit::memory::memory_block_cache&
   static auto cache = []()
   {
     auto temp_cache = memory_block_cache{};
+    auto* s = static_cast<char*>(s_storage); // cast array to pointer
     for( auto i=0; i<Blocks; ++i ) {
-      auto* p = static_cast<void*>(&s_storage[i * BlockSize]);
+      auto* p = static_cast<void*>(s + (i * BlockSize));
 
       temp_cache.store_block( {p, BlockSize} );
     }

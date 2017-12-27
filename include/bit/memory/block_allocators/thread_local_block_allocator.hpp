@@ -131,7 +131,8 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      alignas(Align) static thread_local char s_storage[BlockSize * Blocks];
+      static constexpr auto s_storage_size = BlockSize * Blocks;
+      alignas(Align) static thread_local char s_storage[s_storage_size];
 
       /// \brief Gets the static memory_block_cache for this allocator
       ///
