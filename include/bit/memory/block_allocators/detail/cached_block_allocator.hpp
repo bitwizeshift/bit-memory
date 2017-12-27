@@ -87,6 +87,16 @@ namespace bit {
         void deallocate_block( owner<memory_block> block );
 
         //---------------------------------------------------------------------
+        // Observers
+        //---------------------------------------------------------------------
+      public:
+
+        /// \brief Queries the next block size expected from this allocator
+        ///
+        /// \return the size of the next allocated block
+        std::size_t next_block_size() const noexcept;
+
+        //---------------------------------------------------------------------
         // Private Members
         //---------------------------------------------------------------------
       private:
