@@ -120,6 +120,34 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 
   //---------------------------------------------------------------------------
 
+  SECTION("allocate_block creates read/writeable range of memory")
+  {
+    const auto block = block_allocator.allocate_block();
+    auto start = static_cast<unsigned char*>(block.data());
+    auto end   = static_cast<unsigned char*>(block.data()) + block.size();
+
+    // test write
+    std::memset( block.data(), 0x01, block.size() );
+
+    // test read
+    auto sum = 0u;
+    for( ; start != end; ++start ) sum += *start;
+
+    REQUIRE( sum == block.size() );
+  }
+}
+
+//-----------------------------------------------------------------------------
+// cached_malloc_block_allocator<1024>
+//-----------------------------------------------------------------------------
+
+TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
+{
+  static constexpr auto block_size = 1024;
+  auto block_allocator = bit::memory::cached_malloc_block_allocator<block_size>{};
+
+  //---------------------------------------------------------------------------
+
   // block allocators will attempt to reuse deallocated blocks first, before
   // allocating a new block
   SECTION("allocate_block reuses previously deallocated block")

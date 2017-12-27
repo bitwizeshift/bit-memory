@@ -40,6 +40,11 @@ namespace bit {
         //---------------------------------------------------------------------
       public:
 
+        /// \brief Default-constructs the underlying cached_block_allocator
+        ///
+        /// \note This is only enabled if BlockAllocator has it enabled
+        cached_block_allocator() = default;
+
         /// \brief Constructs a cached_block_allocator from another allocator
         ///
         /// \param alloc the underlying allocator to construct out of
