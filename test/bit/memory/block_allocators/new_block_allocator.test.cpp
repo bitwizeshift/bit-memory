@@ -90,7 +90,7 @@ static_assert( !bit::memory::is_stateless<named_cached_dynamic_type>::value,
 // Block Allocations
 //-----------------------------------------------------------------------------
 
-TEST_CASE("new_block_allocator::allocate_block<1024>()")
+TEST_CASE("new_block_allocator::allocate_block()")
 {
   static const auto block_size = 1024;
   auto block_allocator = bit::memory::new_block_allocator<block_size>();
