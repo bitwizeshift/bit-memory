@@ -40,29 +40,24 @@ static_assert( !bit::memory::is_stateless<named_static_type>::value,
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// Block Allocations
+// null_block_allocator
 //-----------------------------------------------------------------------------
 
-TEST_CASE("null_block_allocator::allocate_block()")
+TEST_CASE("null_block_allocator" "[resource management]")
 {
-  auto block_allocator = bit::memory::null_block_allocator();
+  auto block_allocator = bit::memory::null_block_allocator{};
 
-  SECTION("Allocates a memory block")
+  SECTION("next_block_size is always 0")
+  {
+    auto size = block_allocator.next_block_size();
+
+    REQUIRE( size == 0 );
+  }
+
+  SECTION("Allocates null memory blocks")
   {
     auto block = block_allocator.allocate_block();
 
-    SECTION("Block is null")
-    {
-      auto succeeds = block == bit::memory::nullblock;
-      REQUIRE( succeeds );
-    }
+    REQUIRE( block == bit::memory::nullblock );
   }
-}
-
-//-----------------------------------------------------------------------------
-
-TEST_CASE("null_block_allocator::deallocate_block( owner<memory_block> )")
-{
-  // deallocate does nothing for null_block_allocator
-  REQUIRE( true );
 }
