@@ -20,6 +20,7 @@ set(source_files
 
   # Block Allocators
   bit/memory/block_allocators/any_block_allocator.test.cpp
+  bit/memory/block_allocators/aligned_block_allocator.test.cpp
   bit/memory/block_allocators/null_block_allocator.test.cpp
   bit/memory/block_allocators/malloc_block_allocator.test.cpp
   bit/memory/block_allocators/new_block_allocator.test.cpp
