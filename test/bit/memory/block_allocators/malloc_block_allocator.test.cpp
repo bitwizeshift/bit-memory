@@ -12,6 +12,8 @@
 
 #include <catch.hpp>
 
+#include <cstring> // std::memset
+
 //=============================================================================
 // Static Requirements
 //=============================================================================
@@ -87,35 +89,101 @@ static_assert( !bit::memory::is_stateless<named_cached_dynamic_type>::value,
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// Block Allocations
+// malloc_block_allocator<1024>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("malloc_block_allocator::allocate_block()")
+TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 {
   static constexpr auto block_size = 1024;
-
   auto block_allocator = bit::memory::malloc_block_allocator<block_size>();
 
-  SECTION("Allocates a memory block")
-  {
-    auto block = block_allocator.allocate_block();
+  //---------------------------------------------------------------------------
 
-    SECTION("Block is not null")
+  SECTION("allocate_block with blocks available")
+  {
+    SECTION("Lists next_block_size as 'block_size'")
     {
-      auto succeeds = block != bit::memory::nullblock;
-      REQUIRE( succeeds );
+      const auto size = block_allocator.next_block_size();
+
+      REQUIRE( size == block_size );
     }
 
-    SECTION("Size is specified by constructor")
+    SECTION("Allocates non-null block")
     {
-      REQUIRE( block.size() == block_size );
+      auto block = block_allocator.allocate_block();
+
+      REQUIRE( block != bit::memory::nullblock );
+
+      block_allocator.deallocate_block( block );
     }
   }
-}
 
-//-----------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
 
-TEST_CASE("malloc_block_allocator::deallocate_block( owner<memory_block> )")
-{
+  // block allocators will attempt to reuse deallocated blocks first, before
+  // allocating a new block
+  SECTION("allocate_block reuses previously deallocated block")
+  {
+    auto p1 = static_cast<void*>(nullptr);
+    auto s1 = static_cast<std::size_t>(0);
+    {
+      auto block = block_allocator.allocate_block();
+      p1 = block.data();
+      s1 = block.size();
+      block_allocator.deallocate_block( block );
+    }
 
+    SECTION("Lists next_block_size as 's1'")
+    {
+      const auto size = block_allocator.next_block_size();
+
+      REQUIRE( size == s1 );
+    }
+
+    SECTION("Allocates a block")
+    {
+      const auto block = block_allocator.allocate_block();
+
+      REQUIRE( block != bit::memory::nullblock );
+
+      block_allocator.deallocate_block( block );
+    }
+
+    SECTION("Reuses previously allocated block")
+    {
+      const auto block = block_allocator.allocate_block();
+      const auto p2 = block.data();
+      const auto s2 = block.size();
+
+      SECTION("Allocates same memory region")
+      {
+        REQUIRE( p1 == p2 );
+      }
+
+      SECTION("Allocates same block size")
+      {
+        REQUIRE( s1 == s2 );
+      }
+
+      block_allocator.deallocate_block( block );
+    }
+  }
+
+  //---------------------------------------------------------------------------
+
+  SECTION("allocate_block creates read/writeable range of memory")
+  {
+    const auto block = block_allocator.allocate_block();
+    auto start = static_cast<unsigned char*>(block.data());
+    auto end   = static_cast<unsigned char*>(block.data()) + block.size();
+
+    // test write
+    std::memset( block.data(), 0x01, block.size() );
+
+    // test read
+    auto sum = 0u;
+    for( ; start != end; ++start ) sum += *start;
+
+    REQUIRE( sum == block.size() );
+  }
 }
