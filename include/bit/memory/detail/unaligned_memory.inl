@@ -8,6 +8,9 @@
 template<typename T>
 inline void bit::memory::store_unaligned( void* p, const T& val )
 {
+  static_assert( std::is_trivially_copyable<T>::value,
+                 "T must be trivially copyable" );
+
   auto val_ptr = reinterpret_cast<const char*>( std::addressof(val) );
 
   std::memcpy(p,val_ptr,sizeof(T));
@@ -20,10 +23,13 @@ inline void bit::memory::store_unaligned( void* p, const T& val )
 template<typename T>
 inline T bit::memory::load_unaligned( const void* p )
 {
-  T result;
-  std::memcpy(reinterpret_cast<char*>(&result),p,sizeof(T));
+  static_assert( std::is_trivially_copyable<T>::value,
+                 "T must be trivially copyable" );
+  alignas(T) char result[sizeof(T)];
 
-  return result;
+  std::memcpy(&result[0],p,sizeof(T));
+
+  return reinterpret_cast<T&>(result);;
 }
 
 //-----------------------------------------------------------------------------
