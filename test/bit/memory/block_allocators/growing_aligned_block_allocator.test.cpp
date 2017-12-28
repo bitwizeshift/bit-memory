@@ -235,7 +235,8 @@ TEST_CASE("cached_growing_aligned_block_allocator<block_size,align>" "[resource 
     {
       const auto block = block_allocator.allocate_block();
 
-      REQUIRE( block != bit::memory::nullblock );
+      auto success = block != bit::memory::nullblock;
+      REQUIRE( success );
 
       block_allocator.deallocate_block( block );
     }
