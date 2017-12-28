@@ -25,11 +25,12 @@ inline T bit::memory::load_unaligned( const void* p )
 {
   static_assert( std::is_trivially_copyable<T>::value,
                  "T must be trivially copyable" );
-  alignas(T) char result[sizeof(T)];
 
-  std::memcpy(&result[0],p,sizeof(T));
+  std::aligned_storage_t<sizeof(T),alignof(T)> result;
 
-  return *reinterpret_cast<T*>(static_cast<char*>(&result[0]));
+  std::memcpy(&result,p,sizeof(T));
+
+  return *reinterpret_cast<T*>(&result);
 }
 
 //-----------------------------------------------------------------------------
