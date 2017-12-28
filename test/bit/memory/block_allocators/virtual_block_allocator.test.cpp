@@ -13,6 +13,7 @@
 #include <catch.hpp>
 
 #include <cstring> // std::memset
+#include <array> // std::array
 
 //=============================================================================
 // Static Requirements

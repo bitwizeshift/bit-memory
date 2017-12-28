@@ -1,7 +1,6 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_GROWING_ALIGNED_BLOCK_ALLOCATOR_INL
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_GROWING_ALIGNED_BLOCK_ALLOCATOR_INL
 
-
 //=============================================================================
 // growing_aligned_block_allocator
 //=============================================================================
