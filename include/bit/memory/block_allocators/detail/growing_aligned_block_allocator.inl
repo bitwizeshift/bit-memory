@@ -45,7 +45,7 @@ inline std::size_t
   bit::memory::growing_aligned_block_allocator<Size,Align>::next_block_size()
   const noexcept
 {
-  return block_size_member::value();
+  return block_size_member::value() * base_type::m_multiplier;
 }
 
 template<std::size_t Size, std::size_t Align>

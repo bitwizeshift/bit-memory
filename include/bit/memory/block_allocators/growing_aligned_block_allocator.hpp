@@ -16,6 +16,7 @@
 #include "../aligned_memory.hpp"    // aligned_allocate
 #include "../allocator_info.hpp"    // allocator_info
 #include "../memory_block.hpp"      // memory_block
+#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../owner.hpp"             // owner
 #include "../pointer_utilities.hpp" // is_power_of_two
 

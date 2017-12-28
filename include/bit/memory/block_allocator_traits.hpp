@@ -12,7 +12,6 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "concepts/Stateless.hpp"      // is_stateless
 #include "concepts/BlockAllocator.hpp" // is_block_allocator
 
 #include "allocator_reference.hpp" // allocator_reference
@@ -54,8 +53,6 @@ namespace bit {
       //----------------------------------------------------------------------
     public:
 
-      // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
-      using is_stateless        = bit::memory::is_stateless<BlockAllocator>;
       using has_block_alignment = block_allocator_has_default_block_alignment<BlockAllocator>;
 
       //----------------------------------------------------------------------
