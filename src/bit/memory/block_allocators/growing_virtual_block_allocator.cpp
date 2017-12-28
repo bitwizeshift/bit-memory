@@ -58,25 +58,24 @@ bit::memory::owner<bit::memory::memory_block>
     return m_cache.request_block();
   }
 
-  if( (static_cast<std::size_t>(m_active_page) < m_pages) ) {
-
-    const auto pages      = std::min(m_multiplier,(m_pages - m_active_page));
-    const auto page_size  = virtual_memory_page_size();
-    const auto block_size = page_size * pages;
-
-    auto v = static_cast<byte_t*>(m_memory) + (m_active_page * page_size);
-    auto p = virtual_memory_commit( v, pages );
-
-    m_active_page = std::min(m_active_page + m_multiplier, m_pages);
-
-    if( static_cast<std::size_t>(m_active_page) < m_pages ) {
-      m_multiplier *= 2;
-    }
-
-    return {p, block_size};
+  if( (static_cast<std::size_t>(m_active_page) >= m_pages) ) {
+    return nullblock;
   }
 
-  return nullblock;
+  const auto pages      = std::min(m_multiplier,(m_pages - m_active_page));
+  const auto page_size  = virtual_memory_page_size();
+  const auto block_size = page_size * pages;
+
+  auto v = static_cast<byte_t*>(m_memory) + (m_active_page * page_size);
+  auto p = virtual_memory_commit( v, pages );
+
+  m_active_page = std::min(m_active_page + m_multiplier, m_pages);
+
+  if( static_cast<std::size_t>(m_active_page) < m_pages ) {
+    m_multiplier *= 2;
+  }
+
+  return {p, block_size};
 }
 
 void bit::memory::growing_virtual_block_allocator::deallocate_block( owner<memory_block> block )
@@ -92,7 +91,18 @@ void bit::memory::growing_virtual_block_allocator::deallocate_block( owner<memor
 std::size_t bit::memory::growing_virtual_block_allocator::next_block_size()
   const noexcept
 {
-  return virtual_memory_page_size() * static_cast<std::size_t>(m_active_page + 1);
+  if( !m_cache.empty() ) {
+    return m_cache.peek().size();
+  }
+
+  if( (static_cast<std::size_t>(m_active_page) >= m_pages) ) {
+    return 0;
+  }
+
+  const auto pages     = std::min(m_multiplier,(m_pages - m_active_page));
+  const auto page_size = virtual_memory_page_size();
+
+  return page_size * pages;
 }
 
 bit::memory::allocator_info bit::memory::growing_virtual_block_allocator::info()

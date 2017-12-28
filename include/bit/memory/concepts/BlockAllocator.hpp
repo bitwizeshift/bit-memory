@@ -47,7 +47,7 @@ namespace bit {
     /// side-effects:
     ///
     /// \code
-    /// a.allocate_block()
+    /// memory_block b = a.allocate_block()
     /// \endcode
     ///
     /// Allocates a \c memory_block of implementation-specific size
@@ -71,12 +71,12 @@ namespace bit {
 #if __cplusplus >= 202000L
   // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
 
-    template<typename B>
-    concept BlockAllocator = requires( B b, memory_block block )
+    template<typename A>
+    concept BlockAllocator = requires( A a, memory_block block )
     {
-      { b.allocate_block() } -> memory_block;
-      { b.deallocate_block( block ) } -> void;
-      { b.next_block_size() } -> std::size_t;
+      { block = a.allocate_block() } -> memory_block;
+      { a.deallocate_block( block ) } -> void;
+      { a.next_block_size() } -> std::size_t;
     };
 #endif
 
@@ -156,7 +156,8 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr std::size_t block_allocator_default_block_alignment_v = block_allocator_has_default_block_alignment<T>::value;
+    constexpr std::size_t block_allocator_default_block_alignment_v
+      = block_allocator_has_default_block_alignment<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -174,7 +175,8 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr std::size_t block_allocator_has_next_block_size_v = block_allocator_has_next_block_size<T>::value;
+    constexpr std::size_t block_allocator_has_next_block_size_v
+      = block_allocator_has_next_block_size<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -192,7 +194,8 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr std::size_t block_allocator_has_next_block_alignment_v = block_allocator_has_next_block_alignment<T>::value;
+    constexpr std::size_t block_allocator_has_next_block_alignment_v
+      = block_allocator_has_next_block_alignment<T>::value;
 
     //-------------------------------------------------------------------------
 
@@ -210,7 +213,8 @@ namespace bit {
     ///
     /// \tparam T the type to check
     template<typename T>
-    constexpr bool block_allocator_has_info_v = block_allocator_has_info<T>::value;
+    constexpr bool block_allocator_has_info_v
+      = block_allocator_has_info<T>::value;
 
     //-------------------------------------------------------------------------
 

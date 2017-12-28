@@ -1,48 +1,54 @@
 /**
- * \file virtual_block_allocator.test.cpp
+ * \file static_block_allocators.test.cpp
  *
- * \brief Unit tests for the virtual_block_allocator
+ * \brief Unit tests for the static_block_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/virtual_block_allocator.hpp>
-#include <bit/memory/virtual_memory.hpp>
+#include <bit/memory/block_allocators/static_block_allocator.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
+#include <bit/memory/concepts/Stateless.hpp>
 
 #include <catch.hpp>
 
 #include <cstring> // std::memset
-#include <array> // std::array
 
 //=============================================================================
 // Static Requirements
 //=============================================================================
 
-using static_type       = bit::memory::virtual_block_allocator;
-using named_static_type = bit::memory::named_virtual_block_allocator;
+using static_type       = bit::memory::static_block_allocator<1>;
+using named_static_type = bit::memory::named_static_block_allocator<1>;
 
 //=============================================================================
 
 static_assert( bit::memory::is_block_allocator<static_type>::value,
-               "virtual block allocator must be a block allocator" );
+               "static block allocator must be a block allocator" );
 
 static_assert( bit::memory::is_block_allocator<named_static_type>::value,
-               "named virtual block allocator must be a block allocator" );
+               "named static block allocator must be a block allocator" );
+
+//=============================================================================
+
+static_assert( bit::memory::is_stateless<static_type>::value,
+               "static block allocator must be stateless" );
+
+static_assert( !bit::memory::is_stateless<named_static_type>::value,
+               "named static block allocator cannot be stateless" );
 
 //=============================================================================
 // Unit Tests
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// virtual_block_allocator
+// static_block_allocator<1024,1>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("virtual_block_allocator" "[resource management]")
+TEST_CASE("static_block_allocator<1024,1>" "[resource management]")
 {
-  static constexpr auto blocks     = 3u;
-  static const     auto block_size = bit::memory::virtual_memory_page_size();
-  auto block_allocator = bit::memory::virtual_block_allocator{blocks};
+  static constexpr auto block_size = 1024;
+  auto block_allocator = bit::memory::static_block_allocator<block_size,1>();
 
   //---------------------------------------------------------------------------
 
@@ -70,10 +76,7 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
 
   SECTION("allocate_block without blocks available")
   {
-    auto allocated_blocks = std::array<bit::memory::memory_block,blocks>{};
-    for( auto i = 0; i < blocks; ++i ) {
-      allocated_blocks[i] = block_allocator.allocate_block();
-    }
+    auto block = block_allocator.allocate_block();
 
     SECTION("Lists next_block_size as 0")
     {
@@ -90,9 +93,7 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
       REQUIRE( success );
     }
 
-    for( auto i = 0; i < blocks; ++i ) {
-      block_allocator.deallocate_block( allocated_blocks[i] );
-    }
+    block_allocator.deallocate_block( block );
   }
 
   //---------------------------------------------------------------------------

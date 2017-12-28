@@ -1,101 +1,74 @@
 /**
- * \file malloc_block_allocator.test.cpp
+ * \file growing_malloc_block_allocator.test.cpp
  *
- * \brief Unit tests for the malloc_block_allocator
+ * \brief Unit tests for the growing_malloc_block_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/malloc_block_allocator.hpp>
-#include <bit/memory/concepts/Stateless.hpp>
+#include <bit/memory/block_allocators/growing_malloc_block_allocator.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
 
 #include <catch.hpp>
 
 #include <cstring> // std::memset
+#include <array> // std::array
 
 //=============================================================================
 // Static Requirements
 //=============================================================================
 
-using static_type              = bit::memory::malloc_block_allocator<64>;
-using named_static_type        = bit::memory::named_malloc_block_allocator<64>;
-using cached_static_type       = bit::memory::cached_malloc_block_allocator<64>;
-using named_cached_static_type = bit::memory::named_cached_malloc_block_allocator<64>;
+using static_type              = bit::memory::growing_malloc_block_allocator<64>;
+using named_static_type        = bit::memory::named_growing_malloc_block_allocator<64>;
+using cached_static_type       = bit::memory::cached_growing_malloc_block_allocator<64>;
+using named_cached_static_type = bit::memory::named_cached_growing_malloc_block_allocator<64>;
 
-using dynamic_type              = bit::memory::dynamic_malloc_block_allocator;
-using named_dynamic_type        = bit::memory::named_dynamic_malloc_block_allocator;
-using cached_dynamic_type       = bit::memory::cached_dynamic_malloc_block_allocator;
-using named_cached_dynamic_type = bit::memory::named_cached_dynamic_malloc_block_allocator;
+using dynamic_type              = bit::memory::dynamic_growing_malloc_block_allocator;
+using named_dynamic_type        = bit::memory::named_dynamic_growing_malloc_block_allocator;
+using cached_dynamic_type       = bit::memory::cached_dynamic_growing_malloc_block_allocator;
+using named_cached_dynamic_type = bit::memory::named_cached_dynamic_growing_malloc_block_allocator;
 
 //=============================================================================
 
 static_assert( bit::memory::is_block_allocator<static_type>::value,
-               "static malloc block allocator must be a block allocator" );
+               "static growing malloc block allocator must be a block allocator" );
 
 static_assert( bit::memory::is_block_allocator<named_static_type>::value,
-               "named static malloc block allocator must be a block allocator" );
+               "named static growing malloc block allocator must be a block allocator" );
 
 static_assert( bit::memory::is_block_allocator<cached_static_type>::value,
-               "cached static malloc allocator must be a block allocator" );
+               "cached static growing malloc allocator must be a block allocator" );
 
 static_assert( bit::memory::is_block_allocator<named_cached_static_type>::value,
-               "named cached static malloc block allocator must be a block allocator" );
+               "named cached growing malloc malloc block allocator must be a block allocator" );
 
 //-----------------------------------------------------------------------------
 
 static_assert( bit::memory::is_block_allocator<dynamic_type>::value,
-               "dynamic malloc block allocator must be a block allocator" );
+               "dynamic growing malloc block allocator must be a block allocator" );
 
 static_assert( bit::memory::is_block_allocator<named_dynamic_type>::value,
-               "named dynamic malloc block allocator must be a block allocator");
+               "named dynamic growing malloc block allocator must be a block allocator");
 
 static_assert( bit::memory::is_block_allocator<cached_dynamic_type>::value,
-               "cached dynamic malloc block allocator must be a block allocator");
+               "cached dynamic growing malloc block allocator must be a block allocator");
 
 static_assert( bit::memory::is_block_allocator<named_cached_dynamic_type>::value,
-               "named cached dynamic cached malloc block allocator must be a block allocator");
-
-//=============================================================================
-
-static_assert( bit::memory::is_stateless<static_type>::value,
-               "static malloc block allocator must be stateless" );
-
-static_assert( !bit::memory::is_stateless<named_static_type>::value,
-               "named static malloc block allocator cannot be stateless" );
-
-static_assert( !bit::memory::is_stateless<cached_static_type>::value,
-               "cached static malloc allocator cannot be stateless" );
-
-static_assert( !bit::memory::is_stateless<named_cached_static_type>::value,
-               "named cached static malloc block allocator cannot be stateless" );
-
-//-----------------------------------------------------------------------------
-
-static_assert( !bit::memory::is_stateless<dynamic_type>::value,
-               "dynamic malloc block allocator cannot be stateless" );
-
-static_assert( !bit::memory::is_stateless<named_dynamic_type>::value,
-               "named dynamic malloc block allocator cannot be stateless");
-
-static_assert( !bit::memory::is_stateless<cached_dynamic_type>::value,
-               "cached dynamic malloc block allocator cannot be stateless");
-
-static_assert( !bit::memory::is_stateless<named_cached_dynamic_type>::value,
-               "named cached dynamic cached malloc block allocator cannot be stateless");
+               "named cached dynamic cached growing malloc block allocator must be a block allocator");
 
 //=============================================================================
 // Unit Tests
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// malloc_block_allocator<1024>
+// growing_malloc_block_allocator<1024>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
+TEST_CASE("growing_malloc_block_allocator<block_size>" "[resource management]")
 {
-  static constexpr auto block_size = 1024;
-  auto block_allocator = bit::memory::malloc_block_allocator<block_size>();
+  static constexpr auto block_size  = 1024;
+  static constexpr auto growths     = 3u;
+  auto block_allocator = bit::memory::growing_malloc_block_allocator<block_size>{growths};
 
   //---------------------------------------------------------------------------
 
@@ -121,6 +94,68 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 
   //---------------------------------------------------------------------------
 
+  SECTION("allocate_block grows with each allocation")
+  {
+    auto block = block_allocator.allocate_block();
+
+    SECTION("Lists next_block_size as 2*'block_size'")
+    {
+      const auto size = block_allocator.next_block_size();
+
+      REQUIRE( size == (2 * block_size) );
+    }
+
+    SECTION("Allocates non-null block")
+    {
+      auto block = block_allocator.allocate_block();
+
+      auto success = block != bit::memory::nullblock;
+      REQUIRE( success );
+
+      block_allocator.deallocate_block( block );
+    }
+
+    block_allocator.deallocate_block(block);
+  }
+
+  //---------------------------------------------------------------------------
+
+  SECTION("allocate_block caps size at growths ^ rate * block_size")
+  {
+    auto allocated_blocks = std::array<bit::memory::memory_block,growths>{};
+
+    for( auto& block : allocated_blocks ) {
+      block = block_allocator.allocate_block();
+    }
+
+    SECTION("Lists next_block_size as multiplyer*'block_size'")
+    {
+      const auto multiplyer = 1 << growths;
+      const auto size       = block_allocator.next_block_size();
+
+      REQUIRE( size == (multiplyer * block_size) );
+    }
+
+    SECTION("Allocates block")
+    {
+      auto block = block_allocator.allocate_block();
+
+      SECTION("Block is non-null")
+      {
+        auto success = (block != bit::memory::nullblock);
+        REQUIRE( success );
+      }
+
+      block_allocator.deallocate_block( block );
+    }
+
+    for( auto& block : allocated_blocks ) {
+      block_allocator.deallocate_block(block);
+    }
+  }
+
+  //---------------------------------------------------------------------------
+
   SECTION("allocate_block creates read/writeable range of memory")
   {
     const auto block = block_allocator.allocate_block();
@@ -139,13 +174,14 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 }
 
 //-----------------------------------------------------------------------------
-// cached_malloc_block_allocator<1024>
+// cached_growing_malloc_block_allocator<1024>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
+TEST_CASE("cached_growing_malloc_block_allocator<block_size>" "[resource management]")
 {
   static constexpr auto block_size = 1024;
-  auto block_allocator = bit::memory::cached_malloc_block_allocator<block_size>{};
+  static constexpr auto growths    = 3u;
+  auto block_allocator = bit::memory::cached_growing_malloc_block_allocator<block_size>{growths};
 
   //---------------------------------------------------------------------------
 

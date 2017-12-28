@@ -7,33 +7,58 @@
  */
 
 #include <bit/memory/block_allocators/null_block_allocator.hpp>
+#include <bit/memory/concepts/Stateless.hpp>
+#include <bit/memory/concepts/BlockAllocator.hpp>
 
 #include <catch.hpp>
 
-//----------------------------------------------------------------------------
-// Block Allocations
-//----------------------------------------------------------------------------
+//=============================================================================
+// Static Requirements
+//=============================================================================
 
-TEST_CASE("null_block_allocator::allocate_block()")
+using static_type       = bit::memory::null_block_allocator;
+using named_static_type = bit::memory::named_null_block_allocator;
+
+//=============================================================================
+
+static_assert( bit::memory::is_block_allocator<static_type>::value,
+               "null block allocator must be a block allocator" );
+
+static_assert( bit::memory::is_block_allocator<named_static_type>::value,
+               "named null block allocator must be a block allocator" );
+
+//=============================================================================
+
+static_assert( bit::memory::is_stateless<static_type>::value,
+               "null block allocator must be stateless" );
+
+static_assert( !bit::memory::is_stateless<named_static_type>::value,
+               "named null block allocator cannot be stateless stateless" );
+
+//=============================================================================
+// Unit Tests
+//=============================================================================
+
+//-----------------------------------------------------------------------------
+// null_block_allocator
+//-----------------------------------------------------------------------------
+
+TEST_CASE("null_block_allocator" "[resource management]")
 {
-  auto block_allocator = bit::memory::null_block_allocator();
+  auto block_allocator = bit::memory::null_block_allocator{};
 
-  SECTION("Allocates a memory block")
+  SECTION("next_block_size is always 0")
+  {
+    auto size = block_allocator.next_block_size();
+
+    REQUIRE( size == 0 );
+  }
+
+  SECTION("Allocates null memory blocks")
   {
     auto block = block_allocator.allocate_block();
 
-    SECTION("Block is null")
-    {
-      auto succeeds = block == bit::memory::nullblock;
-      REQUIRE( succeeds );
-    }
+    auto success = block == bit::memory::nullblock;
+    REQUIRE( success );
   }
-}
-
-//----------------------------------------------------------------------------
-
-TEST_CASE("null_block_allocator::deallocate_block( owner<memory_block> )")
-{
-  // deallocate does nothing for null_block_allocator
-  REQUIRE( true );
 }

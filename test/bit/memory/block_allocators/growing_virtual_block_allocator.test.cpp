@@ -1,26 +1,26 @@
 /**
- * \file virtual_block_allocator.test.cpp
+ * \file growing_virtual_block_allocator.test.cpp
  *
- * \brief Unit tests for the virtual_block_allocator
+ * \brief Unit tests for the growing_virtual_block_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/virtual_block_allocator.hpp>
+#include <bit/memory/block_allocators/growing_virtual_block_allocator.hpp>
 #include <bit/memory/virtual_memory.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
 
 #include <catch.hpp>
 
 #include <cstring> // std::memset
-#include <array> // std::array
+#include <array>   // std::array
 
 //=============================================================================
 // Static Requirements
 //=============================================================================
 
-using static_type       = bit::memory::virtual_block_allocator;
-using named_static_type = bit::memory::named_virtual_block_allocator;
+using static_type       = bit::memory::growing_virtual_block_allocator;
+using named_static_type = bit::memory::named_growing_virtual_block_allocator;
 
 //=============================================================================
 
@@ -35,14 +35,14 @@ static_assert( bit::memory::is_block_allocator<named_static_type>::value,
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// virtual_block_allocator
+// growing_virtual_block_allocator
 //-----------------------------------------------------------------------------
 
-TEST_CASE("virtual_block_allocator" "[resource management]")
+TEST_CASE("growing_virtual_block_allocator" "[resource management]")
 {
-  static constexpr auto blocks     = 3u;
+  static constexpr auto blocks     = 4u;
   static const     auto block_size = bit::memory::virtual_memory_page_size();
-  auto block_allocator = bit::memory::virtual_block_allocator{blocks};
+  auto block_allocator = bit::memory::growing_virtual_block_allocator{blocks};
 
   //---------------------------------------------------------------------------
 
@@ -70,8 +70,8 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
 
   SECTION("allocate_block without blocks available")
   {
-    auto allocated_blocks = std::array<bit::memory::memory_block,blocks>{};
-    for( auto i = 0; i < blocks; ++i ) {
+    auto allocated_blocks = std::array<bit::memory::memory_block,3>{};
+    for( auto i = 0; i < 3; ++i ) {
       allocated_blocks[i] = block_allocator.allocate_block();
     }
 
@@ -90,7 +90,7 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
       REQUIRE( success );
     }
 
-    for( auto i = 0; i < blocks; ++i ) {
+    for( auto i = 0; i < 3; ++i ) {
       block_allocator.deallocate_block( allocated_blocks[i] );
     }
   }

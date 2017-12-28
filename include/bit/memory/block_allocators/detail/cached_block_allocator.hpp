@@ -40,6 +40,11 @@ namespace bit {
         //---------------------------------------------------------------------
       public:
 
+        /// \brief Default-constructs the underlying cached_block_allocator
+        ///
+        /// \note This is only enabled if BlockAllocator has it enabled
+        cached_block_allocator() = default;
+
         /// \brief Constructs a cached_block_allocator from another allocator
         ///
         /// \param alloc the underlying allocator to construct out of
@@ -85,6 +90,16 @@ namespace bit {
         ///
         /// \param block the block to deallocate
         void deallocate_block( owner<memory_block> block );
+
+        //---------------------------------------------------------------------
+        // Observers
+        //---------------------------------------------------------------------
+      public:
+
+        /// \brief Queries the next block size expected from this allocator
+        ///
+        /// \return the size of the next allocated block
+        std::size_t next_block_size() const noexcept;
 
         //---------------------------------------------------------------------
         // Private Members

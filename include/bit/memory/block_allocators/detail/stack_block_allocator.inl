@@ -10,8 +10,9 @@ inline bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
   ::stack_block_allocator()
   noexcept
 {
+  auto* s = static_cast<char*>(m_storage); // cast array to pointer
   for( auto i=0; i<Blocks; ++i ) {
-    auto* p = static_cast<void*>(&m_storage[i * BlockSize]);
+    auto* p = static_cast<void*>(s + (i * BlockSize));
 
     m_cache.store_block( {p, BlockSize} );
   }
@@ -34,6 +35,10 @@ inline void bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
   ::deallocate_block( owner<memory_block> block )
   noexcept
 {
+  assert( block.data() >= static_cast<void*>(&m_storage[0]) );
+  assert( block.data() < static_cast<void*>(&m_storage[s_storage_size]) );
+  assert( block != nullblock );
+
   m_cache.store_block( block );
 }
 
@@ -46,6 +51,7 @@ inline std::size_t bit::memory::stack_block_allocator<BlockSize,Blocks,Align>
   ::next_block_size()
   const noexcept
 {
+  if( m_cache.empty() ) return 0;
   return BlockSize;
 }
 

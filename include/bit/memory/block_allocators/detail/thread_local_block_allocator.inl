@@ -2,6 +2,14 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_THREAD_LOCAL_BLOCK_ALLOCATOR_INL
 
 //-----------------------------------------------------------------------------
+// Static Variables
+//-----------------------------------------------------------------------------
+
+template<std::size_t BlockSize, std::size_t Blocks, std::size_t Align, typename Tag>
+alignas(Align) thread_local char bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>
+  ::s_storage[bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag>::s_storage_size];
+
+//-----------------------------------------------------------------------------
 // Block Allocation
 //-----------------------------------------------------------------------------
 
@@ -21,6 +29,10 @@ inline void bit::memory::thread_local_block_allocator<BlockSize,Blocks,Align,Tag
   ::deallocate_block( owner<memory_block> block )
   noexcept
 {
+  assert( block.data() >= static_cast<void*>(&s_storage[0]) );
+  assert( block.data() < static_cast<void*>(&s_storage[s_storage_size]) );
+  assert( block != nullblock );
+
   block_cache().store_block( block );
 }
 
@@ -33,6 +45,7 @@ inline std::size_t bit::memory::thread_local_block_allocator<BlockSize,Blocks,Al
   ::next_block_size()
   const noexcept
 {
+  if( block_cache().empty() ) return 0;
   return BlockSize;
 }
 
@@ -56,8 +69,9 @@ inline bit::memory::memory_block_cache&
   static thread_local auto cache = []()
   {
     auto temp_cache = memory_block_cache{};
+    auto* s = static_cast<char*>(s_storage); // cast array to pointer
     for( auto i=0; i<Blocks; ++i ) {
-      auto* p = static_cast<void*>(&s_storage[i * BlockSize]);
+      auto* p = static_cast<void*>(s + (i * BlockSize));
 
       temp_cache.store_block( {p, BlockSize} );
     }

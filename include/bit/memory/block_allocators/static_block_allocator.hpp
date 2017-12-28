@@ -13,6 +13,7 @@
 #include "../owner.hpp"              // owner
 #include "../memory_block.hpp"       // memory_block
 #include "../memory_block_cache.hpp" // memory_block_cache
+#include "../pointer_utilities.hpp"  // is_power_of_two
 
 #include <cstddef> // std::size_t, std::max_align_t
 #include <cassert> // assert
@@ -45,21 +46,24 @@ namespace bit {
              typename Tag = void>
     class static_block_allocator
     {
-      static_assert( Blocks > 0,"Must have at least one block" );
-      static_assert( is_power_of_two(Align), "Alignment must be a power of two" );
-      static_assert( BlockSize % Align == 0, "Block size must must be an increment of the block size" );
+      static_assert( Blocks > 0,
+                     "Must have at least one block" );
+      static_assert( is_power_of_two(Align),
+                     "Alignment must be a power of two" );
+      static_assert( Blocks == 1 || BlockSize % Align == 0,
+                     "Block size must must be an increment of the alignment" );
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Public Members
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       using block_size      = std::integral_constant<std::size_t,BlockSize>;
       using block_alignment = std::integral_constant<std::size_t,Align>;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Constructor
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Default constructs a static_block_allocator
@@ -75,8 +79,7 @@ namespace bit {
       /// \param other the other allocator to copy
       static_block_allocator( const static_block_allocator& other ) noexcept = default;
 
-
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
 
       /// \brief Move-assigns a static_block_allocator from another one
       ///
@@ -90,9 +93,9 @@ namespace bit {
       /// \return reference to \c (*this)
       static_block_allocator& operator=( const static_block_allocator& other ) noexcept = default;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Block Allocations
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Allocates a memory block of size \c Size
@@ -123,12 +126,13 @@ namespace bit {
       /// \return the info for this allocator
       allocator_info info() const noexcept;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Private Members
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     private:
 
-      alignas(Align) static char s_storage[BlockSize * Blocks];
+      static constexpr auto s_storage_size = BlockSize * Blocks;
+      alignas(Align) static char s_storage[s_storage_size];
 
       /// \brief Gets the static memory_block_cache for this allocator
       ///
@@ -142,7 +146,8 @@ namespace bit {
              std::size_t Blocks = 1,
              std::size_t Align = alignof(std::max_align_t),
              typename Tag = void>
-    using named_static_block_allocator = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align,Tag>>;
+    using named_static_block_allocator
+      = detail::named_block_allocator<static_block_allocator<BlockSize,Blocks,Align,Tag>>;
 
   } // namespace memory
 } // namespace bit

@@ -1,14 +1,15 @@
 /**
- * \file malloc_block_allocator.test.cpp
+ * \file aligned_block_allocator.test.cpp
  *
- * \brief Unit tests for the malloc_block_allocator
+ * \brief Unit tests for the aligned_block_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/malloc_block_allocator.hpp>
+#include <bit/memory/block_allocators/aligned_block_allocator.hpp>
 #include <bit/memory/concepts/Stateless.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
+#include <bit/memory/pointer_utilities.hpp> // align_of
 
 #include <catch.hpp>
 
@@ -18,15 +19,15 @@
 // Static Requirements
 //=============================================================================
 
-using static_type              = bit::memory::malloc_block_allocator<64>;
-using named_static_type        = bit::memory::named_malloc_block_allocator<64>;
-using cached_static_type       = bit::memory::cached_malloc_block_allocator<64>;
-using named_cached_static_type = bit::memory::named_cached_malloc_block_allocator<64>;
+using static_type              = bit::memory::aligned_block_allocator<64,64>;
+using named_static_type        = bit::memory::named_aligned_block_allocator<64,64>;
+using cached_static_type       = bit::memory::cached_aligned_block_allocator<64,64>;
+using named_cached_static_type = bit::memory::named_cached_aligned_block_allocator<64,64>;
 
-using dynamic_type              = bit::memory::dynamic_malloc_block_allocator;
-using named_dynamic_type        = bit::memory::named_dynamic_malloc_block_allocator;
-using cached_dynamic_type       = bit::memory::cached_dynamic_malloc_block_allocator;
-using named_cached_dynamic_type = bit::memory::named_cached_dynamic_malloc_block_allocator;
+using dynamic_type              = bit::memory::dynamic_aligned_block_allocator;
+using named_dynamic_type        = bit::memory::named_dynamic_aligned_block_allocator;
+using cached_dynamic_type       = bit::memory::cached_dynamic_aligned_block_allocator;
+using named_cached_dynamic_type = bit::memory::named_cached_dynamic_aligned_block_allocator;
 
 //=============================================================================
 
@@ -58,8 +59,12 @@ static_assert( bit::memory::is_block_allocator<named_cached_dynamic_type>::value
 
 //=============================================================================
 
+#ifndef _MSC_VER // MSVC fails to determine that this code is actually stateless
+
 static_assert( bit::memory::is_stateless<static_type>::value,
                "static malloc block allocator must be stateless" );
+
+#endif
 
 static_assert( !bit::memory::is_stateless<named_static_type>::value,
                "named static malloc block allocator cannot be stateless" );
@@ -89,13 +94,14 @@ static_assert( !bit::memory::is_stateless<named_cached_dynamic_type>::value,
 //=============================================================================
 
 //-----------------------------------------------------------------------------
-// malloc_block_allocator<1024>
+// aligned_block_allocator<1024>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
+TEST_CASE("aligned_block_allocator<block_size,align>" "[resource management]")
 {
   static constexpr auto block_size = 1024;
-  auto block_allocator = bit::memory::malloc_block_allocator<block_size>();
+  static constexpr auto align      = 1024;
+  auto block_allocator = bit::memory::aligned_block_allocator<block_size,align>();
 
   //---------------------------------------------------------------------------
 
@@ -114,6 +120,15 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 
       auto success = block != bit::memory::nullblock;
       REQUIRE( success );
+
+      block_allocator.deallocate_block( block );
+    }
+
+    SECTION("Allocates block aligned to at least 'align'")
+    {
+      auto block = block_allocator.allocate_block();
+
+      REQUIRE( bit::memory::align_of(block.data()) >= align );
 
       block_allocator.deallocate_block( block );
     }
@@ -139,13 +154,14 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
 }
 
 //-----------------------------------------------------------------------------
-// cached_malloc_block_allocator<1024>
+// cached_aligned_block_allocator<1024>
 //-----------------------------------------------------------------------------
 
-TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
+TEST_CASE("cached_aligned_block_allocator<block_size,align>" "[resource management]")
 {
   static constexpr auto block_size = 1024;
-  auto block_allocator = bit::memory::cached_malloc_block_allocator<block_size>{};
+  static constexpr auto align      = 1024;
+  auto block_allocator = bit::memory::cached_aligned_block_allocator<block_size,align>{};
 
   //---------------------------------------------------------------------------
 
@@ -173,8 +189,17 @@ TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
     {
       const auto block = block_allocator.allocate_block();
 
-      auto success = block != bit::memory::nullblock;
+      auto success = (block != bit::memory::nullblock);
       REQUIRE( success );
+
+      block_allocator.deallocate_block( block );
+    }
+
+    SECTION("Allocates block aligned to at least 'align'")
+    {
+      auto block = block_allocator.allocate_block();
+
+      REQUIRE( bit::memory::align_of(block.data()) >= align );
 
       block_allocator.deallocate_block( block );
     }
@@ -217,3 +242,4 @@ TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
     REQUIRE( sum == block.size() );
   }
 }
+

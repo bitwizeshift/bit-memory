@@ -19,7 +19,7 @@
 namespace bit {
   namespace memory {
 
-    //////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
     /// \brief A cache containing an intrinsically linked list of
     ///        memory_blocks
     ///
@@ -27,12 +27,16 @@ namespace bit {
     /// Memory blocks may originate from different allocators, and represent
     /// different regions of memory -- however this is not the recommended
     /// practice.
-    /////////////////////////////////////////////////////////////////////////
+    ///
+    /// Every memory_block in the memory_block_cache must be aligned to at
+    /// least \c alignof(memory_block) bytes -- otherwise it is undefined
+    /// behavior
+    ///////////////////////////////////////////////////////////////////////////
     class memory_block_cache
     {
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Constructor / Assignment
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Default constructs a block cache
@@ -46,7 +50,7 @@ namespace bit {
       // Deleted copy constructor
       memory_block_cache( const memory_block_cache& other ) = delete;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
 
       // Deleted move assignment
       memory_block_cache& operator=( memory_block_cache&& other ) = delete;
@@ -54,9 +58,9 @@ namespace bit {
       // Deleted copy assignment
       memory_block_cache& operator=( const memory_block_cache& other ) = delete;
 
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
       // Observers
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
     public:
 
       /// \brief Returns whether or not this memory_block_cache is empty
@@ -65,6 +69,9 @@ namespace bit {
       bool empty() const noexcept;
 
       /// \brief Returns the number of memory_blocks in this cache
+      ///
+      /// This function is lazily computed, and is written with \c O(n)
+      /// complexity
       ///
       /// \return the number of memory_blocks in this cache
       std::size_t size() const noexcept;
@@ -80,10 +87,20 @@ namespace bit {
       /// \return \c true whether \p ptr
       bool contains( const void* ptr ) const noexcept;
 
-      //----------------------------------------------------------------------
-      // Caching
-      //----------------------------------------------------------------------
+      //-----------------------------------------------------------------------
+      // Element Access
+      //-----------------------------------------------------------------------
     public:
+
+      /// \brief Views the front memory block of this cache
+      ///
+      /// \pre !empty()
+      ///
+      /// \note It is undefined behaviour to invoke this function if the cache
+      ///       is empty
+      ///
+      /// \return the front cache entry
+      const memory_block& peek() const noexcept;
 
       /// \brief Requests a block from the current block cache.
       ///
@@ -106,6 +123,11 @@ namespace bit {
       void steal_block( memory_block_cache& other ) noexcept;
 
       /// \brief Stores an allocated block inside this memory_block_cache
+      ///
+      /// \pre \c block.data() points to memory that is aligned to at least
+      ///      \c alignof(memory_block) bytes.
+      ///
+      /// \pre \c block points to a valid memory_block
       ///
       /// \param block the block to store
       void store_block( owner<memory_block> block ) noexcept;

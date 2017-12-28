@@ -8,9 +8,11 @@
 #ifndef BIT_MEMORY_UNALIGNED_MEMORY_HPP
 #define BIT_MEMORY_UNALIGNED_MEMORY_HPP
 
-#include <cstdint> // std::uint8_t, std::uint16_t, etc
-#include <cstring> // std::memcpy
-#include <memory>  // std::addressof
+#include <cstdint>     // std::uint8_t, std::uint16_t, etc
+#include <cstring>     // std::memcpy
+#include <memory>      // std::addressof
+#include <type_traits> // std::is_trivially_copyable
+#include <utility>     // std::aligned_storage
 
 namespace bit {
   namespace memory {
@@ -20,6 +22,8 @@ namespace bit {
     //-------------------------------------------------------------------------
 
     /// \brief Stores an arbitrary type \p T into unaligned memory
+    ///
+    /// \pre \c std::is_trivially_copyable<T>::value is \c true
     ///
     /// \param p the memory to store into
     /// \param val the value to store
@@ -37,6 +41,8 @@ namespace bit {
     ///       pointing to potentially unsafe memory. Ideally, this function
     ///       should only be used to load fundamental types, or simple
     ///       pod/aggregate types.
+    ///
+    /// \pre \c std::is_trivially_copyable<T>::value is \c true
     ///
     /// \param p pointer to the memory to load from
     /// \return the type \p T
