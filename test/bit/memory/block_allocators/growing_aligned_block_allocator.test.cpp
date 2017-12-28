@@ -67,8 +67,8 @@ static_assert( bit::memory::is_block_allocator<named_cached_dynamic_type>::value
 
 TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource management]")
 {
-  static constexpr auto block_size  = 1024;
   static constexpr auto align       = 1024;
+  static constexpr auto block_size  = 1024;
   static constexpr auto growths     = 3u;
   auto block_allocator = bit::memory::growing_aligned_block_allocator<block_size,align>{growths};
 
@@ -148,7 +148,7 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
       block = block_allocator.allocate_block();
     }
 
-    SECTION("Lists next_block_size as 2*'block_size'")
+    SECTION("Lists next_block_size as multiplyer*'block_size'")
     {
       const auto multiplyer = 1 << growths;
       const auto size       = block_allocator.next_block_size();
@@ -162,14 +162,8 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
 
       SECTION("Block is non-null")
       {
-        REQUIRE( block != bit::memory::nullblock );
-      }
-
-      SECTION("Block size is ")
-      {
-        const auto multiplyer = 1 << growths;
-
-        REQUIRE( block != bit::memory::nullblock );
+        auto success = (block != bit::memory::nullblock);
+        REQUIRE( success );
       }
 
       SECTION("Block is aligned to at least 'align'")
