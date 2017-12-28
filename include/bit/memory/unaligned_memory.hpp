@@ -12,6 +12,7 @@
 #include <cstring>     // std::memcpy
 #include <memory>      // std::addressof
 #include <type_traits> // std::is_trivially_copyable
+#include <utility>     // std::aligned_storage
 
 namespace bit {
   namespace memory {
