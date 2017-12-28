@@ -72,7 +72,10 @@ namespace bit {
         public detail::policy_block_allocator_base<BlockAllocator>
     {
       using traits_type = block_allocator_traits<BlockAllocator>;
-      using base_type = detail::ebo_storage<BlockAllocator,MemoryTagger,MemoryTracker,BasicLockable>;
+      using base_type = detail::ebo_storage<BlockAllocator,
+                                            MemoryTagger,
+                                            MemoryTracker,
+                                            BasicLockable>;
 
       //-----------------------------------------------------------------------
       // Public Member Types
@@ -82,9 +85,9 @@ namespace bit {
       using lock_type    = BasicLockable;
       using tracker_type = MemoryTracker;
       using is_stateless = std::integral_constant<bool,is_stateless<BlockAllocator>::value &&
-                                                       std::is_empty<MemoryTagger>::value &&
-                                                       std::is_empty<MemoryTracker>::value &&
-                                                       std::is_empty<BasicLockable>::value>;
+                                                       is_stateless<MemoryTagger>::value &&
+                                                       is_stateless<MemoryTracker>::value &&
+                                                       is_stateless<BasicLockable>::value>;
 
       //-----------------------------------------------------------------------
       // Constructors
@@ -98,8 +101,11 @@ namespace bit {
       ///        arguments to it
       ///
       /// \param args the arguments to forward to the underlying block allocator
-      template<typename...Args, typename = std::enable_if_t<std::is_constructible<BlockAllocator,Args...>::value>>
-      policy_block_allocator( Args&&...args );
+      template<typename Arg0, typename...Args,
+               typename = std::enable_if_t<
+                 std::is_constructible<BlockAllocator,Arg0,Args...>::value &&
+                 !std::is_same<Arg0,std::decay_t<policy_block_allocator>>::value>>
+      policy_block_allocator( Arg0&& arg0, Args&&...args );
 
       /// \brief Move-constructs this policy_block_allocator from an existing
       ///        one
@@ -175,22 +181,12 @@ namespace bit {
       ///       \c info()
       ///
       /// \return the allocator info
-      template<typename U = BlockAllocator, typename = std::enable_if_t<block_allocator_has_info<U>::value>>
       allocator_info info() const noexcept;
 
       /// \brief Queries the next block size expected from this allocator
       ///
       /// \return the size of the next allocated block
       std::size_t next_block_size() const noexcept;
-
-      /// \brief Queries the next block alignment expected from this allocator
-      ///
-      /// \note This is only enabled if the underlying BlockAllocator supports
-      ///       \c next_block_alignment()
-      ///
-      /// \return the next block alignment
-      template<typename U = BlockAllocator, typename = std::enable_if_t<block_allocator_has_next_block_alignment<U>::value>>
-      std::size_t next_block_alignment() const noexcept;
     };
 
   } // namespace memory

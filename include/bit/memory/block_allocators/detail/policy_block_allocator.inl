@@ -10,10 +10,11 @@
 //-----------------------------------------------------------------------------
 
 template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
-template<typename...Args,typename>
+template<typename Arg0, typename...Args,typename>
 inline bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
-  ::policy_block_allocator( Args&&...args )
-  : base_type( std::forward_as_tuple( std::forward<Args>(args)... ),
+  ::policy_block_allocator( Arg0&& arg0, Args&&...args )
+  : base_type( std::forward_as_tuple( std::forward<Arg0>(arg0),
+                                      std::forward<Args>(args)... ),
                std::make_tuple(),
                std::make_tuple(),
                std::make_tuple() )
@@ -105,7 +106,6 @@ inline const Tracker&
 //-----------------------------------------------------------------------------
 
 template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
-template<typename,typename>
 inline bit::memory::allocator_info
   bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
   ::info()
@@ -121,17 +121,6 @@ inline std::size_t
   const noexcept
 {
   return traits_type::next_block_size( detail::get<0>(*this) );
-}
-
-
-template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
-template<typename,typename>
-inline std::size_t
-  bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
-  ::next_block_alignment()
-  const noexcept
-{
-  return traits_type::next_block_alignment( detail::get<0>(*this) );
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_POLICY_BLOCK_ALLOCATOR_INL */
