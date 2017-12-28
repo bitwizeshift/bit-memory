@@ -59,8 +59,12 @@ static_assert( bit::memory::is_block_allocator<named_cached_dynamic_type>::value
 
 //=============================================================================
 
+#ifdef _MSC_VER // MSVC fails to determine that this code is actually stateless
+
 static_assert( bit::memory::is_stateless<static_type>::value,
                "static malloc block allocator must be stateless" );
+
+#endif
 
 static_assert( !bit::memory::is_stateless<named_static_type>::value,
                "named static malloc block allocator cannot be stateless" );
