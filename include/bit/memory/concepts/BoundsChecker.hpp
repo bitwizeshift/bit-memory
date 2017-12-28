@@ -180,7 +180,8 @@ namespace bit {
       detail::bounds_checker_has_check_front_fence<T>::value &&
       detail::bounds_checker_has_check_back_fence<T>::value &&
       detail::bounds_checker_has_front_size<T>::value &&
-      detail::bounds_checker_has_back_size<T>::value
+      detail::bounds_checker_has_back_size<T>::value &&
+      std::is_default_constructible<T>::value
      >{};
 
     /// \brief Convenience template variable for extracting the result from

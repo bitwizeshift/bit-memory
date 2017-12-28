@@ -143,7 +143,8 @@ namespace bit {
       detail::memory_tracker_has_on_allocate<T>::value &&
       detail::memory_tracker_has_on_deallocate<T>::value &&
       detail::memory_tracker_has_on_deallocate_all<T>::value &&
-      detail::memory_tracker_has_finalize<T>::value
+      detail::memory_tracker_has_finalize<T>::value &&
+      std::is_default_constructible<T>::value
     >{};
 
     /// \brief Convenience template variable for extracting the result from

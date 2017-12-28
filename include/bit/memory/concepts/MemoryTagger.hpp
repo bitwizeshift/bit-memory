@@ -91,7 +91,8 @@ namespace bit {
     template<typename T>
     struct is_memory_tagger : std::integral_constant<bool,
       detail::memory_tagger_has_tag_allocation<T>::value &&
-      detail::memory_tagger_has_tag_deallocation<T>::value
+      detail::memory_tagger_has_tag_deallocation<T>::value &&
+      std::is_default_constructible<T>::value
     >{};
 
     /// \brief Convenience template variable for extracting the result from
