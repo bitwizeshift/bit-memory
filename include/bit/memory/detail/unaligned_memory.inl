@@ -29,7 +29,7 @@ inline T bit::memory::load_unaligned( const void* p )
 
   std::memcpy(&result[0],p,sizeof(T));
 
-  return *reinterpret_cast<T*>(&result[0]);;
+  return *reinterpret_cast<T*>(static_cast<char*>(&result[0]));
 }
 
 //-----------------------------------------------------------------------------
