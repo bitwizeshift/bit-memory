@@ -87,7 +87,8 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
     {
       auto block = block_allocator.allocate_block();
 
-      REQUIRE( block != bit::memory::nullblock );
+      auto success = block != bit::memory::nullblock;
+      REQUIRE( success );
 
       block_allocator.deallocate_block( block );
     }
@@ -119,7 +120,8 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
     {
       auto block = block_allocator.allocate_block();
 
-      REQUIRE( block != bit::memory::nullblock );
+      auto success = block != bit::memory::nullblock;
+      REQUIRE( success );
 
       block_allocator.deallocate_block( block );
     }
@@ -132,32 +134,6 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
 
       block_allocator.deallocate_block( block );
     }
-
-    SECTION("Lists next_block_size as 2*'block_size'")
-    {
-      const auto size = block_allocator.next_block_size();
-
-      REQUIRE( size == (2 * block_size) );
-    }
-
-    SECTION("Allocates non-null block")
-    {
-      auto block = block_allocator.allocate_block();
-
-      REQUIRE( block != bit::memory::nullblock );
-
-      block_allocator.deallocate_block( block );
-    }
-
-    SECTION("Allocates block aligned to at least 'align'")
-    {
-      auto block = block_allocator.allocate_block();
-
-      REQUIRE( bit::memory::align_of(block.data()) >= align );
-
-      block_allocator.deallocate_block( block );
-    }
-
 
     block_allocator.deallocate_block(block);
   }

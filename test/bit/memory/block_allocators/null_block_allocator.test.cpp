@@ -58,6 +58,7 @@ TEST_CASE("null_block_allocator" "[resource management]")
   {
     auto block = block_allocator.allocate_block();
 
-    REQUIRE( block == bit::memory::nullblock );
+    auto success = block == bit::memory::nullblock;
+    REQUIRE( success );
   }
 }

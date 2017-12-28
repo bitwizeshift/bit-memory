@@ -65,7 +65,8 @@ TEST_CASE("static_block_allocator<1024,1>" "[resource management]")
     {
       auto block = block_allocator.allocate_block();
 
-      REQUIRE( block != bit::memory::nullblock );
+      auto success = block != bit::memory::nullblock;
+      REQUIRE( success );
 
       block_allocator.deallocate_block( block );
     }
@@ -88,7 +89,8 @@ TEST_CASE("static_block_allocator<1024,1>" "[resource management]")
     {
       const auto null_block = block_allocator.allocate_block();
 
-      REQUIRE( null_block == bit::memory::nullblock );
+      auto success = null_block == bit::memory::nullblock;
+      REQUIRE( success );
     }
 
     block_allocator.deallocate_block( block );
