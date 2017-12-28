@@ -69,7 +69,7 @@ TEST_CASE("growing_aligned_block_allocator<block_size,align>" "[resource managem
 {
   static constexpr auto block_size  = 1024;
   static constexpr auto align       = 1024;
-  static constexpr auto growths     = 3;
+  static constexpr auto growths     = 3u;
   auto block_allocator = bit::memory::growing_aligned_block_allocator<block_size,align>{growths};
 
   //---------------------------------------------------------------------------
@@ -212,7 +212,7 @@ TEST_CASE("cached_growing_aligned_block_allocator<block_size,align>" "[resource 
 {
   static constexpr auto block_size = 1024;
   static constexpr auto align      = 1024;
-  static constexpr auto growths    = 3;
+  static constexpr auto growths    = 3u;
   auto block_allocator = bit::memory::cached_growing_aligned_block_allocator<block_size,align>{growths};
 
   //---------------------------------------------------------------------------
