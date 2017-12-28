@@ -116,7 +116,7 @@ install:
 
   # Get dependency 'catch'
   - mkdir -p catch/include
-  - wget https://github.com/philsquared/Catch/releases/download/v1.10.0/catch.hpp -P catch/include
+  - wget https://github.com/catchorg/Catch2/releases/download/v2.0.1/catch.hpp -P catch/include
   - export CATCH_DIR=$(pwd)/catch/include
 
   # Install cmake 3.9.4 for Linux
