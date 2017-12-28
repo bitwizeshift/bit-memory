@@ -13,7 +13,7 @@
 #include <catch.hpp>
 
 #include <cstring> // std::memset
-#include <array> // std::array
+#include <array>   // std::array
 
 //=============================================================================
 // Static Requirements
@@ -90,7 +90,7 @@ TEST_CASE("growing_virtual_block_allocator" "[resource management]")
       REQUIRE( success );
     }
 
-    for( auto i = 0; i < blocks; ++i ) {
+    for( auto i = 0; i < 3; ++i ) {
       block_allocator.deallocate_block( allocated_blocks[i] );
     }
   }
