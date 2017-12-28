@@ -40,7 +40,7 @@ static_assert( bit::memory::is_block_allocator<named_static_type>::value,
 
 TEST_CASE("virtual_block_allocator" "[resource management]")
 {
-  static constexpr auto blocks     = 3;
+  static constexpr auto blocks     = 3u;
   static const     auto block_size = bit::memory::virtual_memory_page_size();
   auto block_allocator = bit::memory::virtual_block_allocator{blocks};
 
