@@ -13,7 +13,6 @@
 #include "concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
 #include "concepts/ExtendedAllocator.hpp" // allocator_has_extended_try_allocate
 
-#include "allocator_reference.hpp"   // allocator_reference
 #include "allocator_info.hpp"        // allocator_info
 #include "errors.hpp"                // get_out_of_memory_handler
 #include "macros.hpp"                // BIT_MEMORY_UNUSED
@@ -636,6 +635,103 @@ namespace bit {
       /// \}
 
       //-----------------------------------------------------------------------
+      // Private Constructions
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Tries to make an instance by allocating memory and constructing
+      ///        the type by forwarding 'args'.
+      ///
+      /// On allocation failure, this function will return nullptr
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static T* do_try_make( std::true_type,
+                             Allocator& alloc,
+                             Args&&...args )
+        noexcept;
+      template<typename T, typename...Args>
+      static T* do_try_make( std::false_type,
+                             Allocator& alloc,
+                             Args&&...args );
+      /// \}
+
+      /// \{
+      /// \brief Tries to make an array by allocating memory and constructing
+      ///        an array by forwarding 'args' to each entry.
+      ///
+      /// On allocation failure, this function will return nullptr
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param n the number of entries in the array
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static T* do_try_make_array( std::true_type,
+                                   Allocator& alloc,
+                                   std::size_t n,
+                                   Args&&...args )
+        noexcept;
+      template<typename T, typename...Args>
+      static T* do_try_make_array( std::false_type,
+                                   Allocator& alloc,
+                                   std::size_t n,
+                                   Args&&...args );
+      /// \}
+
+      /// \{
+      /// \brief Makes an instance by allocating memory and constructing
+      ///        the type by forwarding 'args'.
+      ///
+      /// On allocation failure, this function will invoke the out-of-memory
+      /// handler
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static T* do_make( std::true_type,
+                         Allocator& alloc,
+                         Args&&...args );
+      template<typename T, typename...Args>
+      static T* do_make( std::false_type,
+                         Allocator& alloc,
+                         Args&&...args );
+      /// \}
+
+
+      /// \{
+      /// \brief Makes an array by allocating memory and constructing
+      ///        an array by forwarding 'args' to each entry.
+      ///
+      /// On allocation failure, this function will invoke the out-of-memory
+      /// handler
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param n the number of entries in the array
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static T* do_make_array( std::true_type,
+                               Allocator& alloc,
+                               std::size_t n,
+                               Args&&...args );
+      template<typename T, typename...Args>
+      static T* do_make_array( std::false_type,
+                               Allocator& alloc,
+                               std::size_t n,
+                               Args&&...args );
+      /// \}
+
+
+      //-----------------------------------------------------------------------
       // Private Capacity
       //-----------------------------------------------------------------------
     private:
@@ -677,14 +773,6 @@ namespace bit {
       static size_type do_min_size( std::false_type, const Allocator& alloc );
       /// \}
     };
-
-    template<typename Allocator>
-    class allocator_traits<allocator_reference<Allocator>>
-      : public allocator_traits<Allocator>
-    {
-
-    };
-
   } // namespace memory
 } // namespace bit
 
