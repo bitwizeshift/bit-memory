@@ -142,6 +142,10 @@ set(headers
   include/bit/memory/allocators/null_allocator.hpp
   include/bit/memory/allocators/pool_allocator.hpp
   include/bit/memory/allocators/stack_allocator.hpp
+  
+    
+  # Allocator Storage
+  include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
 )
 
 # Though the inline headers are not strictly used (or even required by CMake),
@@ -213,6 +217,9 @@ set(inline_headers
   include/bit/memory/allocators/detail/policy_allocator.inl
   include/bit/memory/allocators/detail/pool_allocator.inl
   include/bit/memory/allocators/detail/stack_allocator.inl
+  
+  # Allocator Storage
+  include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
 )
 
 # Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
