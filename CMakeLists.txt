@@ -146,6 +146,7 @@ set(headers
     
   # Allocator Storage
   include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
+  include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
 )
 
 # Though the inline headers are not strictly used (or even required by CMake),
