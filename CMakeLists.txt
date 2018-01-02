@@ -146,6 +146,7 @@ set(headers
     
   # Allocator Storage
   include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
+  include/bit/memory/allocator_storage/shared_allocator_storage.hpp
   include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
 )
 
@@ -221,6 +222,8 @@ set(inline_headers
   
   # Allocator Storage
   include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
+  include/bit/memory/allocator_storage/detail/shared_allocator_storage.inl
+  include/bit/memory/allocator_storage/detail/referenced_allocator_storage.inl
 )
 
 # Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
