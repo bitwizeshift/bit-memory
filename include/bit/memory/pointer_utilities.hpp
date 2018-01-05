@@ -17,6 +17,22 @@ namespace bit {
   namespace memory {
 
     //-------------------------------------------------------------------------
+    // Pointer Conversion
+    //-------------------------------------------------------------------------
+
+    /// \{
+    /// \brief Converts a pointer to a raw pointer by repeatedly calling
+    ///        \c operator->() until it gets to a raw pointer type
+    ///
+    /// \param p the pointer to convert to a raw pointer
+    /// \return the raw pointer type
+    template<typename Ptr>
+    auto to_raw_pointer( const Ptr& p ) -> decltype(p.operator->());
+    template<typename T>
+    constexpr T* to_raw_pointer( T* p ) noexcept;
+    /// \}
+
+    //-------------------------------------------------------------------------
     // Alignment Checking
     //-------------------------------------------------------------------------
 
