@@ -27,7 +27,7 @@ namespace bit {
     class shared_allocator_storage
     {
       static_assert( is_allocator<Allocator>::value,
-                     "referenced_allocator_storage can only be used with"
+                     "shared_allocator_storage can only be used with"
                      "types that satisfy the Allocator concept");
 
       //-----------------------------------------------------------------------
@@ -47,12 +47,32 @@ namespace bit {
       /// \param alloc the shared pointer to the allocator
       explicit shared_allocator_storage( std::shared_ptr<Allocator> alloc ) noexcept;
 
+      /// \brief Move-constructs this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
       shared_allocator_storage( shared_allocator_storage&& other ) = default;
+
+      /// \brief Copy-constructs this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
       shared_allocator_storage( const shared_allocator_storage& other ) = default;
 
       //-----------------------------------------------------------------------
 
+      /// \brief Move-assigns this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
+      /// \return reference to \c (*this)
       shared_allocator_storage& operator=( shared_allocator_storage&& ) = default;
+
+      /// \brief Copy-assigns this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
+      /// \return reference to \c (*this)
       shared_allocator_storage& operator=( const shared_allocator_storage& ) = default;
 
       //-----------------------------------------------------------------------

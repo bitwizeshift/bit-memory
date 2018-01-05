@@ -47,14 +47,36 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
+      /// \brief Default-constructs the stateless_allocator_storage
       stateless_allocator_storage() = default;
-      stateless_allocator_storage( stateless_allocator_storage&& other ) = default;
-      stateless_allocator_storage( const stateless_allocator_storage& other ) = default;
+
+      /// \brief Move-constructs this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
+      stateless_allocator_storage( stateless_allocator_storage&& other ) noexcept = default;
+
+      /// \brief Copy-constructs this shared_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
+      stateless_allocator_storage( const stateless_allocator_storage& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      stateless_allocator_storage& operator=( stateless_allocator_storage&& other ) = default;
-      stateless_allocator_storage& operator=( const stateless_allocator_storage& other ) = default;
+      /// \brief Move-assigns this stateless_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
+      /// \return reference to \c (*this)
+      stateless_allocator_storage& operator=( stateless_allocator_storage&& other ) noexcept = default;
+
+      /// \brief Copy-assigns this stateless_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
+      /// \return reference to \c (*this)
+      stateless_allocator_storage& operator=( const stateless_allocator_storage& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
       // Observers

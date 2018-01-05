@@ -50,13 +50,34 @@ namespace bit {
       ///
       /// \param alloc the allocator to reference
       explicit referenced_allocator_storage( Allocator& alloc ) noexcept;
-      referenced_allocator_storage( referenced_allocator_storage&& other ) = default;
-      referenced_allocator_storage( const referenced_allocator_storage& other ) = default;
+
+      /// \brief Move-constructs this referenced_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
+      referenced_allocator_storage( referenced_allocator_storage&& other ) noexcept = default;
+
+      /// \brief Copy-constructs this referenced_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
+      referenced_allocator_storage( const referenced_allocator_storage& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
 
-      referenced_allocator_storage& operator=( referenced_allocator_storage&& other ) = default;
-      referenced_allocator_storage& operator=( const referenced_allocator_storage& other ) = default;
+      /// \brief Move-assigns this referenced_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to move
+      /// \return reference to \c (*this)
+      referenced_allocator_storage& operator=( referenced_allocator_storage&& other ) noexcept = default;
+
+      /// \brief Copy-assigns this referenced_allocator_storage from an
+      ///        existing one
+      ///
+      /// \param other the other storage to copy
+      /// \return reference to \c (*this)
+      referenced_allocator_storage& operator=( const referenced_allocator_storage& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
       // Observers
