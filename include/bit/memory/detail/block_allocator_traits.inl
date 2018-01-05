@@ -78,6 +78,8 @@ inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
   ::do_next_block_align_from_type( std::true_type,
                                    const BlockAllocator& alloc )
 {
+  BIT_MEMORY_UNUSED(alloc);
+
   return BlockAllocator::default_block_alignment::value;
 }
 
@@ -103,6 +105,8 @@ inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
   ::do_next_block_align_from_fn( std::false_type,
                                  const BlockAllocator& alloc )
 {
+  BIT_MEMORY_UNUSED(alloc);
+
   return 1;
 }
 
