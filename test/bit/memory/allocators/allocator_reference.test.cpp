@@ -1,13 +1,13 @@
 /**
  * \file allocator_reference.test.cpp
  *
- * \brief Unit tests for the any_allocator
+ * \brief Unit tests for the allocator_reference
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/allocator_info.hpp>
 #include <bit/memory/allocators/allocator_reference.hpp>
+#include <bit/memory/allocator_info.hpp>
 
 #include <catch.hpp>
 
@@ -42,10 +42,10 @@ namespace {
 // Allocation / Deallocation
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_allocator::try_allocate( std::size_t, std::size_t )")
+TEST_CASE("allocator_reference::try_allocate( std::size_t, std::size_t )")
 {
   auto underlying_allocator = test_allocator{};
-  auto allocator = bit::memory::any_allocator{underlying_allocator};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Allocates memory using the underlying allocator")
   {
@@ -57,10 +57,10 @@ TEST_CASE("any_allocator::try_allocate( std::size_t, std::size_t )")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_allocator::deallocate( void*, std::size_t )")
+TEST_CASE("allocator_reference::deallocate( void*, std::size_t )")
 {
   auto underlying_allocator = test_allocator{};
-  auto allocator = bit::memory::any_allocator{underlying_allocator};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Deallocates memory using the underlying allocator")
   {
@@ -72,10 +72,10 @@ TEST_CASE("any_allocator::deallocate( void*, std::size_t )")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_allocator::info()")
+TEST_CASE("allocator_reference::info()")
 {
   auto underlying_allocator = test_allocator{};
-  auto allocator = bit::memory::any_allocator{underlying_allocator};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Accesses the underlying allocator info")
   {

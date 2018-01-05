@@ -60,6 +60,10 @@ namespace bit {
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
       using knows_ownership            = allocator_knows_ownership<Allocator>;
 
+      // todo
+      using propagate_on_container_copy_assignment = std::false_type;
+      using propagate_on_container_move_assignment = std::false_type;
+
       //-----------------------------------------------------------------------
       // Allocation
       //-----------------------------------------------------------------------
@@ -174,17 +178,16 @@ namespace bit {
       /// could not contain the new size, nothing is changed, and \c false is
       /// returned.
       ///
-      /// \note The default implementation if this is not specified in
+      /// \note The default implementation if this is not defined in
       ///       \c Allocator is to simply do nothing and return \c false
       ///
+      /// \param alloc the allocator to use for expansion
       /// \param p the pointer to expand
       /// \param new_size the new size to expand to
       /// \return \c true if the memory region was expanded, \c false otherwise
-      static bool expand( pointer p,
+      static bool expand( Allocator& alloc,
+                          pointer p,
                           size_type new_size );
-      static bool expand( pointer p,
-                          size_type new_size,
-                          size_type new_alignment );
       /// \}
 
       //-----------------------------------------------------------------------

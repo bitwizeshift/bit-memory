@@ -119,6 +119,19 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 }
 
 //-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline bool bit::memory::allocator_traits<Allocator>
+  ::expand( Allocator& alloc,
+            pointer p,
+            size_type new_size )
+{
+  static constexpr auto tag = allocator_has_expand<Allocator>{};
+
+  return do_expand( tag, alloc, p, new_size );
+}
+
+//-----------------------------------------------------------------------------
 // Deallocation
 //-----------------------------------------------------------------------------
 
