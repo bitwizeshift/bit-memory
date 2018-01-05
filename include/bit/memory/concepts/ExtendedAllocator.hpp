@@ -131,6 +131,19 @@ namespace bit {
          >
        > : std::true_type{};
 
+      //-----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct allocator_has_expand : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_expand<T,
+        void_t<decltype(std::declval<bool&>()
+          = std::declval<T&>().expand( std::declval<allocator_pointer_t<T>&>(),
+                                       std::declval<allocator_size_type_t<T>>() ))
+        >
+      > : std::true_type{};
+
     } // namespace detail
 
     /// \brief Type trait to determine whether the allocator has the extended
@@ -189,6 +202,25 @@ namespace bit {
     template<typename T>
     constexpr bool allocator_has_extended_allocate_hint_v
       = allocator_has_extended_allocate_hint<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type trait to determine whether the allocator has the expand
+    ///        function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_expand
+      : detail::allocator_has_expand<T>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_expand<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_expand_v = allocator_has_expand<T>::value;
 
     //-------------------------------------------------------------------------
 
