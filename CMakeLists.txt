@@ -61,6 +61,7 @@ set(headers
   include/bit/memory/concepts/BlockAllocator.hpp
   include/bit/memory/concepts/BasicLockable.hpp
   include/bit/memory/concepts/BoundsChecker.hpp
+  include/bit/memory/concepts/Deleter.hpp
   include/bit/memory/concepts/ExtendedAllocator.hpp
   include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
