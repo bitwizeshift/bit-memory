@@ -69,7 +69,7 @@ namespace bit {
       ///        allocator for deletion
       ///
       /// \param storage the allocator storage
-      explicit polymorphic_allocator_deleter( AllocatorStorage storage );
+      explicit polymorphic_allocator_deleter( AllocatorStorage storage ) noexcept;
 
       /// \brief Move-constructs an polymorphic_allocator_deleter from an
       ///        existing one
@@ -186,7 +186,7 @@ namespace bit {
       ///
       /// \param storage the allocator storage
       polymorphic_allocator_deleter( AllocatorStorage storage,
-                                     size_type size );
+                                     size_type size ) noexcept;
 
       /// \brief Move-constructs an polymorphic_allocator_deleter from an
       ///        existing one

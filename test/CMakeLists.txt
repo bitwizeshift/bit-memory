@@ -16,7 +16,7 @@ set(source_files
   bit/memory/endian.test.cpp
 
   # Allocators
-  bit/memory/allocators/any_allocator.test.cpp
+  bit/memory/allocators/allocator_reference.test.cpp
 
   # Block Allocators
   bit/memory/block_allocators/aligned_block_allocator.test.cpp

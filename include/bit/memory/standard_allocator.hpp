@@ -9,12 +9,12 @@
 #ifndef BIT_MEMORY_STANDARD_ALLOCATOR_HPP
 #define BIT_MEMORY_STANDARD_ALLOCATOR_HPP
 
-#include "../detail/ebo_storage.hpp" // detail::ebo_storage
+#include "detail/ebo_storage.hpp" // detail::ebo_storage
 
-#include "../concepts/AllocatorStorage.hpp" // is_allocator_storage
-#include "../concepts/Stateless.hpp"        // is_stateless
+#include "concepts/AllocatorStorage.hpp" // is_allocator_storage
+#include "concepts/Stateless.hpp"        // is_stateless
 
-#include "../allocator_traits.hpp"                 // allocator_traits
+#include "allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::is_reference, std::is_const, etc
@@ -139,7 +139,7 @@ namespace bit {
       /// \brief Gets the maximum size this allocator supports
       ///
       /// \return the maximum size able to be allocated
-      template<typename U = Allocator, typename = std::enable_if<allocator_has_max_size<U>::value>>
+      template<typename U = AllocatorStorage, typename = std::enable_if<allocator_has_max_size<U>::value>>
       size_type max_size() const noexcept;
 
       /// \{

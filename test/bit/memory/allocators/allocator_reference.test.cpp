@@ -1,13 +1,13 @@
 /**
- * \file any_allocator.test.cpp
+ * \file allocator_reference.test.cpp
  *
  * \brief Unit tests for the any_allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/allocators/any_allocator.hpp>
 #include <bit/memory/allocator_info.hpp>
+#include <bit/memory/allocators/allocator_reference.hpp>
 
 #include <catch.hpp>
 

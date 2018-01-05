@@ -128,7 +128,7 @@ set(headers
   include/bit/memory/allocators/detail/named_allocator.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/aligned_offset_allocator.hpp
-  include/bit/memory/allocators/any_allocator.hpp
+  include/bit/memory/allocators/allocator_reference.hpp
   include/bit/memory/allocators/bump_down_allocator.hpp
   include/bit/memory/allocators/bump_down_lifo_allocator.hpp
   include/bit/memory/allocators/bump_up_allocator.hpp
@@ -204,7 +204,7 @@ set(inline_headers
   # Allocators
   include/bit/memory/allocators/detail/aligned_allocator.inl
   include/bit/memory/allocators/detail/aligned_offset_allocator.inl
-  include/bit/memory/allocators/detail/any_allocator.inl
+  include/bit/memory/allocators/detail/allocator_reference.inl
   include/bit/memory/allocators/detail/bump_down_allocator.inl
   include/bit/memory/allocators/detail/bump_down_lifo_allocator.inl
   include/bit/memory/allocators/detail/bump_up_allocator.inl

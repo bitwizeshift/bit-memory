@@ -12,6 +12,7 @@
 template<typename T, typename AllocatorStorage>
 inline bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>
   ::polymorphic_allocator_deleter( AllocatorStorage storage )
+  noexcept
   : base_type( std::forward_as_tuple( std::move(storage) ) ),
     m_size( sizeof(T) )
 {
@@ -24,6 +25,7 @@ template<typename T, typename AllocatorStorage>
 template<typename U, typename>
 inline bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>
   ::polymorphic_allocator_deleter( polymorphic_allocator_deleter<U,AllocatorStorage>&& other )
+  noexcept
   : base_type( std::forward_as_tuple( other.get_storage() ) ),
     m_size( other.size() )
 {
@@ -34,6 +36,7 @@ template<typename T, typename AllocatorStorage>
 template<typename U, typename>
 inline bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>
   ::polymorphic_allocator_deleter( const polymorphic_allocator_deleter<U,AllocatorStorage>& other )
+  noexcept
   : base_type( std::forward_as_tuple( other.get_storage() ) ),
     m_size( other.size() )
 {
@@ -114,6 +117,7 @@ inline std::size_t
 template<typename T, typename AllocatorStorage>
 inline bit::memory::polymorphic_allocator_deleter<T[],AllocatorStorage>
   ::polymorphic_allocator_deleter( AllocatorStorage storage, size_type size )
+  noexcept
   : base_type( std::forward_as_tuple( std::move(storage) ) ),
     m_size( size )
 {

@@ -1,19 +1,23 @@
 /**
- * \file any_allocator.hpp
+ * \file allocator_reference.hpp
  *
  * \brief This header contains the implementation of a type-erased allocator
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
-#define BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_REFERENCE_HPP
+#define BIT_MEMORY_ALLOCATORS_ALLOCATOR_REFERENCE_HPP
 
 #include "../owner.hpp"            // owner
 #include "../allocator_info.hpp"   // allocator_info
 #include "../allocator_traits.hpp" // allocator_traits
 
+#include "../concepts/Allocator.hpp" // is_allocator
+#include "../concepts/Stateless.hpp" // is_stateless
+
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::integral_constant, std::is_same, etc
+#include <memory>      // std::addressof
 
 namespace bit {
   namespace memory {
@@ -36,7 +40,7 @@ namespace bit {
     ///
     /// \satisfies{Allocator}
     //////////////////////////////////////////////////////////////////////////
-    class any_allocator
+    class allocator_reference
     {
       //----------------------------------------------------------------------
       // Public Member Types
@@ -56,18 +60,18 @@ namespace bit {
       /// \param allocator the allocator to type-erase
       template<typename Allocator,
                typename = std::enable_if_t<is_allocator<std::decay_t<Allocator>>::value &&
-                          !std::is_same<any_allocator,std::decay_t<Allocator>>::value>>
-      any_allocator( Allocator& allocator ) noexcept;
+                          !std::is_same<allocator_reference,std::decay_t<Allocator>>::value>>
+      allocator_reference( Allocator& allocator ) noexcept;
 
       /// \brief Copy-constructs an allocator from an existing one
       ///
       /// \param other the other allocator to copy
-      any_allocator( const any_allocator& other ) noexcept = default;
+      allocator_reference( const allocator_reference& other ) noexcept = default;
 
       /// \brief Move-constructs an allocator from an existing one
       ///
       /// \param other the other allocator to move
-      any_allocator( any_allocator&& other ) noexcept = default;
+      allocator_reference( allocator_reference&& other ) noexcept = default;
 
       //----------------------------------------------------------------------
 
@@ -75,13 +79,13 @@ namespace bit {
       ///
       /// \param other the other allocator to copy
       /// \return reference to \c (*this)
-      any_allocator& operator = ( const any_allocator& other ) noexcept = default;
+      allocator_reference& operator = ( const allocator_reference& other ) noexcept = default;
 
       /// \brief Move-assigns an allocator from an existing one
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
-      any_allocator& operator = ( any_allocator&& other ) noexcept = default;
+      allocator_reference& operator = ( allocator_reference&& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Allocation / Deallocation
@@ -93,14 +97,14 @@ namespace bit {
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the allocated pointer
-      owner<void*> allocate( std::size_t size, std::size_t align );
+      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
 
       /// \brief Allocates a block from the underlying block allocator
       ///
       /// \param size the size of the allocation
       /// \param align the alignment of the allocation
       /// \return the allocated pointer
-      owner<void*> try_allocate( std::size_t size, std::size_t align ) noexcept;
+      owner<void*> allocate( std::size_t size, std::size_t align );
 
       /// \brief Deallocates a block from the underlying block allocatore
       ///
@@ -126,6 +130,21 @@ namespace bit {
 
       using vtable_type = detail::allocator_vtable;
 
+      template<typename Allocator>
+      struct stateless_type;
+
+      //----------------------------------------------------------------------
+      // Private Constructor
+      //----------------------------------------------------------------------
+    private:
+
+      /// \brief Constructs an allocator reference to a stateless allocator
+      ///
+      /// This is an implementation function of
+      /// \ref make_stateless_allocator_reference.
+      template<typename Allocator>
+      explicit allocator_reference( stateless_type<Allocator> ) noexcept;
+
       //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
@@ -134,19 +153,40 @@ namespace bit {
       void*        m_ptr;
       vtable_type* m_vtable;
 
-      friend bool operator==( const any_allocator&, const any_allocator& ) noexcept;
+      friend bool operator==( const allocator_reference&, const allocator_reference& ) noexcept;
+
+      template<typename>
+      friend allocator_reference make_stateless_allocator_reference() noexcept;
     };
 
     //-------------------------------------------------------------------------
     // Equality Comparison
     //-------------------------------------------------------------------------
 
-    bool operator==( const any_allocator& lhs, const any_allocator& rhs ) noexcept;
-    bool operator!=( const any_allocator& lhs, const any_allocator& rhs ) noexcept;
+    bool operator==( const allocator_reference& lhs, const allocator_reference& rhs ) noexcept;
+    bool operator!=( const allocator_reference& lhs, const allocator_reference& rhs ) noexcept;
+
+    //-------------------------------------------------------------------------
+    // Utility
+    //-------------------------------------------------------------------------
+
+    /// \brief Makes an allocator_reference that refers to a stateless allocator
+    ///
+    /// This creates a reference to any stateless allocator that doesn't require
+    /// an actual instantiation.
+    ///
+    /// This function is only defined for stateless allocators
+    ///
+    /// \tparam StatelessAllocator the type of a stateless allocator
+    template<typename StatelessAllocator>
+    std::enable_if_t<is_stateless<StatelessAllocator>::value &&
+                     is_allocator<StatelessAllocator>::value,
+                     allocator_reference>
+      make_stateless_allocator_reference() noexcept;
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/any_allocator.inl"
+#include "detail/allocator_reference.inl"
 
-#endif /* BIT_MEMORY_ALLOCATORS_ANY_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ALLOCATORS_ALLOCATOR_REFERENCE_HPP */
