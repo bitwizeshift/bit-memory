@@ -72,7 +72,6 @@ set(headers
   include/bit/memory/aligned_memory.hpp
   include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
-  include/bit/memory/allocator_reference.hpp
   include/bit/memory/block_allocator_traits.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/endian.hpp
@@ -158,7 +157,6 @@ set(headers
 set(inline_headers
   # Utilities
   include/bit/memory/detail/allocator_info.inl
-  include/bit/memory/detail/allocator_reference.inl
   include/bit/memory/detail/allocator_traits.inl
   include/bit/memory/detail/block_allocator_traits.inl
   include/bit/memory/detail/debugging.inl
