@@ -6,8 +6,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_CONCEPTS_ALLOCATORSTORAGE_HPP
-#define BIT_MEMORY_CONCEPTS_ALLOCATORSTORAGE_HPP
+#ifndef BIT_MEMORY_CONCEPTS_ALLOCATOR_STORAGE_HPP
+#define BIT_MEMORY_CONCEPTS_ALLOCATOR_STORAGE_HPP
 
 #include "detail/void_t.hpp" // detail::void_t
 
@@ -96,7 +96,7 @@ namespace bit {
         std::is_nothrow_move_assignable<T>::value>{};
     } // namespace detail
 
-    /// \brief Type trait to determine whether \c T is a BasicLockable
+    /// \brief Type trait to determine whether \c T is a AllocatorStorage
     ///
     /// The result is aliased as \c ::value
     ///
@@ -113,4 +113,5 @@ namespace bit {
 
   } // namespace memory
 } // namespace bit
-#endif /* BIT_MEMORY_CONCEPTS_ALLOCATORSTORAGE_HPP */
+
+#endif /* BIT_MEMORY_CONCEPTS_ALLOCATOR_STORAGE_HPP */
