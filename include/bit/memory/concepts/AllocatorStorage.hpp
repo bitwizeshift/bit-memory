@@ -71,10 +71,10 @@ namespace bit {
     {
       { s.get_allocator() } -> typename T::allocator_type&;
       { cs.get_allocator() } -> const typename T::allocator_type&;
-    } && std::is_copy_constructible<T>::value &&
-         std::is_move_constructible<T>::value &&
-         std::is_copy_assignable<T>::value &&
-         std::is_move_assignable<T>::value;
+    } && std::is_nothrow_copy_constructible<T>::value &&
+         std::is_nothrow_move_constructible<T>::value &&
+         std::is_nothrow_copy_assignable<T>::value &&
+         std::is_nothrow_move_assignable<T>::value;
 #endif
 
     namespace detail {
@@ -90,10 +90,10 @@ namespace bit {
           decltype( std::declval<const typename T::allocator_type&>() = std::declval<const T&>().get_allocator() )
         >
       > : std::integral_constant<bool,
-        std::is_copy_constructible<T>::value &&
-        std::is_move_constructible<T>::value &&
-        std::is_copy_assignable<T>::value &&
-        std::is_move_assignable<T>::value>{};
+        std::is_nothrow_copy_constructible<T>::value &&
+        std::is_nothrow_move_constructible<T>::value &&
+        std::is_nothrow_copy_assignable<T>::value &&
+        std::is_nothrow_move_assignable<T>::value>{};
     } // namespace detail
 
     /// \brief Type trait to determine whether \c T is a BasicLockable
