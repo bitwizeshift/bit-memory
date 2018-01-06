@@ -1,12 +1,12 @@
 /**
- * \file any_block_allocator.test.cpp
+ * \file block_allocator_reference.test.cpp
  *
- * \brief Unit tests for the any_block_allocator
+ * \brief Unit tests for the block_allocator_reference
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/any_block_allocator.hpp>
+#include <bit/memory/block_allocators/block_allocator_reference.hpp>
 #include <bit/memory/allocator_info.hpp>
 
 #include <catch.hpp>
@@ -50,7 +50,7 @@ namespace {
 TEST_CASE("any_block_allocator::allocate_block()")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Allocates memory using the underlying allocator")
   {
@@ -65,7 +65,7 @@ TEST_CASE("any_block_allocator::allocate_block()")
 TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Deallocates memory using the underlying allocator")
   {
@@ -80,7 +80,7 @@ TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
 TEST_CASE("any_block_allocator::info()")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Accesses the underlying allocator info")
   {

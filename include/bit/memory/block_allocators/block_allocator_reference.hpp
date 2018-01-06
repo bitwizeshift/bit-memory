@@ -1,12 +1,12 @@
 /**
- * \file any_block_allocator.hpp
+ * \file block_allocator_reference.hpp
  *
  * \brief This header contains a type-erased view of a BlockAllocator concept
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 
 #include "../owner.hpp"          // owner
 #include "../memory_block.hpp"   // memory_block
@@ -17,7 +17,7 @@
 namespace bit {
   namespace memory {
     namespace detail {
-      struct any_block_allocator_vtable;
+      struct block_allocator_reference_vtable;
     } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
@@ -29,9 +29,8 @@ namespace bit {
     ///
     /// \satisfies{BlockAllocator}
     //////////////////////////////////////////////////////////////////////////
-    class any_block_allocator final
+    class block_allocator_reference final
     {
-
       //----------------------------------------------------------------------
       // Constructor / Assignment
       //----------------------------------------------------------------------
@@ -43,18 +42,18 @@ namespace bit {
       /// \param allocator the block allocator to type-erase
       template<typename BlockAllocator,
               typename = std::enable_if_t<is_block_allocator<std::decay_t<BlockAllocator>>::value &&
-                                         !std::is_same<any_block_allocator,std::decay_t<BlockAllocator>>::value>>
-      any_block_allocator( BlockAllocator& allocator ) noexcept;
+                                         !std::is_same<block_allocator_reference,std::decay_t<BlockAllocator>>::value>>
+      block_allocator_reference( BlockAllocator& allocator ) noexcept;
 
       /// \brief Move-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to move
-      any_block_allocator( any_block_allocator&& other ) noexcept = default;
+      block_allocator_reference( block_allocator_reference&& other ) noexcept = default;
 
       /// \brief Copy-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to copy
-      any_block_allocator( const any_block_allocator& other ) noexcept = default;
+      block_allocator_reference( const block_allocator_reference& other ) noexcept = default;
 
       //----------------------------------------------------------------------
 
@@ -62,13 +61,13 @@ namespace bit {
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
-      any_block_allocator& operator = ( any_block_allocator&& other ) noexcept = default;
+      block_allocator_reference& operator = ( block_allocator_reference&& other ) noexcept = default;
 
       /// \brief Copy-assigns a block_allocator from an existing one
       ///
       /// \param other the other allocator to copy
       /// \return reference to \c (*this)
-      any_block_allocator& operator = ( const any_block_allocator& other ) noexcept = default;
+      block_allocator_reference& operator = ( const block_allocator_reference& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations
@@ -105,7 +104,7 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      using vtable_type = detail::any_block_allocator_vtable;
+      using vtable_type = detail::block_allocator_reference_vtable;
 
       //----------------------------------------------------------------------
       // Private Members
@@ -119,6 +118,6 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#include "detail/any_block_allocator.inl"
+#include "detail/block_allocator_reference.inl"
 
-#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ANY_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP */

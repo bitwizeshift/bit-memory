@@ -1,11 +1,11 @@
-#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ANY_BLOCK_ALLOCATOR_INL
-#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ANY_BLOCK_ALLOCATOR_INL
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_REFERENCE_INL
+#define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_REFERENCE_INL
 
 //=============================================================================
 // detail::any_block_allocator_vtable
 //=============================================================================
 
-struct bit::memory::detail::any_block_allocator_vtable
+struct bit::memory::detail::block_allocator_reference_vtable
 {
   //---------------------------------------------------------------------------
   // Public Member Types
@@ -30,7 +30,7 @@ struct bit::memory::detail::any_block_allocator_vtable
   //---------------------------------------------------------------------------
 
   template<typename BlockAllocator>
-  static any_block_allocator_vtable* get_vtable();
+  static block_allocator_reference_vtable* get_vtable();
 };
 
 //-----------------------------------------------------------------------------
@@ -38,15 +38,15 @@ struct bit::memory::detail::any_block_allocator_vtable
 //-----------------------------------------------------------------------------
 
 template<typename BlockAllocator>
-bit::memory::detail::any_block_allocator_vtable*
-  bit::memory::detail::any_block_allocator_vtable::get_vtable()
+bit::memory::detail::block_allocator_reference_vtable*
+  bit::memory::detail::block_allocator_reference_vtable::get_vtable()
 
 {
   using traits_type = block_allocator_traits<BlockAllocator>;
 
   static auto s_vtable = []()
   {
-    any_block_allocator_vtable table;
+    block_allocator_reference_vtable table;
 
     table.allocate_fn = [](void* p) -> bit::memory::memory_block
     {
@@ -91,7 +91,8 @@ bit::memory::detail::any_block_allocator_vtable*
 //-----------------------------------------------------------------------------
 
 template<typename BlockAllocator, typename>
-inline bit::memory::any_block_allocator::any_block_allocator( BlockAllocator& allocator )
+inline bit::memory::block_allocator_reference
+  ::block_allocator_reference( BlockAllocator& allocator )
   noexcept
   : m_ptr( std::addressof(allocator) ),
     m_vtable( vtable_type::get_vtable<std::decay_t<BlockAllocator>>() )
@@ -104,14 +105,14 @@ inline bit::memory::any_block_allocator::any_block_allocator( BlockAllocator& al
 //-----------------------------------------------------------------------------
 
 inline bit::memory::owner<bit::memory::memory_block>
-  bit::memory::any_block_allocator::allocate_block()
+  bit::memory::block_allocator_reference::allocate_block()
 {
   return m_vtable->allocate_fn( m_ptr );
 }
 
 //-----------------------------------------------------------------------------
 
-inline void bit::memory::any_block_allocator
+inline void bit::memory::block_allocator_reference
   ::deallocate_block( owner<memory_block> block )
 {
   m_vtable->deallocate_fn( m_ptr, block );
@@ -121,16 +122,17 @@ inline void bit::memory::any_block_allocator
 // Observers
 //-----------------------------------------------------------------------------
 
-inline bit::memory::allocator_info bit::memory::any_block_allocator::info()
+inline bit::memory::allocator_info
+  bit::memory::block_allocator_reference::info()
   const noexcept
 {
   return m_vtable->info_fn( m_ptr );
 }
 
-inline std::size_t bit::memory::any_block_allocator::next_block_size()
+inline std::size_t bit::memory::block_allocator_reference::next_block_size()
   const noexcept
 {
   return m_vtable->next_block_fn( m_ptr );
 }
 
-#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ANY_BLOCK_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_REFERENCE_INL */
