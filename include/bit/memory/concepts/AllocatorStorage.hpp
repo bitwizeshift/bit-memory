@@ -85,11 +85,12 @@ namespace bit {
       template<typename T>
       struct is_allocator_storage_impl<T,
         void_t<
-          decltype( typename T::allocator_type{} ),
-          decltype( std::declval<typename T::allocator_type&>() = std::declval<T&>().get_allocator() ),
-          decltype( std::declval<const typename T::allocator_type&>() = std::declval<const T&>().get_allocator() )
+          decltype( std::declval<T&>().get_allocator() ),
+          decltype( std::declval<const T&>().get_allocator() )
         >
       > : std::integral_constant<bool,
+        std::is_convertible<decltype( std::declval<T&>().get_allocator()),typename T::allocator_type&>::value &&
+        std::is_convertible<decltype( std::declval<const T&>().get_allocator()),const typename T::allocator_type&>::value &&
         std::is_nothrow_copy_constructible<T>::value &&
         std::is_nothrow_move_constructible<T>::value &&
         std::is_nothrow_copy_assignable<T>::value &&

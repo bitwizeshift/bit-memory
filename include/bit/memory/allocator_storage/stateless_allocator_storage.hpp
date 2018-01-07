@@ -33,7 +33,7 @@ namespace bit {
       static_assert( is_stateless<StatelessAllocator>::value &&
                      is_allocator<StatelessAllocator>::value,
                      "stateless_allocator_storage can only be used with"
-                     "Allocator types that satisfy Stateless");
+                     "Allocator types that satisfy Stateless and Allocator");
 
       //-----------------------------------------------------------------------
       // Public Member Types

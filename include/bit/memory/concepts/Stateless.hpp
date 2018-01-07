@@ -70,29 +70,16 @@ namespace bit {
     // TODO(bitwize) replace 202000L with the correct __cplusplus when certified
 
     template<typename T>
-    concept bool Stateless = requires(T a, T b) {
-        { a == b } -> bool;
-        { a != b } -> bool;
-    } || (std::is_empty<T>::value
+    concept bool Stateless = std::is_empty<T>::value
       && std::is_trivially_constructible<T>::value
       && std::is_trivially_destructible<T>::value
       && std::is_trivially_move_constructible<T>::value
       && std::is_trivially_copy_constructible<T>::value
-      && std::is_trivially_copyable<T>::value
-      && std::is_trivial<T>::value)
+      && std::is_trivially_copy_assignable<T>::value
+      && std::is_trivially_move_assignable<T>::value
+      && std::is_trivial<T>::value
 
 #endif
-
-    namespace detail {
-
-      template<typename T, typename = void>
-      struct concept_is_stateless : std::false_type{};
-
-      template<typename T>
-      struct concept_is_stateless<T,void_t<decltype(T::is_stateless)>>
-        : T::is_stateless{};
-
-    } // namespace detail
 
     /// \brief Type-trait to check for whether a given type \p T is
     ///        \c Stateless
@@ -102,15 +89,14 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     struct is_stateless : std::integral_constant<bool,
-      detail::concept_is_stateless<T>::value ||
-     (std::is_empty<T>::value &&
+      std::is_empty<T>::value &&
       std::is_trivially_constructible<T>::value &&
       std::is_trivially_destructible<T>::value &&
       std::is_trivially_move_constructible<T>::value &&
       std::is_trivially_copy_constructible<T>::value &&
       std::is_trivially_copy_assignable<T>::value &&
       std::is_trivially_move_assignable<T>::value &&
-      std::is_trivial<T>::value)
+      std::is_trivial<T>::value
     >{};
 
     /// \brief Convenience template variable to extract the \c ::value member
