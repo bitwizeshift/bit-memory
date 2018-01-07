@@ -11,6 +11,8 @@
 
 #include "detail/void_t.hpp" // detail::void_t
 
+#include "BlockAllocator.hpp" // is_block_allocator
+
 #include <type_traits> // std::declval, std::true_type
 
 namespace bit {
@@ -85,18 +87,20 @@ namespace bit {
 
       template<typename T>
       struct is_block_allocator_storage_impl<T,
-        void_t<
-          decltype( typename T::block_allocator_type{} ),
-          decltype( std::declval<typename T::block_allocator_type&>()
-            = std::declval<T&>().get_block_allocator() ),
-          decltype( std::declval<const typename T::block_allocator_type&>()
-            = std::declval<const T&>().get_block_allocator() )
-        >
-      > : std::integral_constant<bool,
-        std::is_nothrow_copy_constructible<T>::value &&
-        std::is_nothrow_move_constructible<T>::value &&
-        std::is_nothrow_copy_assignable<T>::value &&
-        std::is_nothrow_move_assignable<T>::value>{};
+      void_t<
+        decltype( std::declval<T&>().get_block_allocator() ),
+        decltype( std::declval<const T&>().get_block_allocator() )
+      >
+    > : std::integral_constant<bool,
+      is_block_allocator<typename T::block_allocator_type>::value &&
+      std::is_convertible<decltype(std::declval<T&>().get_block_allocator()),
+                          typename T::block_allocator_type&>::value &&
+      std::is_convertible<decltype(std::declval<const T&>().get_block_allocator()),
+                          const typename T::block_allocator_type&>::value &&
+      std::is_nothrow_copy_constructible<T>::value &&
+      std::is_nothrow_move_constructible<T>::value &&
+      std::is_nothrow_copy_assignable<T>::value &&
+      std::is_nothrow_move_assignable<T>::value>{};
     } // namespace detail
 
     /// \brief Type trait to determine whether \c T is a BlockAllocatorStorage

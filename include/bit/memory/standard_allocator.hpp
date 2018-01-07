@@ -80,7 +80,7 @@ namespace bit {
       };
 
       //-----------------------------------------------------------------------
-      // Constructors
+      // Constructors / Assignment
       //-----------------------------------------------------------------------
     public:
 
@@ -93,12 +93,12 @@ namespace bit {
       /// \brief Copy-constructs a std_allocator_adapter from an existing one
       ///
       /// \param other the other adapter to copy
-      standard_allocator( const standard_allocator& other ) = default;
+      standard_allocator( const standard_allocator& other ) noexcept = default;
 
       /// \brief Move-constructs a std_allocator_adapter from an existing one
       ///
       /// \param other the other adapter to move
-      standard_allocator( standard_allocator&& other ) = default;
+      standard_allocator( standard_allocator&& other ) noexcept = default;
 
       /// \brief Copy-converts a std_allocator_adapter from an existing one
       ///
@@ -113,6 +113,20 @@ namespace bit {
       template<typename U, typename UAllocatorStorage,
                typename = std::enable_if_t<std::is_convertible<UAllocatorStorage,AllocatorStorage>::value>>
       standard_allocator( standard_allocator<U,UAllocatorStorage>&& other ) noexcept;
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Move-assigns another standard allocator to this one
+      ///
+      /// \param other the other allocator
+      /// \return reference to \c (*this)
+      standard_allocator& operator=( standard_allocator&& other ) noexcept = default;
+
+      /// \brief Copy-assigns another standard allocator to this one
+      ///
+      /// \param other the other allocator
+      /// \return reference to \c (*this)
+      standard_allocator& operator=( const standard_allocator& other ) noexcept = default;
 
       //-----------------------------------------------------------------------
       // Allocation / Deallocation

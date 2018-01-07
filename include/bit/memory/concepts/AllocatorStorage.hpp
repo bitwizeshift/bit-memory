@@ -11,6 +11,8 @@
 
 #include "detail/void_t.hpp" // detail::void_t
 
+#include "Allocator.hpp" // is_allocator
+
 #include <type_traits> // std::declval, std::true_type
 
 namespace bit {
@@ -89,8 +91,11 @@ namespace bit {
           decltype( std::declval<const T&>().get_allocator() )
         >
       > : std::integral_constant<bool,
-        std::is_convertible<decltype( std::declval<T&>().get_allocator()),typename T::allocator_type&>::value &&
-        std::is_convertible<decltype( std::declval<const T&>().get_allocator()),const typename T::allocator_type&>::value &&
+        is_allocator<typename T::allocator_type>::value &&
+        std::is_convertible<decltype( std::declval<T&>().get_allocator()),
+                            typename T::allocator_type&>::value &&
+        std::is_convertible<decltype( std::declval<const T&>().get_allocator()),
+                            const typename T::allocator_type&>::value &&
         std::is_nothrow_copy_constructible<T>::value &&
         std::is_nothrow_move_constructible<T>::value &&
         std::is_nothrow_copy_assignable<T>::value &&
