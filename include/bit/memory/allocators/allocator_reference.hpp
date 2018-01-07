@@ -11,6 +11,7 @@
 #include "../owner.hpp"            // owner
 #include "../allocator_info.hpp"   // allocator_info
 #include "../allocator_traits.hpp" // allocator_traits
+#include "../macros.hpp"           // BIT_MEMORY_UNUSED
 
 #include "../concepts/Allocator.hpp" // is_allocator
 #include "../concepts/Stateless.hpp" // is_stateless
@@ -175,14 +176,9 @@ namespace bit {
     /// This creates a reference to any stateless allocator that doesn't require
     /// an actual instantiation.
     ///
-    /// This function is only defined for stateless allocators
-    ///
     /// \tparam StatelessAllocator the type of a stateless allocator
     template<typename StatelessAllocator>
-    std::enable_if_t<is_stateless<StatelessAllocator>::value &&
-                     is_allocator<StatelessAllocator>::value,
-                     allocator_reference>
-      make_stateless_allocator_reference() noexcept;
+    allocator_reference make_stateless_allocator_reference() noexcept;
 
   } // namespace memory
 } // namespace bit

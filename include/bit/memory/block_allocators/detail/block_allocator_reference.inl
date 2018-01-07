@@ -30,7 +30,11 @@ struct bit::memory::detail::block_allocator_reference_vtable
   //---------------------------------------------------------------------------
 
   template<typename BlockAllocator>
-  static block_allocator_reference_vtable* get_vtable();
+  static block_allocator_reference_vtable* get_stateful_vtable();
+
+  template<typename BlockAllocator>
+  static block_allocator_reference_vtable* get_stateless_vtable();
+
 };
 
 //-----------------------------------------------------------------------------
@@ -39,7 +43,7 @@ struct bit::memory::detail::block_allocator_reference_vtable
 
 template<typename BlockAllocator>
 bit::memory::detail::block_allocator_reference_vtable*
-  bit::memory::detail::block_allocator_reference_vtable::get_vtable()
+  bit::memory::detail::block_allocator_reference_vtable::get_stateful_vtable()
 
 {
   using traits_type = block_allocator_traits<BlockAllocator>;
@@ -48,7 +52,7 @@ bit::memory::detail::block_allocator_reference_vtable*
   {
     block_allocator_reference_vtable table;
 
-    table.allocate_fn = [](void* p) -> bit::memory::memory_block
+    table.allocate_fn = [](void* p) -> memory_block
     {
       auto* instance = static_cast<BlockAllocator*>(p);
 
@@ -82,6 +86,60 @@ bit::memory::detail::block_allocator_reference_vtable*
   return &s_vtable;
 }
 
+
+template<typename BlockAllocator>
+bit::memory::detail::block_allocator_reference_vtable*
+  bit::memory::detail::block_allocator_reference_vtable::get_stateless_vtable()
+
+{
+  static_assert( is_stateless_v<BlockAllocator>,
+                 "'BlockAllocator' must be stateless" );
+
+  using traits_type = block_allocator_traits<BlockAllocator>;
+
+  static auto s_vtable = []()
+  {
+    block_allocator_reference_vtable table;
+
+    table.allocate_fn = [](void* p) -> memory_block
+    {
+      BIT_MEMORY_UNUSED(p);
+
+      auto instance = BlockAllocator{};
+      return traits_type::allocate_block( instance );
+    };
+
+    table.deallocate_fn = [](void* p, memory_block block)
+    {
+      BIT_MEMORY_UNUSED(p);
+
+      auto instance = BlockAllocator{};
+      traits_type::deallocate_block( instance, block );
+    };
+
+    table.info_fn = []( const void* p ) -> allocator_info
+    {
+      BIT_MEMORY_UNUSED(p);
+
+      auto instance = BlockAllocator{};
+      return traits_type::info( instance );
+    };
+
+    table.next_block_fn = []( const void* p ) -> std::size_t
+    {
+      BIT_MEMORY_UNUSED(p);
+
+      auto instance = BlockAllocator{};
+      return traits_type::next_block_size( instance );
+    };
+
+    return table;
+  }();
+
+  return &s_vtable;
+}
+
+
 //=============================================================================
 // any_block_allocator
 //=============================================================================
@@ -95,7 +153,7 @@ inline bit::memory::block_allocator_reference
   ::block_allocator_reference( BlockAllocator& allocator )
   noexcept
   : m_ptr( std::addressof(allocator) ),
-    m_vtable( vtable_type::get_vtable<std::decay_t<BlockAllocator>>() )
+    m_vtable( vtable_type::get_stateful_vtable<std::decay_t<BlockAllocator>>() )
 {
 
 }
@@ -134,5 +192,39 @@ inline std::size_t bit::memory::block_allocator_reference::next_block_size()
 {
   return m_vtable->next_block_fn( m_ptr );
 }
+
+//-----------------------------------------------------------------------------
+// Private Constructor
+//-----------------------------------------------------------------------------
+
+template<typename BlockAllocator>
+inline bit::memory::block_allocator_reference
+  ::block_allocator_reference( stateless_type<BlockAllocator> )
+  noexcept
+  : m_ptr( nullptr ),
+    m_vtable( vtable_type::get_stateless_vtable<std::decay_t<BlockAllocator>>() )
+{
+
+}
+
+//-----------------------------------------------------------------------------
+// Utility
+//-----------------------------------------------------------------------------
+
+template<typename StatelessBlockAllocator>
+inline bit::memory::block_allocator_reference
+  bit::memory::make_stateless_block_allocator_reference()
+  noexcept
+{
+  static_assert( is_stateless<StatelessBlockAllocator>::value,
+                 "StatelessAllocator must satisfy Stateless");
+  static_assert( is_block_allocator<StatelessBlockAllocator>::value,
+                 "StatelessAllocator must satisfy Allocator");
+
+  using tag_type = block_allocator_reference::stateless_type<StatelessBlockAllocator>;
+
+  return block_allocator_reference{ tag_type{} };
+}
+
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_BLOCK_ALLOCATOR_REFERENCE_INL */

@@ -225,12 +225,15 @@ inline bool bit::memory::operator!=( const allocator_reference& lhs,
 //-----------------------------------------------------------------------------
 
 template<typename StatelessAllocator>
-inline std::enable_if_t<bit::memory::is_stateless<StatelessAllocator>::value &&
-                        bit::memory::is_allocator<StatelessAllocator>::value,
-                        bit::memory::allocator_reference>
+inline bit::memory::allocator_reference
   bit::memory::make_stateless_allocator_reference()
   noexcept
 {
+  static_assert( is_stateless<StatelessAllocator>::value,
+                 "StatelessAllocator must satisfy Stateless");
+  static_assert( is_allocator<StatelessAllocator>::value,
+                 "StatelessAllocator must satisfy Allocator");
+
   using tag_type = allocator_reference::stateless_type<StatelessAllocator>;
 
   return allocator_reference{ tag_type{} };

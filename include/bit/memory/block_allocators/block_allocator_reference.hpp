@@ -8,11 +8,18 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 
-#include "../owner.hpp"          // owner
-#include "../memory_block.hpp"   // memory_block
-#include "../allocator_info.hpp" // allocator_info
+#include "../owner.hpp"                  // owner
+#include "../allocator_info.hpp"         // allocator_info
+#include "../block_allocator_traits.hpp" // block_allocator_traits
+#include "../memory_block.hpp"           // memory_block
+#include "../macros.hpp"                 // BIT_MEMORY_UNUSED
 
-#include "../block_allocator_traits.hpp"
+#include "../concepts/BlockAllocator.hpp" // is_block_allocator
+#include "../concepts/Stateless.hpp"      // is_stateless
+
+#include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <type_traits> // std::integral_constant, std::is_same, etc
+#include <memory>      // std::addressof
 
 namespace bit {
   namespace memory {
@@ -106,6 +113,22 @@ namespace bit {
 
       using vtable_type = detail::block_allocator_reference_vtable;
 
+      template<typename Allocator>
+      struct stateless_type;
+
+      //-----------------------------------------------------------------------
+      // Private Constructor
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \brief Constructs a block allocator reference to a stateless
+      ///        block allocator
+      ///
+      /// This is an implementation function of
+      /// \ref make_stateless_block_allocator_reference.
+      template<typename BlockAllocator>
+      explicit block_allocator_reference( stateless_type<BlockAllocator> ) noexcept;
+
       //----------------------------------------------------------------------
       // Private Members
       //----------------------------------------------------------------------
@@ -113,7 +136,25 @@ namespace bit {
 
       void*        m_ptr;
       vtable_type* m_vtable;
+
+      template<typename>
+      friend block_allocator_reference make_stateless_block_allocator_reference()
+        noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Utility
+    //-------------------------------------------------------------------------
+
+    /// \brief Makes a block_allocator_reference that refers to a stateless
+    ///        block allocator
+    ///
+    /// This creates a reference to any stateless block allocator, even though
+    /// different instances may have different underlying addresses.
+    ///
+    /// \tparam StatelessBlockAllocator the type of a stateless block allocator
+    template<typename StatelessBlockAllocator>
+    block_allocator_reference make_stateless_block_allocator_reference() noexcept;
 
   } // namespace memory
 } // namespace bit
