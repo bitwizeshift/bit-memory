@@ -11,8 +11,10 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../concepts/Allocator.hpp" // allocator_pointer_t, etc
 #include "../detail/ebo_storage.hpp" // detail::ebo_storage
+
+#include "../concepts/Allocator.hpp" // allocator_pointer_t, etc
+
 #include "../allocator_traits.hpp"   // allocator_traits
 #include "../macros.hpp"             // BIT_MEMORY_UNUSED
 #include "../owner.hpp"              // owner
@@ -40,14 +42,14 @@ namespace bit {
     /// as the final fallback in the allocation sequence.
     ///
     /// \satisfies{Allocator}
-    /// \tparam Allocators the allocators to sequence through
+    /// \tparam AllocatorStorages the allocator storages to sequence through
     ///////////////////////////////////////////////////////////////////////////
-    template<typename...Allocators>
+    template<typename...AllocatorStorages>
     class fallback_allocator
-      : private detail::ebo_storage<Allocators...>
+      : private detail::ebo_storage<AllocatorStorages...>
     {
 
-      using base_type = detail::ebo_storage<Allocators...>;
+      using base_type = detail::ebo_storage<AllocatorStorages...>;
 
       // TODO(bitwizeshift): Support pretty-pointers by determining the common
       //                     'pointer', 'const_pointer', and 'size_type' of
@@ -58,27 +60,11 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Default-constructs the fallback allocator, and all internal
-      ///        allocators
-      ///
-      /// \note This constructor is only enabled if all allocators are default-
-      ///       constructible
-      fallback_allocator() = default;
-
-      /// \brief Constructs each allocator in the fallback_allocator in-place,
-      ///        using piecewise-construction
-      ///
-      /// \param tuples the tuples to forward to each alloctor
-      template<typename...Tuples>
-      explicit fallback_allocator( std::piecewise_construct_t, Tuples&&...tuples );
-
       /// \brief Constructs each allocator in the fallback_allocator in-place,
       ///        constructing each allocator from a single argument
       ///
-      /// \param arg0 the first argument
-      /// \param args the remaining arguments
-      template<typename Arg0, typename...Args, typename = std::enable_if_t<!std::is_same<std::decay_t<Arg0>,fallback_allocator>::value>>
-      explicit fallback_allocator( Arg0&& arg0, Args&&...args );
+      /// \param storages the allocator storage types to use
+      explicit fallback_allocator( AllocatorStorages...storages ) noexcept;
 
       /// \brief Move-constructs the fallback_allocator from an existing one
       ///
@@ -170,7 +156,7 @@ namespace bit {
       std::size_t min_size() const noexcept;
 
       //-----------------------------------------------------------------------
-      // Private Members
+      // Private Allocation / Deallocation
       //-----------------------------------------------------------------------
     private:
 
@@ -179,7 +165,7 @@ namespace bit {
                              std::size_t size,
                              std::size_t align ) noexcept;
 
-      void* do_try_allocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
+      void* do_try_allocate( std::integral_constant<std::size_t,sizeof...(AllocatorStorages)-1>,
                              std::size_t size,
                              std::size_t align ) noexcept;
 
@@ -190,17 +176,23 @@ namespace bit {
                           void* p,
                           std::size_t size );
 
-      void do_deallocate( std::integral_constant<std::size_t,sizeof...(Allocators)-1>,
+      void do_deallocate( std::integral_constant<std::size_t,sizeof...(AllocatorStorages)-1>,
                           void* p,
                           std::size_t size );
 
       //-----------------------------------------------------------------------
+      // Private Observers
+      //-----------------------------------------------------------------------
+    private:
 
       template<std::size_t...Idxs>
       bool do_owns( std::index_sequence<Idxs...>,
                     const void* p ) const noexcept;
 
       //-----------------------------------------------------------------------
+      // Private Capacity
+      //-----------------------------------------------------------------------
+    private:
 
       template<std::size_t...Idxs>
       std::size_t do_max_size( std::index_sequence<Idxs...> ) const noexcept;
@@ -216,6 +208,30 @@ namespace bit {
 
     template<typename...Allocators>
     using named_fallback_allocator = detail::named_allocator<fallback_allocator<Allocators...>>;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Makes a fallback allocator from the given allocator storages
+    ///
+    /// \note The order of the storages indicates the order of fallback
+    ///
+    /// \param storages the storages for the allocators
+    /// \return the fallback allocator made with the allocators
+    template<typename...AllocatorStorages>
+    fallback_allocator<AllocatorStorages...>
+      make_fallback_allocator( AllocatorStorages...storages );
+
+    /// \brief Makes a named fallback allocator from the given allocator
+    ///        storages
+    ///
+    /// \note The order of the storages indicates the order of fallback
+    ///
+    /// \param storages the storages for the allocators
+    /// \return the fallback allocator made with the allocators
+    template<typename...AllocatorStorages>
+    named_fallback_allocator<AllocatorStorages...>
+      make_named_fallback_allocator( const char* name,
+                                     AllocatorStorages...storages );
 
   } // namespace memory
 } // namespace bit
