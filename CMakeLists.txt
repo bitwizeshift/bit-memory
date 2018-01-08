@@ -142,7 +142,6 @@ set(headers
   include/bit/memory/allocators/fallback_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
-  include/bit/memory/allocators/min_aligned_allocator.hpp
   include/bit/memory/allocators/new_allocator.hpp
   include/bit/memory/allocators/null_allocator.hpp
   include/bit/memory/allocators/pool_allocator.hpp
@@ -222,7 +221,6 @@ set(inline_headers
   include/bit/memory/allocators/detail/bump_up_lifo_allocator.inl
   include/bit/memory/allocators/detail/fallback_allocator.inl
   include/bit/memory/allocators/detail/malloc_allocator.inl
-  include/bit/memory/allocators/detail/min_aligned_allocator.inl
   include/bit/memory/allocators/detail/named_allocator.inl
   include/bit/memory/allocators/detail/new_allocator.inl
   include/bit/memory/allocators/detail/null_allocator.inl
