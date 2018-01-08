@@ -30,12 +30,12 @@ struct bit::memory::detail::allocator_vtable
   //---------------------------------------------------------------------------
 
   template<typename Allocator>
-  static allocator_vtable* get_stateful_vtable();
+  static const allocator_vtable* get_stateful_vtable();
 
   //---------------------------------------------------------------------------
 
   template<typename Allocator>
-  static allocator_vtable* get_stateless_vtable();
+  static const allocator_vtable* get_stateless_vtable();
 };
 
 //-----------------------------------------------------------------------------
@@ -43,12 +43,12 @@ struct bit::memory::detail::allocator_vtable
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
-inline bit::memory::detail::allocator_vtable*
+inline const bit::memory::detail::allocator_vtable*
   bit::memory::detail::allocator_vtable::get_stateful_vtable()
 {
   using traits_type = allocator_traits<Allocator>;
 
-  static auto s_vtable = []()
+  static const auto s_vtable = []()
   {
     allocator_vtable table;
 
@@ -85,7 +85,7 @@ inline bit::memory::detail::allocator_vtable*
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
-inline bit::memory::detail::allocator_vtable*
+inline const bit::memory::detail::allocator_vtable*
   bit::memory::detail::allocator_vtable::get_stateless_vtable()
 {
   static_assert( is_stateless_v<Allocator>,
@@ -93,7 +93,7 @@ inline bit::memory::detail::allocator_vtable*
 
   using traits_type = allocator_traits<Allocator>;
 
-  static auto s_vtable = []()
+  static const auto s_vtable = []()
   {
     allocator_vtable table;
 
