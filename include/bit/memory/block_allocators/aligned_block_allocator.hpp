@@ -129,7 +129,8 @@ namespace bit {
       using block_size_member  = detail::dynamic_size_type<0,Size>;
       using block_align_member = detail::dynamic_size_type<1,Align>;
 
-      static_assert( is_power_of_two(Align) || Align == dynamic_size, "Alignment must be a power of two!" );
+      static_assert( is_power_of_two(Align) || Align == dynamic_size,
+                     "Alignment must be a power of two!" );
 
       //-----------------------------------------------------------------------
       // Constructors / Allocators

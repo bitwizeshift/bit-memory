@@ -48,8 +48,8 @@ namespace bit {
       ///
       /// \param allocator the block allocator to type-erase
       template<typename BlockAllocator,
-              typename = std::enable_if_t<is_block_allocator<std::decay_t<BlockAllocator>>::value &&
-                                         !std::is_same<block_allocator_reference,std::decay_t<BlockAllocator>>::value>>
+              typename = std::enable_if_t<is_block_allocator<BlockAllocator>::value &&
+                                         !std::is_same<block_allocator_reference,BlockAllocator>::value>>
       block_allocator_reference( BlockAllocator& allocator ) noexcept;
 
       /// \brief Move-constructs a block_allocator from an existing one

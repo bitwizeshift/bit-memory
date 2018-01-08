@@ -172,7 +172,7 @@ inline bit::memory::owner<void*> bit::memory::allocator_reference
 //-----------------------------------------------------------------------------
 
 inline void bit::memory::allocator_reference::deallocate( owner<void*> p,
-                                                    std::size_t size )
+                                                          std::size_t size )
 {
   m_vtable->deallocate_fn( m_ptr, p, size );
 }

@@ -217,9 +217,9 @@ inline bit::memory::block_allocator_reference
   noexcept
 {
   static_assert( is_stateless<StatelessBlockAllocator>::value,
-                 "StatelessAllocator must satisfy Stateless");
+                 "StatelessBlockAllocator must satisfy Stateless");
   static_assert( is_block_allocator<StatelessBlockAllocator>::value,
-                 "StatelessAllocator must satisfy Allocator");
+                 "StatelessBlockAllocator must satisfy Allocator");
 
   using tag_type = block_allocator_reference::stateless_type<StatelessBlockAllocator>;
 
