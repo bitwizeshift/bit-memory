@@ -1,38 +1,33 @@
 /**
- * \file any_block_allocator.test.cpp
+ * \file allocator_reference.test.cpp
  *
- * \brief Unit tests for the any_block_allocator
+ * \brief Unit tests for the allocator_reference
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#include <bit/memory/block_allocators/any_block_allocator.hpp>
+#include <bit/memory/allocators/allocator_reference.hpp>
 #include <bit/memory/allocator_info.hpp>
 
 #include <catch.hpp>
 
 namespace {
-  class test_block_allocator
+  class test_allocator
   {
   public:
 
     bool did_allocate = false;
     bool did_deallocate = false;
 
-    bit::memory::memory_block allocate_block()
+    void* try_allocate( std::size_t, std::size_t )
     {
       did_allocate = true;
-      return bit::memory::nullblock;
+      return nullptr;
     }
 
-    void deallocate_block( bit::memory::memory_block )
+    void deallocate( void*, std::size_t )
     {
       did_deallocate = true;
-    }
-
-    std::size_t next_block_size() const noexcept
-    {
-      return 0;
     }
 
     bit::memory::allocator_info info() const noexcept
@@ -47,14 +42,14 @@ namespace {
 // Allocation / Deallocation
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::allocate_block()")
+TEST_CASE("allocator_reference::try_allocate( std::size_t, std::size_t )")
 {
-  auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto underlying_allocator = test_allocator{};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Allocates memory using the underlying allocator")
   {
-    allocator.allocate_block();
+    allocator.try_allocate(64,64);
 
     REQUIRE( underlying_allocator.did_allocate );
   }
@@ -62,14 +57,14 @@ TEST_CASE("any_block_allocator::allocate_block()")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
+TEST_CASE("allocator_reference::deallocate( void*, std::size_t )")
 {
-  auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto underlying_allocator = test_allocator{};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Deallocates memory using the underlying allocator")
   {
-    allocator.deallocate_block(bit::memory::nullblock);
+    allocator.deallocate(nullptr,64);
 
     REQUIRE( underlying_allocator.did_deallocate );
   }
@@ -77,10 +72,10 @@ TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::info()")
+TEST_CASE("allocator_reference::info()")
 {
-  auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::any_block_allocator{underlying_allocator};
+  auto underlying_allocator = test_allocator{};
+  auto allocator = bit::memory::allocator_reference{underlying_allocator};
 
   SECTION("Accesses the underlying allocator info")
   {

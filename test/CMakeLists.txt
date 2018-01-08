@@ -15,12 +15,12 @@ set(source_files
   bit/memory/memory_block_cache.test.cpp
   bit/memory/endian.test.cpp
 
-  # Memory Allocators
-  bit/memory/allocators/any_allocator.test.cpp
+  # Allocators
+  bit/memory/allocators/allocator_reference.test.cpp
 
   # Block Allocators
   bit/memory/block_allocators/aligned_block_allocator.test.cpp
-  bit/memory/block_allocators/any_block_allocator.test.cpp
+  bit/memory/block_allocators/block_allocator_reference.test.cpp
   bit/memory/block_allocators/growing_aligned_block_allocator.test.cpp
   bit/memory/block_allocators/growing_malloc_block_allocator.test.cpp
   bit/memory/block_allocators/growing_new_block_allocator.test.cpp

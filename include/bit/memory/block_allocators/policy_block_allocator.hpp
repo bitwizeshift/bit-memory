@@ -53,6 +53,11 @@ namespace bit {
     /// BlockAllocator by proxying the same functions defined in the
     /// BlockAllocator concept.
     ///
+    /// \note Even if all policies satisfy the Stateless concept, this allocator
+    ///       will always be considered stateful since it delegates actions in
+    ///       its destructor -- which may call a function that touches external
+    ///       state (which is thus no longer stateless).
+    ///
     /// \satisfies{BlockAllocator}
     ///
     /// \tparam BlockAllocator The block allocator to use
@@ -84,10 +89,6 @@ namespace bit {
 
       using lock_type    = BasicLockable;
       using tracker_type = MemoryTracker;
-      using is_stateless = std::integral_constant<bool,is_stateless<BlockAllocator>::value &&
-                                                       is_stateless<MemoryTagger>::value &&
-                                                       is_stateless<MemoryTracker>::value &&
-                                                       is_stateless<BasicLockable>::value>;
 
       //-----------------------------------------------------------------------
       // Constructors

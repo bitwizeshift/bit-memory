@@ -6,39 +6,58 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALLOCATOR_DELETER_HPP
-#define BIT_MEMORY_ALLOCATOR_DELETER_HPP
+#ifndef BIT_MEMORY_DELETERS_ALLOCATOR_DELETER_HPP
+#define BIT_MEMORY_DELETERS_ALLOCATOR_DELETER_HPP
 
-#include "detail/ebo_storage.hpp"  // detail::ebo_storage
+#include "../detail/ebo_storage.hpp"
 
-#include "allocator_reference.hpp"   // allocator_reference
-#include "allocator_traits.hpp"      // allocator_traits
-#include "uninitialized_storage.hpp" // uninitialized_construct_at
+#include "../concepts/AllocatorStorage.hpp"
 
-#include <cstddef> // std::size_t
-#include <tuple>   // std::forward_as_tuple
-#include <memory>  // std::pointer_traits
+#include "../allocator_traits.hpp"
+#include "../pointer_utilities.hpp" // to_raw_pointer
+
+#include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <tuple>       // std::forward_as_tuple
+#include <type_traits> // std::is_reference, std::is_const, etc
+#include <utility>     // std::move
+#include <memory>      // std::pointer_traits
 
 namespace bit {
   namespace memory {
 
     ///////////////////////////////////////////////////////////////////////////
-    /// \brief A deallocator for custom allocators in the library.
+    /// \brief A deleter for custom allocators in the library.
     ///
     /// For any stateless allocator, this leverages EBO to avoid the need for
     /// storage.
     ///
+    /// \note Unlike std::default_delete, this deleter does not have a
+    ///       converting constructor that allows for
+    ///       'allocator_deleter<Derived,...> -> allocator_deleter<Base,...>'
+    ///       since the size of the deallocation is computed based on the size
+    ///       of \c T. To support polymorphism with deleters, see
+    ///       \ref polymorphic_allocator_deleter which always incurs the size
+    ///       cost.
+    ///
+    /// \satisfies{Deleter}
+    ///
     /// \tparam T the type being deallocated
     /// \tparam Allocator the allocator to deallocate with
     ///////////////////////////////////////////////////////////////////////////
-    template<typename T, typename Allocator>
+    template<typename T, typename AllocatorStorage>
     class allocator_deleter
-      : public detail::ebo_storage<allocator_reference<Allocator>>
+      : private detail::ebo_storage<AllocatorStorage>
     {
-      using base_type = detail::ebo_storage<allocator_reference<Allocator>>;
+      using base_type = detail::ebo_storage<AllocatorStorage>;
+      using allocator_type = typename AllocatorStorage::allocator_type;
 
-      using alloc_traits   = allocator_traits<Allocator>;
+      using alloc_traits   = allocator_traits<allocator_type>;
       using pointer_traits = std::pointer_traits<typename alloc_traits::pointer>;
+
+      static_assert( !std::is_reference<T>::value, "Unable to delete reference type" );
+      static_assert( !std::is_const<T>::value, "Unable to delete const type" );
+      static_assert( is_allocator_storage<AllocatorStorage>::value,
+                     "AllocatorStorage must satisfy AllocatorStorage requirements" );
 
       //-----------------------------------------------------------------------
       // Public Member Types
@@ -55,11 +74,11 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Constructs an allocator_deleter that references the specified
-      ///        allocator
+      /// \brief Constructs an allocator_deleter that uses the referenced
+      ///        allocator for deletion
       ///
-      /// \param alloc the allocator to reference
-      explicit allocator_deleter( Allocator& alloc );
+      /// \param storage the allocator storage
+      explicit allocator_deleter( AllocatorStorage storage );
 
       /// \brief Move-constructs an allocator_deleter from an existing one
       ///
@@ -98,13 +117,14 @@ namespace bit {
 
     //-------------------------------------------------------------------------
 
-    template<typename T, typename Allocator>
-    class allocator_deleter<T[],Allocator>
-      : public detail::ebo_storage<allocator_reference<Allocator>>
+    template<typename T, typename AllocatorStorage>
+    class allocator_deleter<T[],AllocatorStorage>
+      : public detail::ebo_storage<AllocatorStorage>
     {
-      using base_type = detail::ebo_storage<allocator_reference<Allocator>>;
+      using base_type = detail::ebo_storage<AllocatorStorage>;
+      using allocator_type = typename AllocatorStorage::allocator_type;
 
-      using alloc_traits   = allocator_traits<Allocator>;
+      using alloc_traits   = allocator_traits<allocator_type>;
       using pointer_traits = std::pointer_traits<typename alloc_traits::pointer>;
 
       //-----------------------------------------------------------------------
@@ -125,9 +145,9 @@ namespace bit {
       /// \brief Constructs an allocator_deleter that references the specified
       ///        allocator
       ///
-      /// \param alloc the allocator to reference
-      /// \param size  the size of the array
-      explicit allocator_deleter( Allocator& alloc, size_type size );
+      /// \param storage the storage for the allocator
+      /// \param size    the size of the array
+      allocator_deleter( AllocatorStorage storage, size_type size );
 
       /// \brief Move-constructs an allocator_deleter from an existing one
       ///
@@ -171,103 +191,9 @@ namespace bit {
       std::size_t m_size;
     };
 
-    namespace detail {
-      template<typename T, typename Allocator>
-      struct unique_ptr_if
-      {
-        using single_type = std::unique_ptr<T,allocator_deleter<T,Allocator>>;
-      };
-
-      template<typename T, typename Allocator>
-      struct unique_ptr_if<T[],Allocator>
-      {
-        using array_type = std::unique_ptr<T[],allocator_deleter<T[],Allocator>>;
-      };
-
-      template<typename T, typename Allocator, std::size_t N>
-      struct unique_ptr_if<T[N],Allocator>{};
-
-      template<typename T, typename Allocator>
-      using unique_ptr_single_t = typename unique_ptr_if<T,Allocator>::single_type;
-
-      template<typename T, typename Allocator>
-      using unique_ptr_array_t = typename unique_ptr_if<T,Allocator>::array_type;
-
-      template<typename T>
-      struct shared_ptr_if
-      {
-        using single_type = std::shared_ptr<T>;
-      };
-
-      template<typename T>
-      struct shared_ptr_if<T[]>
-      {
-        using array_type = std::shared_ptr<T[]>;
-      };
-
-      template<typename T, std::size_t N>
-      struct shared_ptr_if<T[N]>{};
-
-      template<typename T>
-      using shared_ptr_single_t = typename shared_ptr_if<T>::single_type;
-
-      template<typename T>
-      using shared_ptr_array_t = typename shared_ptr_if<T>::array_type;
-    }
-
-    //-------------------------------------------------------------------------
-    // Free Functions
-    //-------------------------------------------------------------------------
-
-    /// \brief Allocates a single element with the given \p allocator, using an
-    ///        allocator_deleter
-    ///
-    /// \tparam T the type to construct
-    /// \param allocator the allocator to allocate the memory
-    /// \param args the arguments to forward to \p T
-    /// \return the unique_ptr
-    template<typename T, typename Allocator, typename... Args>
-    detail::unique_ptr_single_t<T,Allocator>
-      allocate_unique( Allocator& allocator, Args&&...args );
-
-    /// \brief Allocates an array with the given \p allocator, using an
-    ///        allocator_deleter
-    ///
-    /// \tparam T the type to construct
-    /// \param allocator the allocator to allocate the memory
-    /// \param n the number of elements to default construct
-    /// \return the unique_ptr
-    template<typename T, typename Allocator, typename... Args>
-    detail::unique_ptr_array_t<T,Allocator>
-      allocate_unique( Allocator& allocator, std::size_t n );
-
-    //-------------------------------------------------------------------------
-
-    /// \brief Allocates a single element with the given \p allocator, using an
-    ///        allocator_deleter
-    ///
-    /// \tparam T the type to construct
-    /// \param allocator the allocator to allocate the memory
-    /// \param args the arguments to forward to \p T
-    /// \return the shared_ptr
-    template<typename T, typename Allocator, typename... Args>
-    detail::shared_ptr_single_t<T>
-      allocate_shared( Allocator& allocator, Args&&...args );
-
-    /// \brief Allocates an array with the given \p allocator, using an
-    ///        allocator_deleter
-    ///
-    /// \tparam T the type to construct
-    /// \param allocator the allocator to allocate the memory
-    /// \param n the number of elements to default construct
-    /// \return the shared_ptr
-    template<typename T, typename Allocator, typename... Args>
-    detail::shared_ptr_array_t<T>
-      allocate_shared( Allocator& allocator, std::size_t n );
-
   } // namespace memory
 } // namespace bit
 
 #include "detail/allocator_deleter.inl"
 
-#endif /* BIT_MEMORY_ALLOCATOR_DELETER_HPP */
+#endif /* BIT_MEMORY_DELETERS_ALLOCATOR_DELETER_HPP */

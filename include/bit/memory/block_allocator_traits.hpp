@@ -14,7 +14,6 @@
 
 #include "concepts/BlockAllocator.hpp" // is_block_allocator
 
-#include "allocator_reference.hpp" // allocator_reference
 #include "allocator_info.hpp"      // allocator_info
 #include "macros.hpp"              // BIT_MEMORY_UNUSED
 #include "memory_block.hpp"        // memory_block
@@ -40,8 +39,7 @@ namespace bit {
     ///       compatibility.
     ///
     /// \tparam BlockAllocator the block allocator type. Must satisfy
-    ///         BlockAllocator concept, or be an allocator_reference of a
-    ///         BlockAllocator
+    ///         BlockAllocator concept
     //////////////////////////////////////////////////////////////////////////
     template<typename BlockAllocator>
     class block_allocator_traits
@@ -119,23 +117,25 @@ namespace bit {
       ///
       /// \param alloc the allocator
       /// \return the name of the allocator
-      static allocator_info do_info( std::true_type, const BlockAllocator& alloc );
-      static allocator_info do_info( std::false_type, const BlockAllocator& alloc );
+      static allocator_info do_info( std::true_type,
+                                     const BlockAllocator& alloc );
+      static allocator_info do_info( std::false_type,
+                                     const BlockAllocator& alloc );
       /// \}
 
-      static std::size_t do_next_block_size( std::true_type, const BlockAllocator& alloc );
-      static std::size_t do_next_block_size( std::false_type, const BlockAllocator& alloc );
+      static std::size_t do_next_block_size( std::true_type,
+                                             const BlockAllocator& alloc );
+      static std::size_t do_next_block_size( std::false_type,
+                                             const BlockAllocator& alloc );
 
-      static std::size_t do_next_block_align_from_type( std::true_type, const BlockAllocator& alloc );
-      static std::size_t do_next_block_align_from_type( std::false_type, const BlockAllocator& alloc);
-      static std::size_t do_next_block_align_from_fn( std::true_type, const BlockAllocator& alloc );
-      static std::size_t do_next_block_align_from_fn( std::false_type, const BlockAllocator& alloc );
-    };
-
-    template<typename BlockAllocator>
-    class block_allocator_traits<allocator_reference<BlockAllocator>>
-      : public block_allocator_traits<BlockAllocator>
-    {
+      static std::size_t do_next_block_align_from_type( std::true_type,
+                                                        const BlockAllocator& alloc );
+      static std::size_t do_next_block_align_from_type( std::false_type,
+                                                        const BlockAllocator& alloc);
+      static std::size_t do_next_block_align_from_fn( std::true_type,
+                                                      const BlockAllocator& alloc );
+      static std::size_t do_next_block_align_from_fn( std::false_type,
+                                                      const BlockAllocator& alloc );
     };
 
   } // namespace memory

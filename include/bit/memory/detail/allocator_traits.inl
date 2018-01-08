@@ -119,6 +119,19 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 }
 
 //-----------------------------------------------------------------------------
+
+template<typename Allocator>
+inline bool bit::memory::allocator_traits<Allocator>
+  ::expand( Allocator& alloc,
+            pointer p,
+            size_type new_size )
+{
+  static constexpr auto tag = allocator_has_expand<Allocator>{};
+
+  return do_expand( tag, alloc, p, new_size );
+}
+
+//-----------------------------------------------------------------------------
 // Deallocation
 //-----------------------------------------------------------------------------
 
@@ -177,17 +190,8 @@ inline T* bit::memory::allocator_traits<Allocator>
   ::try_make( Allocator& alloc, Args&&...args )
   noexcept( std::is_nothrow_constructible<T,Args...>::value )
 {
-  auto p = try_allocate( alloc, sizeof(T), alignof(T) );
-
-  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
-
-  try {
-    uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T) );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_constructible<T,Args...>{};
+  return do_try_make<T>( tag, alloc, std::forward<Args>(args)... );
 }
 
 template<typename Allocator>
@@ -196,17 +200,8 @@ inline T* bit::memory::allocator_traits<Allocator>
   ::try_make_array( Allocator& alloc, size_type n )
   noexcept( std::is_nothrow_default_constructible<T>::value )
 {
-  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
-
-  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
-
-  try {
-    uninitialized_construct_array_at<T>( p, n );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T)*n );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_constructible<T>{};
+  return do_try_make_array<T>( tag, alloc, n );
 }
 
 template<typename Allocator>
@@ -215,34 +210,19 @@ inline T* bit::memory::allocator_traits<Allocator>
   ::try_make_array( Allocator& alloc, size_type n, const T& copy )
   noexcept( std::is_nothrow_copy_constructible<T>::value )
 {
-  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
-
-  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
-
-  auto it = static_cast<T*>(p);
-  try {
-    uninitialized_construct_at<T>( p, n, copy );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T)*n );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_copy_constructible<T>{};
+  return do_try_make_array<T>( tag, alloc, n, copy );
 }
+
+//-----------------------------------------------------------------------------
 
 template<typename Allocator>
 template<typename T, typename...Args>
 inline T* bit::memory::allocator_traits<Allocator>
   ::make( Allocator& alloc, Args&&...args )
 {
-  auto p = allocate( alloc, sizeof(T), alignof(T) );
-
-  try {
-    uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T) );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_constructible<T,Args...>{};
+  return do_make<T>( tag, alloc, std::forward<Args>(args)... );
 }
 
 
@@ -251,18 +231,8 @@ template<typename T>
 inline T* bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n )
 {
-  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
-
-  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
-
-  auto it = static_cast<T*>(p);
-  try {
-    uninitialized_construct_at<T>( p, n );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T)*n );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_constructible<T>{};
+  return do_make_array<T>( tag, alloc, n );
 }
 
 template<typename Allocator>
@@ -270,18 +240,8 @@ template<typename T>
 inline T* bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n, const T& copy )
 {
-  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
-
-  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
-
-  auto it = static_cast<T*>(p);
-  try {
-    uninitialized_construct_at<T>( p, n, copy );
-  } catch ( ... ) {
-    deallocate( p, sizeof(T)*n );
-    throw;
-  }
-  return static_cast<T*>(p);
+  static const auto tag = std::is_nothrow_copy_constructible<T>{};
+  return do_make_array<T>( tag, alloc, n, copy );
 }
 
 //-----------------------------------------------------------------------------
@@ -425,7 +385,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 {
   auto p = try_allocate(alloc,size,align);
 
-  if( p == nullptr ) {
+  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) {
     const auto info = allocator_traits<Allocator>::info( alloc );
 
     get_out_of_memory_handler()(info, size);
@@ -600,6 +560,153 @@ inline bit::memory::allocator_info
   BIT_MEMORY_UNUSED(alloc);
 
   return {typeid(Allocator).name(),std::addressof(alloc)};
+}
+
+//-----------------------------------------------------------------------------
+// Private Construction
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_try_make( std::true_type,
+                 Allocator& alloc,
+                 Args&&...args )
+  noexcept
+{
+  auto p = try_allocate( alloc, sizeof(T), alignof(T) );
+
+  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
+
+  uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
+  return static_cast<T*>(p);
+}
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_try_make( std::false_type,
+                 Allocator& alloc,
+                 Args&&...args )
+{
+  auto p = try_allocate( alloc, sizeof(T), alignof(T) );
+
+  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
+
+  try {
+    uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
+  } catch ( ... ) {
+    deallocate( p, sizeof(T) );
+    throw;
+  }
+  return static_cast<T*>(p);
+}
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_try_make_array( std::true_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args )
+  noexcept
+{
+  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
+
+  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
+
+  uninitialized_construct_array_at<T>( p, n, std::forward<Args>(args)... );
+  return static_cast<T*>(p);
+}
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_try_make_array( std::false_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args )
+{
+  auto p = try_allocate( alloc, sizeof(T)*n, alignof(T) );
+
+  if( BIT_MEMORY_UNLIKELY(p == nullptr) ) return nullptr;
+
+  try {
+    uninitialized_construct_array_at<T>( p, n, std::forward<Args>(args)... );
+  } catch ( ... ) {
+    deallocate( p, sizeof(T)*n );
+    throw;
+  }
+  return static_cast<T*>(p);
+}
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_make( std::true_type,
+             Allocator& alloc,
+             Args&&...args )
+{
+  auto p = allocate( alloc, sizeof(T), alignof(T) );
+
+  return uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
+}
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_make( std::false_type,
+             Allocator& alloc,
+             Args&&...args )
+{
+  auto p = allocate( alloc, sizeof(T), alignof(T) );
+
+  try {
+    uninitialized_construct_at<T>( p, std::forward<Args>(args)... );
+  } catch ( ... ) {
+    deallocate( p, sizeof(T) );
+    throw;
+  }
+  return static_cast<T*>(p);
+}
+
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_make_array( std::true_type,
+                   Allocator& alloc,
+                   std::size_t n,
+                   Args&&...args )
+{
+  auto p = allocate( alloc, sizeof(T)*n, alignof(T) );
+
+  uninitialized_construct_array_at<T>( p, n, std::forward<Args>(args)... );
+  return static_cast<T*>(p);
+}
+
+template<typename Allocator>
+template<typename T, typename...Args>
+inline T* bit::memory::allocator_traits<Allocator>
+  ::do_make_array( std::false_type,
+                   Allocator& alloc,
+                   std::size_t n,
+                   Args&&...args )
+{
+  auto p = allocate( alloc, sizeof(T)*n, alignof(T) );
+
+  try {
+    uninitialized_construct_array_at<T>( p, n, std::forward<Args>(args)... );
+  } catch ( ... ) {
+    deallocate( p, sizeof(T)*n );
+    throw;
+  }
+  return static_cast<T*>(p);
 }
 
 //-----------------------------------------------------------------------------

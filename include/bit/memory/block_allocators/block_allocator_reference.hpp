@@ -1,23 +1,30 @@
 /**
- * \file any_block_allocator.hpp
+ * \file block_allocator_reference.hpp
  *
  * \brief This header contains a type-erased view of a BlockAllocator concept
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
-#define BIT_MEMORY_BLOCK_ALLOCATORS_ANY_BLOCK_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
+#define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 
-#include "../owner.hpp"          // owner
-#include "../memory_block.hpp"   // memory_block
-#include "../allocator_info.hpp" // allocator_info
+#include "../owner.hpp"                  // owner
+#include "../allocator_info.hpp"         // allocator_info
+#include "../block_allocator_traits.hpp" // block_allocator_traits
+#include "../memory_block.hpp"           // memory_block
+#include "../macros.hpp"                 // BIT_MEMORY_UNUSED
 
-#include "../block_allocator_traits.hpp"
+#include "../concepts/BlockAllocator.hpp" // is_block_allocator
+#include "../concepts/Stateless.hpp"      // is_stateless
+
+#include <cstddef>     // std::size_t, std::ptrdiff_t
+#include <type_traits> // std::integral_constant, std::is_same, etc
+#include <memory>      // std::addressof
 
 namespace bit {
   namespace memory {
     namespace detail {
-      struct any_block_allocator_vtable;
+      struct block_allocator_reference_vtable;
     } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
@@ -29,9 +36,8 @@ namespace bit {
     ///
     /// \satisfies{BlockAllocator}
     //////////////////////////////////////////////////////////////////////////
-    class any_block_allocator final
+    class block_allocator_reference final
     {
-
       //----------------------------------------------------------------------
       // Constructor / Assignment
       //----------------------------------------------------------------------
@@ -42,19 +48,19 @@ namespace bit {
       ///
       /// \param allocator the block allocator to type-erase
       template<typename BlockAllocator,
-              typename = std::enable_if_t<is_block_allocator<std::decay_t<BlockAllocator>>::value &&
-                                         !std::is_same<any_block_allocator,std::decay_t<BlockAllocator>>::value>>
-      any_block_allocator( BlockAllocator& allocator ) noexcept;
+              typename = std::enable_if_t<is_block_allocator<BlockAllocator>::value &&
+                                         !std::is_same<block_allocator_reference,BlockAllocator>::value>>
+      block_allocator_reference( BlockAllocator& allocator ) noexcept;
 
       /// \brief Move-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to move
-      any_block_allocator( any_block_allocator&& other ) noexcept = default;
+      block_allocator_reference( block_allocator_reference&& other ) noexcept = default;
 
       /// \brief Copy-constructs a block_allocator from an existing one
       ///
       /// \param other the other allocator to copy
-      any_block_allocator( const any_block_allocator& other ) noexcept = default;
+      block_allocator_reference( const block_allocator_reference& other ) noexcept = default;
 
       //----------------------------------------------------------------------
 
@@ -62,13 +68,13 @@ namespace bit {
       ///
       /// \param other the other allocator to move
       /// \return reference to \c (*this)
-      any_block_allocator& operator = ( any_block_allocator&& other ) noexcept = default;
+      block_allocator_reference& operator = ( block_allocator_reference&& other ) noexcept = default;
 
       /// \brief Copy-assigns a block_allocator from an existing one
       ///
       /// \param other the other allocator to copy
       /// \return reference to \c (*this)
-      any_block_allocator& operator = ( const any_block_allocator& other ) noexcept = default;
+      block_allocator_reference& operator = ( const block_allocator_reference& other ) noexcept = default;
 
       //----------------------------------------------------------------------
       // Block Allocations
@@ -105,7 +111,23 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      using vtable_type = detail::any_block_allocator_vtable;
+      using vtable_type = detail::block_allocator_reference_vtable;
+
+      template<typename Allocator>
+      struct stateless_type;
+
+      //-----------------------------------------------------------------------
+      // Private Constructor
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \brief Constructs a block allocator reference to a stateless
+      ///        block allocator
+      ///
+      /// This is an implementation function of
+      /// \ref make_stateless_block_allocator_reference.
+      template<typename BlockAllocator>
+      explicit block_allocator_reference( stateless_type<BlockAllocator> ) noexcept;
 
       //----------------------------------------------------------------------
       // Private Members
@@ -114,11 +136,29 @@ namespace bit {
 
       void*        m_ptr;
       vtable_type* m_vtable;
+
+      template<typename>
+      friend block_allocator_reference make_stateless_block_allocator_reference()
+        noexcept;
     };
+
+    //-------------------------------------------------------------------------
+    // Utility
+    //-------------------------------------------------------------------------
+
+    /// \brief Makes a block_allocator_reference that refers to a stateless
+    ///        block allocator
+    ///
+    /// This creates a reference to any stateless block allocator, even though
+    /// different instances may have different underlying addresses.
+    ///
+    /// \tparam StatelessBlockAllocator the type of a stateless block allocator
+    template<typename StatelessBlockAllocator>
+    block_allocator_reference make_stateless_block_allocator_reference() noexcept;
 
   } // namespace memory
 } // namespace bit
 
-#include "detail/any_block_allocator.inl"
+#include "detail/block_allocator_reference.inl"
 
-#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ANY_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP */

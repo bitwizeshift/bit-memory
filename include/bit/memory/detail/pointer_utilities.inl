@@ -2,6 +2,24 @@
 #define BIT_MEMORY_DETAIL_POINTER_UTILITIES_INL
 
 //-----------------------------------------------------------------------------
+// Pointer Conversion
+//-----------------------------------------------------------------------------
+
+template<typename Ptr>
+inline auto bit::memory::to_raw_pointer( const Ptr& p )
+  -> decltype(p.operator->())
+{
+  return p.operator->();
+}
+
+template<typename T>
+inline constexpr T* bit::memory::to_raw_pointer( T* p )
+  noexcept
+{
+  return p;
+}
+
+//-----------------------------------------------------------------------------
 // Alignment Checking
 //-----------------------------------------------------------------------------
 

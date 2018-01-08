@@ -78,14 +78,8 @@ namespace bit {
 
       using default_alignment = allocator_default_alignment<ExtendedAllocator>;
       using max_alignment     = allocator_max_alignment<ExtendedAllocator>;
-      using is_stateless = std::integral_constant<bool,is_stateless<ExtendedAllocator>::value &&
-                                                       is_stateless<MemoryTagger>::value &&
-                                                       is_stateless<MemoryTracker>::value &&
-                                                       is_stateless<BoundsChecker>::value &&
-                                                       is_stateless<BasicLockable>::value>;
-
-      using lock_type    = BasicLockable;
-      using tracker_type = MemoryTracker;
+      using lock_type         = BasicLockable;
+      using tracker_type      = MemoryTracker;
 
       //-----------------------------------------------------------------------
       // Constructor / Destructor / Assignment

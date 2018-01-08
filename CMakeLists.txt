@@ -57,9 +57,12 @@ set(headers
   include/bit/memory/concepts/detail/identity.hpp
   include/bit/memory/concepts/Stateless.hpp
   include/bit/memory/concepts/Allocator.hpp
+  include/bit/memory/concepts/AllocatorStorage.hpp
   include/bit/memory/concepts/BlockAllocator.hpp
+  include/bit/memory/concepts/BlockAllocatorStorage.hpp
   include/bit/memory/concepts/BasicLockable.hpp
   include/bit/memory/concepts/BoundsChecker.hpp
+  include/bit/memory/concepts/Deleter.hpp
   include/bit/memory/concepts/ExtendedAllocator.hpp
   include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
@@ -70,8 +73,6 @@ set(headers
   include/bit/memory/aligned_memory.hpp
   include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
-  include/bit/memory/allocator_deleter.hpp
-  include/bit/memory/allocator_reference.hpp
   include/bit/memory/block_allocator_traits.hpp
   include/bit/memory/debugging.hpp
   include/bit/memory/endian.hpp
@@ -83,8 +84,7 @@ set(headers
   include/bit/memory/not_null.hpp
   include/bit/memory/owner.hpp
   include/bit/memory/pointer_utilities.hpp
-  include/bit/memory/std_allocator_adapter.hpp
-  include/bit/memory/std_any_allocator_adapter.hpp
+  include/bit/memory/standard_allocator.hpp
   include/bit/memory/unaligned_memory.hpp
   include/bit/memory/uninitialized_storage.hpp
   include/bit/memory/virtual_memory.hpp
@@ -112,7 +112,7 @@ set(headers
   include/bit/memory/block_allocators/detail/cached_block_allocator.hpp
   include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
-  include/bit/memory/block_allocators/any_block_allocator.hpp
+  include/bit/memory/block_allocators/block_allocator_reference.hpp
   include/bit/memory/block_allocators/growing_aligned_block_allocator.hpp
   include/bit/memory/block_allocators/growing_malloc_block_allocator.hpp
   include/bit/memory/block_allocators/growing_new_block_allocator.hpp
@@ -125,11 +125,16 @@ set(headers
   include/bit/memory/block_allocators/static_block_allocator.hpp
   include/bit/memory/block_allocators/virtual_block_allocator.hpp
 
+  # Block Allocator Storage
+  include/bit/memory/block_allocator_storage/referenced_block_allocator_storage.hpp
+  include/bit/memory/block_allocator_storage/shared_block_allocator_storage.hpp
+  include/bit/memory/block_allocator_storage/stateless_block_allocator_storage.hpp
+
   # Allocators
   include/bit/memory/allocators/detail/named_allocator.hpp
   include/bit/memory/allocators/aligned_allocator.hpp
   include/bit/memory/allocators/aligned_offset_allocator.hpp
-  include/bit/memory/allocators/any_allocator.hpp
+  include/bit/memory/allocators/allocator_reference.hpp
   include/bit/memory/allocators/bump_down_allocator.hpp
   include/bit/memory/allocators/bump_down_lifo_allocator.hpp
   include/bit/memory/allocators/bump_up_allocator.hpp
@@ -137,20 +142,26 @@ set(headers
   include/bit/memory/allocators/fallback_allocator.hpp
   include/bit/memory/allocators/policy_allocator.hpp
   include/bit/memory/allocators/malloc_allocator.hpp
-  include/bit/memory/allocators/min_aligned_allocator.hpp
   include/bit/memory/allocators/new_allocator.hpp
   include/bit/memory/allocators/null_allocator.hpp
   include/bit/memory/allocators/pool_allocator.hpp
   include/bit/memory/allocators/stack_allocator.hpp
+    
+  # Allocator Storage
+  include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
+  include/bit/memory/allocator_storage/shared_allocator_storage.hpp
+  include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
+  
+  # Deleters
+  include/bit/memory/deleters/allocator_deleter.hpp
+  include/bit/memory/deleters/polymorphic_allocator_deleter.hpp
 )
 
 # Though the inline headers are not strictly used (or even required by CMake),
 # this is added for IDEs like CLion to accurately track headers.
 set(inline_headers
   # Utilities
-  include/bit/memory/detail/allocator_deleter.inl
   include/bit/memory/detail/allocator_info.inl
-  include/bit/memory/detail/allocator_reference.inl
   include/bit/memory/detail/allocator_traits.inl
   include/bit/memory/detail/block_allocator_traits.inl
   include/bit/memory/detail/debugging.inl
@@ -160,8 +171,7 @@ set(inline_headers
   include/bit/memory/detail/memory_block_cache.inl
   include/bit/memory/detail/not_null.inl
   include/bit/memory/detail/pointer_utilities.inl
-  include/bit/memory/detail/std_allocator_adapter.inl
-  include/bit/memory/detail/std_any_allocator_adapter.inl
+  include/bit/memory/detail/standard_allocator.inl
   include/bit/memory/detail/unaligned_memory.inl
   include/bit/memory/detail/uninitialized_storage.inl
 
@@ -183,7 +193,7 @@ set(inline_headers
 
   # Block Allocators
   include/bit/memory/block_allocators/detail/aligned_block_allocator.inl
-  include/bit/memory/block_allocators/detail/any_block_allocator.inl
+  include/bit/memory/block_allocators/detail/block_allocator_reference.inl
   include/bit/memory/block_allocators/detail/cached_block_allocator.inl
   include/bit/memory/block_allocators/detail/growing_aligned_block_allocator.inl
   include/bit/memory/block_allocators/detail/growing_malloc_block_allocator.inl
@@ -196,23 +206,36 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/stack_block_allocator.inl
   include/bit/memory/block_allocators/detail/static_block_allocator.inl
 
+  # Block Allocator Storage
+  include/bit/memory/block_allocator_storage/detail/referenced_block_allocator_storage.inl
+  include/bit/memory/block_allocator_storage/detail/shared_block_allocator_storage.inl
+  include/bit/memory/block_allocator_storage/detail/stateless_block_allocator_storage.inl
+
   # Allocators
   include/bit/memory/allocators/detail/aligned_allocator.inl
   include/bit/memory/allocators/detail/aligned_offset_allocator.inl
-  include/bit/memory/allocators/detail/any_allocator.inl
+  include/bit/memory/allocators/detail/allocator_reference.inl
   include/bit/memory/allocators/detail/bump_down_allocator.inl
   include/bit/memory/allocators/detail/bump_down_lifo_allocator.inl
   include/bit/memory/allocators/detail/bump_up_allocator.inl
   include/bit/memory/allocators/detail/bump_up_lifo_allocator.inl
   include/bit/memory/allocators/detail/fallback_allocator.inl
   include/bit/memory/allocators/detail/malloc_allocator.inl
-  include/bit/memory/allocators/detail/min_aligned_allocator.inl
   include/bit/memory/allocators/detail/named_allocator.inl
   include/bit/memory/allocators/detail/new_allocator.inl
   include/bit/memory/allocators/detail/null_allocator.inl
   include/bit/memory/allocators/detail/policy_allocator.inl
   include/bit/memory/allocators/detail/pool_allocator.inl
   include/bit/memory/allocators/detail/stack_allocator.inl
+  
+  # Allocator Storage
+  include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
+  include/bit/memory/allocator_storage/detail/shared_allocator_storage.inl
+  include/bit/memory/allocator_storage/detail/referenced_allocator_storage.inl
+  
+  # Deleters
+  include/bit/memory/deleters/detail/allocator_deleter.inl
+  include/bit/memory/deleters/detail/polymorphic_allocator_deleter.inl
 )
 
 # Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
