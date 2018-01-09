@@ -17,6 +17,7 @@
 #include "errors.hpp"                // get_out_of_memory_handler
 #include "macros.hpp"                // BIT_MEMORY_UNUSED
 #include "owner.hpp"                 // owner
+#include "pointer_utilities.hpp"     // to_raw_pointer
 #include "uninitialized_storage.hpp" // uninitialized_construct_at, destroy_at, etc
 
 #include <type_traits> // std::true_type, std::false_type, etc
@@ -59,6 +60,11 @@ namespace bit {
       using max_alignment              = allocator_max_alignment<Allocator>;
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
       using knows_ownership            = allocator_knows_ownership<Allocator>;
+
+      template<typename T>
+      using typed_pointer = typename std::pointer_traits<pointer>::template rebind<T>;
+      template<typename T>
+      using const_typed_pointer = typename std::pointer_traits<const_pointer>::template rebind<const T>;
 
       // todo
       using propagate_on_container_copy_assignment = std::false_type;
@@ -368,7 +374,8 @@ namespace bit {
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
       template<typename T>
-      static void dispose( Allocator& alloc, T* p );
+      static void dispose( Allocator& alloc,
+                           typed_pointer<T> p );
 
       /// \brief Disposes of the given array of T
       ///
@@ -395,7 +402,9 @@ namespace bit {
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
       template<typename T>
-      static void dispose_array( Allocator& alloc, T* p, size_type n );
+      static void dispose_array( Allocator& alloc,
+                                 typed_pointer<T> p,
+                                 size_type n );
 
       //-----------------------------------------------------------------------
       // Capacity
@@ -643,6 +652,26 @@ namespace bit {
     private:
 
       /// \{
+      /// \brief Tries to call 'try_make' from the underlying allocator, or
+      ///        delegates to an internal implementation otherwise
+      ///
+      /// On allocation failure, this function will return nullptr
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_try_make( std::true_type,
+                                           Allocator& alloc,
+                                           Args&&...args );
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_try_make( std::false_type,
+                                           Allocator& alloc,
+                                           Args&&...args );
+      /// \}
+
+      /// \{
       /// \brief Tries to make an instance by allocating memory and constructing
       ///        the type by forwarding 'args'.
       ///
@@ -653,15 +682,40 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_try_make( std::true_type,
-                             Allocator& alloc,
-                             Args&&...args )
+      static typed_pointer<T> do_try_make_nothrow( std::true_type,
+                                                   Allocator& alloc,
+                                                   Args&&...args )
         noexcept;
       template<typename T, typename...Args>
-      static T* do_try_make( std::false_type,
-                             Allocator& alloc,
-                             Args&&...args );
+      static typed_pointer<T> do_try_make_nothrow( std::false_type,
+                                                   Allocator& alloc,
+                                                   Args&&...args );
       /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Tries to call an underlying 'try_make_array', if possible.
+      ///        Otherwise calls a custom implementation
+      ///
+      /// On allocation failure, this function will return nullptr
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param n the number of entries in the array
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_try_make_array( std::true_type,
+                                                 Allocator& alloc,
+                                                 std::size_t n,
+                                                 Args&&...args );
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_try_make_array( std::false_type,
+                                                 Allocator& alloc,
+                                                 std::size_t n,
+                                                 Args&&...args );
+      /// \]
 
       /// \{
       /// \brief Tries to make an array by allocating memory and constructing
@@ -675,16 +729,36 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_try_make_array( std::true_type,
-                                   Allocator& alloc,
-                                   std::size_t n,
-                                   Args&&...args )
+      static typed_pointer<T> do_try_make_array_nothrow( std::true_type,
+                                                         Allocator& alloc,
+                                                         std::size_t n,
+                                                         Args&&...args )
         noexcept;
       template<typename T, typename...Args>
-      static T* do_try_make_array( std::false_type,
-                                   Allocator& alloc,
-                                   std::size_t n,
-                                   Args&&...args );
+      static typed_pointer<T> do_try_make_array_nothrow( std::false_type,
+                                                         Allocator& alloc,
+                                                         std::size_t n,
+                                                         Args&&...args );
+      /// \}
+
+      //-----------------------------------------------------------------------
+
+      /// \{
+      /// \brief Tries to call the underlying 'make' function for the allocator,
+      ///        otherwise calls a custom implementation.
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_make( std::true_type,
+                                       Allocator& alloc,
+                                       Args&&...args );
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_make( std::false_type,
+                                       Allocator& alloc,
+                                       Args&&...args );
       /// \}
 
       /// \{
@@ -699,15 +773,36 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_make( std::true_type,
-                         Allocator& alloc,
-                         Args&&...args );
+      static typed_pointer<T> do_make_nothrow( std::true_type,
+                                               Allocator& alloc,
+                                               Args&&...args )
+        noexcept;
       template<typename T, typename...Args>
-      static T* do_make( std::false_type,
-                         Allocator& alloc,
-                         Args&&...args );
+      static typed_pointer<T> do_make_nothrow( std::false_type,
+                                               Allocator& alloc,
+                                               Args&&...args );
       /// \}
 
+      //-----------------------------------------------------------------------
+
+      /// \brief Calls 'make_array' from the underlying allocator if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param n the number of entries in the array
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_make_array( std::true_type,
+                                             Allocator& alloc,
+                                             std::size_t n,
+                                             Args&&...args );
+      template<typename T, typename...Args>
+      static typed_pointer<T> do_make_array( std::false_type,
+                                             Allocator& alloc,
+                                             std::size_t n,
+                                             Args&&...args );
 
       /// \{
       /// \brief Makes an array by allocating memory and constructing
@@ -722,17 +817,56 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_make_array( std::true_type,
-                               Allocator& alloc,
-                               std::size_t n,
-                               Args&&...args );
+      static typed_pointer<T> do_make_array_nothrow( std::true_type,
+                                                     Allocator& alloc,
+                                                     std::size_t n,
+                                                     Args&&...args )
+        noexcept;
       template<typename T, typename...Args>
-      static T* do_make_array( std::false_type,
-                               Allocator& alloc,
-                               std::size_t n,
-                               Args&&...args );
+      static typed_pointer<T> do_make_array_nothrow( std::false_type,
+                                                     Allocator& alloc,
+                                                     std::size_t n,
+                                                     Args&&...args );
       /// \}
 
+      //-----------------------------------------------------------------------
+      // Private Destruction
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Calls the allocator's underlying 'dispose' function if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \param alloc the allocator to use for deallocating
+      /// \param p the pointer to dispose
+      template<typename T>
+      static void do_dispose( std::true_type,
+                              Allocator& alloc,
+                              typed_pointer<T> p );
+      template<typename T>
+      static void do_dispose( std::false_type,
+                              Allocator& alloc,
+                              typed_pointer<T> p );
+      /// \}
+
+      /// \{
+      /// \brief Calls the allocator's underlying 'dispose' function if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \param alloc the allocator to use for deallocating
+      /// \param p the pointer to dispose
+      template<typename T>
+      static void do_dispose_array( std::true_type,
+                                    Allocator& alloc,
+                                    typed_pointer<T> p,
+                                    size_type n );
+      template<typename T>
+      static void do_dispose_array( std::false_type,
+                                    Allocator& alloc,
+                                    typed_pointer<T> p,
+                                    size_type n );
+      /// \}
 
       //-----------------------------------------------------------------------
       // Private Capacity
