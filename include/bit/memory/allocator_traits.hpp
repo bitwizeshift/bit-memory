@@ -281,7 +281,7 @@ namespace bit {
       /// \param args the arguments to forward to T's constructor
       /// \return pointer to the constructed type
       template<typename T, typename...Args>
-      static T* make( Allocator& alloc, Args&&...args );
+      static typed_pointer<T> make( Allocator& alloc, Args&&...args );
 
       //-----------------------------------------------------------------------
 
@@ -300,9 +300,9 @@ namespace bit {
       /// \param copy an instance to copy to each array entry
       /// \return pointer to the constructed array
       template<typename T>
-      static T* make_array( Allocator& alloc, size_type n );
+      static typed_pointer<T> make_array( Allocator& alloc, size_type n );
       template<typename T>
-      static T* make_array( Allocator& alloc, size_type n, const T& copy );
+      static typed_pointer<T> make_array( Allocator& alloc, size_type n, const T& copy );
       /// \}
 
       //-----------------------------------------------------------------------

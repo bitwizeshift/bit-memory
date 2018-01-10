@@ -186,7 +186,8 @@ inline bit::memory::allocator_info
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline T* bit::memory::allocator_traits<Allocator>
+inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+  bit::memory::allocator_traits<Allocator>
   ::make( Allocator& alloc, Args&&...args )
 {
   static const auto tag = allocator_has_make<Allocator,T,Args...>{};
@@ -197,7 +198,8 @@ inline T* bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 template<typename T>
-inline T* bit::memory::allocator_traits<Allocator>
+inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+  bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n )
 {
   static const auto tag = allocator_has_make_array<Allocator,T,size_type>{};
@@ -207,7 +209,8 @@ inline T* bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 template<typename T>
-inline T* bit::memory::allocator_traits<Allocator>
+inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+  bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n, const T& copy )
 {
   static const auto tag = allocator_has_make_array<Allocator,T,size_type,const T&>{};
