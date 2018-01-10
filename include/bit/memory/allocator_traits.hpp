@@ -267,6 +267,10 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
+      // Unfortunately, MSVC is unable to compile 'typed_allocator<T>' as a
+      // return type, with the definition written out-of-line -- so the following
+      // is expanded in place.
+
       /// \brief Allocates and constructs a type \p T with the arguments
       ///        \p args
       ///
@@ -281,7 +285,8 @@ namespace bit {
       /// \param args the arguments to forward to T's constructor
       /// \return pointer to the constructed type
       template<typename T, typename...Args>
-      static typed_pointer<T> make( Allocator& alloc, Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make( Allocator& alloc, Args&&...args );
 
       //-----------------------------------------------------------------------
 
@@ -300,9 +305,11 @@ namespace bit {
       /// \param copy an instance to copy to each array entry
       /// \return pointer to the constructed array
       template<typename T>
-      static typed_pointer<T> make_array( Allocator& alloc, size_type n );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make_array( Allocator& alloc, size_type n );
       template<typename T>
-      static typed_pointer<T> make_array( Allocator& alloc, size_type n, const T& copy );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make_array( Allocator& alloc, size_type n, const T& copy );
       /// \}
 
       //-----------------------------------------------------------------------

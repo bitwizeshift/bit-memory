@@ -186,7 +186,7 @@ inline bit::memory::allocator_info
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::make( Allocator& alloc, Args&&...args )
 {
@@ -198,7 +198,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n )
 {
@@ -209,7 +209,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n, const T& copy )
 {
