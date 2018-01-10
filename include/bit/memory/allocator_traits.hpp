@@ -270,6 +270,11 @@ namespace bit {
       // Unfortunately, MSVC is unable to compile 'typed_allocator<T>' as a
       // return type, with the definition written out-of-line -- so the following
       // is expanded in place.
+      //
+      // gcc/clang accept 'typed_pointer<T>' with its expansion:
+      // typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+      // MSVC does not, but curiously will except the ever-verbose expansion
+      // of what 'typed_pointer<T>' aliases.
 
       /// \brief Allocates and constructs a type \p T with the arguments
       ///        \p args
@@ -622,13 +627,15 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make( std::true_type,
-                                       Allocator& alloc,
-                                       Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make( std::true_type,
+                 Allocator& alloc,
+                 Args&&...args );
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make( std::false_type,
-                                       Allocator& alloc,
-                                       Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make( std::false_type,
+                 Allocator& alloc,
+                 Args&&...args );
       /// \}
 
       /// \{
@@ -643,14 +650,16 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_nothrow( std::true_type,
-                                               Allocator& alloc,
-                                               Args&&...args )
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_nothrow( std::true_type,
+                         Allocator& alloc,
+                         Args&&...args )
         noexcept;
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_nothrow( std::false_type,
-                                               Allocator& alloc,
-                                               Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_nothrow( std::false_type,
+                         Allocator& alloc,
+                         Args&&...args );
       /// \}
 
       //-----------------------------------------------------------------------
@@ -664,15 +673,17 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_array( std::true_type,
-                                             Allocator& alloc,
-                                             std::size_t n,
-                                             Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array( std::true_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args );
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_array( std::false_type,
-                                             Allocator& alloc,
-                                             std::size_t n,
-                                             Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array( std::false_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args );
 
       /// \{
       /// \brief Makes an array by allocating memory and constructing
@@ -687,16 +698,18 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_array_nothrow( std::true_type,
-                                                     Allocator& alloc,
-                                                     std::size_t n,
-                                                     Args&&...args )
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array_nothrow( std::true_type,
+                               Allocator& alloc,
+                               std::size_t n,
+                               Args&&...args )
         noexcept;
       template<typename T, typename...Args>
-      static typed_pointer<T> do_make_array_nothrow( std::false_type,
-                                                     Allocator& alloc,
-                                                     std::size_t n,
-                                                     Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array_nothrow( std::false_type,
+                               Allocator& alloc,
+                               std::size_t n,
+                               Args&&...args );
       /// \}
 
       //-----------------------------------------------------------------------

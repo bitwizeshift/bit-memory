@@ -544,7 +544,7 @@ inline bit::memory::allocator_info
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make( std::true_type,
              Allocator& alloc,
@@ -555,7 +555,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make( std::false_type,
              Allocator& alloc,
@@ -568,7 +568,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_nothrow( std::true_type,
                      Allocator& alloc,
@@ -583,7 +583,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_nothrow( std::false_type,
                      Allocator& alloc,
@@ -605,7 +605,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_array( std::true_type,
                    Allocator& alloc,
@@ -617,7 +617,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_array( std::false_type,
                    Allocator& alloc,
@@ -631,7 +631,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_array_nothrow( std::true_type,
                            Allocator& alloc,
@@ -649,7 +649,7 @@ inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
   bit::memory::allocator_traits<Allocator>
   ::do_make_array_nothrow( std::false_type,
                            Allocator& alloc,
