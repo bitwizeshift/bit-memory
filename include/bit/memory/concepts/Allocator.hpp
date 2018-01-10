@@ -256,30 +256,6 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename U, typename List, typename = void>
-      struct allocator_has_try_make_impl : std::false_type{};
-
-      template<typename T, typename U, typename...Args>
-      struct allocator_has_try_make_impl<T,U,allocator_type_list<Args...>,
-        void_t<
-          decltype( std::declval<T&>().template try_make<U>( std::declval<Args>()... ) )
-        >
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename U, typename List, typename = void>
-      struct allocator_has_try_make_array_impl : std::false_type{};
-
-      template<typename T, typename U, typename...Args>
-      struct allocator_has_try_make_array_impl<T,U,allocator_type_list<Args...>,
-        void_t<
-          decltype( std::declval<T&>().template try_make_array<U>( std::declval<Args>()... ) )
-        >
-      > : std::true_type{};
-
-      //----------------------------------------------------------------------
-
-      template<typename T, typename U, typename List, typename = void>
       struct allocator_has_make_impl : std::false_type{};
 
       template<typename T, typename U, typename...Args>
@@ -496,45 +472,6 @@ namespace bit {
     template<typename T>
     constexpr bool allocator_has_allocate_hint_v
       = allocator_has_allocate_hint<T>::value;
-
-
-    //-------------------------------------------------------------------------
-
-    /// \brief Type-trait to determine whether \p T has a 'try_make' function
-    ///
-    /// The result is aliased as \c ::value
-    ///
-    /// \tparam T the type to check
-    template<typename T, typename U, typename...Args>
-    struct allocator_has_try_make
-      : detail::allocator_has_try_make_impl<T,U,detail::allocator_type_list<Args...>>{};
-
-    /// \brief Convenience template bool for accessing
-    ///        \c allocator_has_try_make<T,U,Args...>::value
-    ///
-    /// \tparam T the type to check
-    template<typename T, typename U, typename...Args>
-    constexpr bool allocator_has_try_make_v
-      = allocator_has_try_make<T,U,Args...>::value;
-
-    //-------------------------------------------------------------------------
-
-    /// \brief Type-trait to determine whether \p T has a 'try_make_array' function
-    ///
-    /// The result is aliased as \c ::value
-    ///
-    /// \tparam T the type to check
-    template<typename T, typename U, typename...Args>
-    struct allocator_has_try_make_array
-      : detail::allocator_has_try_make_array_impl<T,U,detail::allocator_type_list<Args...>>{};
-
-    /// \brief Convenience template bool for accessing
-    ///        \c allocator_has_try_make_array<T,U,Args...>::value
-    ///
-    /// \tparam T the type to check
-    template<typename T, typename U, typename...Args>
-    constexpr bool allocator_has_try_make_array_v
-      = allocator_has_try_make_array<T,U,Args...>::value;
 
     //-------------------------------------------------------------------------
 
