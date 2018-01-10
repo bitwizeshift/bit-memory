@@ -281,10 +281,6 @@ namespace bit {
       ///
       /// \note This will call the out-of-memory handler if an allocation fails
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \tparam T the type to construct
       /// \param alloc the allocator to use for construction
       /// \param args the arguments to forward to T's constructor
@@ -299,10 +295,6 @@ namespace bit {
       /// \brief Allocates and construct an array of type \p T
       ///
       /// \note This will call the out-of-memory handler if an allocation fails
-      ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
       ///
       /// \tparam T the type to construct
       /// \param alloc the allocator to use for construction
@@ -334,10 +326,6 @@ namespace bit {
       /// \note It is undefined behavior if T's destructor throws during a
       ///       call to dispose
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
       template<typename T>
@@ -361,10 +349,6 @@ namespace bit {
       ///
       /// \note It is undefined behavior if T's destructor throws during a
       ///       call to dispose
-      ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
       ///
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
