@@ -251,6 +251,34 @@ namespace bit {
 
       //----------------------------------------------------------------------
 
+      template<typename...> struct allocator_type_list;
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename U, typename List, typename = void>
+      struct allocator_has_make_impl : std::false_type{};
+
+      template<typename T, typename U, typename...Args>
+      struct allocator_has_make_impl<T,U,allocator_type_list<Args...>,
+        void_t<
+          decltype( std::declval<T&>().template make<U>( std::declval<Args>()... ) )
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename U, typename List, typename = void>
+      struct allocator_has_make_array_impl : std::false_type{};
+
+      template<typename T, typename U, typename...Args>
+      struct allocator_has_make_array_impl<T,U,allocator_type_list<Args...>,
+        void_t<
+          decltype( std::declval<T&>().template make_array<U>( std::declval<Args>()... ) )
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
       template<typename T, typename = void>
       struct allocator_has_deallocate_impl : std::false_type{};
 
@@ -264,11 +292,35 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename = void>
-      struct allocator_has_deallocate_all : std::false_type{};
+      struct allocator_has_deallocate_all_impl : std::false_type{};
 
       template<typename T>
-      struct allocator_has_deallocate_all<T,
+      struct allocator_has_deallocate_all_impl<T,
         void_t<decltype(std::declval<T&>().deallocate_all())>
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename, typename = void>
+      struct allocator_has_dispose_impl : std::false_type{};
+
+      template<typename T, typename U>
+      struct allocator_has_dispose_impl<T,U,
+        void_t<
+          decltype( std::declval<T&>().dispose( std::declval<U&>() ) )
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename, typename = void>
+      struct allocator_has_dispose_array_impl : std::false_type{};
+
+      template<typename T, typename U>
+      struct allocator_has_dispose_array_impl<T,U,
+        void_t<
+          decltype( std::declval<T&>().dispose_array( std::declval<U&>(), std::declval<allocator_size_type_t<T>>() ) )
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -363,8 +415,6 @@ namespace bit {
         void_t<decltype(T::max_alignment)>>
         : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
 
-      //----------------------------------------------------------------------
-
     } // namespace detail
 
     /// \brief Type-trait to determine whether \p T has a 'try_allocate'
@@ -425,6 +475,44 @@ namespace bit {
 
     //-------------------------------------------------------------------------
 
+    /// \brief Type-trait to determine whether \p T has a 'make' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    struct allocator_has_make
+      : detail::allocator_has_make_impl<T,U,detail::allocator_type_list<Args...>>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_make<T,U,Args...>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    constexpr bool allocator_has_make_v
+      = allocator_has_make<T,U,Args...>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has a 'make_array' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    struct allocator_has_make_array
+      : detail::allocator_has_make_impl<T,U,detail::allocator_type_list<Args...>>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_make_array<T,U,Args...>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    constexpr bool allocator_has_make_array_v
+      = allocator_has_make_array<T,U,Args...>::value;
+
+    //-------------------------------------------------------------------------
+
     /// \brief Type-trait to determine whether \p T has a 'deallocate_all'
     ///        function
     ///
@@ -433,7 +521,7 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     struct allocator_can_truncate_deallocations
-      : detail::allocator_has_deallocate_all<T>{};
+      : detail::allocator_has_deallocate_all_impl<T>{};
 
     /// \brief Convenience template bool for accessing
     ///        \c allocator_can_truncate_deallocations<T>::value
@@ -441,6 +529,48 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr bool allocator_can_truncate_deallocations_v = allocator_can_truncate_deallocations<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has a 'dispose'
+    ///        function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    struct allocator_has_dispose
+      : detail::allocator_has_dispose_impl<T,U>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_dispose<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    constexpr bool allocator_has_dispose_v
+      = allocator_has_dispose<T,U>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has a 'dispose_array'
+    ///        function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    struct allocator_has_dispose_array
+      : detail::allocator_has_dispose_array_impl<T,U>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_dispose_array<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    constexpr bool allocator_has_dispose_array_v
+      = allocator_has_dispose_array<T,U>::value;
+
+    //-------------------------------------------------------------------------
 
     /// \brief Type-trait to determine whether \p T has a
     ///        'recommended_allocation_size' function

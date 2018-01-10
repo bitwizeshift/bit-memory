@@ -30,10 +30,10 @@ struct bit::memory::detail::block_allocator_reference_vtable
   //---------------------------------------------------------------------------
 
   template<typename BlockAllocator>
-  static block_allocator_reference_vtable* get_stateful_vtable();
+  static const block_allocator_reference_vtable* get_stateful_vtable();
 
   template<typename BlockAllocator>
-  static block_allocator_reference_vtable* get_stateless_vtable();
+  static const block_allocator_reference_vtable* get_stateless_vtable();
 
 };
 
@@ -42,13 +42,13 @@ struct bit::memory::detail::block_allocator_reference_vtable
 //-----------------------------------------------------------------------------
 
 template<typename BlockAllocator>
-bit::memory::detail::block_allocator_reference_vtable*
+const bit::memory::detail::block_allocator_reference_vtable*
   bit::memory::detail::block_allocator_reference_vtable::get_stateful_vtable()
 
 {
   using traits_type = block_allocator_traits<BlockAllocator>;
 
-  static auto s_vtable = []()
+  static const auto s_vtable = []()
   {
     block_allocator_reference_vtable table;
 
@@ -86,9 +86,8 @@ bit::memory::detail::block_allocator_reference_vtable*
   return &s_vtable;
 }
 
-
 template<typename BlockAllocator>
-bit::memory::detail::block_allocator_reference_vtable*
+const bit::memory::detail::block_allocator_reference_vtable*
   bit::memory::detail::block_allocator_reference_vtable::get_stateless_vtable()
 
 {
@@ -97,7 +96,7 @@ bit::memory::detail::block_allocator_reference_vtable*
 
   using traits_type = block_allocator_traits<BlockAllocator>;
 
-  static auto s_vtable = []()
+  static const auto s_vtable = []()
   {
     block_allocator_reference_vtable table;
 

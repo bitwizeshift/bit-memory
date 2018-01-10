@@ -151,8 +151,8 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      void*        m_ptr;
-      vtable_type* m_vtable;
+      void*              m_ptr;
+      const vtable_type* m_vtable;
 
       friend bool operator==( const allocator_reference&, const allocator_reference& ) noexcept;
 

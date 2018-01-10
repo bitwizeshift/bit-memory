@@ -134,8 +134,8 @@ namespace bit {
       //----------------------------------------------------------------------
     private:
 
-      void*        m_ptr;
-      vtable_type* m_vtable;
+      void*              m_ptr;
+      const vtable_type* m_vtable;
 
       template<typename>
       friend block_allocator_reference make_stateless_block_allocator_reference()

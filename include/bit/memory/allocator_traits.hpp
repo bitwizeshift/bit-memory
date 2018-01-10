@@ -17,6 +17,7 @@
 #include "errors.hpp"                // get_out_of_memory_handler
 #include "macros.hpp"                // BIT_MEMORY_UNUSED
 #include "owner.hpp"                 // owner
+#include "pointer_utilities.hpp"     // to_raw_pointer
 #include "uninitialized_storage.hpp" // uninitialized_construct_at, destroy_at, etc
 
 #include <type_traits> // std::true_type, std::false_type, etc
@@ -59,6 +60,11 @@ namespace bit {
       using max_alignment              = allocator_max_alignment<Allocator>;
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
       using knows_ownership            = allocator_knows_ownership<Allocator>;
+
+      template<typename T>
+      using typed_pointer = typename std::pointer_traits<pointer>::template rebind<T>;
+      template<typename T>
+      using const_typed_pointer = typename std::pointer_traits<const_pointer>::template rebind<const T>;
 
       // todo
       using propagate_on_container_copy_assignment = std::false_type;
@@ -261,66 +267,27 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      /// \brief Attempts to allocate and constructs a type \p T with the
-      ///        arguments \p args
-      ///
-      /// \note This will return \c nullptr if the allocator fails to allocate
-      ///       memory.
-      ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
-      /// \tparam T the type to construct
-      /// \param alloc the allocator to use for construction
-      /// \param args the arguments to forward to T's constructor
-      /// \return pointer to the constructed type
-      template<typename T, typename...Args>
-      static T* try_make( Allocator& alloc, Args&&...args )
-        noexcept( std::is_nothrow_constructible<T,Args...>::value );
-
-      //-----------------------------------------------------------------------
-
-      /// \{
-      /// \brief Attempts to allocate and construct an array of type \p T
-      ///
-      /// \note This will return \c nullptr if the allocator fails to allocate
-      ///       memory.
-      ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
-      /// \tparam T the type to construct
-      /// \param alloc the allocator to use for construction
-      /// \param n the size of the array
-      /// \param copy an instance to copy to each array entry
-      /// \return pointer to the constructed array
-      template<typename T>
-      static T* try_make_array( Allocator& alloc, size_type n )
-        noexcept( std::is_nothrow_default_constructible<T>::value );
-      template<typename T>
-      static T* try_make_array( Allocator& alloc, size_type n, const T& copy )
-        noexcept( std::is_nothrow_copy_constructible<T>::value );
-      /// \}
-
-      //-----------------------------------------------------------------------
+      // Unfortunately, MSVC is unable to compile 'typed_allocator<T>' as a
+      // return type, with the definition written out-of-line -- so the following
+      // is expanded in place.
+      //
+      // gcc/clang accept 'typed_pointer<T>' with its expansion:
+      // typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
+      // MSVC does not, but curiously will except the ever-verbose expansion
+      // of what 'typed_pointer<T>' aliases.
 
       /// \brief Allocates and constructs a type \p T with the arguments
       ///        \p args
       ///
       /// \note This will call the out-of-memory handler if an allocation fails
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \tparam T the type to construct
       /// \param alloc the allocator to use for construction
       /// \param args the arguments to forward to T's constructor
       /// \return pointer to the constructed type
       template<typename T, typename...Args>
-      static T* make( Allocator& alloc, Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make( Allocator& alloc, Args&&...args );
 
       //-----------------------------------------------------------------------
 
@@ -329,19 +296,17 @@ namespace bit {
       ///
       /// \note This will call the out-of-memory handler if an allocation fails
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \tparam T the type to construct
       /// \param alloc the allocator to use for construction
       /// \param n the size of the array
       /// \param copy an instance to copy to each array entry
       /// \return pointer to the constructed array
       template<typename T>
-      static T* make_array( Allocator& alloc, size_type n );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make_array( Allocator& alloc, size_type n );
       template<typename T>
-      static T* make_array( Allocator& alloc, size_type n, const T& copy );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        make_array( Allocator& alloc, size_type n, const T& copy );
       /// \}
 
       //-----------------------------------------------------------------------
@@ -361,14 +326,11 @@ namespace bit {
       /// \note It is undefined behavior if T's destructor throws during a
       ///       call to dispose
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
       template<typename T>
-      static void dispose( Allocator& alloc, T* p );
+      static void dispose( Allocator& alloc,
+                           typed_pointer<T> p );
 
       /// \brief Disposes of the given array of T
       ///
@@ -388,14 +350,12 @@ namespace bit {
       /// \note It is undefined behavior if T's destructor throws during a
       ///       call to dispose
       ///
-      /// \note This function cannot be overrided in any allocator
-      ///       implementation; the behaviour is fixed in the allocator_traits
-      ///       type
-      ///
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
       template<typename T>
-      static void dispose_array( Allocator& alloc, T* p, size_type n );
+      static void dispose_array( Allocator& alloc,
+                                 typed_pointer<T> p,
+                                 size_type n );
 
       //-----------------------------------------------------------------------
       // Capacity
@@ -643,48 +603,23 @@ namespace bit {
     private:
 
       /// \{
-      /// \brief Tries to make an instance by allocating memory and constructing
-      ///        the type by forwarding 'args'.
-      ///
-      /// On allocation failure, this function will return nullptr
+      /// \brief Tries to call the underlying 'make' function for the allocator,
+      ///        otherwise calls a custom implementation.
       ///
       /// \throws any exception thrown by 'T's constructor
       /// \param alloc the allocator to perform the allocation
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_try_make( std::true_type,
-                             Allocator& alloc,
-                             Args&&...args )
-        noexcept;
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make( std::true_type,
+                 Allocator& alloc,
+                 Args&&...args );
       template<typename T, typename...Args>
-      static T* do_try_make( std::false_type,
-                             Allocator& alloc,
-                             Args&&...args );
-      /// \}
-
-      /// \{
-      /// \brief Tries to make an array by allocating memory and constructing
-      ///        an array by forwarding 'args' to each entry.
-      ///
-      /// On allocation failure, this function will return nullptr
-      ///
-      /// \throws any exception thrown by 'T's constructor
-      /// \param alloc the allocator to perform the allocation
-      /// \param n the number of entries in the array
-      /// \param args the arguments to forward to 'T's constructor
-      /// \return a pointer to the allocated/constructed array
-      template<typename T, typename...Args>
-      static T* do_try_make_array( std::true_type,
-                                   Allocator& alloc,
-                                   std::size_t n,
-                                   Args&&...args )
-        noexcept;
-      template<typename T, typename...Args>
-      static T* do_try_make_array( std::false_type,
-                                   Allocator& alloc,
-                                   std::size_t n,
-                                   Args&&...args );
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make( std::false_type,
+                 Allocator& alloc,
+                 Args&&...args );
       /// \}
 
       /// \{
@@ -699,15 +634,40 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_make( std::true_type,
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_nothrow( std::true_type,
                          Allocator& alloc,
-                         Args&&...args );
+                         Args&&...args )
+        noexcept;
       template<typename T, typename...Args>
-      static T* do_make( std::false_type,
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_nothrow( std::false_type,
                          Allocator& alloc,
                          Args&&...args );
       /// \}
 
+      //-----------------------------------------------------------------------
+
+      /// \brief Calls 'make_array' from the underlying allocator if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \throws any exception thrown by 'T's constructor
+      /// \param alloc the allocator to perform the allocation
+      /// \param n the number of entries in the array
+      /// \param args the arguments to forward to 'T's constructor
+      /// \return a pointer to the allocated/constructed array
+      template<typename T, typename...Args>
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array( std::true_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args );
+      template<typename T, typename...Args>
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array( std::false_type,
+                       Allocator& alloc,
+                       std::size_t n,
+                       Args&&...args );
 
       /// \{
       /// \brief Makes an array by allocating memory and constructing
@@ -722,17 +682,58 @@ namespace bit {
       /// \param args the arguments to forward to 'T's constructor
       /// \return a pointer to the allocated/constructed array
       template<typename T, typename...Args>
-      static T* do_make_array( std::true_type,
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array_nothrow( std::true_type,
                                Allocator& alloc,
                                std::size_t n,
-                               Args&&...args );
+                               Args&&...args )
+        noexcept;
       template<typename T, typename...Args>
-      static T* do_make_array( std::false_type,
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        do_make_array_nothrow( std::false_type,
                                Allocator& alloc,
                                std::size_t n,
                                Args&&...args );
       /// \}
 
+      //-----------------------------------------------------------------------
+      // Private Destruction
+      //-----------------------------------------------------------------------
+    private:
+
+      /// \{
+      /// \brief Calls the allocator's underlying 'dispose' function if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \param alloc the allocator to use for deallocating
+      /// \param p the pointer to dispose
+      template<typename T>
+      static void do_dispose( std::true_type,
+                              Allocator& alloc,
+                              typed_pointer<T> p );
+      template<typename T>
+      static void do_dispose( std::false_type,
+                              Allocator& alloc,
+                              typed_pointer<T> p );
+      /// \}
+
+      /// \{
+      /// \brief Calls the allocator's underlying 'dispose' function if it
+      ///        exists, otherwise calls a custom implementation
+      ///
+      /// \param alloc the allocator to use for deallocating
+      /// \param p the pointer to dispose
+      template<typename T>
+      static void do_dispose_array( std::true_type,
+                                    Allocator& alloc,
+                                    typed_pointer<T> p,
+                                    size_type n );
+      template<typename T>
+      static void do_dispose_array( std::false_type,
+                                    Allocator& alloc,
+                                    typed_pointer<T> p,
+                                    size_type n );
+      /// \}
 
       //-----------------------------------------------------------------------
       // Private Capacity
