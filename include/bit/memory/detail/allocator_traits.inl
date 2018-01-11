@@ -1,6 +1,233 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALLOCATOR_TRAITS_INL
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALLOCATOR_TRAITS_INL
 
+namespace bit { namespace memory { namespace detail {
+
+  template<typename Allocator>
+  struct allocator_traits_impl
+  {
+    //-------------------------------------------------------------------------
+    // Public Types
+    //-------------------------------------------------------------------------
+
+    using traits_type   = allocator_traits<Allocator>;
+    using pointer       = typename traits_type::pointer;
+    using const_pointer = typename traits_type::const_pointer;
+
+    using size_type = typename traits_type::size_type;
+
+    template<typename T>
+    using typed_pointer = typename traits_type::template typed_pointer<T>;
+
+    //-------------------------------------------------------------------------
+    // Private Allocation
+    //-------------------------------------------------------------------------
+
+    static pointer do_try_allocate_hint( std::true_type,
+                                         Allocator& alloc,
+                                         const_pointer hint,
+                                         size_type size,
+                                         size_type align );
+    static pointer do_try_allocate_hint( std::false_type,
+                                         Allocator& alloc,
+                                         const_pointer hint,
+                                         size_type size,
+                                         size_type align );
+
+    //-----------------------------------------------------------------------
+
+    static pointer do_extended_try_allocate_hint( std::true_type,
+                                                  Allocator& alloc,
+                                                  const_pointer p,
+                                                  size_type size,
+                                                  size_type align,
+                                                  size_type offset );
+    static pointer do_extended_try_allocate_hint( std::false_type,
+                                                  Allocator& alloc,
+                                                  const_pointer p,
+                                                  size_type size,
+                                                  size_type align,
+                                                  size_type offset );
+
+    //-----------------------------------------------------------------------
+
+    static pointer do_allocate( std::true_type,
+                                Allocator& alloc,
+                                size_type size,
+                                size_type align );
+    static pointer do_allocate( std::false_type,
+                                Allocator& alloc,
+                                size_type size,
+                                size_type align );
+
+    //-----------------------------------------------------------------------
+
+    static pointer do_extended_allocate( std::true_type,
+                                         Allocator& alloc,
+                                         size_type size,
+                                         size_type align,
+                                         size_type offset );
+    static pointer do_extended_allocate( std::false_type,
+                                         Allocator& alloc,
+                                         size_type size,
+                                         size_type align,
+                                         size_type offset );
+
+    //-----------------------------------------------------------------------
+
+    static pointer do_allocate_hint( std::true_type,
+                                     Allocator& alloc,
+                                     const_pointer p,
+                                     size_type size,
+                                     size_type align );
+    static pointer do_allocate_hint( std::false_type,
+                                     Allocator& alloc,
+                                     const_pointer p,
+                                     size_type size,
+                                     size_type align );
+
+    //-----------------------------------------------------------------------
+
+    static pointer do_extended_allocate_hint( std::true_type,
+                                              Allocator& alloc,
+                                              const_pointer p,
+                                              size_type size,
+                                              size_type align,
+                                              size_type offset );
+    static pointer do_extended_allocate_hint( std::false_type,
+                                              Allocator& alloc,
+                                              const_pointer p,
+                                              size_type size,
+                                              size_type align,
+                                              size_type offset );
+
+    //-----------------------------------------------------------------------
+
+    static bool do_expand( std::true_type,
+                           Allocator& alloc,
+                           pointer p,
+                           size_type new_size );
+    static bool do_expand( std::false_type,
+                           Allocator& alloc,
+                           pointer p,
+                           size_type new_size );
+
+    //-----------------------------------------------------------------------
+    // Observers
+    //-----------------------------------------------------------------------
+
+    size_type do_recommended_allocation_size( std::true_type,
+                                              const Allocator& alloc,
+                                              size_type requested );
+    size_type do_recommended_allocation_size( std::false_type,
+                                              const Allocator& alloc,
+                                              size_type requested );
+
+    static allocator_info do_info( std::true_type, const Allocator& alloc );
+    static allocator_info do_info( std::false_type, const Allocator& alloc );
+
+    //-----------------------------------------------------------------------
+    // Constructions
+    //-----------------------------------------------------------------------
+
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make( std::true_type,
+               Allocator& alloc,
+               Args&&...args );
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make( std::false_type,
+               Allocator& alloc,
+               Args&&...args );
+
+
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_nothrow( std::true_type,
+                       Allocator& alloc,
+                       Args&&...args )
+      noexcept;
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_nothrow( std::false_type,
+                       Allocator& alloc,
+                       Args&&...args );
+
+    //-----------------------------------------------------------------------
+
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_array( std::true_type,
+                     Allocator& alloc,
+                     std::size_t n,
+                     Args&&...args );
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_array( std::false_type,
+                     Allocator& alloc,
+                     std::size_t n,
+                     Args&&...args );
+
+
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_array_nothrow( std::true_type,
+                             Allocator& alloc,
+                             std::size_t n,
+                             Args&&...args )
+      noexcept;
+    template<typename T, typename...Args>
+    static typename std::pointer_traits<pointer>::template rebind<T>
+      do_make_array_nothrow( std::false_type,
+                             Allocator& alloc,
+                             std::size_t n,
+                             Args&&...args );
+
+    //-----------------------------------------------------------------------
+    // Destruction
+    //-----------------------------------------------------------------------
+
+    template<typename T>
+    static void do_dispose( std::true_type,
+                            Allocator& alloc,
+                            typed_pointer<T> p );
+    template<typename T>
+    static void do_dispose( std::false_type,
+                            Allocator& alloc,
+                            typed_pointer<T> p );
+
+
+    template<typename T>
+    static void do_dispose_array( std::true_type,
+                                  Allocator& alloc,
+                                  typed_pointer<T> p,
+                                  size_type n );
+    template<typename T>
+    static void do_dispose_array( std::false_type,
+                                  Allocator& alloc,
+                                  typed_pointer<T> p,
+                                  size_type n );
+
+    //-----------------------------------------------------------------------
+    // Private Capacity
+    //-----------------------------------------------------------------------
+
+    static bool do_is_unbounded( std::true_type, const Allocator& alloc );
+    static bool do_is_unbounded( std::false_type, const Allocator& alloc );
+
+
+    static size_type do_max_size( std::true_type, const Allocator& alloc );
+    static size_type do_max_size( std::false_type, const Allocator& alloc );
+
+    //-----------------------------------------------------------------------
+
+    static size_type do_min_size( std::true_type, const Allocator& alloc );
+    static size_type do_min_size( std::false_type, const Allocator& alloc );
+  };
+
+} } } // namespace bit::memory::detail
+
 //=============================================================================
 // allocator_traits
 //=============================================================================
@@ -29,8 +256,9 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
   noexcept
 {
   static constexpr auto tag = allocator_has_try_allocate_hint<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_try_allocate_hint( tag, hint, size, align );
+  return impl_type::do_try_allocate_hint( tag, hint, size, align );
 }
 
 //-----------------------------------------------------------------------------
@@ -59,9 +287,10 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
   noexcept
 {
   static constexpr auto tag = allocator_has_extended_try_allocate_hint<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
   // try_allocate *must* be defined for ExtendedAllocator
-  return do_extended_try_allocate_hint( tag, size, align, offset );
+  return impl_type::do_extended_try_allocate_hint( tag, size, align, offset );
 }
 
 //-----------------------------------------------------------------------------
@@ -73,8 +302,9 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type align )
 {
   static constexpr auto tag = allocator_has_allocate<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_allocate( tag , alloc, size, align );
+  return impl_type::do_allocate( tag , alloc, size, align );
 }
 
 template<typename Allocator>
@@ -85,8 +315,9 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type align )
 {
   static constexpr auto tag = allocator_has_allocate_hint<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_allocate_hint( tag , alloc, size, align );
+  return impl_type::do_allocate_hint( tag , alloc, size, align );
 }
 
 //-----------------------------------------------------------------------------
@@ -100,8 +331,9 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type offset )
 {
   static constexpr auto tag = allocator_has_extended_allocate<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_extended_allocate( tag, alloc, size, align, offset );
+  return impl_type::do_extended_allocate( tag, alloc, size, align, offset );
 }
 
 template<typename Allocator>
@@ -114,8 +346,9 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
                                                       size_type offset )
 {
   static constexpr auto tag = allocator_has_extended_allocate_hint<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_extended_allocate_hint( tag, alloc, size, align, offset );
+  return impl_type::do_extended_allocate_hint( tag, alloc, size, align, offset );
 }
 
 //-----------------------------------------------------------------------------
@@ -127,8 +360,9 @@ inline bool bit::memory::allocator_traits<Allocator>
             size_type new_size )
 {
   static constexpr auto tag = allocator_has_expand<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_expand( tag, alloc, p, new_size );
+  return impl_type::do_expand( tag, alloc, p, new_size );
 }
 
 //-----------------------------------------------------------------------------
@@ -161,7 +395,9 @@ typename bit::memory::allocator_traits<Allocator>::size_type
   ::recommended_allocation_size( const Allocator& alloc, size_type requested )
 {
   static constexpr auto tag = allocator_has_recommended_allocation_size<Allocator>{};
-  do_recommended_allocation_size( tag, alloc, requested );
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  impl_type::do_recommended_allocation_size( tag, alloc, requested );
 }
 
 template<typename Allocator>
@@ -177,7 +413,9 @@ inline bit::memory::allocator_info
   bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
   noexcept
 {
-  return do_info( allocator_has_info<Allocator>{}, alloc );
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  return impl_type::do_info( allocator_has_info<Allocator>{}, alloc );
 }
 
 //-----------------------------------------------------------------------------
@@ -190,9 +428,10 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   bit::memory::allocator_traits<Allocator>
   ::make( Allocator& alloc, Args&&...args )
 {
-  static const auto tag = allocator_has_make<Allocator,T,Args...>{};
+  static constexpr auto tag = allocator_has_make<Allocator,T,Args...>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_make<T>( tag, alloc, std::forward<Args>(args)... );
+  return impl_type::template do_make<T>( tag, alloc, std::forward<Args>(args)... );
 }
 
 
@@ -202,9 +441,10 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n )
 {
-  static const auto tag = allocator_has_make_array<Allocator,T,size_type>{};
+  static constexpr auto tag = allocator_has_make_array<Allocator,T,size_type>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_make_array<T>( tag, alloc, n );
+  return impl_type::template do_make_array<T>( tag, alloc, n );
 }
 
 template<typename Allocator>
@@ -213,9 +453,10 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   bit::memory::allocator_traits<Allocator>
   ::make_array( Allocator& alloc, size_type n, const T& copy )
 {
-  static const auto tag = allocator_has_make_array<Allocator,T,size_type,const T&>{};
+  static constexpr auto tag = allocator_has_make_array<Allocator,T,size_type,const T&>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  return do_make_array<T>( tag, alloc, n, copy );
+  return impl_type::template do_make_array<T>( tag, alloc, n, copy );
 }
 
 //-----------------------------------------------------------------------------
@@ -228,9 +469,10 @@ void bit::memory::allocator_traits<Allocator>
   ::dispose( Allocator& alloc,
              typed_pointer<T> p )
 {
-  static const auto tag = allocator_has_dispose<Allocator,typed_pointer<T>>{};
+  static constexpr auto tag = allocator_has_dispose<Allocator,typed_pointer<T>>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  do_dispose( tag, alloc, std::move(p) );
+  impl_type::do_dispose( tag, alloc, std::move(p) );
 }
 
 template<typename Allocator>
@@ -240,9 +482,10 @@ void bit::memory::allocator_traits<Allocator>
                    typed_pointer<T> p,
                    size_type n )
 {
-  static const auto tag = allocator_has_dispose_array<Allocator,typed_pointer<T>>{};
+  static constexpr auto tag = allocator_has_dispose_array<Allocator,typed_pointer<T>>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
 
-  do_dispose_array( tag, alloc, std::move(p), n );
+  impl_type::do_dispose_array( tag, alloc, std::move(p), n );
 }
 
 //-----------------------------------------------------------------------------
@@ -254,7 +497,9 @@ inline bool
   bit::memory::allocator_traits<Allocator>::is_unbounded( const Allocator& alloc )
   noexcept
 {
-  return do_is_unbounded( allocator_has_is_unbounded<Allocator>{}, alloc );
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  return impl_type::do_is_unbounded( allocator_has_is_unbounded<Allocator>{}, alloc );
 }
 
 template<typename Allocator>
@@ -262,7 +507,9 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::max_size( const Allocator& alloc )
   noexcept
 {
-  return do_max_size( allocator_has_max_size<Allocator>{}, alloc );
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  return impl_type::do_max_size( allocator_has_max_size<Allocator>{}, alloc );
 }
 
 template<typename Allocator>
@@ -270,11 +517,13 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   bit::memory::allocator_traits<Allocator>::min_size( const Allocator& alloc )
   noexcept
 {
-  return do_min_size( allocator_has_min_size<Allocator>{}, alloc );
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  return impl_type::do_min_size( allocator_has_min_size<Allocator>{}, alloc );
 }
 
 //=============================================================================
-// Private Implementation
+// detail::allocator_traits_impl
 //=============================================================================
 
 //-----------------------------------------------------------------------------
@@ -283,7 +532,7 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_try_allocate_hint( std::true_type,
                           Allocator& alloc,
                           const_pointer hint,
@@ -295,7 +544,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_try_allocate_hint( std::false_type,
                           Allocator& alloc,
                           const_pointer hint,
@@ -304,14 +553,14 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 {
   BIT_MEMORY_UNUSED(hint);
 
-  return allocator_traits::try_allocate( alloc, size, align );
+  return traits_type::try_allocate( alloc, size, align );
 }
 
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_try_allocate_hint( std::true_type,
                                    Allocator& alloc,
                                    const_pointer hint,
@@ -324,7 +573,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_try_allocate_hint( std::false_type,
                                    Allocator& alloc,
                                    const_pointer hint,
@@ -334,7 +583,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 {
   BIT_MEMORY_UNUSED(hint);
 
-  return allocator_traits::try_allocate( alloc, size, align, offset );
+  return traits_type::try_allocate( alloc, size, align, offset );
 }
 
 
@@ -344,22 +593,24 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>::do_allocate( std::true_type,
-                                                         Allocator& alloc,
-                                                         size_type size,
-                                                         size_type align )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_allocate( std::true_type,
+                 Allocator& alloc,
+                 size_type size,
+                 size_type align )
 {
   return alloc.allocate( size, align );
 }
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>::do_allocate( std::false_type,
-                                                         Allocator& alloc,
-                                                         size_type size,
-                                                         size_type align )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_allocate( std::false_type,
+                 Allocator& alloc,
+                 size_type size,
+                 size_type align )
 {
-  auto p = try_allocate(alloc,size,align);
+  auto p = traits_type::try_allocate(alloc,size,align);
 
   if( BIT_MEMORY_UNLIKELY(p == nullptr) ) {
     const auto info = allocator_traits<Allocator>::info( alloc );
@@ -374,7 +625,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_allocate( std::true_type,
                           Allocator& alloc,
                           size_type size,
@@ -386,14 +637,14 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_allocate( std::false_type,
                           Allocator& alloc,
                           size_type size,
                           size_type align,
                           size_type offset )
 {
-  auto p = try_allocate( alloc, size, align, offset );
+  auto p = traits_type::try_allocate( alloc, size, align, offset );
 
   if( p == nullptr ) {
     const auto info = allocator_traits<Allocator>::info( alloc );
@@ -410,7 +661,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_allocate_hint( std::true_type,
                       Allocator& alloc,
                       const_pointer hint,
@@ -422,7 +673,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_allocate_hint( std::false_type,
                       Allocator& alloc,
                       const_pointer hint,
@@ -431,14 +682,14 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 {
   BIT_MEMORY_UNUSED(hint);
 
-  return allocator_traits::allocate( alloc, size, align );
+  return traits_type::allocate( alloc, size, align );
 }
 
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_allocate_hint( std::true_type,
                                Allocator& alloc,
                                const_pointer hint,
@@ -451,7 +702,7 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::pointer
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_extended_allocate_hint( std::false_type,
                                Allocator& alloc,
                                const_pointer hint,
@@ -461,27 +712,29 @@ inline typename bit::memory::allocator_traits<Allocator>::pointer
 {
   BIT_MEMORY_UNUSED(hint);
 
-  return allocator_traits::allocate( alloc, size, align, offset );
+  return traits_type::allocate( alloc, size, align, offset );
 }
 
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 inline bool
-  bit::memory::allocator_traits<Allocator>::do_expand( std::true_type,
-                                                       Allocator& alloc,
-                                                       pointer p,
-                                                       size_type new_size)
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_expand( std::true_type,
+               Allocator& alloc,
+               pointer p,
+               size_type new_size)
 {
   return alloc.expand( p, new_size );
 }
 
 template<typename Allocator>
 inline bool
-  bit::memory::allocator_traits<Allocator>::do_expand( std::false_type,
-                                                       Allocator& alloc,
-                                                       pointer p,
-                                                       size_type new_size)
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_expand( std::false_type,
+               Allocator& alloc,
+               pointer p,
+               size_type new_size)
 {
   BIT_MEMORY_UNUSED(alloc);
   BIT_MEMORY_UNUSED(p);
@@ -491,12 +744,12 @@ inline bool
 }
 
 //-----------------------------------------------------------------------------
-// Private Observers
+// Observers
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_recommended_allocation_size( std::true_type,
                                     const Allocator& alloc,
                                     size_type requested )
@@ -506,14 +759,14 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_recommended_allocation_size( std::false_type,
                                     const Allocator& alloc,
                                     size_type requested )
 {
   BIT_MEMORY_UNUSED(alloc);
 
-  static constexpr auto multiple = default_alignment::value;
+  static constexpr auto multiple = traits_type::default_alignment::value;
 
   return ((requested + multiple - 1) & ~multiple);
 }
@@ -522,16 +775,18 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
 
 template<typename Allocator>
 inline bit::memory::allocator_info
-  bit::memory::allocator_traits<Allocator>::do_info( std::true_type,
-                                                     const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_info( std::true_type,
+             const Allocator& alloc )
 {
   return alloc.info();
 }
 
 template<typename Allocator>
 inline bit::memory::allocator_info
-  bit::memory::allocator_traits<Allocator>::do_info( std::false_type,
-                                                     const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_info( std::false_type,
+             const Allocator& alloc )
 {
   BIT_MEMORY_UNUSED(alloc);
 
@@ -539,13 +794,13 @@ inline bit::memory::allocator_info
 }
 
 //-----------------------------------------------------------------------------
-// Private Construction
+// Construction
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make( std::true_type,
              Allocator& alloc,
              Args&&...args )
@@ -556,7 +811,7 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make( std::false_type,
              Allocator& alloc,
              Args&&...args )
@@ -569,13 +824,13 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_nothrow( std::true_type,
                      Allocator& alloc,
                      Args&&...args )
   noexcept
 {
-  auto p = allocate( alloc, sizeof(T), alignof(T) );
+  auto p = traits_type::allocate( alloc, sizeof(T), alignof(T) );
 
   return uninitialized_construct_at<T>( to_raw_pointer(p),
                                         std::forward<Args>(args)... );
@@ -584,12 +839,12 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_nothrow( std::false_type,
                      Allocator& alloc,
                      Args&&...args )
 {
-  auto p = allocate( alloc, sizeof(T), alignof(T) );
+  auto p =traits_type:: allocate( alloc, sizeof(T), alignof(T) );
 
   try {
     uninitialized_construct_at<T>( to_raw_pointer(p),
@@ -606,7 +861,7 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_array( std::true_type,
                    Allocator& alloc,
                    std::size_t n,
@@ -618,7 +873,7 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_array( std::false_type,
                    Allocator& alloc,
                    std::size_t n,
@@ -632,14 +887,14 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_array_nothrow( std::true_type,
                            Allocator& alloc,
                            std::size_t n,
                            Args&&...args )
   noexcept
 {
-  auto p = allocate( alloc, sizeof(T)*n, alignof(T) );
+  auto p = traits_type::allocate( alloc, sizeof(T)*n, alignof(T) );
 
   uninitialized_construct_array_at<T>( to_raw_pointer(p),
                                        n,
@@ -650,13 +905,13 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 template<typename Allocator>
 template<typename T, typename...Args>
 inline typename std::pointer_traits<typename bit::memory::allocator_traits<Allocator>::pointer>::template rebind<T>
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_make_array_nothrow( std::false_type,
                            Allocator& alloc,
                            std::size_t n,
                            Args&&...args )
 {
-  auto p = allocate( alloc, sizeof(T)*n, alignof(T) );
+  auto p = traits_type::allocate( alloc, sizeof(T)*n, alignof(T) );
 
   try {
     uninitialized_construct_array_at<T>( to_raw_pointer(p),
@@ -670,23 +925,25 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
 }
 
 //-----------------------------------------------------------------------------
-// Private Destruction
+// Destruction
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 template<typename T>
-void bit::memory::allocator_traits<Allocator>::do_dispose( std::true_type,
-                                                           Allocator& alloc,
-                                                           typed_pointer<T> p )
+void bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_dispose( std::true_type,
+                Allocator& alloc,
+                typed_pointer<T> p )
 {
   alloc.dispose( p );
 }
 
 template<typename Allocator>
 template<typename T>
-void bit::memory::allocator_traits<Allocator>::do_dispose( std::false_type,
-                                                           Allocator& alloc,
-                                                           typed_pointer<T> p )
+void bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_dispose( std::false_type,
+                Allocator& alloc,
+                typed_pointer<T> p )
 {
   static_assert( !std::is_abstract<T>::value,
                  "Cannot dispose from base type" );
@@ -695,14 +952,14 @@ void bit::memory::allocator_traits<Allocator>::do_dispose( std::false_type,
   destroy_at( to_raw_pointer(p) );
 
   // convert to raw pointer first
-  deallocate( alloc, static_cast<pointer>(p), sizeof(T) );
+  traits_type::deallocate( alloc, static_cast<pointer>(p), sizeof(T) );
 }
 
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 template<typename T>
-void bit::memory::allocator_traits<Allocator>
+void bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_dispose_array( std::true_type,
                       Allocator& alloc,
                       typed_pointer<T> p,
@@ -713,7 +970,7 @@ void bit::memory::allocator_traits<Allocator>
 
 template<typename Allocator>
 template<typename T>
-void bit::memory::allocator_traits<Allocator>
+void bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_dispose_array( std::false_type,
                       Allocator& alloc,
                       typed_pointer<T> p,
@@ -723,16 +980,16 @@ void bit::memory::allocator_traits<Allocator>
                  "Cannot dispose from base type" );
 
   destroy_array_at( to_raw_pointer(p), n );
-  deallocate( alloc, static_cast<pointer>(p), sizeof(T)*n );
+  traits_type::deallocate( alloc, static_cast<pointer>(p), sizeof(T)*n );
 }
 
 //-----------------------------------------------------------------------------
-// Private Capacity
+// Capacity
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 inline bool
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_is_unbounded( std::true_type, const Allocator& alloc )
 {
   return alloc.is_unbounded();
@@ -740,7 +997,7 @@ inline bool
 
 template<typename Allocator>
 inline bool
-  bit::memory::allocator_traits<Allocator>
+  bit::memory::detail::allocator_traits_impl<Allocator>
   ::do_is_unbounded( std::false_type, const Allocator& alloc )
 {
   return std::numeric_limits<size_type>::max() == max_size( alloc );
@@ -750,16 +1007,18 @@ inline bool
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>::do_max_size( std::true_type,
-                                                         const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_max_size( std::true_type,
+                 const Allocator& alloc )
 {
   return alloc.max_size();
 }
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>::do_max_size( std::false_type,
-                                                         const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_max_size( std::false_type,
+                 const Allocator& alloc )
 {
   BIT_MEMORY_UNUSED(alloc);
 
@@ -770,16 +1029,18 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>::do_min_size( std::true_type,
-                                                         const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_min_size( std::true_type,
+                 const Allocator& alloc )
 {
   return alloc.min_size();
 }
 
 template<typename Allocator>
 inline typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>::do_min_size( std::false_type,
-                                                         const Allocator& alloc )
+  bit::memory::detail::allocator_traits_impl<Allocator>
+  ::do_min_size( std::false_type,
+                 const Allocator& alloc )
 {
   BIT_MEMORY_UNUSED(alloc);
 
