@@ -276,6 +276,16 @@ namespace bit {
       // MSVC does not, but curiously will except the ever-verbose expansion
       // of what 'typed_pointer<T>' aliases.
 
+      /// \brief Constructs an instance of \p T at address \p p with \p args
+      ///
+      /// \tparam T the type to construct
+      /// \param alloc the allocator to use for construction
+      /// \param p the pointer to the memory to construct at
+      /// \param args the arguments to forward to \p T's constructor
+      /// \return pointer to teh constructed entry
+      template<typename T, typename...Args>
+      static void construct( Allocator& alloc, void* p, Args&&...args );
+
       /// \brief Allocates and constructs a type \p T with the arguments
       ///        \p args
       ///
@@ -313,6 +323,13 @@ namespace bit {
       // Destruction
       //-----------------------------------------------------------------------
     public:
+
+      /// \brief Destroys the instance at \p p by invoking the destructor
+      ///
+      /// \param alloc the allocator to use for destruction
+      /// \param p the pointer to destroy
+      template<typename T>
+      static void destroy( Allocator& alloc, T* p );
 
       /// \brief Disposes of the given type \p T
       ///

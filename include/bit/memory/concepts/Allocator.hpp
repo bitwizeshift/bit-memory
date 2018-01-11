@@ -256,6 +256,18 @@ namespace bit {
       //----------------------------------------------------------------------
 
       template<typename T, typename U, typename List, typename = void>
+      struct allocator_has_construct_impl : std::false_type{};
+
+      template<typename T, typename U, typename...Args>
+      struct allocator_has_construct_impl<T,U,allocator_type_list<Args...>,
+        void_t<
+          decltype( std::declval<T&>().template construct<U>( std::declval<void*>(), std::declval<Args>()... ) )
+        >
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename U, typename List, typename = void>
       struct allocator_has_make_impl : std::false_type{};
 
       template<typename T, typename U, typename...Args>
@@ -297,6 +309,18 @@ namespace bit {
       template<typename T>
       struct allocator_has_deallocate_all_impl<T,
         void_t<decltype(std::declval<T&>().deallocate_all())>
+      > : std::true_type{};
+
+      //----------------------------------------------------------------------
+
+      template<typename T, typename, typename = void>
+      struct allocator_has_destroy_impl : std::false_type{};
+
+      template<typename T, typename U>
+      struct allocator_has_destroy_impl<T,U,
+        void_t<
+          decltype( std::declval<T&>().dispose( std::declval<U>() ) )
+        >
       > : std::true_type{};
 
       //----------------------------------------------------------------------
@@ -475,6 +499,25 @@ namespace bit {
 
     //-------------------------------------------------------------------------
 
+    /// \brief Type-trait to determine whether \p T has a 'construct' function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    struct allocator_has_construct
+      : detail::allocator_has_construct_impl<T,U,detail::allocator_type_list<Args...>>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_construct<T,U,Args...>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U, typename...Args>
+    constexpr bool allocator_has_construct_v
+      = allocator_has_construct<T,U,Args...>::value;
+
+    //-------------------------------------------------------------------------
+
     /// \brief Type-trait to determine whether \p T has a 'make' function
     ///
     /// The result is aliased as \c ::value
@@ -501,7 +544,7 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T, typename U, typename...Args>
     struct allocator_has_make_array
-      : detail::allocator_has_make_impl<T,U,detail::allocator_type_list<Args...>>{};
+      : detail::allocator_has_make_array_impl<T,U,detail::allocator_type_list<Args...>>{};
 
     /// \brief Convenience template bool for accessing
     ///        \c allocator_has_make_array<T,U,Args...>::value
@@ -529,6 +572,26 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr bool allocator_can_truncate_deallocations_v = allocator_can_truncate_deallocations<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type-trait to determine whether \p T has a 'destroy'
+    ///        function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    struct allocator_has_destroy
+      : detail::allocator_has_destroy_impl<T,U>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_dispose<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T, typename U>
+    constexpr bool allocator_has_destroy_v
+      = allocator_has_destroy<T,U>::value;
 
     //-------------------------------------------------------------------------
 
