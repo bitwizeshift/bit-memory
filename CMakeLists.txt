@@ -16,11 +16,14 @@ option(BIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS "Include each header ind
 option(BIT_MEMORY_COMPILE_UNIT_TESTS "Compile and run the unit tests for this library" off)
 option(BIT_MEMORY_GENERATE_DOCUMENTATION "Generates doxygen documentation" off)
 option(BIT_MEMORY_COMPILE_BENCHMARKS "Compile the benchmark tests for this library" off)
+option(BIT_MEMORY_VERBOSE_CONFIGURE "Configures the CMakeLists.txt with logging messages" off)
 
 project("BitMemory")
 
 if( CMAKE_BUILD_TYPE STREQUAL "" )
-  message(STATUS "CMAKE_BUILD_TYPE not set; defaulting to 'Debug'")
+  if( BIT_MEMORY_VERBOSE_CONFIGURE )
+    message(STATUS "CMAKE_BUILD_TYPE not set; defaulting to 'Debug'")
+  endif()
   set(CMAKE_BUILD_TYPE DEBUG)
 endif()
 
@@ -33,7 +36,9 @@ set(BIT_MEMORY_VERSION_MINOR 1 CACHE STRING "minor version of bit::memory" FORCE
 set(BIT_MEMORY_VERSION_PATCH 188 CACHE STRING "patch version of bit::memory" FORCE)
 set(BIT_MEMORY_VERSION "${BIT_MEMORY_VERSION_MAJOR}.${BIT_MEMORY_VERSION_MINOR}.${BIT_MEMORY_VERSION_PATCH}" CACHE STRING "version of bit::memory" FORCE)
 
-message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
+if( BIT_MEMORY_VERBOSE_CONFIGURE )
+  message(STATUS "bit::memory ${BIT_MEMORY_VERSION}")
+endif()
 
 #-----------------------------------------------------------------------------
 # bit::memory: Sources
@@ -146,12 +151,12 @@ set(headers
   include/bit/memory/allocators/null_allocator.hpp
   include/bit/memory/allocators/pool_allocator.hpp
   include/bit/memory/allocators/stack_allocator.hpp
-    
+
   # Allocator Storage
   include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
   include/bit/memory/allocator_storage/shared_allocator_storage.hpp
   include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
-  
+
   # Deleters
   include/bit/memory/deleters/allocator_deleter.hpp
   include/bit/memory/deleters/polymorphic_allocator_deleter.hpp
@@ -227,12 +232,12 @@ set(inline_headers
   include/bit/memory/allocators/detail/policy_allocator.inl
   include/bit/memory/allocators/detail/pool_allocator.inl
   include/bit/memory/allocators/detail/stack_allocator.inl
-  
+
   # Allocator Storage
   include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/shared_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/referenced_allocator_storage.inl
-  
+
   # Deleters
   include/bit/memory/deleters/detail/allocator_deleter.inl
   include/bit/memory/deleters/detail/polymorphic_allocator_deleter.inl
