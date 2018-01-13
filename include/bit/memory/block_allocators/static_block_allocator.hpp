@@ -10,10 +10,11 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_STATIC_BLOCK_ALLOCATOR_HPP
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
-#include "../owner.hpp"              // owner
-#include "../memory_block.hpp"       // memory_block
-#include "../memory_block_cache.hpp" // memory_block_cache
-#include "../pointer_utilities.hpp"  // is_power_of_two
+
+#include "../utilities/owner.hpp"              // owner
+#include "../utilities/memory_block.hpp"       // memory_block
+#include "../utilities/memory_block_cache.hpp" // memory_block_cache
+#include "../utilities/pointer_utilities.hpp"  // is_power_of_two
 
 #include <cstddef> // std::size_t, std::max_align_t
 #include <cassert> // assert

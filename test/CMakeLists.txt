@@ -12,8 +12,8 @@ set(source_files
   main.test.cpp
 
   # Utilities
-  bit/memory/memory_block_cache.test.cpp
-  bit/memory/endian.test.cpp
+  bit/memory/utilities/memory_block_cache.test.cpp
+  bit/memory/utilities/endian.test.cpp
 
   # Allocators
   bit/memory/allocators/allocator_reference.test.cpp

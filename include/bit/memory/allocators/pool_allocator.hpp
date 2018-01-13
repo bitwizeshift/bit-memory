@@ -11,11 +11,11 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../freelist.hpp"          // freelist
-#include "../macros.hpp"            // BIT_MEMORY_ASSUME
-#include "../memory_block.hpp"      // memory_block
-#include "../owner.hpp"             // owner
-#include "../pointer_utilities.hpp" // is_power_of_two
+#include "../utilities/freelist.hpp"          // freelist
+#include "../utilities/macros.hpp"            // BIT_MEMORY_ASSUME
+#include "../utilities/memory_block.hpp"      // memory_block
+#include "../utilities/owner.hpp"             // owner
+#include "../utilities/pointer_utilities.hpp" // is_power_of_two
 
 #include <cassert>
 

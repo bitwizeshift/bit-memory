@@ -9,13 +9,13 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_POLICY_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_POLICY_BLOCK_ALLOCATOR_HPP
 
-#include "../detail/ebo_storage.hpp"      // detail::ebo_storage
 #include "../concepts/BlockAllocator.hpp" // block_allocator_has
 
-#include "../owner.hpp"                  // owner
-#include "../memory_block.hpp"           // memory_block
-#include "../allocator_info.hpp"         // allocator_info
-#include "../block_allocator_traits.hpp" // block_allocator_traits
+#include "../utilities/detail/ebo_storage.hpp"      // detail::ebo_storage
+#include "../utilities/allocator_info.hpp"         // allocator_info
+#include "../utilities/block_allocator_traits.hpp" // block_allocator_traits
+#include "../utilities/memory_block.hpp"           // memory_block
+#include "../utilities/owner.hpp"                  // owner
 
 #include <cstddef> // std::size_t
 #include <tuple>   // std::tuple, std::forward_as_tuple

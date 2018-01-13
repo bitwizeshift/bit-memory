@@ -10,7 +10,7 @@
 
 #include "detail/void_t.hpp" // detail::void_t
 
-#include "../allocator_info.hpp" // allocator_info
+#include "../utilities/allocator_info.hpp" // allocator_info
 
 #include <cstddef>     // std::size_t
 #include <type_traits> // std::declval

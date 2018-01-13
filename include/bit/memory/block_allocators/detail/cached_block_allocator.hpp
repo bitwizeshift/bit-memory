@@ -10,9 +10,9 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_CACHED_BLOCK_ALLOCATOR_HPP
 
-#include "../../owner.hpp"              // owner
-#include "../../memory_block.hpp"       // memory_block
-#include "../../memory_block_cache.hpp" // memory_block_cache
+#include "../../utilities/owner.hpp"              // owner
+#include "../../utilities/memory_block.hpp"       // memory_block
+#include "../../utilities/memory_block_cache.hpp" // memory_block_cache
 
 #include <utility>     // std::forward
 #include <type_traits> // std::true_type, std::false_type

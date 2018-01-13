@@ -9,10 +9,12 @@
 #define BIT_MEMORY_TRACKERS_LEAK_TRACKER_HPP
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
-#include "../allocator_info.hpp"             // allocator_info
-#include "../errors.hpp"                     // get_leak_handler
-#include "../macros.hpp"                     // BIT_MEMORY_UNUSED
-#include "../concepts/MemoryTracker.hpp"     // is_memory_tracker
+
+#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../utilities/errors.hpp"         // get_leak_handler
+#include "../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
+
+#include "../concepts/MemoryTracker.hpp" // is_memory_tracker
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 

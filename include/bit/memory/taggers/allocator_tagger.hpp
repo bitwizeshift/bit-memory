@@ -9,8 +9,9 @@
 #ifndef BIT_MEMORY_TAGGERS_DEBUG_MEMORY_TAGGER_HPP
 #define BIT_MEMORY_TAGGERS_DEBUG_MEMORY_TAGGER_HPP
 
+#include "../utilities/debugging.hpp" // debug_tag_allocated_bytes
+
 #include "../concepts/MemoryTagger.hpp" // is_memory_tagger
-#include "../debugging.hpp" // debug_tag_allocated_bytes
 
 #include <cstddef>          // std::size_t
 

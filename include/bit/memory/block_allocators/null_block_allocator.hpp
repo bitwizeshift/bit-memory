@@ -10,10 +10,10 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
-#include "../allocator_info.hpp" // allocator_info
-#include "../macros.hpp"         // BIT_MEMORY_UNUSED
-#include "../memory_block.hpp"   // memory_block
-#include "../owner.hpp"          // owner
+#include "../utilities/allocator_info.hpp"    // allocator_info
+#include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../utilities/memory_block.hpp"      // memory_block
+#include "../utilities/owner.hpp"             // owner
 
 #include <type_traits> // std::integral_constant, std::true_false
 #include <cstddef>     // std::max_align_t

@@ -16,7 +16,7 @@
 #define BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NAMED_BLOCK_ALLOCATOR_HPP
 
 
-#include "../../allocator_info.hpp" // allocator_info
+#include "../../utilities/allocator_info.hpp" // allocator_info
 
 #include <type_traits> // std::enable_if_t, std::is_constructible
 #include <utility>     // std::forward

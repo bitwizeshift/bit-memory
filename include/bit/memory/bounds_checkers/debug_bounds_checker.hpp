@@ -8,10 +8,11 @@
 #ifndef BIT_MEMORY_BOUNDS_CHECKERS_DEBUG_BOUNDS_CHECKER_HPP
 #define BIT_MEMORY_BOUNDS_CHECKERS_DEBUG_BOUNDS_CHECKER_HPP
 
+#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../utilities/debugging.hpp"      // debug_tag_start_bytes, etc
+#include "../utilities/errors.hpp"         // get_buffer_overflow_handler
+
 #include "../concepts/BoundsChecker.hpp" // is_bounds_checker
-#include "../allocator_info.hpp" // allocator_info
-#include "../debugging.hpp"      // debug_tag_start_bytes, etc
-#include "../errors.hpp"         // get_buffer_overflow_handler
 
 #include <cstddef> // std::size_t
 

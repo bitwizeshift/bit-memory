@@ -7,7 +7,7 @@
  */
 
 #include <bit/memory/allocators/allocator_reference.hpp>
-#include <bit/memory/allocator_info.hpp>
+#include <bit/memory/utilities/allocator_info.hpp>
 
 #include <catch.hpp>
 

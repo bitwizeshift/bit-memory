@@ -9,7 +9,8 @@
 #define BIT_MEMORY_TRACKERS_NULL_TRACKER_HPP
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
-#include "../allocator_info.hpp"             // allocator_info
+
+#include "../utilities/allocator_info.hpp"   // allocator_info
 #include "../concepts/MemoryTracker.hpp"     // is_memory_tracker
 
 #include <cstddef> // std::size_t

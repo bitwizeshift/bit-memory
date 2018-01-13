@@ -8,7 +8,7 @@
 #ifndef BIT_MEMORY_ALLOCATOR_STORAGE_STATELESS_ALLOCATOR_STORAGE_HPP
 #define BIT_MEMORY_ALLOCATOR_STORAGE_STATELESS_ALLOCATOR_STORAGE_HPP
 
-#include "../detail/ebo_storage.hpp"
+#include "../utilities/detail/ebo_storage.hpp"
 
 #include "../concepts/Stateless.hpp"
 #include "../concepts/Allocator.hpp"

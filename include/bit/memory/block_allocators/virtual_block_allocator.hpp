@@ -10,9 +10,9 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
-#include "../allocator_info.hpp"     // allocator_info
-#include "../memory_block_cache.hpp" // memory_block_cache
-#include "../owner.hpp"              // owner
+#include "../utilities/allocator_info.hpp"     // allocator_info
+#include "../utilities/memory_block_cache.hpp" // memory_block_cache
+#include "../utilities/owner.hpp"              // owner
 
 #include <cstddef> // std::size_t
 

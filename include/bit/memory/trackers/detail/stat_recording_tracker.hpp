@@ -10,7 +10,7 @@
 #ifndef BIT_MEMORY_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
 #define BIT_MEMORY_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
 
-#include "../../allocator_info.hpp" // allocator_info
+#include "../../utilities/allocator_info.hpp" // allocator_info
 
 #include <cstddef> // std::size_t
 

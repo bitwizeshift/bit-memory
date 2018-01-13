@@ -8,11 +8,11 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATORS_BLOCK_ALLOCATOR_REFERENCE_HPP
 
-#include "../owner.hpp"                  // owner
-#include "../allocator_info.hpp"         // allocator_info
-#include "../block_allocator_traits.hpp" // block_allocator_traits
-#include "../memory_block.hpp"           // memory_block
-#include "../macros.hpp"                 // BIT_MEMORY_UNUSED
+#include "../utilities/owner.hpp"                  // owner
+#include "../utilities/allocator_info.hpp"         // allocator_info
+#include "../utilities/block_allocator_traits.hpp" // block_allocator_traits
+#include "../utilities/memory_block.hpp"           // memory_block
+#include "../utilities/macros.hpp"                 // BIT_MEMORY_UNUSED
 
 #include "../concepts/BlockAllocator.hpp" // is_block_allocator
 #include "../concepts/Stateless.hpp"      // is_stateless

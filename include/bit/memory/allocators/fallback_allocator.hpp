@@ -11,13 +11,12 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/allocator_traits.hpp"   // allocator_traits
+#include "../utilities/macros.hpp"             // BIT_MEMORY_UNUSED
+#include "../utilities/owner.hpp"              // owner
 
 #include "../concepts/Allocator.hpp" // allocator_pointer_t, etc
-
-#include "../allocator_traits.hpp"   // allocator_traits
-#include "../macros.hpp"             // BIT_MEMORY_UNUSED
-#include "../owner.hpp"              // owner
 
 #include <tuple>     // std::forward_as_tuple
 #include <utility>   // std::forward

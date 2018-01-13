@@ -7,9 +7,9 @@
  */
 
 #include <bit/memory/block_allocators/aligned_block_allocator.hpp>
+#include <bit/memory/utilities/pointer_utilities.hpp> // align_of
 #include <bit/memory/concepts/Stateless.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
-#include <bit/memory/pointer_utilities.hpp> // align_of
 
 #include <catch.hpp>
 
