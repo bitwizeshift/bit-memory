@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_VIRTUAL_MEMORY_INL
-#define BIT_MEMORY_DETAIL_VIRTUAL_MEMORY_INL
+#ifndef BIT_MEMORY_REGIONS_DETAIL_VIRTUAL_MEMORY_INL
+#define BIT_MEMORY_REGIONS_DETAIL_VIRTUAL_MEMORY_INL
 
 //============================================================================
 // virtual_memory
@@ -27,4 +27,4 @@ inline std::size_t bit::memory::virtual_memory::pages()
   return m_pages;
 }
 
-#endif /* BIT_MEMORY_DETAIL_VIRTUAL_MEMORY_INL */
+#endif /* BIT_MEMORY_REGIONS_DETAIL_VIRTUAL_MEMORY_INL */

@@ -72,10 +72,10 @@ set(headers
   include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
 
+
   # Utilities
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/dynamic_size_type.hpp
-  include/bit/memory/aligned_heap_memory.hpp
   include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
   include/bit/memory/block_allocator_traits.hpp
@@ -92,7 +92,10 @@ set(headers
   include/bit/memory/standard_allocator.hpp
   include/bit/memory/unaligned_storage.hpp
   include/bit/memory/uninitialized_storage.hpp
-  include/bit/memory/virtual_memory.hpp
+
+  # Regions
+  include/bit/memory/regions/aligned_heap_memory.hpp
+  include/bit/memory/regions/virtual_memory.hpp
 
   # Taggers
   include/bit/memory/taggers/allocator_tagger.hpp
@@ -253,18 +256,18 @@ endif()
 
 if( WIN32 )
   set(platform_source_files
-    src/bit/memory/win32/virtual_memory.cpp
-    src/bit/memory/win32/aligned_heap_memory.cpp
+    src/bit/memory/regions/win32/virtual_memory.cpp
+    src/bit/memory/regions/win32/aligned_heap_memory.cpp
   )
 elseif( UNIX )
   set(platform_source_files
-    src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_heap_memory.cpp
+    src/bit/memory/regions/posix/virtual_memory.cpp
+    src/bit/memory/regions/posix/aligned_heap_memory.cpp
   )
 elseif( APPLE )
   set(platform_source_files
-    src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_heap_memory.cpp
+    src/bit/memory/regions/posix/virtual_memory.cpp
+    src/bit/memory/regions/posix/aligned_heap_memory.cpp
   )
 else()
   message(FATAL_ERROR "unknown or unsupported target memory")
@@ -272,10 +275,12 @@ endif()
 
 set(source_files
   # Utilities
-  src/bit/memory/aligned_heap_memory.cpp
   src/bit/memory/debugging.cpp
   src/bit/memory/errors.cpp
-  src/bit/memory/virtual_memory.cpp
+
+  # Regions
+  src/bit/memory/regions/aligned_heap_memory.cpp
+  src/bit/memory/regions/virtual_memory.cpp
 
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp

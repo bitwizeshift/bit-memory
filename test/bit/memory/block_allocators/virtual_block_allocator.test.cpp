@@ -7,7 +7,7 @@
  */
 
 #include <bit/memory/block_allocators/virtual_block_allocator.hpp>
-#include <bit/memory/virtual_memory.hpp>
+#include <bit/memory/regions/virtual_memory.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>
 
 #include <catch.hpp>

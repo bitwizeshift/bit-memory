@@ -1,6 +1,6 @@
 #include <bit/memory/block_allocators/growing_virtual_block_allocator.hpp>
 
-#include <bit/memory/virtual_memory.hpp> // virtual_alloc, etc
+#include <bit/memory/regions/virtual_memory.hpp> // virtual_alloc, etc
 
 #include <algorithm> // std::min
 #include <cassert>   // assert

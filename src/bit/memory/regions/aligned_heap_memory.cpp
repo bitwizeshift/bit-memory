@@ -1,4 +1,4 @@
-#include <bit/memory/aligned_heap_memory.hpp>
+#include <bit/memory/regions/aligned_heap_memory.hpp>
 
 //----------------------------------------------------------------------------
 // Aligned new

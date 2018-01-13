@@ -7,8 +7,8 @@
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
 
-#ifndef BIT_MEMORY_WIN32_WINDOWS_HPP
-#define BIT_MEMORY_WIN32_WINDOWS_HPP
+#ifndef BIT_MEMORY_REGIONS_WIN32_WINDOWS_HPP
+#define BIT_MEMORY_REGIONS_WIN32_WINDOWS_HPP
 
 #ifdef _WIN32_WINDOWS
 # undef _WIN32_WINDOWS
@@ -32,6 +32,4 @@
 
 #include <windows.h>
 
-
-
-#endif /* BIT_MEMORY_WIN32_WINDOWS_HPP */
+#endif /* BIT_MEMORY_REGIONS_WIN32_WINDOWS_HPP */

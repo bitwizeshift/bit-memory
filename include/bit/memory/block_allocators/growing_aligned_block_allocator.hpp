@@ -13,12 +13,13 @@
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
 #include "../detail/dynamic_size_type.hpp" // dynamic_size, detail::dynamic_size_type
-#include "../aligned_heap_memory.hpp" // aligned_malloc, aligned_free
 #include "../allocator_info.hpp"    // allocator_info
-#include "../memory_block.hpp"      // memory_block
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../memory_block.hpp"      // memory_block
 #include "../owner.hpp"             // owner
 #include "../pointer_utilities.hpp" // is_power_of_two
+
+#include "../regions/aligned_heap_memory.hpp" // aligned_malloc, aligned_free
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t

@@ -5,11 +5,11 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_VIRTUAL_MEMORY_HPP
-#define BIT_MEMORY_VIRTUAL_MEMORY_HPP
+#ifndef BIT_MEMORY_REGIONS_VIRTUAL_MEMORY_HPP
+#define BIT_MEMORY_REGIONS_VIRTUAL_MEMORY_HPP
 
-#include "memory_block.hpp"       // memory_block
-#include "memory_block_cache.hpp" // memory_block_cache
+#include "../memory_block.hpp"       // memory_block
+#include "../memory_block_cache.hpp" // memory_block_cache
 
 #include <cstdint>   // std::size_t & std::ptrdiff_t
 #include <cstddef>   // std::size_t
@@ -179,4 +179,4 @@ namespace bit {
 
 #include "detail/virtual_memory.inl"
 
-#endif /* BIT_MEMORY_VIRTUAL_MEMORY_HPP */
+#endif /* BIT_MEMORY_REGIONS_VIRTUAL_MEMORY_HPP */

@@ -1,4 +1,4 @@
-#include <bit/memory/virtual_memory.hpp>
+#include <bit/memory/regions/virtual_memory.hpp>
 
 //============================================================================
 // virtual_memory
