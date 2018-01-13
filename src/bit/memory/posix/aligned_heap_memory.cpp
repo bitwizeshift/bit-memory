@@ -1,5 +1,4 @@
-#include <bit/memory/aligned_memory.hpp>
-
+#include <bit/memory/aligned_heap_memory.hpp>
 #include <bit/memory/unaligned_memory.hpp>  // store_unaligned, load_unaligned
 #include <bit/memory/pointer_utilities.hpp> // offset_align_forward
 

@@ -1,5 +1,4 @@
-#include <bit/memory/aligned_memory.hpp>
-
+#include <bit/memory/aligned_heap_memory.hpp>
 #include <malloc.h> // ::_aligned_malloc, ::_aligned_free
 
 void* bit::memory::aligned_malloc( std::size_t size, std::size_t align )

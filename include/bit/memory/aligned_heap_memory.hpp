@@ -6,8 +6,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_ALIGNED_MEMORY_HPP
-#define BIT_MEMORY_ALIGNED_MEMORY_HPP
+#ifndef BIT_MEMORY_ALIGNED_HEAP_MEMORY_HPP
+#define BIT_MEMORY_ALIGNED_HEAP_MEMORY_HPP
 
 #include <new> // std::nothrow_t
 
@@ -122,4 +122,4 @@ void operator delete[]( void* ptr,
                         bit::memory::align_val_t alignment,
                         std::size_t size ) noexcept;
 
-#endif /* BIT_MEMORY_ALIGNED_MEMORY_HPP */
+#endif /* BIT_MEMORY_ALIGNED_HEAP_MEMORY_HPP */

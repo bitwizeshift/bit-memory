@@ -15,7 +15,7 @@
 #include "malloc_block_allocator.hpp"
 
 #include "../detail/dynamic_size_type.hpp" // dynamic_size, detail::dynamic_size_type
-#include "../aligned_memory.hpp"    // aligned_allocate
+#include "../aligned_heap_memory.hpp" // aligned_malloc, aligned_free
 #include "../allocator_info.hpp"    // allocator_info
 #include "../memory_block.hpp"      // memory_block
 #include "../owner.hpp"             // owner

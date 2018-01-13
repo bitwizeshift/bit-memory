@@ -75,7 +75,7 @@ set(headers
   # Utilities
   include/bit/memory/detail/ebo_storage.hpp
   include/bit/memory/detail/dynamic_size_type.hpp
-  include/bit/memory/aligned_memory.hpp
+  include/bit/memory/aligned_heap_memory.hpp
   include/bit/memory/allocator_traits.hpp
   include/bit/memory/allocator_info.hpp
   include/bit/memory/block_allocator_traits.hpp
@@ -254,17 +254,17 @@ endif()
 if( WIN32 )
   set(platform_source_files
     src/bit/memory/win32/virtual_memory.cpp
-    src/bit/memory/win32/aligned_memory.cpp
+    src/bit/memory/win32/aligned_heap_memory.cpp
   )
 elseif( UNIX )
   set(platform_source_files
     src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_memory.cpp
+    src/bit/memory/posix/aligned_heap_memory.cpp
   )
 elseif( APPLE )
   set(platform_source_files
     src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_memory.cpp
+    src/bit/memory/posix/aligned_heap_memory.cpp
   )
 else()
   message(FATAL_ERROR "unknown or unsupported target memory")
@@ -272,6 +272,7 @@ endif()
 
 set(source_files
   # Utilities
+  src/bit/memory/aligned_heap_memory.cpp
   src/bit/memory/debugging.cpp
   src/bit/memory/errors.cpp
   src/bit/memory/virtual_memory.cpp

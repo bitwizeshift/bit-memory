@@ -13,7 +13,7 @@
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
 #include "../detail/dynamic_size_type.hpp" // dynamic_size, detail::dynamic_size_type
-#include "../aligned_memory.hpp"    // aligned_allocate
+#include "../aligned_heap_memory.hpp" // aligned_malloc, aligned_free
 #include "../allocator_info.hpp"    // allocator_info
 #include "../memory_block.hpp"      // memory_block
 #include "../macros.hpp"            // BIT_MEMORY_UNLIKELY

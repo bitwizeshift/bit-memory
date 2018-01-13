@@ -11,8 +11,8 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
+#include "../aligned_heap_memory.hpp" // aligned_malloc, aligned_free
 #include "../allocator_info.hpp" // allocator_info
-#include "../aligned_memory.hpp" // aligned_malloc, aligned_free
 #include "../macros.hpp"         // BIT_MEMORY_UNUSED
 #include "../owner.hpp"          // owner
 
