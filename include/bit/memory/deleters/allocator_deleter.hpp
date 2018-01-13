@@ -10,10 +10,11 @@
 #define BIT_MEMORY_DELETERS_ALLOCATOR_DELETER_HPP
 
 #include "../utilities/detail/ebo_storage.hpp"
-#include "../utilities/allocator_traits.hpp"
 #include "../utilities/pointer_utilities.hpp" // to_raw_pointer
 
 #include "../concepts/AllocatorStorage.hpp"
+
+#include "../traits/allocator_traits.hpp"
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <tuple>       // std::forward_as_tuple

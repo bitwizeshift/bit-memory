@@ -9,13 +9,13 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_UTILITIES_BLOCK_ALLOCATOR_TRAITS_HPP
-#define BIT_MEMORY_UTILITIES_BLOCK_ALLOCATOR_TRAITS_HPP
+#ifndef BIT_MEMORY_TRAITS_BLOCK_ALLOCATOR_TRAITS_HPP
+#define BIT_MEMORY_TRAITS_BLOCK_ALLOCATOR_TRAITS_HPP
 
-#include "allocator_info.hpp"      // allocator_info
-#include "macros.hpp"              // BIT_MEMORY_UNUSED
-#include "memory_block.hpp"        // memory_block
-#include "owner.hpp"               // owner
+#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../utilities/memory_block.hpp"   // memory_block
+#include "../utilities/owner.hpp"          // owner
 
 #include "../concepts/BlockAllocator.hpp" // is_block_allocator
 
@@ -143,4 +143,4 @@ namespace bit {
 
 #include "detail/block_allocator_traits.inl"
 
-#endif /* BIT_MEMORY_UTILITIES_BLOCK_ALLOCATOR_TRAITS_HPP */
+#endif /* BIT_MEMORY_TRAITS_BLOCK_ALLOCATOR_TRAITS_HPP */

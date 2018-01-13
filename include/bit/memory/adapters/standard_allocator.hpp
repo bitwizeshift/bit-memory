@@ -10,10 +10,11 @@
 #define BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 
 #include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
-#include "../utilities/allocator_traits.hpp" // allocator_traits
 
 #include "../concepts/AllocatorStorage.hpp" // is_allocator_storage
 #include "../concepts/Stateless.hpp"        // is_stateless
+
+#include "../traits/allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::is_reference, std::is_const, etc

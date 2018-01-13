@@ -10,12 +10,13 @@
 
 #include "../utilities/owner.hpp"                  // owner
 #include "../utilities/allocator_info.hpp"         // allocator_info
-#include "../utilities/block_allocator_traits.hpp" // block_allocator_traits
 #include "../utilities/memory_block.hpp"           // memory_block
 #include "../utilities/macros.hpp"                 // BIT_MEMORY_UNUSED
 
 #include "../concepts/BlockAllocator.hpp" // is_block_allocator
 #include "../concepts/Stateless.hpp"      // is_stateless
+
+#include "../traits/block_allocator_traits.hpp" // block_allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::integral_constant, std::is_same, etc

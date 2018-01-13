@@ -10,13 +10,14 @@
 
 #include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
 #include "../utilities/allocator_info.hpp" // allocator_info
-#include "../utilities/allocator_traits.hpp"  // allocator_traits
 #include "../utilities/debugging.hpp"      // debug_tag_...
 #include "../utilities/errors.hpp"         // get_leak_handler, etc
 #include "../utilities/macros.hpp"         // BIT_MEMORY_UNLIKELY
 
 #include "../concepts/Allocator.hpp"         // Allocator
 #include "../concepts/ExtendedAllocator.hpp" // ExtendedAllocator
+
+#include "../traits/allocator_traits.hpp" // allocator_traits
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <mutex>   // std::lock_guard

@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_UTILITIES_DETAIL_ALLOCATOR_TRAITS_INL
-#define BIT_MEMORY_UTILITIES_DETAIL_ALLOCATOR_TRAITS_INL
+#ifndef BIT_MEMORY_TRAITS_DETAIL_ALLOCATOR_TRAITS_INL
+#define BIT_MEMORY_TRAITS_DETAIL_ALLOCATOR_TRAITS_INL
 
 namespace bit { namespace memory { namespace detail {
 
@@ -1162,4 +1162,4 @@ inline typename bit::memory::allocator_traits<Allocator>::size_type
   return 1;
 }
 
-#endif /* BIT_MEMORY_UTILITIES_DETAIL_ALLOCATOR_TRAITS_INL */
+#endif /* BIT_MEMORY_TRAITS_DETAIL_ALLOCATOR_TRAITS_INL */

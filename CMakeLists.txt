@@ -57,6 +57,23 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 )
 
 set(headers
+  # Utilities
+  include/bit/memory/utilities/detail/ebo_storage.hpp
+  include/bit/memory/utilities/detail/dynamic_size_type.hpp
+  include/bit/memory/utilities/allocator_info.hpp
+  include/bit/memory/utilities/debugging.hpp
+  include/bit/memory/utilities/endian.hpp
+  include/bit/memory/utilities/errors.hpp
+  include/bit/memory/utilities/freelist.hpp
+  include/bit/memory/utilities/macros.hpp
+  include/bit/memory/utilities/memory_block.hpp
+  include/bit/memory/utilities/memory_block_cache.hpp
+  include/bit/memory/utilities/not_null.hpp
+  include/bit/memory/utilities/owner.hpp
+  include/bit/memory/utilities/pointer_utilities.hpp
+  include/bit/memory/utilities/unaligned_storage.hpp
+  include/bit/memory/utilities/uninitialized_storage.hpp
+
   # Concepts
   include/bit/memory/concepts/detail/void_t.hpp
   include/bit/memory/concepts/detail/identity.hpp
@@ -72,25 +89,9 @@ set(headers
   include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
 
-
-  # Utilities
-  include/bit/memory/utilities/detail/ebo_storage.hpp
-  include/bit/memory/utilities/detail/dynamic_size_type.hpp
-  include/bit/memory/utilities/allocator_traits.hpp
-  include/bit/memory/utilities/allocator_info.hpp
-  include/bit/memory/utilities/block_allocator_traits.hpp
-  include/bit/memory/utilities/debugging.hpp
-  include/bit/memory/utilities/endian.hpp
-  include/bit/memory/utilities/errors.hpp
-  include/bit/memory/utilities/freelist.hpp
-  include/bit/memory/utilities/macros.hpp
-  include/bit/memory/utilities/memory_block.hpp
-  include/bit/memory/utilities/memory_block_cache.hpp
-  include/bit/memory/utilities/not_null.hpp
-  include/bit/memory/utilities/owner.hpp
-  include/bit/memory/utilities/pointer_utilities.hpp
-  include/bit/memory/utilities/unaligned_storage.hpp
-  include/bit/memory/utilities/uninitialized_storage.hpp
+  # Traits
+  include/bit/memory/traits/allocator_traits.hpp
+  include/bit/memory/traits/block_allocator_traits.hpp
 
   # Adapters
   include/bit/memory/adapters/standard_allocator.hpp
@@ -172,8 +173,6 @@ set(headers
 set(inline_headers
   # Utilities
   include/bit/memory/utilities/detail/allocator_info.inl
-  include/bit/memory/utilities/detail/allocator_traits.inl
-  include/bit/memory/utilities/detail/block_allocator_traits.inl
   include/bit/memory/utilities/detail/debugging.inl
   include/bit/memory/utilities/detail/endian.inl
   include/bit/memory/utilities/detail/freelist.inl
@@ -183,6 +182,10 @@ set(inline_headers
   include/bit/memory/utilities/detail/pointer_utilities.inl
   include/bit/memory/utilities/detail/unaligned_storage.inl
   include/bit/memory/utilities/detail/uninitialized_storage.inl
+
+  # Traits
+  include/bit/memory/traits/detail/allocator_traits.inl
+  include/bit/memory/traits/detail/block_allocator_traits.inl
 
   # Adapters
   include/bit/memory/adapters/detail/standard_allocator.inl

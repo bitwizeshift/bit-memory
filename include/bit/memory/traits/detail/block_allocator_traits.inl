@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_UTILITIES_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
-#define BIT_MEMORY_UTILITIES_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
+#ifndef BIT_MEMORY_TRAITS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
+#define BIT_MEMORY_TRAITS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL
 
 //-----------------------------------------------------------------------------
 // Block Allocations
@@ -111,4 +111,4 @@ inline std::size_t bit::memory::block_allocator_traits<BlockAllocator>
 }
 
 
-#endif /* BIT_MEMORY_UTILITIES_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL */
+#endif /* BIT_MEMORY_TRAITS_DETAIL_BLOCK_ALLOCATOR_TRAITS_INL */

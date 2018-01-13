@@ -10,11 +10,12 @@
 
 #include "../utilities/owner.hpp"            // owner
 #include "../utilities/allocator_info.hpp"   // allocator_info
-#include "../utilities/allocator_traits.hpp" // allocator_traits
 #include "../utilities/macros.hpp"           // BIT_MEMORY_UNUSED
 
 #include "../concepts/Allocator.hpp" // is_allocator
 #include "../concepts/Stateless.hpp" // is_stateless
+
+#include "../traits/allocator_traits.hpp" // allocator_traits
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <type_traits> // std::integral_constant, std::is_same, etc

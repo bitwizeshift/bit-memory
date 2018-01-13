@@ -6,15 +6,15 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_UTILITIES_ALLOCATOR_TRAITS_HPP
-#define BIT_MEMORY_UTILITIES_ALLOCATOR_TRAITS_HPP
+#ifndef BIT_MEMORY_TRAITS_ALLOCATOR_TRAITS_HPP
+#define BIT_MEMORY_TRAITS_ALLOCATOR_TRAITS_HPP
 
-#include "allocator_info.hpp"        // allocator_info
-#include "errors.hpp"                // get_out_of_memory_handler
-#include "macros.hpp"                // BIT_MEMORY_UNUSED
-#include "owner.hpp"                 // owner
-#include "pointer_utilities.hpp"     // to_raw_pointer
-#include "uninitialized_storage.hpp" // uninitialized_construct_at, destroy_at, etc
+#include "../utilities/allocator_info.hpp"        // allocator_info
+#include "../utilities/errors.hpp"                // get_out_of_memory_handler
+#include "../utilities/macros.hpp"                // BIT_MEMORY_UNUSED
+#include "../utilities/owner.hpp"                 // owner
+#include "../utilities/pointer_utilities.hpp"     // to_raw_pointer
+#include "../utilities/uninitialized_storage.hpp" // destroy_at, etc
 
 #include "../concepts/Stateless.hpp"         // is_stateless
 #include "../concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
@@ -415,4 +415,4 @@ namespace bit {
 
 #include "detail/allocator_traits.inl"
 
-#endif /* BIT_MEMORY_UTILITIES_ALLOCATOR_TRAITS_HPP */
+#endif /* BIT_MEMORY_TRAITS_ALLOCATOR_TRAITS_HPP */
