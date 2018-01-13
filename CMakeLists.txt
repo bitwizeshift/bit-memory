@@ -89,9 +89,11 @@ set(headers
   include/bit/memory/utilities/not_null.hpp
   include/bit/memory/utilities/owner.hpp
   include/bit/memory/utilities/pointer_utilities.hpp
-  include/bit/memory/utilities/standard_allocator.hpp
   include/bit/memory/utilities/unaligned_storage.hpp
   include/bit/memory/utilities/uninitialized_storage.hpp
+
+  # Adapters
+  include/bit/memory/adapters/standard_allocator.hpp
 
   # Regions
   include/bit/memory/regions/aligned_heap_memory.hpp
@@ -179,9 +181,11 @@ set(inline_headers
   include/bit/memory/utilities/detail/memory_block_cache.inl
   include/bit/memory/utilities/detail/not_null.inl
   include/bit/memory/utilities/detail/pointer_utilities.inl
-  include/bit/memory/utilities/detail/standard_allocator.inl
   include/bit/memory/utilities/detail/unaligned_storage.inl
   include/bit/memory/utilities/detail/uninitialized_storage.inl
+
+  # Adapters
+  include/bit/memory/adapters/detail/standard_allocator.inl
 
   # Regions
   include/bit/memory/regions/detail/virtual_memory.inl

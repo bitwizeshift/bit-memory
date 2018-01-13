@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_UTILITIES_DETAIL_STANDARD_ALLOCATOR_INL
-#define BIT_MEMORY_UTILITIES_DETAIL_STANDARD_ALLOCATOR_INL
+#ifndef BIT_MEMORY_ADAPTERS_DETAIL_STANDARD_ALLOCATOR_INL
+#define BIT_MEMORY_ADAPTERS_DETAIL_STANDARD_ALLOCATOR_INL
 
 //============================================================================
 // standard_allocator
@@ -144,4 +144,4 @@ inline bool bit::memory
   return !(lhs==rhs);
 }
 
-#endif /* BIT_MEMORY_UTILITIES_DETAIL_STANDARD_ALLOCATOR_INL */
+#endif /* BIT_MEMORY_ADAPTERS_DETAIL_STANDARD_ALLOCATOR_INL */

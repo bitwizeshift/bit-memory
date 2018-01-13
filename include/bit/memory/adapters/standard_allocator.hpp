@@ -6,11 +6,11 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_UTILITIES_STANDARD_ALLOCATOR_HPP
-#define BIT_MEMORY_UTILITIES_STANDARD_ALLOCATOR_HPP
+#ifndef BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
+#define BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 
-#include "detail/ebo_storage.hpp" // detail::ebo_storage
-#include "allocator_traits.hpp" // allocator_traits
+#include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/allocator_traits.hpp" // allocator_traits
 
 #include "../concepts/AllocatorStorage.hpp" // is_allocator_storage
 #include "../concepts/Stateless.hpp"        // is_stateless
@@ -208,4 +208,4 @@ namespace bit {
 
 #include "detail/standard_allocator.inl"
 
-#endif /* BIT_MEMORY_UTILITIES_STANDARD_ALLOCATOR_HPP */
+#endif /* BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP */
