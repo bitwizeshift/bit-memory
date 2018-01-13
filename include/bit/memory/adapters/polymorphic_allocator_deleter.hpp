@@ -7,8 +7,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_DELETERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
-#define BIT_MEMORY_DELETERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
+#ifndef BIT_MEMORY_ADAPTERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
+#define BIT_MEMORY_ADAPTERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
 
 #include "../utilities/detail/ebo_storage.hpp"
 #include "../utilities/pointer_utilities.hpp" // to_raw_pointer
@@ -239,4 +239,4 @@ namespace bit {
 
 #include "detail/polymorphic_allocator_deleter.inl"
 
-#endif /* BIT_MEMORY_DELETERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP */
+#endif /* BIT_MEMORY_ADAPTERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP */

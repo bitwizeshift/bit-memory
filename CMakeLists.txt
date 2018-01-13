@@ -94,6 +94,8 @@ set(headers
   include/bit/memory/traits/block_allocator_traits.hpp
 
   # Adapters
+  include/bit/memory/adapters/allocator_deleter.hpp
+  include/bit/memory/adapters/polymorphic_allocator_deleter.hpp
   include/bit/memory/adapters/standard_allocator.hpp
 
   # Regions
@@ -162,10 +164,6 @@ set(headers
   include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
   include/bit/memory/allocator_storage/shared_allocator_storage.hpp
   include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
-
-  # Deleters
-  include/bit/memory/deleters/allocator_deleter.hpp
-  include/bit/memory/deleters/polymorphic_allocator_deleter.hpp
 )
 
 # Though the inline headers are not strictly used (or even required by CMake),
@@ -188,6 +186,8 @@ set(inline_headers
   include/bit/memory/traits/detail/block_allocator_traits.inl
 
   # Adapters
+  include/bit/memory/adapters/detail/allocator_deleter.inl
+  include/bit/memory/adapters/detail/polymorphic_allocator_deleter.inl
   include/bit/memory/adapters/detail/standard_allocator.inl
 
   # Regions
@@ -247,10 +247,6 @@ set(inline_headers
   include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/shared_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/referenced_allocator_storage.inl
-
-  # Deleters
-  include/bit/memory/deleters/detail/allocator_deleter.inl
-  include/bit/memory/deleters/detail/polymorphic_allocator_deleter.inl
 )
 
 # Unfortunately, certain AppleClang versions don't support 'thread_local'; so to

@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DELETERS_DETAIL_ALLOCATOR_DELETER_INL
-#define BIT_MEMORY_DELETERS_DETAIL_ALLOCATOR_DELETER_INL
+#ifndef BIT_MEMORY_ADAPTERS_DETAIL_ALLOCATOR_DELETER_INL
+#define BIT_MEMORY_ADAPTERS_DETAIL_ALLOCATOR_DELETER_INL
 
 //=============================================================================
 // allocator_deleter<T,AllocatorStorage>
@@ -62,4 +62,4 @@ inline void bit::memory::allocator_deleter<T[],Allocator>::operator()( pointer p
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * m_size );
 }
 
-#endif /* BIT_MEMORY_DELETERS_DETAIL_ALLOCATOR_DELETER_INL */
+#endif /* BIT_MEMORY_ADAPTERS_DETAIL_ALLOCATOR_DELETER_INL */

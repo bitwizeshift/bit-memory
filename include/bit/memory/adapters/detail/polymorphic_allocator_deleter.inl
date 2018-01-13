@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DELETERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL
-#define BIT_MEMORY_DELETERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL
+#ifndef BIT_MEMORY_ADAPTERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL
+#define BIT_MEMORY_ADAPTERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL
 
 //=============================================================================
 // polymorphic_allocator_deleter<T,AllocatorStorage>
@@ -139,4 +139,4 @@ inline void bit::memory::polymorphic_allocator_deleter<T[],AllocatorStorage>
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * m_size );
 }
 
-#endif /* BIT_MEMORY_DELETERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL */
+#endif /* BIT_MEMORY_ADAPTERS_DETAIL_POLYMORPHIC_ALLOCATOR_DELETER_INL */
