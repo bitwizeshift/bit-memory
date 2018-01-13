@@ -12,7 +12,7 @@
 #include "detail/cached_block_allocator.hpp" // cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
-#include "../utilities/detail/dynamic_size_type.hpp" // dynamic_size, etc
+#include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
 #include "../utilities/allocator_info.hpp"    // allocator_info
 #include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../utilities/memory_block.hpp"      // memory_block
@@ -31,8 +31,8 @@ namespace bit {
 
       template<std::size_t Size, std::size_t Align>
       struct growing_aligned_block_allocator_base
-        : detail::dynamic_size_type<0,Size>,
-          detail::dynamic_size_type<1,Align>
+        : dynamic_size_type<0,Size>,
+          dynamic_size_type<1,Align>
       {
         using default_block_alignment = std::integral_constant<std::size_t,Align>;
 
@@ -55,12 +55,12 @@ namespace bit {
 
       template<std::size_t Size>
       struct growing_aligned_block_allocator_base<Size,dynamic_size>
-        : detail::dynamic_size_type<0,Size>,
-          detail::dynamic_size_type<1,dynamic_size>
+        : dynamic_size_type<0,Size>,
+          dynamic_size_type<1,dynamic_size>
       {
         growing_aligned_block_allocator_base( std::size_t align,
                                               std::size_t growths ) noexcept
-          : detail::dynamic_size_type<1,dynamic_size>( align ),
+          : dynamic_size_type<1,dynamic_size>( align ),
             m_growths_remaining(growths),
             m_multiplier(1)
         {
@@ -79,14 +79,14 @@ namespace bit {
 
       template<std::size_t Align>
       struct growing_aligned_block_allocator_base<dynamic_size,Align>
-        : detail::dynamic_size_type<0,dynamic_size>,
-          detail::dynamic_size_type<1,Align>
+        : dynamic_size_type<0,dynamic_size>,
+          dynamic_size_type<1,Align>
       {
         using default_block_alignment = std::integral_constant<std::size_t,Align>;
 
         growing_aligned_block_allocator_base( std::size_t size,
                                               std::size_t growths ) noexcept
-          : detail::dynamic_size_type<0,dynamic_size>( size ),
+          : dynamic_size_type<0,dynamic_size>( size ),
             m_growths_remaining(growths),
             m_multiplier(1)
         {
@@ -105,14 +105,14 @@ namespace bit {
 
       template<>
       struct growing_aligned_block_allocator_base<dynamic_size,dynamic_size>
-        : detail::dynamic_size_type<0,dynamic_size>,
-          detail::dynamic_size_type<1,dynamic_size>
+        : dynamic_size_type<0,dynamic_size>,
+          dynamic_size_type<1,dynamic_size>
       {
         growing_aligned_block_allocator_base( std::size_t size,
                                               std::size_t align,
                                               std::size_t growths ) noexcept
-          : detail::dynamic_size_type<0,dynamic_size>( size ),
-            detail::dynamic_size_type<1,dynamic_size>( align ),
+          : dynamic_size_type<0,dynamic_size>( size ),
+            dynamic_size_type<1,dynamic_size>( align ),
             m_growths_remaining(growths),
             m_multiplier(1)
         {
@@ -144,8 +144,8 @@ namespace bit {
         : private detail::growing_aligned_block_allocator_base<Size,Align>
     {
       using base_type = detail::growing_aligned_block_allocator_base<Size,Align>;
-      using block_size_member  = detail::dynamic_size_type<0,Size>;
-      using block_align_member = detail::dynamic_size_type<1,Align>;
+      using block_size_member  = dynamic_size_type<0,Size>;
+      using block_align_member = dynamic_size_type<1,Align>;
 
       static_assert( is_power_of_two(Align) || Align == dynamic_size, "Alignment must be a power of two!" );
 
