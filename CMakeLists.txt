@@ -90,7 +90,7 @@ set(headers
   include/bit/memory/owner.hpp
   include/bit/memory/pointer_utilities.hpp
   include/bit/memory/standard_allocator.hpp
-  include/bit/memory/unaligned_memory.hpp
+  include/bit/memory/unaligned_storage.hpp
   include/bit/memory/uninitialized_storage.hpp
   include/bit/memory/virtual_memory.hpp
 
@@ -177,7 +177,7 @@ set(inline_headers
   include/bit/memory/detail/not_null.inl
   include/bit/memory/detail/pointer_utilities.inl
   include/bit/memory/detail/standard_allocator.inl
-  include/bit/memory/detail/unaligned_memory.inl
+  include/bit/memory/detail/unaligned_storage.inl
   include/bit/memory/detail/uninitialized_storage.inl
 
   # Memory Allocations

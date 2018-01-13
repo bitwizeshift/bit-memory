@@ -5,8 +5,8 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_UNALIGNED_MEMORY_HPP
-#define BIT_MEMORY_UNALIGNED_MEMORY_HPP
+#ifndef BIT_MEMORY_UNALIGNED_STORAGE_HPP
+#define BIT_MEMORY_UNALIGNED_STORAGE_HPP
 
 #include <cstdint>     // std::uint8_t, std::uint16_t, etc
 #include <cstring>     // std::memcpy
@@ -132,6 +132,6 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#include "detail/unaligned_memory.inl"
+#include "detail/unaligned_storage.inl"
 
-#endif /* BIT_MEMORY_UNALIGNED_MEMORY_HPP */
+#endif /* BIT_MEMORY_UNALIGNED_STORAGE_HPP */

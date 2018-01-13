@@ -1,6 +1,6 @@
 #include <bit/memory/aligned_heap_memory.hpp>
-#include <bit/memory/unaligned_memory.hpp>  // store_unaligned, load_unaligned
 #include <bit/memory/pointer_utilities.hpp> // offset_align_forward
+#include <bit/memory/unaligned_storage.hpp>  // store_unaligned, load_unaligned
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <cstdint> // std::uint16_t

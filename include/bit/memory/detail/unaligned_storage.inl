@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_DETAIL_UNALIGNED_MEMORY_INL
-#define BIT_MEMORY_DETAIL_UNALIGNED_MEMORY_INL
+#ifndef BIT_MEMORY_DETAIL_UNALIGNED_STORAGE_INL
+#define BIT_MEMORY_DETAIL_UNALIGNED_STORAGE_INL
 
 //-----------------------------------------------------------------------------
 // Storing
@@ -93,4 +93,4 @@ inline double bit::memory::load_unaligned_double( const void* p )
   return load_unaligned<double>(p);
 }
 
-#endif /* BIT_MEMORY_DETAIL_UNALIGNED_MEMORY_INL */
+#endif /* BIT_MEMORY_DETAIL_UNALIGNED_STORAGE_INL */
