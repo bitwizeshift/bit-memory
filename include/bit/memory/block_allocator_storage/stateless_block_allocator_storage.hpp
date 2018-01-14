@@ -8,7 +8,7 @@
 #ifndef BIT_MEMORY_BLOCK_ALLOCATOR_STORAGE_STATELESS_BLOCK_ALLOCATOR_STORAGE_HPP
 #define BIT_MEMORY_BLOCK_ALLOCATOR_STORAGE_STATELESS_BLOCK_ALLOCATOR_STORAGE_HPP
 
-#include "../detail/ebo_storage.hpp"
+#include "../utilities/ebo_storage.hpp"
 
 #include "../concepts/Stateless.hpp"
 #include "../concepts/Allocator.hpp"
@@ -26,9 +26,9 @@ namespace bit {
     ///////////////////////////////////////////////////////////////////////////
     template<typename StatelessBlockAllocator>
     class stateless_block_allocator_storage
-      : private detail::ebo_storage<StatelessBlockAllocator>
+      : private ebo_storage<StatelessBlockAllocator>
     {
-      using base_type = detail::ebo_storage<StatelessBlockAllocator>;
+      using base_type = ebo_storage<StatelessBlockAllocator>;
 
       static_assert( is_stateless<StatelessBlockAllocator>::value &&
                      is_allocator<StatelessBlockAllocator>::value,

@@ -11,12 +11,12 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
-#include "../allocator_info.hpp"     // allocator_info
-#include "../macros.hpp"             // BIT_MEMORY_UNUSED
-#include "../memory_block.hpp"       // memory_block
-#include "../memory_block_cache.hpp" // memory_block_cache
-#include "../owner.hpp"              // owner
-#include "../pointer_utilities.hpp"  // is_power_of_two
+#include "../utilities/allocator_info.hpp"     // allocator_info
+#include "../utilities/macros.hpp"             // BIT_MEMORY_UNUSED
+#include "../utilities/memory_block.hpp"       // memory_block
+#include "../utilities/memory_block_cache.hpp" // memory_block_cache
+#include "../utilities/owner.hpp"              // owner
+#include "../utilities/pointer_utilities.hpp"  // is_power_of_two
 
 #include <cstddef> // std::max_align_t
 #include <cassert> // assert

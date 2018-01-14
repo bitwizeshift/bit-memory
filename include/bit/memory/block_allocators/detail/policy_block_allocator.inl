@@ -28,8 +28,8 @@ template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lo
 inline bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
   ::~policy_block_allocator()
 {
-  auto& allocator = detail::get<0>(*this);
-  auto& tracker   = detail::get<2>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tracker   = get<2>(*this);
 
   tracker.finalize( traits_type::info(allocator) );
 }
@@ -43,10 +43,10 @@ inline bit::memory::owner<bit::memory::memory_block>
   bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
   ::allocate_block()
 {
-  auto& allocator = detail::get<0>(*this);
-  auto& tagger    = detail::get<1>(*this);
-  auto& tracker   = detail::get<2>(*this);
-  auto& lock      = detail::get<3>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tagger    = get<1>(*this);
+  auto& tracker   = get<2>(*this);
+  auto& lock      = get<3>(*this);
 
   auto block = memory_block();
 
@@ -71,10 +71,10 @@ template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lo
 inline void bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>
   ::deallocate_block( owner<memory_block> block )
 {
-  auto& allocator = detail::get<0>(*this);
-  auto& tagger    = detail::get<1>(*this);
-  auto& tracker   = detail::get<2>(*this);
-  auto& lock      = detail::get<3>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tagger    = get<1>(*this);
+  auto& tracker   = get<2>(*this);
+  auto& lock      = get<3>(*this);
 
   const auto info = traits_type::info(allocator);
 
@@ -100,7 +100,7 @@ inline const Tracker&
   bit::memory::policy_block_allocator<BlockAllocator,Tagger,Tracker,Lock>::tracker()
   const noexcept
 {
-  return detail::get<2>(*this);
+  return get<2>(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -111,7 +111,7 @@ inline bit::memory::allocator_info
   ::info()
   const noexcept
 {
-  return traits_type::info( detail::get<0>(*this) );
+  return traits_type::info( get<0>(*this) );
 }
 
 template<typename BlockAllocator, typename Tagger, typename Tracker, typename Lock>
@@ -120,7 +120,7 @@ inline std::size_t
   ::next_block_size()
   const noexcept
 {
-  return traits_type::next_block_size( detail::get<0>(*this) );
+  return traits_type::next_block_size( get<0>(*this) );
 }
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_POLICY_BLOCK_ALLOCATOR_INL */

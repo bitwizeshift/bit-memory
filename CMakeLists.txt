@@ -57,6 +57,23 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 )
 
 set(headers
+  # Utilities
+  include/bit/memory/utilities/allocator_info.hpp
+  include/bit/memory/utilities/debugging.hpp
+  include/bit/memory/utilities/dynamic_size_type.hpp
+  include/bit/memory/utilities/ebo_storage.hpp
+  include/bit/memory/utilities/endian.hpp
+  include/bit/memory/utilities/errors.hpp
+  include/bit/memory/utilities/freelist.hpp
+  include/bit/memory/utilities/macros.hpp
+  include/bit/memory/utilities/memory_block.hpp
+  include/bit/memory/utilities/memory_block_cache.hpp
+  include/bit/memory/utilities/not_null.hpp
+  include/bit/memory/utilities/owner.hpp
+  include/bit/memory/utilities/pointer_utilities.hpp
+  include/bit/memory/utilities/unaligned_storage.hpp
+  include/bit/memory/utilities/uninitialized_storage.hpp
+
   # Concepts
   include/bit/memory/concepts/detail/void_t.hpp
   include/bit/memory/concepts/detail/identity.hpp
@@ -72,46 +89,35 @@ set(headers
   include/bit/memory/concepts/MemoryTagger.hpp
   include/bit/memory/concepts/MemoryTracker.hpp
 
-  # Utilities
-  include/bit/memory/detail/ebo_storage.hpp
-  include/bit/memory/detail/dynamic_size_type.hpp
-  include/bit/memory/aligned_memory.hpp
-  include/bit/memory/allocator_traits.hpp
-  include/bit/memory/allocator_info.hpp
-  include/bit/memory/block_allocator_traits.hpp
-  include/bit/memory/debugging.hpp
-  include/bit/memory/endian.hpp
-  include/bit/memory/errors.hpp
-  include/bit/memory/freelist.hpp
-  include/bit/memory/macros.hpp
-  include/bit/memory/memory_block.hpp
-  include/bit/memory/memory_block_cache.hpp
-  include/bit/memory/not_null.hpp
-  include/bit/memory/owner.hpp
-  include/bit/memory/pointer_utilities.hpp
-  include/bit/memory/standard_allocator.hpp
-  include/bit/memory/unaligned_memory.hpp
-  include/bit/memory/uninitialized_storage.hpp
-  include/bit/memory/virtual_memory.hpp
+  # Traits
+  include/bit/memory/traits/allocator_traits.hpp
+  include/bit/memory/traits/block_allocator_traits.hpp
 
+  # Regions
+  include/bit/memory/regions/aligned_heap_memory.hpp
+  include/bit/memory/regions/virtual_memory.hpp
+
+  # Adapters
+  include/bit/memory/adapters/allocator_deleter.hpp
+  include/bit/memory/adapters/polymorphic_allocator_deleter.hpp
+  include/bit/memory/adapters/standard_allocator.hpp
+
+  # Policies
   # Taggers
-  include/bit/memory/taggers/allocator_tagger.hpp
-  include/bit/memory/taggers/block_allocator_tagger.hpp
-  include/bit/memory/taggers/null_tagger.hpp
-
+  include/bit/memory/policies/taggers/allocator_tagger.hpp
+  include/bit/memory/policies/taggers/block_allocator_tagger.hpp
+  include/bit/memory/policies/taggers/null_tagger.hpp
   # Trackers
-  include/bit/memory/trackers/detail/stat_recording_tracker.hpp
-  include/bit/memory/trackers/detailed_leak_tracker.hpp
-  include/bit/memory/trackers/leak_tracker.hpp
-  include/bit/memory/trackers/null_tracker.hpp
-  include/bit/memory/trackers/stdout_tracker.hpp
-
+  include/bit/memory/policies/trackers/detail/stat_recording_tracker.hpp
+  include/bit/memory/policies/trackers/detailed_leak_tracker.hpp
+  include/bit/memory/policies/trackers/leak_tracker.hpp
+  include/bit/memory/policies/trackers/null_tracker.hpp
+  include/bit/memory/policies/trackers/stdout_tracker.hpp
   # Bounds Checkers
-  include/bit/memory/bounds_checkers/debug_bounds_checker.hpp
-  include/bit/memory/bounds_checkers/null_bounds_checker.hpp
-
+  include/bit/memory/policies/bounds_checkers/debug_bounds_checker.hpp
+  include/bit/memory/policies/bounds_checkers/null_bounds_checker.hpp
   # Lockables
-  include/bit/memory/lockables/null_lock.hpp
+  include/bit/memory/policies/lockables/null_lock.hpp
 
   # Block Allocators
   include/bit/memory/block_allocators/detail/cached_block_allocator.hpp
@@ -156,45 +162,48 @@ set(headers
   include/bit/memory/allocator_storage/stateless_allocator_storage.hpp
   include/bit/memory/allocator_storage/shared_allocator_storage.hpp
   include/bit/memory/allocator_storage/referenced_allocator_storage.hpp
-
-  # Deleters
-  include/bit/memory/deleters/allocator_deleter.hpp
-  include/bit/memory/deleters/polymorphic_allocator_deleter.hpp
 )
 
 # Though the inline headers are not strictly used (or even required by CMake),
 # this is added for IDEs like CLion to accurately track headers.
 set(inline_headers
   # Utilities
-  include/bit/memory/detail/allocator_info.inl
-  include/bit/memory/detail/allocator_traits.inl
-  include/bit/memory/detail/block_allocator_traits.inl
-  include/bit/memory/detail/debugging.inl
-  include/bit/memory/detail/endian.inl
-  include/bit/memory/detail/freelist.inl
-  include/bit/memory/detail/memory_block.inl
-  include/bit/memory/detail/memory_block_cache.inl
-  include/bit/memory/detail/not_null.inl
-  include/bit/memory/detail/pointer_utilities.inl
-  include/bit/memory/detail/standard_allocator.inl
-  include/bit/memory/detail/unaligned_memory.inl
-  include/bit/memory/detail/uninitialized_storage.inl
+  include/bit/memory/utilities/detail/allocator_info.inl
+  include/bit/memory/utilities/detail/debugging.inl
+  include/bit/memory/utilities/detail/dynamic_size_type.inl
+  include/bit/memory/utilities/detail/ebo_storage.inl
+  include/bit/memory/utilities/detail/endian.inl
+  include/bit/memory/utilities/detail/freelist.inl
+  include/bit/memory/utilities/detail/memory_block.inl
+  include/bit/memory/utilities/detail/memory_block_cache.inl
+  include/bit/memory/utilities/detail/not_null.inl
+  include/bit/memory/utilities/detail/pointer_utilities.inl
+  include/bit/memory/utilities/detail/unaligned_storage.inl
+  include/bit/memory/utilities/detail/uninitialized_storage.inl
 
-  # Memory Allocations
-  include/bit/memory/detail/virtual_memory.inl
+  # Traits
+  include/bit/memory/traits/detail/allocator_traits.inl
+  include/bit/memory/traits/detail/block_allocator_traits.inl
 
+  # Regions
+  include/bit/memory/regions/detail/virtual_memory.inl
+
+  # Adapters
+  include/bit/memory/adapters/detail/allocator_deleter.inl
+  include/bit/memory/adapters/detail/polymorphic_allocator_deleter.inl
+  include/bit/memory/adapters/detail/standard_allocator.inl
+
+  # Policies
   # Taggers
-  include/bit/memory/taggers/detail/allocator_tagger.inl
-  include/bit/memory/taggers/detail/block_allocator_tagger.inl
-
+  include/bit/memory/policies/taggers/detail/allocator_tagger.inl
+  include/bit/memory/policies/taggers/detail/block_allocator_tagger.inl
   # Trackers
-  include/bit/memory/trackers/detail/detailed_leak_tracker.inl
-  include/bit/memory/trackers/detail/leak_tracker.inl
-  include/bit/memory/trackers/detail/stat_recording_tracker.inl
-  include/bit/memory/trackers/detail/stdout_tracker.inl
-
+  include/bit/memory/policies/trackers/detail/detailed_leak_tracker.inl
+  include/bit/memory/policies/trackers/detail/leak_tracker.inl
+  include/bit/memory/policies/trackers/detail/stat_recording_tracker.inl
+  include/bit/memory/policies/trackers/detail/stdout_tracker.inl
   # Bounds Checkers
-  include/bit/memory/bounds_checkers/detail/debug_bounds_checker.inl
+  include/bit/memory/policies/bounds_checkers/detail/debug_bounds_checker.inl
 
   # Block Allocators
   include/bit/memory/block_allocators/detail/aligned_block_allocator.inl
@@ -237,10 +246,6 @@ set(inline_headers
   include/bit/memory/allocator_storage/detail/stateless_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/shared_allocator_storage.inl
   include/bit/memory/allocator_storage/detail/referenced_allocator_storage.inl
-
-  # Deleters
-  include/bit/memory/deleters/detail/allocator_deleter.inl
-  include/bit/memory/deleters/detail/polymorphic_allocator_deleter.inl
 )
 
 # Unfortunately, certain AppleClang versions don't support 'thread_local'; so to
@@ -253,18 +258,18 @@ endif()
 
 if( WIN32 )
   set(platform_source_files
-    src/bit/memory/win32/virtual_memory.cpp
-    src/bit/memory/win32/aligned_memory.cpp
+    src/bit/memory/regions/win32/virtual_memory.cpp
+    src/bit/memory/regions/win32/aligned_heap_memory.cpp
   )
 elseif( UNIX )
   set(platform_source_files
-    src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_memory.cpp
+    src/bit/memory/regions/posix/virtual_memory.cpp
+    src/bit/memory/regions/posix/aligned_heap_memory.cpp
   )
 elseif( APPLE )
   set(platform_source_files
-    src/bit/memory/posix/virtual_memory.cpp
-    src/bit/memory/posix/aligned_memory.cpp
+    src/bit/memory/regions/posix/virtual_memory.cpp
+    src/bit/memory/regions/posix/aligned_heap_memory.cpp
   )
 else()
   message(FATAL_ERROR "unknown or unsupported target memory")
@@ -272,9 +277,12 @@ endif()
 
 set(source_files
   # Utilities
-  src/bit/memory/debugging.cpp
-  src/bit/memory/errors.cpp
-  src/bit/memory/virtual_memory.cpp
+  src/bit/memory/utilities/debugging.cpp
+  src/bit/memory/utilities/errors.cpp
+
+  # Regions
+  src/bit/memory/regions/aligned_heap_memory.cpp
+  src/bit/memory/regions/virtual_memory.cpp
 
   # Block Allocators
   src/bit/memory/block_allocators/virtual_block_allocator.cpp

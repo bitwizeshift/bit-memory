@@ -12,8 +12,8 @@
 #include "detail/identity.hpp" // detail::identity
 #include "detail/void_t.hpp"   // detail::void_t
 
-#include "../allocator_info.hpp" // allocator_info
-#include "../memory_block.hpp"   // memory_block
+#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../utilities/memory_block.hpp"   // memory_block
 
 #include <type_traits> // std::integral_constants
 

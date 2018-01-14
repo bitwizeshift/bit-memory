@@ -12,11 +12,11 @@
 #include "detail/cached_block_allocator.hpp" // detail::cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
-#include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
-#include "../allocator_info.hpp" // allocator_info
-#include "../macros.hpp"         // BIT_MEMORY_UNLIKELY
-#include "../memory_block.hpp"   // memory_block
-#include "../owner.hpp"          // owner
+#include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
+#include "../utilities/allocator_info.hpp"    // allocator_info
+#include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../utilities/memory_block.hpp"      // memory_block
+#include "../utilities/owner.hpp"             // owner
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <cstdlib>     // std::malloc, std::free
@@ -28,7 +28,7 @@ namespace bit {
 
       template<std::size_t Size>
       struct growing_malloc_block_allocator_base
-        : detail::dynamic_size_type<0,Size>
+        : dynamic_size_type<0,Size>
       {
         using is_stateless = std::true_type;
 
@@ -50,13 +50,13 @@ namespace bit {
 
       template<>
       struct growing_malloc_block_allocator_base<dynamic_size>
-        : detail::dynamic_size_type<0,dynamic_size>
+        : dynamic_size_type<0,dynamic_size>
       {
         using is_stateless = std::false_type;
 
         explicit growing_malloc_block_allocator_base( std::size_t size,
                                                       std::size_t growths )
-          : detail::dynamic_size_type<0,dynamic_size>(size),
+          : dynamic_size_type<0,dynamic_size>(size),
             m_growths_remaining(growths),
             m_multiplier(1)
         {
@@ -89,7 +89,7 @@ namespace bit {
     class growing_malloc_block_allocator
       : protected detail::growing_malloc_block_allocator_base<Size>
     {
-      using block_size_member = detail::dynamic_size_type<0,Size>;
+      using block_size_member = dynamic_size_type<0,Size>;
       using base_type = detail::growing_malloc_block_allocator_base<Size>;
 
       //----------------------------------------------------------------------

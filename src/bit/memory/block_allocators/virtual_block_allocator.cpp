@@ -1,6 +1,6 @@
 #include <bit/memory/block_allocators/virtual_block_allocator.hpp>
 
-#include <bit/memory/virtual_memory.hpp> // virtual_alloc, etc
+#include <bit/memory/regions/virtual_memory.hpp> // virtual_alloc, etc
 
 //=============================================================================
 // virtual_block_allocator

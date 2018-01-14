@@ -14,7 +14,7 @@ inline StatelessAllocator&
   bit::memory::stateless_allocator_storage<StatelessAllocator>::get_allocator()
   noexcept
 {
-  return detail::get<0>(*this);
+  return get<0>(*this);
 }
 
 template<typename StatelessAllocator>
@@ -22,7 +22,7 @@ inline const StatelessAllocator&
   bit::memory::stateless_allocator_storage<StatelessAllocator>::get_allocator()
   const noexcept
 {
-  return detail::get<0>(*this);
+  return get<0>(*this);
 }
 
 //=============================================================================

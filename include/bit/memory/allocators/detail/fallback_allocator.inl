@@ -76,7 +76,7 @@ inline void* bit::memory::fallback_allocator<AllocatorStorages...>
                      std::size_t align )
   noexcept
 {
-  auto& storage   = detail::get<Idx>(static_cast<base_type&>(*this));
+  auto& storage   = get<Idx>(static_cast<base_type&>(*this));
   auto& allocator = storage.get_allocator();
 
   using traits_type = allocator_traits<decltype(allocator)>;
@@ -100,7 +100,7 @@ inline void* bit::memory::fallback_allocator<AllocatorStorages...>
 {
   static constexpr auto n = sizeof...(AllocatorStorages)-1;
 
-  auto& storage   = detail::get<n>(static_cast<base_type&>(*this));
+  auto& storage   = get<n>(static_cast<base_type&>(*this));
   auto& allocator = storage.get_allocator();
 
   using traits_type = allocator_traits<decltype(allocator)>;
@@ -117,7 +117,7 @@ inline void bit::memory::fallback_allocator<AllocatorStorages...>
                    void* p,
                    std::size_t size)
 {
-  auto& storage     = detail::get<Idx>(static_cast<base_type&>(*this));
+  auto& storage     = get<Idx>(static_cast<base_type&>(*this));
   auto& allocator   = storage.get_allocator();
 
   using traits_type = allocator_traits<decltype(allocator)>;
@@ -142,7 +142,7 @@ inline void bit::memory::fallback_allocator<AllocatorStorages...>
 {
   static constexpr auto n = sizeof...(AllocatorStorages)-1;
 
-  auto& storage   = detail::get<n>(static_cast<base_type&>(*this));
+  auto& storage   = get<n>(static_cast<base_type&>(*this));
   auto& allocator = storage.get_allocator();
 
   using traits_type = allocator_traits<decltype(allocator)>;
@@ -165,7 +165,7 @@ inline bool bit::memory::fallback_allocator<AllocatorStorages...>
   const noexcept
 {
   // max of a bunch of bools is the disjunction (logical or)
-  return std::max( { allocator_traits<AllocatorStorages>::owns( detail::get<Idxs>(static_cast<base_type&>(*this)), p )... } );
+  return std::max( { allocator_traits<AllocatorStorages>::owns( get<Idxs>(static_cast<base_type&>(*this)), p )... } );
 }
 
 //-----------------------------------------------------------------------------
@@ -178,7 +178,7 @@ inline std::size_t bit::memory::fallback_allocator<AllocatorStorages...>
   ::do_max_size( std::index_sequence<Idxs...> )
   const noexcept
 {
-  return std::max( { allocator_traits<AllocatorStorages>::max_size( detail::get<Idxs>(static_cast<base_type&>(*this)) )... } );
+  return std::max( { allocator_traits<AllocatorStorages>::max_size( get<Idxs>(static_cast<base_type&>(*this)) )... } );
 }
 
 template<typename...AllocatorStorages>
@@ -187,7 +187,7 @@ inline std::size_t bit::memory::fallback_allocator<AllocatorStorages...>
   ::do_min_size( std::index_sequence<Idxs...> )
   const noexcept
 {
-  return std::min( { allocator_traits<AllocatorStorages>::min_size( detail::get<Idxs>(static_cast<base_type&>(*this)) )... } );
+  return std::min( { allocator_traits<AllocatorStorages>::min_size( get<Idxs>(static_cast<base_type&>(*this)) )... } );
 }
 
 //=============================================================================

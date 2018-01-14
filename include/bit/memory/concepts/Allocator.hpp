@@ -13,7 +13,7 @@
 #include "detail/void_t.hpp"              // detail::void_t
 #include "detail/allocator_utilities.hpp" // allocator_size_type
 
-#include "../allocator_info.hpp" // allocator_info
+#include "../utilities/allocator_info.hpp" // allocator_info
 
 #include <cstddef>     // std::maxalign_t
 #include <type_traits> // std::declval

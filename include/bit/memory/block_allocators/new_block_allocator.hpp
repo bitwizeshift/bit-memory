@@ -12,11 +12,11 @@
 #include "detail/cached_block_allocator.hpp" // detail::cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
-#include "../detail/dynamic_size_type.hpp" // detail::dynamic_size_type
-#include "../allocator_info.hpp"           // allocator_info
-#include "../macros.hpp"                   // BIT_MEMORY_UNLIKELY
-#include "../memory_block.hpp"             // memory_block
-#include "../owner.hpp"                    // owner
+#include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
+#include "../utilities/allocator_info.hpp"    // allocator_info
+#include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../utilities/memory_block.hpp"      // memory_block
+#include "../utilities/owner.hpp"             // owner
 
 #include <new>         // ::new
 #include <type_traits> // std::true_type, std::false_type, etc
@@ -27,7 +27,7 @@ namespace bit {
 
       template<std::size_t Size>
       struct new_block_allocator_base
-        : detail::dynamic_size_type<0,Size>
+        : dynamic_size_type<0,Size>
       {
         new_block_allocator_base() noexcept = default;
         new_block_allocator_base( new_block_allocator_base&& ) noexcept = default;
@@ -38,12 +38,12 @@ namespace bit {
 
       template<>
       struct new_block_allocator_base<dynamic_size>
-        : detail::dynamic_size_type<0,dynamic_size>
+        : dynamic_size_type<0,dynamic_size>
       {
         using is_stateless = std::false_type;
 
         explicit new_block_allocator_base( std::size_t size ) noexcept
-          : detail::dynamic_size_type<0,dynamic_size>( size )
+          : dynamic_size_type<0,dynamic_size>( size )
         {
 
         }
@@ -66,7 +66,7 @@ namespace bit {
     class new_block_allocator
       : private detail::new_block_allocator_base<Size>
     {
-      using block_size_member = detail::dynamic_size_type<0,Size>;
+      using block_size_member = dynamic_size_type<0,Size>;
       using base_type = detail::new_block_allocator_base<Size>;
 
       //----------------------------------------------------------------------

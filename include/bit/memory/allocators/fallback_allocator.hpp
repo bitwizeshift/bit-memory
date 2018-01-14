@@ -11,13 +11,13 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/macros.hpp"             // BIT_MEMORY_UNUSED
+#include "../utilities/owner.hpp"              // owner
 
 #include "../concepts/Allocator.hpp" // allocator_pointer_t, etc
 
-#include "../allocator_traits.hpp"   // allocator_traits
-#include "../macros.hpp"             // BIT_MEMORY_UNUSED
-#include "../owner.hpp"              // owner
+#include "../traits/allocator_traits.hpp" // allocator_traits
 
 #include <tuple>     // std::forward_as_tuple
 #include <utility>   // std::forward
@@ -46,10 +46,10 @@ namespace bit {
     ///////////////////////////////////////////////////////////////////////////
     template<typename...AllocatorStorages>
     class fallback_allocator
-      : private detail::ebo_storage<AllocatorStorages...>
+      : private ebo_storage<AllocatorStorages...>
     {
 
-      using base_type = detail::ebo_storage<AllocatorStorages...>;
+      using base_type = ebo_storage<AllocatorStorages...>;
 
       // TODO(bitwizeshift): Support pretty-pointers by determining the common
       //                     'pointer', 'const_pointer', and 'size_type' of

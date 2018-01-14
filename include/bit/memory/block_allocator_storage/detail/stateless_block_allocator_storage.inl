@@ -15,7 +15,7 @@ inline StatelessBlockAllocator&
   ::get_block_allocator()
   noexcept
 {
-  return detail::get<0>(*this);
+  return get<0>(*this);
 }
 
 template<typename StatelessBlockAllocator>
@@ -24,7 +24,7 @@ inline const StatelessBlockAllocator&
   ::get_block_allocator()
   const noexcept
 {
-  return detail::get<0>(*this);
+  return get<0>(*this);
 }
 
 //=============================================================================

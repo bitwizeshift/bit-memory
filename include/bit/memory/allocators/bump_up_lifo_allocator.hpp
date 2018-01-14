@@ -12,10 +12,10 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../macros.hpp"            // BIT_MEMORY_UNLIKELY
-#include "../memory_block.hpp"      // memory_block
-#include "../owner.hpp"             // owner
-#include "../pointer_utilities.hpp" // offset_align_forward
+#include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
+#include "../utilities/memory_block.hpp"      // memory_block
+#include "../utilities/owner.hpp"             // owner
+#include "../utilities/pointer_utilities.hpp" // offset_align_forward
 
 #include <cassert>     // assert
 #include <cstddef>     // std::size_t, std::ptrdiff_t

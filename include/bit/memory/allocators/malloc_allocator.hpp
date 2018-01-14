@@ -11,9 +11,9 @@
 
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
-#include "../allocator_info.hpp" // allocator_info
-#include "../owner.hpp"          // owner
-#include "../macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../utilities/owner.hpp"          // owner
+#include "../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
 
 #include <cstdlib>     // std::malloc, std::free, std::size_t
 #include <cstddef>     // std::max_align_t
