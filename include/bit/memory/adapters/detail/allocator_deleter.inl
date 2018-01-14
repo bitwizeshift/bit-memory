@@ -24,7 +24,7 @@ inline bit::memory::allocator_deleter<T,AllocatorStorage>
 template<typename T, typename AllocatorStorage>
 inline void bit::memory::allocator_deleter<T,AllocatorStorage>::operator()( pointer p )
 {
-  auto& storage   = detail::get<0>(*this);
+  auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
   destroy_at( to_raw_pointer(p) );
@@ -55,7 +55,7 @@ inline bit::memory::allocator_deleter<T[],AllocatorStorage>
 template<typename T, typename Allocator>
 inline void bit::memory::allocator_deleter<T[],Allocator>::operator()( pointer p )
 {
-  auto& storage   = detail::get<0>(*this);
+  auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
   destroy_at( to_raw_pointer(p) );

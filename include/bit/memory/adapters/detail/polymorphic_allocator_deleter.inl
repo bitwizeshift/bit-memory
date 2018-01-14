@@ -52,7 +52,7 @@ inline bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>&
   ::operator=( polymorphic_allocator_deleter<U,AllocatorStorage>&& other )
   noexcept
 {
-  detail::get<0>(*this) = other.storage();
+  get<0>(*this) = other.storage();
   m_size = other.size();
 
   return (*this);
@@ -65,7 +65,7 @@ inline bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>&
   ::operator=( const polymorphic_allocator_deleter<U,AllocatorStorage>& other )
   noexcept
 {
-  detail::get<0>(*this) = other.storage();
+  get<0>(*this) = other.storage();
   m_size = other.size();
 
   return (*this);
@@ -79,7 +79,7 @@ template<typename T, typename AllocatorStorage>
 inline void bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>
   ::operator()( pointer p )
 {
-  auto& storage   = detail::get<0>(*this);
+  auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
   destroy_at( to_raw_pointer(p) );
@@ -95,7 +95,7 @@ inline AllocatorStorage
   bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>::storage()
   const noexcept
 {
-  return detail::get<0>(*this);
+  return get<0>(*this);
 }
 
 template<typename T, typename AllocatorStorage>
@@ -132,7 +132,7 @@ template<typename T, typename AllocatorStorage>
 inline void bit::memory::polymorphic_allocator_deleter<T[],AllocatorStorage>
   ::operator()( pointer p )
 {
-  auto& storage   = detail::get<0>(*this);
+  auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
   destroy_array_at( to_raw_pointer(p), m_size );

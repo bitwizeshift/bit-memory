@@ -47,7 +47,7 @@ inline typename bit::memory::standard_allocator<T,AllocatorStorage>::pointer
   bit::memory::standard_allocator<T,AllocatorStorage>
   ::allocate( size_type n )
 {
-  auto& allocator = detail::get<0>( *this );
+  auto& allocator = get<0>( *this );
 
   auto p = alloc_traits::try_allocate( allocator, sizeof(T) * n, alignof(T) );
   return static_cast<pointer>(p);
@@ -57,7 +57,7 @@ template<typename T, typename AllocatorStorage>
 inline void bit::memory::standard_allocator<T,AllocatorStorage>
   ::deallocate( pointer p, size_type n )
 {
-  auto& allocator = detail::get<0>( *this );
+  auto& allocator = get<0>( *this );
 
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * n );
 }
@@ -72,7 +72,7 @@ typename bit::memory::standard_allocator<T,AllocatorStorage>::size_type
   bit::memory::standard_allocator<T,AllocatorStorage>::max_size()
   const noexcept
 {
-  auto& allocator = detail::get<0>( *this );
+  auto& allocator = get<0>( *this );
 
   return alloc_traits::max_size( allocator );
 }
@@ -84,7 +84,7 @@ typename bit::memory::standard_allocator<T,AllocatorStorage>::allocator_type&
   bit::memory::standard_allocator<T,AllocatorStorage>::get_underlying()
   noexcept
 {
-  auto& storage = detail::get<0>( *this );
+  auto& storage = get<0>( *this );
 
   return storage.get_allocator();
 }
@@ -94,7 +94,7 @@ const typename bit::memory::standard_allocator<T,AllocatorStorage>::allocator_ty
   bit::memory::standard_allocator<T,AllocatorStorage>::get_underlying()
   const noexcept
 {
-  auto& storage = detail::get<0>( *this );
+  auto& storage = get<0>( *this );
 
   return storage.get_allocator();
 }
@@ -107,7 +107,7 @@ template<typename T, typename AllocatorStorage>
 AllocatorStorage bit::memory::standard_allocator<T,AllocatorStorage>::storage()
   const
 {
-  return detail::get<0>( *this );
+  return get<0>( *this );
 }
 
 //----------------------------------------------------------------------------

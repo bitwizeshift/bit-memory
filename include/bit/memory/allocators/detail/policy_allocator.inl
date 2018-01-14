@@ -19,8 +19,8 @@ template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename 
 bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::~policy_allocator()
 {
-  auto& allocator = detail::get<0>(*this);
-  auto& tracker   = detail::get<2>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tracker   = get<2>(*this);
 
   tracker.finalize( allocator_traits<ExtendedAllocator>::info(allocator) );
 }
@@ -31,7 +31,7 @@ const typename bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Ch
   ::tracker()
   const noexcept
 {
-  return detail::get<2>(*this);
+  return get<2>(*this);
 }
 
 template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
@@ -49,11 +49,11 @@ void* bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Loc
   const auto new_size = Checker::front_size + size + Checker::back_size;
   const auto offset   = Checker::front_size;
 
-  auto& allocator = detail::get<0>(*this);
-  auto& tagger    = detail::get<1>(*this);
-  auto& tracker   = detail::get<2>(*this);
-  auto& checker   = detail::get<3>(*this);
-  auto& lock      = detail::get<4>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tagger    = get<1>(*this);
+  auto& tracker   = get<2>(*this);
+  auto& checker   = get<3>(*this);
+  auto& lock      = get<4>(*this);
 
   byte_t* byte_ptr = nullptr;
 
@@ -86,11 +86,11 @@ void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
 {
   using byte_t = unsigned char;
 
-  auto& allocator = detail::get<0>(*this);
-  auto& tagger    = detail::get<1>(*this);
-  auto& tracker   = detail::get<2>(*this);
-  auto& checker   = detail::get<3>(*this);
-  auto& lock      = detail::get<4>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tagger    = get<1>(*this);
+  auto& tracker   = get<2>(*this);
+  auto& checker   = get<3>(*this);
+  auto& lock      = get<4>(*this);
 
   const auto new_size = Checker::front_size + size + Checker::back_size;
   const auto offset   = Checker::front_size;
@@ -121,8 +121,8 @@ template<typename, typename>
 void bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
   ::deallocate_all()
 {
-  auto& allocator = detail::get<0>(*this);
-  auto& tracker   = detail::get<2>(*this);
+  auto& allocator = get<0>(*this);
+  auto& tracker   = get<2>(*this);
 
   tracker.on_deallocate_all();
 
@@ -139,7 +139,7 @@ bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock
   ::owns( const void* p )
   const noexcept
 {
-  const auto& allocator = detail::get<0>(*this);
+  const auto& allocator = get<0>(*this);
 
   return allocator_traits<ExtendedAllocator>::owns( allocator, p );
 }
@@ -151,7 +151,7 @@ bit::memory::allocator_info
   ::info()
   const noexcept
 {
-  auto& allocator = detail::get<0>(*this);
+  auto& allocator = get<0>(*this);
 
   return allocator_traits<ExtendedAllocator>::info( allocator );
 }
@@ -161,8 +161,8 @@ inline bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Check
   ::equals( const policy_allocator& other )
   const noexcept
 {
-  auto& lhs_allocator = detail::get<0>( *this );
-  auto& rhs_allocator = detail::get<0>( other );
+  auto& lhs_allocator = get<0>( *this );
+  auto& rhs_allocator = get<0>( other );
 
   return lhs_allocator == rhs_allocator;
 }

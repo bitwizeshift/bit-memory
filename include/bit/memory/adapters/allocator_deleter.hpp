@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ADAPTERS_ALLOCATOR_DELETER_HPP
 #define BIT_MEMORY_ADAPTERS_ALLOCATOR_DELETER_HPP
 
-#include "../utilities/detail/ebo_storage.hpp"
+#include "../utilities/ebo_storage.hpp"
 #include "../utilities/pointer_utilities.hpp" // to_raw_pointer
 
 #include "../concepts/AllocatorStorage.hpp"
@@ -46,9 +46,9 @@ namespace bit {
     ///////////////////////////////////////////////////////////////////////////
     template<typename T, typename AllocatorStorage>
     class allocator_deleter
-      : private detail::ebo_storage<AllocatorStorage>
+      : private ebo_storage<AllocatorStorage>
     {
-      using base_type = detail::ebo_storage<AllocatorStorage>;
+      using base_type = ebo_storage<AllocatorStorage>;
       using allocator_type = typename AllocatorStorage::allocator_type;
 
       using alloc_traits   = allocator_traits<allocator_type>;
@@ -119,9 +119,9 @@ namespace bit {
 
     template<typename T, typename AllocatorStorage>
     class allocator_deleter<T[],AllocatorStorage>
-      : public detail::ebo_storage<AllocatorStorage>
+      : public ebo_storage<AllocatorStorage>
     {
-      using base_type = detail::ebo_storage<AllocatorStorage>;
+      using base_type = ebo_storage<AllocatorStorage>;
       using allocator_type = typename AllocatorStorage::allocator_type;
 
       using alloc_traits   = allocator_traits<allocator_type>;

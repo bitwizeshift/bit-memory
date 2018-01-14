@@ -58,10 +58,10 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 
 set(headers
   # Utilities
-  include/bit/memory/utilities/detail/ebo_storage.hpp
   include/bit/memory/utilities/allocator_info.hpp
   include/bit/memory/utilities/debugging.hpp
   include/bit/memory/utilities/dynamic_size_type.hpp
+  include/bit/memory/utilities/ebo_storage.hpp
   include/bit/memory/utilities/endian.hpp
   include/bit/memory/utilities/errors.hpp
   include/bit/memory/utilities/freelist.hpp
@@ -173,6 +173,7 @@ set(inline_headers
   include/bit/memory/utilities/detail/allocator_info.inl
   include/bit/memory/utilities/detail/debugging.inl
   include/bit/memory/utilities/detail/dynamic_size_type.inl
+  include/bit/memory/utilities/detail/ebo_storage.inl
   include/bit/memory/utilities/detail/endian.inl
   include/bit/memory/utilities/detail/freelist.inl
   include/bit/memory/utilities/detail/memory_block.inl

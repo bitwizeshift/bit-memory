@@ -8,7 +8,7 @@
 #ifndef BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_POLICY_ALLOCATOR_HPP
 
-#include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/ebo_storage.hpp" // detail::ebo_storage
 #include "../utilities/allocator_info.hpp" // allocator_info
 #include "../utilities/debugging.hpp"      // debug_tag_...
 #include "../utilities/errors.hpp"         // get_leak_handler, etc
@@ -54,14 +54,14 @@ namespace bit {
              typename BoundsChecker,
              typename BasicLockable>
     class policy_allocator
-      : private detail::ebo_storage<ExtendedAllocator,
+      : private ebo_storage<ExtendedAllocator,
                                     MemoryTagger,
                                     MemoryTracker,
                                     BoundsChecker,
                                     BasicLockable>
     {
 
-      using base_type = detail::ebo_storage<ExtendedAllocator,
+      using base_type = ebo_storage<ExtendedAllocator,
                                             MemoryTagger,
                                             MemoryTracker,
                                             BoundsChecker,

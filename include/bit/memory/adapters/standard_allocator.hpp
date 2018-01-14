@@ -9,7 +9,7 @@
 #ifndef BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 #define BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 
-#include "../utilities/detail/ebo_storage.hpp" // detail::ebo_storage
+#include "../utilities/ebo_storage.hpp" // detail::ebo_storage
 
 #include "../concepts/AllocatorStorage.hpp" // is_allocator_storage
 #include "../concepts/Stateless.hpp"        // is_stateless
@@ -37,9 +37,9 @@ namespace bit {
     ///////////////////////////////////////////////////////////////////////////
     template<typename T, typename AllocatorStorage>
     class standard_allocator
-      : private detail::ebo_storage<AllocatorStorage>
+      : private ebo_storage<AllocatorStorage>
     {
-      using base_type = detail::ebo_storage<AllocatorStorage>;
+      using base_type = ebo_storage<AllocatorStorage>;
 
       using allocator_type = typename AllocatorStorage::allocator_type;
       using alloc_traits   = allocator_traits<allocator_type>;
