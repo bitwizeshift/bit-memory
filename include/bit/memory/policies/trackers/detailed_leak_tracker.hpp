@@ -6,16 +6,16 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_TRACKERS_DETAILED_LEAK_TRACKER_HPP
-#define BIT_MEMORY_TRACKERS_DETAILED_LEAK_TRACKER_HPP
+#ifndef BIT_MEMORY_POLICIES_TRACKERS_DETAILED_LEAK_TRACKER_HPP
+#define BIT_MEMORY_POLICIES_TRACKERS_DETAILED_LEAK_TRACKER_HPP
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 
-#include "../utilities/allocator_info.hpp" // allocator_info
-#include "../utilities/errors.hpp"         // get_leak_handler
-#include "../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../../utilities/allocator_info.hpp" // allocator_info
+#include "../../utilities/errors.hpp"         // get_leak_handler
+#include "../../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
 
-#include "../concepts/MemoryTracker.hpp" // is_memory_tracker
+#include "../../concepts/MemoryTracker.hpp" // is_memory_tracker
 
 #include <cstddef> // std::size_t, std::ptrdiff_t
 #include <map>     // std::map
@@ -83,4 +83,4 @@ namespace bit {
 
 #include "detail/detailed_leak_tracker.inl"
 
-#endif /* BIT_MEMORY_TRACKERS_DETAILED_LEAK_TRACKER_HPP */
+#endif /* BIT_MEMORY_POLICIES_TRACKERS_DETAILED_LEAK_TRACKER_HPP */

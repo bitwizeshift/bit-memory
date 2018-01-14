@@ -5,10 +5,10 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_TAGGERS_NULL_TAGGER_HPP
-#define BIT_MEMORY_TAGGERS_NULL_TAGGER_HPP
+#ifndef BIT_MEMORY_POLICIES_TAGGERS_NULL_TAGGER_HPP
+#define BIT_MEMORY_POLICIES_TAGGERS_NULL_TAGGER_HPP
 
-#include "../concepts/MemoryTagger.hpp" // is_memory_tagger
+#include "../../concepts/MemoryTagger.hpp" // is_memory_tagger
 
 #include <cstddef> // std::size_t
 
@@ -38,4 +38,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_TAGGERS_NULL_TAGGER_HPP */
+#endif /* BIT_MEMORY_POLICIES_TAGGERS_NULL_TAGGER_HPP */

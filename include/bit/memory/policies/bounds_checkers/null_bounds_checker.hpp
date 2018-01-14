@@ -6,12 +6,12 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
-#define BIT_MEMORY_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
+#ifndef BIT_MEMORY_POLICIES_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
+#define BIT_MEMORY_POLICIES_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
 
-#include "../utilities/allocator_info.hpp" // allocator_info
+#include "../../utilities/allocator_info.hpp" // allocator_info
 
-#include "../concepts/BoundsChecker.hpp" // is_bounds_checker
+#include "../../concepts/BoundsChecker.hpp" // is_bounds_checker
 
 #include <cstddef>               // std::size_t
 
@@ -57,4 +57,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP */
+#endif /* BIT_MEMORY_POLICIES_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP */

@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL
-#define BIT_MEMORY_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL
+#ifndef BIT_MEMORY_POLICIES_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL
+#define BIT_MEMORY_POLICIES_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL
 
 inline void bit::memory::allocator_tagger::tag_allocation( void* p,
                                                            std::size_t size )
@@ -15,4 +15,4 @@ inline void bit::memory::allocator_tagger::tag_deallocation( void* p,
   debug_tag_freed_bytes(p,size);
 }
 
-#endif /* BIT_MEMORY_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL */
+#endif /* BIT_MEMORY_POLICIES_TAGGERS_DETAIL_DEBUG_MEMORY_TAGGER_INL */

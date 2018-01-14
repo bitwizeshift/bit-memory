@@ -5,10 +5,10 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_LOCKABLES_NULL_LOCK_HPP
-#define BIT_MEMORY_LOCKABLES_NULL_LOCK_HPP
+#ifndef BIT_MEMORY_POLICIES_LOCKABLES_NULL_LOCK_HPP
+#define BIT_MEMORY_POLICIES_LOCKABLES_NULL_LOCK_HPP
 
-#include "../concepts/BasicLockable.hpp"
+#include "../../concepts/BasicLockable.hpp"
 
 namespace bit {
   namespace memory {
@@ -38,4 +38,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_LOCKABLES_NULL_LOCK_HPP */
+#endif /* BIT_MEMORY_POLICIES_LOCKABLES_NULL_LOCK_HPP */

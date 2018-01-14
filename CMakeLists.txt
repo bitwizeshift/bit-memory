@@ -93,33 +93,31 @@ set(headers
   include/bit/memory/traits/allocator_traits.hpp
   include/bit/memory/traits/block_allocator_traits.hpp
 
+  # Regions
+  include/bit/memory/regions/aligned_heap_memory.hpp
+  include/bit/memory/regions/virtual_memory.hpp
+
   # Adapters
   include/bit/memory/adapters/allocator_deleter.hpp
   include/bit/memory/adapters/polymorphic_allocator_deleter.hpp
   include/bit/memory/adapters/standard_allocator.hpp
 
-  # Regions
-  include/bit/memory/regions/aligned_heap_memory.hpp
-  include/bit/memory/regions/virtual_memory.hpp
-
+  # Policies
   # Taggers
-  include/bit/memory/taggers/allocator_tagger.hpp
-  include/bit/memory/taggers/block_allocator_tagger.hpp
-  include/bit/memory/taggers/null_tagger.hpp
-
+  include/bit/memory/policies/taggers/allocator_tagger.hpp
+  include/bit/memory/policies/taggers/block_allocator_tagger.hpp
+  include/bit/memory/policies/taggers/null_tagger.hpp
   # Trackers
-  include/bit/memory/trackers/detail/stat_recording_tracker.hpp
-  include/bit/memory/trackers/detailed_leak_tracker.hpp
-  include/bit/memory/trackers/leak_tracker.hpp
-  include/bit/memory/trackers/null_tracker.hpp
-  include/bit/memory/trackers/stdout_tracker.hpp
-
+  include/bit/memory/policies/trackers/detail/stat_recording_tracker.hpp
+  include/bit/memory/policies/trackers/detailed_leak_tracker.hpp
+  include/bit/memory/policies/trackers/leak_tracker.hpp
+  include/bit/memory/policies/trackers/null_tracker.hpp
+  include/bit/memory/policies/trackers/stdout_tracker.hpp
   # Bounds Checkers
-  include/bit/memory/bounds_checkers/debug_bounds_checker.hpp
-  include/bit/memory/bounds_checkers/null_bounds_checker.hpp
-
+  include/bit/memory/policies/bounds_checkers/debug_bounds_checker.hpp
+  include/bit/memory/policies/bounds_checkers/null_bounds_checker.hpp
   # Lockables
-  include/bit/memory/lockables/null_lock.hpp
+  include/bit/memory/policies/lockables/null_lock.hpp
 
   # Block Allocators
   include/bit/memory/block_allocators/detail/cached_block_allocator.hpp
@@ -187,26 +185,25 @@ set(inline_headers
   include/bit/memory/traits/detail/allocator_traits.inl
   include/bit/memory/traits/detail/block_allocator_traits.inl
 
+  # Regions
+  include/bit/memory/regions/detail/virtual_memory.inl
+
   # Adapters
   include/bit/memory/adapters/detail/allocator_deleter.inl
   include/bit/memory/adapters/detail/polymorphic_allocator_deleter.inl
   include/bit/memory/adapters/detail/standard_allocator.inl
 
-  # Regions
-  include/bit/memory/regions/detail/virtual_memory.inl
-
+  # Policies
   # Taggers
-  include/bit/memory/taggers/detail/allocator_tagger.inl
-  include/bit/memory/taggers/detail/block_allocator_tagger.inl
-
+  include/bit/memory/policies/taggers/detail/allocator_tagger.inl
+  include/bit/memory/policies/taggers/detail/block_allocator_tagger.inl
   # Trackers
-  include/bit/memory/trackers/detail/detailed_leak_tracker.inl
-  include/bit/memory/trackers/detail/leak_tracker.inl
-  include/bit/memory/trackers/detail/stat_recording_tracker.inl
-  include/bit/memory/trackers/detail/stdout_tracker.inl
-
+  include/bit/memory/policies/trackers/detail/detailed_leak_tracker.inl
+  include/bit/memory/policies/trackers/detail/leak_tracker.inl
+  include/bit/memory/policies/trackers/detail/stat_recording_tracker.inl
+  include/bit/memory/policies/trackers/detail/stdout_tracker.inl
   # Bounds Checkers
-  include/bit/memory/bounds_checkers/detail/debug_bounds_checker.inl
+  include/bit/memory/policies/bounds_checkers/detail/debug_bounds_checker.inl
 
   # Block Allocators
   include/bit/memory/block_allocators/detail/aligned_block_allocator.inl

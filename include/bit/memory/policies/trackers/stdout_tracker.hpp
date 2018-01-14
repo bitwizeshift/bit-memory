@@ -5,13 +5,13 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_TRACKERS_STDOUT_TRACKER_HPP
-#define BIT_MEMORY_TRACKERS_STDOUT_TRACKER_HPP
+#ifndef BIT_MEMORY_POLICIES_TRACKERS_TRACKERS_STDOUT_TRACKER_HPP
+#define BIT_MEMORY_POLICIES_TRACKERS_TRACKERS_STDOUT_TRACKER_HPP
 
-#include "../utilities/allocator_info.hpp" // allocator_info
-#include "../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
+#include "../../utilities/allocator_info.hpp" // allocator_info
+#include "../../utilities/macros.hpp"         // BIT_MEMORY_UNUSED
 
-#include "../concepts/MemoryTracker.hpp"   // is_memory_tracker
+#include "../../concepts/MemoryTracker.hpp"   // is_memory_tracker
 
 #include <cstdio> // std::ptrintf
 #include <cstddef> // std::size_t
@@ -56,5 +56,4 @@ namespace bit {
 
 #include "detail/stdout_tracker.inl"
 
-
-#endif /* BIT_MEMORY_TRACKERS_STDOUT_TRACKER_HPP */
+#endif /* BIT_MEMORY_POLICIES_TRACKERS_TRACKERS_STDOUT_TRACKER_HPP */

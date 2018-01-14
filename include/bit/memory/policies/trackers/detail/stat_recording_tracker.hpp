@@ -7,10 +7,10 @@
  * \note This is an internal header file, included by other library headers.
  *       Do not attempt to use it directly.
  */
-#ifndef BIT_MEMORY_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
-#define BIT_MEMORY_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
+#ifndef BIT_MEMORY_POLICIES_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
+#define BIT_MEMORY_POLICIES_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
 
-#include "../../utilities/allocator_info.hpp" // allocator_info
+#include "../../../utilities/allocator_info.hpp" // allocator_info
 
 #include <cstddef> // std::size_t
 
@@ -137,4 +137,4 @@ namespace bit {
 
 #include "stat_recording_tracker.inl"
 
-#endif /* BIT_MEMORY_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP */
+#endif /* BIT_MEMORY_POLICIES_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP */

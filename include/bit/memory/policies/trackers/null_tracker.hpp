@@ -5,13 +5,13 @@
  *
  * \author Matthew Rodusek (matthew.rodusek@gmail.com)
  */
-#ifndef BIT_MEMORY_TRACKERS_NULL_TRACKER_HPP
-#define BIT_MEMORY_TRACKERS_NULL_TRACKER_HPP
+#ifndef BIT_MEMORY_POLICIES_TRACKERS_NULL_TRACKER_HPP
+#define BIT_MEMORY_POLICIES_TRACKERS_NULL_TRACKER_HPP
 
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 
-#include "../utilities/allocator_info.hpp"   // allocator_info
-#include "../concepts/MemoryTracker.hpp"     // is_memory_tracker
+#include "../../utilities/allocator_info.hpp"   // allocator_info
+#include "../../concepts/MemoryTracker.hpp"     // is_memory_tracker
 
 #include <cstddef> // std::size_t
 
@@ -47,4 +47,4 @@ namespace bit {
   } // namespace memory
 } // namespace bit
 
-#endif /* BIT_MEMORY_TRACKERS_NULL_TRACKER_HPP */
+#endif /* BIT_MEMORY_POLICIES_TRACKERS_NULL_TRACKER_HPP */

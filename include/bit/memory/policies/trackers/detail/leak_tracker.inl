@@ -1,5 +1,5 @@
-#ifndef BIT_MEMORY_TRACKERS_DETAIL_LEAK_TRACKER_INL
-#define BIT_MEMORY_TRACKERS_DETAIL_LEAK_TRACKER_INL
+#ifndef BIT_MEMORY_POLICIES_TRACKERS_DETAIL_LEAK_TRACKER_INL
+#define BIT_MEMORY_POLICIES_TRACKERS_DETAIL_LEAK_TRACKER_INL
 
 //-----------------------------------------------------------------------------
 // Tracking
@@ -40,4 +40,4 @@ inline void bit::memory::leak_tracker::finalize( const allocator_info& info )
   }
 }
 
-#endif /* BIT_MEMORY_TRACKERS_DETAIL_LEAK_TRACKER_INL */
+#endif /* BIT_MEMORY_POLICIES_TRACKERS_DETAIL_LEAK_TRACKER_INL */
