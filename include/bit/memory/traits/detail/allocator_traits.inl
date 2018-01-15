@@ -900,9 +900,13 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   noexcept
 {
   auto p = traits_type::allocate( alloc, sizeof(T), alignof(T) );
+  auto void_ptr = to_raw_pointer(p);
+  auto type_ptr = static_cast<T*>(void_ptr);
 
-  return uninitialized_construct_at<T>( to_raw_pointer(p),
-                                        std::forward<Args>(args)... );
+  traits_type::template construct<T>( void_ptr,
+                                      std::forward<Args>(args)... );
+
+  return std::pointer_traits<typed_pointer<T>>::pointer_to(*type_ptr);
 }
 
 template<typename Allocator>
@@ -918,7 +922,7 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   auto type_ptr = static_cast<T*>(void_ptr);
 
   try {
-    traits_type::template construct<T>( to_raw_pointer(p),
+    traits_type::template construct<T>( void_ptr,
                                         std::forward<Args>(args)... );
   } catch ( ... ) {
     traits_type::deallocate( alloc, p, sizeof(T) );
@@ -973,7 +977,7 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
   const auto end = current + n;
 
   for( ; current != end; ++current ) {
-    traits_type::template construct<T>( alloc, void_ptr, std::forward<Args>(args)... );
+    traits_type::template construct<T>( alloc, current, std::forward<Args>(args)... );
   }
 
   return std::pointer_traits<typed_pointer<T>>::pointer_to(*type_ptr);
@@ -997,14 +1001,14 @@ inline typename std::pointer_traits<typename bit::memory::allocator_traits<Alloc
     const auto end = current + n;
 
     for( ; current != end; ++current ) {
-      traits_type::template construct<T>( alloc, void_ptr, std::forward<Args>(args)... );
+      traits_type::template construct<T>( alloc, current, std::forward<Args>(args)... );
     }
 
   } catch ( ... ) {
     const auto rend = type_ptr - 1;
     --current;
-    for( ; current != rend; --current ) {
-      traits_type::destroy( current );
+    while( current != rend ) {
+      traits_type::destroy( --current );
     }
     traits_type::deallocate( alloc, p, sizeof(T)*n );
     throw;
@@ -1060,11 +1064,15 @@ void bit::memory::detail::allocator_traits_impl<Allocator>
                 Allocator& alloc,
                 typed_pointer<T> p )
 {
+  // Default disposal cannot dispose from an abstract type, since the size of
+  // the allocation must be calculated by sizeof(T).
+  // Custom allocator implementations are free to implement this without
+  // requiring the size of the allocation
   static_assert( !std::is_abstract<T>::value,
                  "Cannot dispose from base type" );
 
   // call the destructor for p
-  destroy_at( to_raw_pointer(p) );
+  traits_type::destroy( to_raw_pointer(p) );
 
   // convert to raw pointer first
   traits_type::deallocate( alloc, static_cast<pointer>(p), sizeof(T) );
@@ -1094,7 +1102,14 @@ void bit::memory::detail::allocator_traits_impl<Allocator>
   static_assert( !std::is_abstract<T>::value,
                  "Cannot dispose from base type" );
 
-  destroy_array_at( to_raw_pointer(p), n );
+  // Destroy each entry in the array, then deallocate
+  const auto void_ptr = to_raw_pointer(p);
+  const auto end = static_cast<T*>(void_ptr) - 1;
+  auto current   = static_cast<T*>(void_ptr) + n;
+  while( current != end ) {
+    traits_type::destroy( alloc, --current);
+  }
+
   traits_type::deallocate( alloc, static_cast<pointer>(p), sizeof(T)*n );
 }
 
