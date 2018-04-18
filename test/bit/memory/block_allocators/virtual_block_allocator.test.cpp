@@ -1,10 +1,8 @@
-/**
- * \file virtual_block_allocator.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the virtual_block_allocator
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/virtual_block_allocator.hpp>
 #include <bit/memory/regions/virtual_memory.hpp>

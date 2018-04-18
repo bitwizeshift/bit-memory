@@ -1,10 +1,8 @@
-/**
-* \file thread_local_block_allocators.test.cpp
- *
+/*****************************************************************************
+* \file
  * \brief Unit tests for the thread_local_block_allocator
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/thread_local_block_allocator.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>

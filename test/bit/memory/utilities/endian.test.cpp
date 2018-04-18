@@ -1,10 +1,8 @@
-/**
- * \file endian.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the header 'endian.hpp'
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/utilities/endian.hpp>
 

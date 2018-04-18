@@ -1,10 +1,8 @@
-/**
- * \file new_block_allocator.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the new_block_allocator
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/new_block_allocator.hpp>
 #include <bit/memory/concepts/Stateless.hpp>

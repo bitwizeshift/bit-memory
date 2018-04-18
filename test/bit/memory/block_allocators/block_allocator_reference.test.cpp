@@ -1,10 +1,8 @@
-/**
- * \file block_allocator_reference.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the block_allocator_reference
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/block_allocator_reference.hpp>
 #include <bit/memory/utilities/allocator_info.hpp>

@@ -1,10 +1,8 @@
-/**
- * \file memory_block_cache.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the memory_block_cache
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/utilities/memory_block_cache.hpp>
 #include <bit/memory/block_allocators/new_block_allocator.hpp>
