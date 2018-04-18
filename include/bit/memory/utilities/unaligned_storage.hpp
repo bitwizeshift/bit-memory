@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_UTILITIES_UNALIGNED_STORAGE_HPP
 #define BIT_MEMORY_UTILITIES_UNALIGNED_STORAGE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <cstdint>     // std::uint8_t, std::uint16_t, etc
 #include <cstring>     // std::memcpy
 #include <memory>      // std::addressof

@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_POLICIES_TAGGERS_BLOCK_ALLOCATOR_TAGGER_HPP
 #define BIT_MEMORY_POLICIES_TAGGERS_BLOCK_ALLOCATOR_TAGGER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../../utilities/debugging.hpp" // debug_tag_allocated_bytes
 
 #include "../../concepts/MemoryTagger.hpp" // is_memory_tagger

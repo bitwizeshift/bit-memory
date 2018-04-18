@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_ALLOCATOR_STORAGE_REFERENCED_ALLOCATOR_STORAGE_HPP
 #define BIT_MEMORY_ALLOCATOR_STORAGE_REFERENCED_ALLOCATOR_STORAGE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../concepts/Allocator.hpp"
 
 #include <memory> // std::addressof

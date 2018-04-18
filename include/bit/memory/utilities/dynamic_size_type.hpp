@@ -32,6 +32,10 @@
 #ifndef BIT_MEMORY_UTILITIES_DYNAMIC_SIZE_TYPE_HPP
 #define BIT_MEMORY_UTILITIES_DYNAMIC_SIZE_TYPE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <cstddef>     // std::size_t
 #include <type_traits> // std::true_type, std::false_type
 

@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_UTILITIES_FREELIST_HPP
 #define BIT_MEMORY_UTILITIES_FREELIST_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "pointer_utilities.hpp"     // align_of
 #include "uninitialized_storage.hpp" // uninitialized_construct_at
 

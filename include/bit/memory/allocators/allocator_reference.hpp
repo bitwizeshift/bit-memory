@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_ALLOCATORS_ALLOCATOR_REFERENCE_HPP
 #define BIT_MEMORY_ALLOCATORS_ALLOCATOR_REFERENCE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/owner.hpp"            // owner
 #include "../utilities/allocator_info.hpp"   // allocator_info
 #include "../utilities/macros.hpp"           // BIT_MEMORY_UNUSED

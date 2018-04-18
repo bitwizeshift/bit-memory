@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_TRAITS_ALLOCATOR_TRAITS_HPP
 #define BIT_MEMORY_TRAITS_ALLOCATOR_TRAITS_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/allocator_info.hpp"        // allocator_info
 #include "../utilities/errors.hpp"                // get_out_of_memory_handler
 #include "../utilities/macros.hpp"                // BIT_MEMORY_UNUSED

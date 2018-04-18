@@ -32,6 +32,10 @@
 #ifndef BIT_MEMORY_POLICIES_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
 #define BIT_MEMORY_POLICIES_TRACKERS_DETAIL_STAT_RECORDING_TRACKER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../../../utilities/allocator_info.hpp" // allocator_info
 
 #include <cstddef> // std::size_t

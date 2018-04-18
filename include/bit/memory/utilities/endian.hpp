@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_UTILITIES_ENDIAN_HPP
 #define BIT_MEMORY_UTILITIES_ENDIAN_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <algorithm>   // std::reverse
 #include <cstdint>     // std::int8_t, std::uint8_t, etc
 #include <type_traits> // std::is_copy_constructible, std::enable_if_t, etc

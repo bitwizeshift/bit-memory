@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_ALLOCATORS_FALLBACK_ALLOCATOR_HPP
 #define BIT_MEMORY_ALLOCATORS_FALLBACK_ALLOCATOR_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "detail/named_allocator.hpp" // detail::named_allocator
 
 #include "../utilities/ebo_storage.hpp" // detail::ebo_storage

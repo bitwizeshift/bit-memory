@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 #define BIT_MEMORY_ADAPTERS_STANDARD_ALLOCATOR_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/ebo_storage.hpp" // detail::ebo_storage
 
 #include "../concepts/AllocatorStorage.hpp" // is_allocator_storage

@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_POLICIES_TRACKERS_NULL_TRACKER_HPP
 #define BIT_MEMORY_POLICIES_TRACKERS_NULL_TRACKER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "detail/stat_recording_tracker.hpp" // detail::stat_recording_tracker
 
 #include "../../utilities/allocator_info.hpp"   // allocator_info

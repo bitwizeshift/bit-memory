@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_UTILITIES_ERRORS_HPP
 #define BIT_MEMORY_UTILITIES_ERRORS_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "allocator_info.hpp"
 
 #include <cstddef> // std::size_t, std::ptrdiff_t

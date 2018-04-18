@@ -31,6 +31,10 @@
 #ifndef BIT_MEMORY_REGIONS_WIN32_WINDOWS_HPP
 #define BIT_MEMORY_REGIONS_WIN32_WINDOWS_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #ifdef _WIN32_WINDOWS
 # undef _WIN32_WINDOWS
 #endif

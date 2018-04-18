@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_UTILITIES_DEBUGGING_HPP
 #define BIT_MEMORY_UTILITIES_DEBUGGING_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "memory_block.hpp" // memory_block
 
 #include <cstddef>   // std::size_t

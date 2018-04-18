@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_UTILITIES_UNINITIALIZED_STORAGE_HPP
 #define BIT_MEMORY_UTILITIES_UNINITIALIZED_STORAGE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <tuple>   // std::forward_as_tuple, std::tuple
 #include <utility> // std::forward
 #include <cstddef> // std::size_t

@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_POLICIES_TAGGERS_NULL_TAGGER_HPP
 #define BIT_MEMORY_POLICIES_TAGGERS_NULL_TAGGER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../../concepts/MemoryTagger.hpp" // is_memory_tagger
 
 #include <cstddef> // std::size_t

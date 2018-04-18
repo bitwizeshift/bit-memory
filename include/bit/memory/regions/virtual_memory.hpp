@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_REGIONS_VIRTUAL_MEMORY_HPP
 #define BIT_MEMORY_REGIONS_VIRTUAL_MEMORY_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/memory_block.hpp"       // memory_block
 #include "../utilities/memory_block_cache.hpp" // memory_block_cache
 

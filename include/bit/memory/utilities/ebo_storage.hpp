@@ -32,6 +32,10 @@
 #ifndef BIT_MEMORY_UTILITIES_DETAIL_EBO_STORAGE_HPP
 #define BIT_MEMORY_UTILITIES_DETAIL_EBO_STORAGE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <cstddef>     // std::size_t
 #include <tuple>       // std::tuple_size
 #include <type_traits> // std::integral_constant, std::enable_if, etc...

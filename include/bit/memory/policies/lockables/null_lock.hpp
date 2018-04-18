@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_POLICIES_LOCKABLES_NULL_LOCK_HPP
 #define BIT_MEMORY_POLICIES_LOCKABLES_NULL_LOCK_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../../concepts/BasicLockable.hpp"
 
 namespace bit {

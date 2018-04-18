@@ -31,6 +31,10 @@
 #ifndef BIT_MEMORY_ADAPTERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
 #define BIT_MEMORY_ADAPTERS_POLYMORPHIC_ALLOCATOR_DELETER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/ebo_storage.hpp"
 #include "../utilities/pointer_utilities.hpp" // to_raw_pointer
 

@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_UTILITIES_MEMORY_BLOCK_HPP
 #define BIT_MEMORY_UTILITIES_MEMORY_BLOCK_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include <cstdlib> // std::size_t
 #include <utility> // std::swap
 

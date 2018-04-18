@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_POLICIES_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
 #define BIT_MEMORY_POLICIES_BOUNDS_CHECKERS_NULL_BOUNDS_CHECKER_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../../utilities/allocator_info.hpp" // allocator_info
 
 #include "../../concepts/BoundsChecker.hpp" // is_bounds_checker

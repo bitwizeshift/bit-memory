@@ -33,6 +33,10 @@
 #ifndef BIT_MEMORY_CONCEPTS_DETAIL_ALLOCATOR_UTILITIES_HPP
 #define BIT_MEMORY_CONCEPTS_DETAIL_ALLOCATOR_UTILITIES_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "identity.hpp" // detail::identity
 #include "void_t.hpp"   // detail::void_t
 

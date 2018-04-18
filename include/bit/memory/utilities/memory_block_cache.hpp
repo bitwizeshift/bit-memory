@@ -30,6 +30,10 @@
 #ifndef BIT_MEMORY_UTILITIES_MEMORY_BLOCK_CACHE_HPP
 #define BIT_MEMORY_UTILITIES_MEMORY_BLOCK_CACHE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "owner.hpp"                 // owner
 #include "memory_block.hpp"          // memory_block
 #include "pointer_utilities.hpp"     // align_of

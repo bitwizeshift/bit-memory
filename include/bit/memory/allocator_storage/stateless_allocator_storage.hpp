@@ -29,6 +29,10 @@
 #ifndef BIT_MEMORY_ALLOCATOR_STORAGE_STATELESS_ALLOCATOR_STORAGE_HPP
 #define BIT_MEMORY_ALLOCATOR_STORAGE_STATELESS_ALLOCATOR_STORAGE_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+# pragma once
+#endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
+
 #include "../utilities/ebo_storage.hpp"
 
 #include "../concepts/Stateless.hpp"
