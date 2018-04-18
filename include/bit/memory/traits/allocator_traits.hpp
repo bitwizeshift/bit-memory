@@ -54,8 +54,6 @@ namespace bit {
       using size_type       = allocator_size_type_t<Allocator>;
       using difference_type = allocator_difference_type_t<Allocator>;
 
-      // qualified 'bit::memory::' to avoid '-fpermissive' errors with gcc
-      using is_stateless               = bit::memory::is_stateless<Allocator>;
       using default_alignment          = allocator_default_alignment<Allocator>;
       using max_alignment              = allocator_max_alignment<Allocator>;
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
@@ -218,51 +216,6 @@ namespace bit {
       static void deallocate_all( Allocator& alloc );
 
       //-----------------------------------------------------------------------
-      // Observers
-      //-----------------------------------------------------------------------
-    public:
-
-      /// \brief Determines the recommended allocation size of \p requested
-      ///        bytes from the given allocator
-      ///
-      /// \note This invokes \c alloc.recommended_allocation_size(requested) if
-      ///       it is defined for the specified Allocator -- otherwise it
-      ///       defaults to rounding 'requested' up to the next aligned value
-      ///
-      /// \param alloc the allocator
-      /// \param requested the amount of requested bytes
-      /// \return the recommended amount to allocate
-      size_type recommended_allocation_size( const Allocator& alloc,
-                                             size_type requested );
-
-      //-----------------------------------------------------------------------
-
-      /// \brief Checks if the given allocator is known to own the specified
-      ///        pointer \p p
-      ///
-      /// \note This directly invokes \c alloc.owns(p) . It is undefined
-      ///       behaviour to invoke this if \c Allocator::owns is not
-      ///       defined; branches should instead be taken by using
-      ///       \ref knows_ownership
-      ///
-      /// \param alloc the allocator
-      /// \param p the pointer
-      static bool owns( const Allocator& alloc, const_pointer p ) noexcept;
-
-      /// \brief Gets the name of the specified allocator
-      ///
-      /// \note Not all allocators are nameable or have a name specified.
-      ///       For these allocators, the string returned is
-      ///       \c typeid(Allocator).name()
-      ///
-      /// \note The lifetime of the pointer returned is unmanaged, and is NOT
-      ///       the responsibility of the caller to free.
-      ///
-      /// \param alloc the allocator to get the name of
-      /// \return the name of the allocator
-      static allocator_info info( const Allocator& alloc ) noexcept;
-
-      //-----------------------------------------------------------------------
       // Constructions
       //-----------------------------------------------------------------------
     public:
@@ -335,10 +288,16 @@ namespace bit {
       ///
       /// This calls T's destructor, and then deallocates it with \p alloc
       ///
-      /// \note It is undefined behavior to call 'dispose' with type different
-      ///       than the original type used in the 'make' call. This is a
-      ///       result of requiring the size of the allocation, which is
-      ///       inferred from the size of type \c T
+      /// \note It is implementation-defined behavior to call 'dispose' with
+      ///       a type that is different than the original type used in the
+      ///       'make' call.
+      ///       For the default implementation of 'dispose', it is undefined
+      ///       behavior to call dispose with a type that isn't the same one
+      ///       provided to 'make'. An allocator's implementation of
+      ///       make/dispose, however, may fully support this. For example, with
+      ///       a malloc_allocator or new_allocator, make and dispose don't
+      ///       require a computation for determining the original allocation
+      ///       size in order to dispose of the memory.
       ///
       /// \note It is undefined behavior if T's destructor throws during a
       ///       call to dispose
@@ -373,6 +332,51 @@ namespace bit {
       static void dispose_array( Allocator& alloc,
                                  typed_pointer<T> p,
                                  size_type n );
+
+      //-----------------------------------------------------------------------
+      // Observers
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Determines the recommended allocation size of \p requested
+      ///        bytes from the given allocator
+      ///
+      /// \note This invokes \c alloc.recommended_allocation_size(requested) if
+      ///       it is defined for the specified Allocator -- otherwise it
+      ///       defaults to rounding 'requested' up to the next aligned value
+      ///
+      /// \param alloc the allocator
+      /// \param requested the amount of requested bytes
+      /// \return the recommended amount to allocate
+      size_type recommended_allocation_size( const Allocator& alloc,
+                                             size_type requested );
+
+      //-----------------------------------------------------------------------
+
+      /// \brief Checks if the given allocator is known to own the specified
+      ///        pointer \p p
+      ///
+      /// \note This directly invokes \c alloc.owns(p) . It is undefined
+      ///       behaviour to invoke this if \c Allocator::owns is not
+      ///       defined; branches should instead be taken by using
+      ///       \ref knows_ownership
+      ///
+      /// \param alloc the allocator
+      /// \param p the pointer
+      static bool owns( const Allocator& alloc, const_pointer p ) noexcept;
+
+      /// \brief Gets the name of the specified allocator
+      ///
+      /// \note Not all allocators are nameable or have a name specified.
+      ///       For these allocators, the string returned is
+      ///       \c typeid(Allocator).name()
+      ///
+      /// \note The lifetime of the pointer returned is unmanaged, and is NOT
+      ///       the responsibility of the caller to free.
+      ///
+      /// \param alloc the allocator to get the name of
+      /// \return the name of the allocator
+      static allocator_info info( const Allocator& alloc ) noexcept;
 
       //-----------------------------------------------------------------------
       // Capacity
