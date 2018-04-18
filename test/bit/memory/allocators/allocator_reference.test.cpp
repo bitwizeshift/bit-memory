@@ -1,10 +1,8 @@
-/**
- * \file allocator_reference.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the allocator_reference
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/allocators/allocator_reference.hpp>
 #include <bit/memory/utilities/allocator_info.hpp>

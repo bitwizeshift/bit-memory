@@ -1,10 +1,8 @@
-/**
- * \file stack_block_allocators.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the stack_block_allocator
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/stack_block_allocator.hpp>
 #include <bit/memory/concepts/BlockAllocator.hpp>

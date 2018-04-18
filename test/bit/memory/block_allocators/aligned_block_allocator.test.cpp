@@ -1,10 +1,8 @@
-/**
- * \file aligned_block_allocator.test.cpp
- *
+/*****************************************************************************
+ * \file
  * \brief Unit tests for the aligned_block_allocator
- *
- * \author Matthew Rodusek (matthew.rodusek@gmail.com)
- */
+ *****************************************************************************/
+
 
 #include <bit/memory/block_allocators/aligned_block_allocator.hpp>
 #include <bit/memory/utilities/pointer_utilities.hpp> // align_of
