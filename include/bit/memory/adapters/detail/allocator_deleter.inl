@@ -27,7 +27,7 @@ inline void bit::memory::allocator_deleter<T,AllocatorStorage>::operator()( poin
   auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
-  destroy_at( to_raw_pointer(p) );
+  alloc_traits::destroy( to_raw_pointer(p) );
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) );
 }
 
@@ -58,7 +58,13 @@ inline void bit::memory::allocator_deleter<T[],Allocator>::operator()( pointer p
   auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
-  destroy_at( to_raw_pointer(p) );
+  // Destroy all memory, then deallocate it
+  auto end     = to_raw_pointer(p);
+  auto current = first + m_size;
+
+  while( current != end ) {
+    alloc_traits::destroy( --current );
+  }
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * m_size );
 }
 
