@@ -82,7 +82,7 @@ inline void bit::memory::polymorphic_allocator_deleter<T,AllocatorStorage>
   auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
-  destroy_at( to_raw_pointer(p) );
+  alloc_traits::destroy( allocator, to_raw_pointer(p) );
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), m_size );
 }
 
@@ -135,7 +135,13 @@ inline void bit::memory::polymorphic_allocator_deleter<T[],AllocatorStorage>
   auto& storage   = get<0>(*this);
   auto& allocator = storage.get_allocator();
 
-  destroy_array_at( to_raw_pointer(p), m_size );
+  // Destroy all memory, then deallocate it
+  auto end     = to_raw_pointer(p);
+  auto current = end + m_size;
+
+  while( current != end ) {
+    alloc_traits::destroy( allocator, --current );
+  }
   alloc_traits::deallocate( allocator, static_cast<void_pointer>(p), sizeof(T) * m_size );
 }
 

@@ -60,7 +60,7 @@ inline void bit::memory::allocator_deleter<T[],Allocator>::operator()( pointer p
 
   // Destroy all memory, then deallocate it
   auto end     = to_raw_pointer(p);
-  auto current = first + m_size;
+  auto current = end + m_size;
 
   while( current != end ) {
     alloc_traits::destroy( allocator, --current );
