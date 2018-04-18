@@ -409,45 +409,12 @@ inline void bit::memory::allocator_traits<Allocator>
 }
 
 //-----------------------------------------------------------------------------
-// Observers
-//-----------------------------------------------------------------------------
-
-template<typename Allocator>
-typename bit::memory::allocator_traits<Allocator>::size_type
-  bit::memory::allocator_traits<Allocator>
-  ::recommended_allocation_size( const Allocator& alloc, size_type requested )
-{
-  static constexpr auto tag = allocator_has_recommended_allocation_size<Allocator>{};
-  using impl_type = detail::allocator_traits_impl<Allocator>;
-
-  impl_type::do_recommended_allocation_size( tag, alloc, requested );
-}
-
-template<typename Allocator>
-inline bool bit::memory::allocator_traits<Allocator>
-  ::owns( const Allocator& alloc, const_pointer p )
-  noexcept
-{
-  return alloc.owns(p);
-}
-
-template<typename Allocator>
-inline bit::memory::allocator_info
-  bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
-  noexcept
-{
-  using impl_type = detail::allocator_traits_impl<Allocator>;
-
-  return impl_type::do_info( allocator_has_info<Allocator>{}, alloc );
-}
-
-//-----------------------------------------------------------------------------
 // Construction
 //-----------------------------------------------------------------------------
 
 template<typename Allocator>
 template<typename T, typename...Args>
-inline void  bit::memory::allocator_traits<Allocator>
+inline void bit::memory::allocator_traits<Allocator>
   ::construct( Allocator& alloc, void* p, Args&&...args )
 {
   static constexpr auto tag = allocator_has_construct<Allocator,T,Args...>{};
@@ -531,6 +498,39 @@ void bit::memory::allocator_traits<Allocator>
   using impl_type = detail::allocator_traits_impl<Allocator>;
 
   impl_type::do_dispose_array( tag, alloc, std::move(p), n );
+}
+
+//-----------------------------------------------------------------------------
+// Observers
+//-----------------------------------------------------------------------------
+
+template<typename Allocator>
+typename bit::memory::allocator_traits<Allocator>::size_type
+  bit::memory::allocator_traits<Allocator>
+  ::recommended_allocation_size( const Allocator& alloc, size_type requested )
+{
+  static constexpr auto tag = allocator_has_recommended_allocation_size<Allocator>{};
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  impl_type::do_recommended_allocation_size( tag, alloc, requested );
+}
+
+template<typename Allocator>
+inline bool bit::memory::allocator_traits<Allocator>
+  ::owns( const Allocator& alloc, const_pointer p )
+  noexcept
+{
+  return alloc.owns(p);
+}
+
+template<typename Allocator>
+inline bit::memory::allocator_info
+  bit::memory::allocator_traits<Allocator>::info( const Allocator& alloc )
+  noexcept
+{
+  using impl_type = detail::allocator_traits_impl<Allocator>;
+
+  return impl_type::do_info( allocator_has_info<Allocator>{}, alloc );
 }
 
 //-----------------------------------------------------------------------------
