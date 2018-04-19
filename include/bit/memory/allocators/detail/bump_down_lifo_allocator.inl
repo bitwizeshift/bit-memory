@@ -97,22 +97,4 @@ inline bit::memory::allocator_info bit::memory::bump_down_lifo_allocator::info()
   return {"bump_down_lifo_allocator",this};
 }
 
-//----------------------------------------------------------------------------
-// Comparisons
-//----------------------------------------------------------------------------
-
-bool bit::memory::operator==( const bump_down_lifo_allocator& lhs,
-                              const bump_down_lifo_allocator& rhs )
-  noexcept
-{
-  return lhs.m_current == rhs.m_current && lhs.m_block == rhs.m_block;
-}
-
-bool bit::memory::operator!=( const bump_down_lifo_allocator& lhs,
-                              const bump_down_lifo_allocator& rhs )
-  noexcept
-{
-  return !(lhs==rhs);
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_BUMP_DOWN_LIFO_ALLOCATOR_INL */

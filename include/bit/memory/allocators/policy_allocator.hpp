@@ -243,36 +243,7 @@ namespace bit {
       /// \return the minimum amount of bytes able to allocated
       template<typename U = ExtendedAllocator, typename = std::enable_if_t<allocator_has_min_size<U>::value>>
       std::size_t min_size() const noexcept;
-
-      //-----------------------------------------------------------------------
-      // Private Members
-      //-----------------------------------------------------------------------
-    private:
-
-      /// \brief Determines equality between two policy allocators
-      ///
-      /// \note This function exists to circumvent an issue where casting to a
-      ///       private base-class from a friend function is illegal
-      ///
-      /// \param other the allocator to compare to
-      bool equals( const policy_allocator& other ) const noexcept;
-
-      template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-      friend bool operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                              const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
     };
-
-    //-------------------------------------------------------------------------
-    // Comparison
-    //-------------------------------------------------------------------------
-
-    template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-    bool operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                     const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
-
-    template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-    bool operator!=( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                     const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs ) noexcept;
 
   } // namespace memory
 } // namespace bit

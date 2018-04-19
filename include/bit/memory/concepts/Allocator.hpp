@@ -100,24 +100,6 @@ namespace bit {
     ///
     /// - - - - -
     ///
-    /// \code
-    /// a1 == a2
-    /// \endcode
-    ///
-    /// returns true only if the storage allocated by the allocator a1 can be
-    /// deallocated through a2. Establishes reflexive, symmetric, and
-    /// transitive relationship. Does not throw exceptions.
-    ///
-    /// - - - - -
-    ///
-    /// \code
-    /// a1 != a2
-    /// \endcode
-    ///
-    /// same as !(a1==a2)
-    ///
-    /// - - - - -
-    ///
     /// **Optionally**
     ///
     /// \code

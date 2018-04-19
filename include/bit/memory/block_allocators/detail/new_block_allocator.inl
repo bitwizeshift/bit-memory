@@ -45,24 +45,4 @@ inline bit::memory::allocator_info bit::memory::new_block_allocator<Size>::info(
   return {"new_block_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Comparisons
-//-----------------------------------------------------------------------------
-
-template<std::size_t Size>
-inline bool bit::memory::operator==( const new_block_allocator<Size>& lhs,
-                                     const new_block_allocator<Size>& rhs )
-  noexcept
-{
-  return lhs.next_block_size() == rhs.next_block_size();
-}
-
-template<std::size_t Size>
-inline bool bit::memory::operator!=( const new_block_allocator<Size>& lhs,
-                                     const new_block_allocator<Size>& rhs )
-  noexcept
-{
-  return !(lhs == rhs);
-}
-
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NEW_BLOCK_ALLOCATOR_INL */

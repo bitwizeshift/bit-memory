@@ -183,18 +183,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    template<std::size_t S>
-    bool operator==( const new_block_allocator<S>& lhs,
-                     const new_block_allocator<S>& rhs ) noexcept;
-
-    template<std::size_t S>
-    bool operator!=( const new_block_allocator<S>& lhs,
-                     const new_block_allocator<S>& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

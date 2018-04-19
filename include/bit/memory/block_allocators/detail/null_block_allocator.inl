@@ -35,22 +35,4 @@ inline bit::memory::allocator_info  bit::memory::null_block_allocator::info()
   return {"null_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const null_block_allocator&,
-                                     const null_block_allocator& )
-  noexcept
-{
-  return true;
-}
-
-inline bool bit::memory::operator!=( const null_block_allocator&,
-                                     const null_block_allocator& )
-  noexcept
-{
-  return false;
-}
-
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_NULL_BLOCK_ALLOCATOR_INL */

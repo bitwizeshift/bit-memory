@@ -107,24 +107,4 @@ void bit::memory::pool_allocator::create_pool()
   }
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const pool_allocator& lhs,
-                                     const pool_allocator& rhs )
-  noexcept
-{
-  return lhs.m_freelist == rhs.m_freelist &&
-         lhs.m_block == rhs.m_block &&
-         lhs.m_chunk_size == rhs.m_chunk_size;
-}
-
-inline bool bit::memory::operator!=( const pool_allocator& lhs,
-                                     const pool_allocator& rhs )
-  noexcept
-{
-  return !(lhs==rhs);
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_POOL_ALLOCATOR_INL */

@@ -68,24 +68,4 @@ inline void bit::memory::growing_aligned_block_allocator<Size,Align>::grow()
   base_type::m_multiplier *= 2;
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-template<std::size_t Size, std::size_t Align>
-inline bool bit::memory::operator==( const growing_aligned_block_allocator<Size,Align>& lhs,
-                                     const growing_aligned_block_allocator<Size,Align>& rhs )
-  noexcept
-{
-  return lhs.next_block_size() == rhs.next_block_size();
-}
-
-template<std::size_t Size, std::size_t Align>
-inline bool bit::memory::operator!=( const growing_aligned_block_allocator<Size,Align>& lhs,
-                                     const growing_aligned_block_allocator<Size,Align>& rhs )
-  noexcept
-{
-  return !(lhs == rhs);
-}
-
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_GROWING_ALIGNED_BLOCK_ALLOCATOR_INL */

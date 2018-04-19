@@ -134,20 +134,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    /// \{
-    /// \brief Compares equality between two malloc_allocators
-    ///
-    /// Two malloc_allocators are always considered the same
-    bool operator==( const malloc_allocator& lhs,
-                     const malloc_allocator& rhs ) noexcept;
-    bool operator!=( const malloc_allocator& lhs,
-                     const malloc_allocator& rhs ) noexcept;
-    /// \}
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

@@ -161,16 +161,7 @@ namespace bit {
 
       /// \brief Creates the pool of instances to be used by the allocator
       void create_pool();
-
-      friend bool operator==( const pool_allocator&, const pool_allocator&) noexcept;
     };
-
-    //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    bool operator==( const pool_allocator& lhs, const pool_allocator& rhs ) noexcept;
-    bool operator!=( const pool_allocator& lhs, const pool_allocator& rhs ) noexcept;
 
     //-------------------------------------------------------------------------
     // Utilities
