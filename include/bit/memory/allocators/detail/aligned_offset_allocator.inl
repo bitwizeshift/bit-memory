@@ -32,22 +32,4 @@ inline bit::memory::allocator_info bit::memory::aligned_offset_allocator::info()
   return {"aligned_offset_allocator",nullptr};
 }
 
-//-----------------------------------------------------------------------------
-// Comparators
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const aligned_offset_allocator&,
-                                     const aligned_offset_allocator& )
-  noexcept
-{
-  return true;
-}
-
-inline bool bit::memory::operator!=( const aligned_offset_allocator&,
-                                     const aligned_offset_allocator& )
-  noexcept
-{
-  return false;
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ALIGNED_OFFSET_ALLOCATOR_INL */

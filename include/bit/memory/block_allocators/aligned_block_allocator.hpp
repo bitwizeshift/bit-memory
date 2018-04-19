@@ -230,18 +230,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    template<std::size_t Size, std::size_t Align>
-    bool operator==( const aligned_block_allocator<Size,Align>& lhs,
-                     const aligned_block_allocator<Size,Align>& rhs ) noexcept;
-
-    template<std::size_t Size, std::size_t Align>
-    bool operator!=( const aligned_block_allocator<Size,Align>& lhs,
-                     const aligned_block_allocator<Size,Align>& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

@@ -134,18 +134,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    /// \{
-    /// \brief Compares equality between two new_allocators
-    ///
-    /// Two new_allocators are always considered the same
-    bool operator==( const new_allocator&, const new_allocator& ) noexcept;
-    bool operator!=( const new_allocator&, const new_allocator& ) noexcept;
-    /// \}
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

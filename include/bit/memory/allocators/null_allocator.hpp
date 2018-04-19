@@ -148,20 +148,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    /// \{
-    /// \brief Compares equality between two null_allocators
-    ///
-    /// Two null_allocators are always considered the same
-    bool operator==( const null_allocator& lhs,
-                     const null_allocator& rhs ) noexcept;
-    bool operator!=( const null_allocator& lhs,
-                     const null_allocator& rhs ) noexcept;
-    /// \}
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

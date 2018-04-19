@@ -156,39 +156,4 @@ bit::memory::allocator_info
   return allocator_traits<ExtendedAllocator>::info( allocator );
 }
 
-template<typename ExtendedAllocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-inline bool bit::memory::policy_allocator<ExtendedAllocator,Tagger,Tracker,Checker,Lock>
-  ::equals( const policy_allocator& other )
-  const noexcept
-{
-  auto& lhs_allocator = get<0>( *this );
-  auto& rhs_allocator = get<0>( other );
-
-  return lhs_allocator == rhs_allocator;
-}
-
-//-----------------------------------------------------------------------------
-// Comparison
-//-----------------------------------------------------------------------------
-
-template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-inline bool bit::memory
-  ::operator==( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
-  noexcept
-{
-  return lhs.equals(rhs);
-}
-
-
-template<typename Allocator, typename Tagger, typename Tracker,typename Checker, typename Lock>
-inline bool bit::memory
-  ::operator!=( const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& lhs,
-                const policy_allocator<Allocator,Tagger,Tracker,Checker,Lock>& rhs )
-  noexcept
-{
-  return !(lhs == rhs);
-}
-
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_POLICY_ALLOCATOR_INL */

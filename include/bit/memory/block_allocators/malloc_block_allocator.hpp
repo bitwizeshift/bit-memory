@@ -171,18 +171,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    template<std::size_t Size>
-    bool operator==( const malloc_block_allocator<Size>& lhs,
-                     const malloc_block_allocator<Size>& rhs ) noexcept;
-
-    template<std::size_t Size>
-    bool operator!=( const malloc_block_allocator<Size>& lhs,
-                     const malloc_block_allocator<Size>& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
     // Utiltiies
     //-------------------------------------------------------------------------
 

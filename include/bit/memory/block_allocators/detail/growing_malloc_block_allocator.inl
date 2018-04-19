@@ -60,26 +60,4 @@ inline void bit::memory::growing_malloc_block_allocator<Size>::grow()
   base_type::m_multiplier *= 2;
 }
 
-
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-template<std::size_t Size>
-inline bool bit::memory::operator==( const growing_malloc_block_allocator<Size>& lhs,
-                                     const growing_malloc_block_allocator<Size>& rhs )
-  noexcept
-{
-  return lhs.m_growths_available == rhs.m_growths_available &&
-         lhs.m_multiplier == rhs.m_multiplier;
-}
-
-template<std::size_t Size>
-inline bool bit::memory::operator!=( const growing_malloc_block_allocator<Size>& lhs,
-                                     const growing_malloc_block_allocator<Size>& rhs )
-  noexcept
-{
-  return !(lhs == rhs);
-}
-
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_GROWING_MALLOC_BLOCK_ALLOCATOR_INL */

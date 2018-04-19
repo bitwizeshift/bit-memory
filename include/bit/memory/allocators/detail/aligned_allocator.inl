@@ -31,22 +31,4 @@ inline bit::memory::allocator_info bit::memory::aligned_allocator::info()
   return {"aligned_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const aligned_allocator&,
-                                     const aligned_allocator& )
-  noexcept
-{
-  return true;
-}
-
-inline bool bit::memory::operator!=( const aligned_allocator&,
-                                     const aligned_allocator& )
-  noexcept
-{
-  return false;
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_ALIGNED_ALLOCATOR_INL */

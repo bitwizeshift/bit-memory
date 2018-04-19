@@ -188,23 +188,7 @@ namespace bit {
 
       /// \brief Grows the size of each block, if possible
       void grow();
-
-      template<std::size_t S>
-      friend bool operator==( const growing_malloc_block_allocator<S>&,
-                              const growing_malloc_block_allocator<S>& rhs ) noexcept;
     };
-
-    //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    template<std::size_t Size>
-    bool operator==( const growing_malloc_block_allocator<Size>& lhs,
-                     const growing_malloc_block_allocator<Size>& rhs ) noexcept;
-
-    template<std::size_t Size>
-    bool operator!=( const growing_malloc_block_allocator<Size>& lhs,
-                     const growing_malloc_block_allocator<Size>& rhs ) noexcept;
 
     //-------------------------------------------------------------------------
     // Utilities

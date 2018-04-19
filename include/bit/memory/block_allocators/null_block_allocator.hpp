@@ -128,15 +128,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    bool operator==( const null_block_allocator& lhs,
-                     const null_block_allocator& rhs ) noexcept;
-    bool operator!=( const null_block_allocator& lhs,
-                     const null_block_allocator& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

@@ -35,22 +35,4 @@ inline bit::memory::allocator_info bit::memory::malloc_allocator::info()
   return {"malloc_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const malloc_allocator&,
-                                     const malloc_allocator& )
-  noexcept
-{
-  return true;
-}
-
-inline bool bit::memory::operator!=( const malloc_allocator&,
-                                     const malloc_allocator& )
-  noexcept
-{
-  return false;
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_MALLOC_ALLOCATOR_INL */

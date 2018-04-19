@@ -130,20 +130,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    /// \{
-    /// \brief Compares equality between two aligned_allocator
-    ///
-    /// Two aligned_allocator are always considered the same
-    bool operator==( const aligned_allocator& lhs,
-                     const aligned_allocator& rhs ) noexcept;
-    bool operator!=( const aligned_allocator& lhs,
-                     const aligned_allocator& rhs ) noexcept;
-    /// \}
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

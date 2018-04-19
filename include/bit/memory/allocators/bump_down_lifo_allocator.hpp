@@ -158,16 +158,7 @@ namespace bit {
 
       memory_block m_block;
       void*        m_current;
-
-      friend bool operator==( const bump_down_lifo_allocator&, const bump_down_lifo_allocator& ) noexcept;
     };
-
-    //-------------------------------------------------------------------------
-    // Comparisons
-    //-------------------------------------------------------------------------
-
-    bool operator==( const bump_down_lifo_allocator& lhs, const bump_down_lifo_allocator& rhs ) noexcept;
-    bool operator!=( const bump_down_lifo_allocator& lhs, const bump_down_lifo_allocator& rhs ) noexcept;
 
     //-------------------------------------------------------------------------
     // Utilities

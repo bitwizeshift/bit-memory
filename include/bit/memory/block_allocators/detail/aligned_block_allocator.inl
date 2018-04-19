@@ -55,24 +55,4 @@ inline bit::memory::allocator_info
   return {"aligned_block_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-template<std::size_t Size, std::size_t Align>
-inline bool bit::memory::operator==( const aligned_block_allocator<Size,Align>& lhs,
-                                     const aligned_block_allocator<Size,Align>& rhs )
-  noexcept
-{
-  return lhs.next_block_size() == rhs.next_block_size();
-}
-
-template<std::size_t Size, std::size_t Align>
-inline bool bit::memory::operator!=( const aligned_block_allocator<Size,Align>& lhs,
-                                     const aligned_block_allocator<Size,Align>& rhs )
-  noexcept
-{
-  return !(lhs == rhs);
-}
-
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_DETAIL_ALIGNED_BLOCK_ALLOCATOR_INL */

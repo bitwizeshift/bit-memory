@@ -30,22 +30,4 @@ inline bit::memory::allocator_info bit::memory::new_allocator::info()
   return {"new_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-inline bool bit::memory::operator==( const new_allocator&,
-                                     const new_allocator& )
-  noexcept
-{
-  return true;
-}
-
-inline bool bit::memory::operator!=( const new_allocator&,
-                                     const new_allocator& )
-  noexcept
-{
-  return false;
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_NEW_ALLOCATOR_INL */

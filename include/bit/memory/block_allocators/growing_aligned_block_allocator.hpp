@@ -242,18 +242,6 @@ namespace bit {
     };
 
     //-------------------------------------------------------------------------
-    // Equality
-    //-------------------------------------------------------------------------
-
-    template<std::size_t Size, std::size_t Align>
-    bool operator==( const growing_aligned_block_allocator<Size,Align>& lhs,
-                     const growing_aligned_block_allocator<Size,Align>& rhs ) noexcept;
-
-    template<std::size_t Size, std::size_t Align>
-    bool operator!=( const growing_aligned_block_allocator<Size,Align>& lhs,
-                     const growing_aligned_block_allocator<Size,Align>& rhs ) noexcept;
-
-    //-------------------------------------------------------------------------
     // Utilities
     //-------------------------------------------------------------------------
 

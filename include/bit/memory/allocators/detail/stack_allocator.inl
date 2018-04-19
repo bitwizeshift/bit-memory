@@ -105,25 +105,4 @@ inline bit::memory::allocator_info bit::memory::stack_allocator<Size,Align>::inf
   return {"stack_allocator",this};
 }
 
-//-----------------------------------------------------------------------------
-// Equality
-//-----------------------------------------------------------------------------
-
-template<std::size_t S, std::size_t A>
-inline bool bit::memory::operator==( const stack_allocator<S,A>& lhs,
-                                     const stack_allocator<S,A>& rhs )
-  noexcept
-{
-  return lhs.m_current == rhs.m_current &&
-         (&lhs.m_storage[0]) == (&rhs.m_storage[0]);
-}
-
-template<std::size_t S, std::size_t A>
-inline bool bit::memory::operator!=( const stack_allocator<S,A>& lhs,
-                                     const stack_allocator<S,A>& rhs )
-  noexcept
-{
-  return !(lhs==rhs);
-}
-
 #endif /* BIT_MEMORY_ALLOCATORS_DETAIL_STACK_ALLOCATOR_INL */
