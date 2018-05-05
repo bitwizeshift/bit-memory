@@ -58,6 +58,7 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 
 set(headers
   # Utilities
+  include/bit/memory/utilities/address.hpp
   include/bit/memory/utilities/allocator_info.hpp
   include/bit/memory/utilities/debugging.hpp
   include/bit/memory/utilities/dynamic_size_type.hpp
@@ -168,6 +169,7 @@ set(headers
 # this is added for IDEs like CLion to accurately track headers.
 set(inline_headers
   # Utilities
+  include/bit/memory/utilities/detail/address.inl
   include/bit/memory/utilities/detail/allocator_info.inl
   include/bit/memory/utilities/detail/debugging.inl
   include/bit/memory/utilities/detail/dynamic_size_type.inl
@@ -350,9 +352,9 @@ endif()
 # bit::memory : Benchmarks
 #-----------------------------------------------------------------------------
 
-if( BIT_MEMORY_COMPILE_BENCHMARKS )
-  add_subdirectory(benchmarks)
-endif()
+# if( BIT_MEMORY_COMPILE_BENCHMARKS )
+#   add_subdirectory(benchmarks)
+# endif()
 
 #-----------------------------------------------------------------------------
 # bit::memory : Documentation
