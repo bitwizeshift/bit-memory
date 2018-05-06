@@ -241,21 +241,6 @@ inline void* bit::memory::offset_align_backward( void* p,
   const auto new_p   = reinterpret_cast<void*>(((address + offset) & (~static_cast<std::uintptr_t>(alignment-1))) - offset);
   return new_p;
 }
-//-----------------------------------------------------------------------------
-// Pointer Manipulation
-//-----------------------------------------------------------------------------
-
-inline std::uintptr_t bit::memory::to_address( void* ptr )
-noexcept
-{
-  return reinterpret_cast<std::uintptr_t>(ptr);
-}
-
-inline void* bit::memory::from_address( std::uintptr_t address )
-noexcept
-{
-  return reinterpret_cast<void*>(address);
-}
 
 //-----------------------------------------------------------------------------
 // Nullability

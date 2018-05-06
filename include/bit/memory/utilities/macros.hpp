@@ -45,10 +45,13 @@
 #error BIT_MEMORY_ASSUME cannot be defined outside of macros.hpp
 #endif
 
+#ifdef BIT_MEMORY_UNREACHABLE
+#error BIT_MEMORY_UNREACHABLE cannot be defined outside of macros.hpp
+#endif
+
 #ifdef BIT_MEMORY_UNUSED
 #error BIT_MEMORY_UNUSED cannot be defined outside of macros.hpp
 #endif
-
 
 #ifdef __GNUC__
 #define BIT_MEMORY_LIKELY(x) __builtin_expect(!!(x),1)
@@ -68,6 +71,16 @@
 #define BIT_MEMORY_ASSUME(x) __assume(x)
 #else
 #define BIT_MEMORY_ASSUME(x) x
+#endif
+
+#if defined(__clang__)
+#define BIT_MEMORY_UNREACHABLE() __builtin_unreachable()
+#elif defined(__GNUC__) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)))
+#define BIT_MEMORY_UNREACHABLE() __builtin_unreachable()
+#elif defined(__MSC_VER)
+#define BIT_MEMORY_UNREACHABLE() __assume(0)
+#else
+#define BIT_MEMORY_UNREACHABLE()
 #endif
 
 #define BIT_MEMORY_UNUSED(x) (void) x

@@ -58,6 +58,7 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/memory/version.hpp"
 
 set(headers
   # Utilities
+  include/bit/memory/utilities/address.hpp
   include/bit/memory/utilities/allocator_info.hpp
   include/bit/memory/utilities/debugging.hpp
   include/bit/memory/utilities/dynamic_size_type.hpp
@@ -92,6 +93,7 @@ set(headers
   # Traits
   include/bit/memory/traits/allocator_traits.hpp
   include/bit/memory/traits/block_allocator_traits.hpp
+  include/bit/memory/traits/extended_allocator_traits.hpp
 
   # Regions
   include/bit/memory/regions/aligned_heap_memory.hpp
@@ -168,6 +170,7 @@ set(headers
 # this is added for IDEs like CLion to accurately track headers.
 set(inline_headers
   # Utilities
+  include/bit/memory/utilities/detail/address.inl
   include/bit/memory/utilities/detail/allocator_info.inl
   include/bit/memory/utilities/detail/debugging.inl
   include/bit/memory/utilities/detail/dynamic_size_type.inl
@@ -184,6 +187,7 @@ set(inline_headers
   # Traits
   include/bit/memory/traits/detail/allocator_traits.inl
   include/bit/memory/traits/detail/block_allocator_traits.inl
+  include/bit/memory/traits/detail/extended_allocator_traits.inl
 
   # Regions
   include/bit/memory/regions/detail/virtual_memory.inl
@@ -350,9 +354,9 @@ endif()
 # bit::memory : Benchmarks
 #-----------------------------------------------------------------------------
 
-if( BIT_MEMORY_COMPILE_BENCHMARKS )
-  add_subdirectory(benchmarks)
-endif()
+# if( BIT_MEMORY_COMPILE_BENCHMARKS )
+#   add_subdirectory(benchmarks)
+# endif()
 
 #-----------------------------------------------------------------------------
 # bit::memory : Documentation

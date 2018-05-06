@@ -446,6 +446,19 @@ namespace bit {
         void_t<decltype(T::max_alignment)>>
         : std::integral_constant<allocator_size_type_t<T>,alignof(std::max_align_t)>{};
 
+      //----------------------------------------------------------------------
+
+      template<typename T, typename = void>
+      struct allocator_has_expand : std::false_type{};
+
+      template<typename T>
+      struct allocator_has_expand<T,
+        void_t<decltype(std::declval<bool&>()
+          = std::declval<T&>().expand( std::declval<allocator_pointer_t<T>&>(),
+                                       std::declval<allocator_size_type_t<T>>() ))
+        >
+      > : std::true_type{};
+
     } // namespace detail
 
     /// \brief Type-trait to determine whether \p T has a 'try_allocate'
@@ -785,6 +798,25 @@ namespace bit {
     /// \tparam T the type to check
     template<typename T>
     constexpr allocator_size_type_t<T> allocator_max_alignment_v = allocator_max_alignment<T>::value;
+
+    //-------------------------------------------------------------------------
+
+    /// \brief Type trait to determine whether the allocator has the expand
+    ///        function
+    ///
+    /// The result is aliased as \c ::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    struct allocator_has_expand
+      : detail::allocator_has_expand<T>{};
+
+    /// \brief Convenience template bool for accessing
+    ///        \c allocator_has_expand<T>::value
+    ///
+    /// \tparam T the type to check
+    template<typename T>
+    constexpr bool allocator_has_expand_v = allocator_has_expand<T>::value;
 
     //-------------------------------------------------------------------------
 

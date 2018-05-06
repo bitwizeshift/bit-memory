@@ -118,10 +118,28 @@ inline T bit::memory::make_from_tuple( Tuple&& tuple )
 // Destruction
 //----------------------------------------------------------------------------
 
+namespace bit { namespace memory { namespace detail {
+
+  template<typename T>
+  inline void destroy_at_impl( T* p, std::false_type )
+  {
+    // trivial destructor; nothing to call
+  }
+
+  template<typename T>
+  inline void destroy_at_impl( T* p, std::true_type )
+  {
+    p->~T();
+  }
+
+} } } // namespace bit::memory::detail
+
 template<typename T>
 inline void bit::memory::destroy_at( T* p )
 {
-  p->~T();
+  static constexpr auto tag = std::is_trivially_destructible<T>{};
+
+  detail::destroy_at_impl( p, tag );
 }
 
 template<typename T>
