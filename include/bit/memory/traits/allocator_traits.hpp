@@ -41,18 +41,32 @@
 #include "../utilities/pointer_utilities.hpp"     // to_raw_pointer
 #include "../utilities/uninitialized_storage.hpp" // destroy_at, etc
 
-#include "../concepts/Stateless.hpp"         // is_stateless
-#include "../concepts/Allocator.hpp"         // is_allocator, allocator_has_allocate,
-#include "../concepts/ExtendedAllocator.hpp" // allocator_has_extended_try_allocate
+#include "../concepts/Allocator.hpp" // is_allocator, allocator_has_allocate,
 
 #include <type_traits> // std::true_type, std::false_type, etc
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <limits>      // std::numeric_limits
-#include <memory>      // std::addressof
+#include <memory>      // std::addressof. std::pointer_traits
 #include <typeinfo>    // std::type_info
+#include <utility>     // std::move, std::forward
 
 namespace bit {
   namespace memory {
+    namespace detail {
+
+      template<typename Allocator, typename T, typename=void>
+      struct allocator_pointer_rebind
+      {
+        using type = typename std::pointer_traits<allocator_pointer_t<Allocator>>::template rebind<T>;
+      };
+
+      template<typename Allocator, typename T>
+      struct allocator_pointer_rebind<Allocator,T,void_t<typename Allocator::template pointer_rebind<T>>>
+      {
+        using type = typename Allocator::template pointer_rebind<T>;
+      };
+
+    } // namespace detail
 
     ///////////////////////////////////////////////////////////////////////////
     /// \brief The allocator_traits class template provides a standardized
@@ -69,29 +83,38 @@ namespace bit {
       static_assert( is_allocator<Allocator>::value,
                      "Allocator must be an Allocator" );
 
+      template<typename T>
+      struct negation : std::integral_constant<bool,!T::value>{};
+
       //-----------------------------------------------------------------------
       // Public Members
       //-----------------------------------------------------------------------
     public:
 
+      // aliases
       using pointer         = allocator_pointer_t<Allocator>;
       using const_pointer   = allocator_const_pointer_t<Allocator>;
       using size_type       = allocator_size_type_t<Allocator>;
       using difference_type = allocator_difference_type_t<Allocator>;
 
+      /// \brief Rebinds a pointer to the new pointer type
+      ///
+      /// \tparam T the type to rebind the pointer to
+      template<typename T>
+      using pointer_rebind = typename detail::allocator_pointer_rebind<Allocator,T>::type;
+
+      // properties
       using default_alignment          = allocator_default_alignment<Allocator>;
       using max_alignment              = allocator_max_alignment<Allocator>;
       using can_truncate_deallocations = allocator_can_truncate_deallocations<Allocator>;
       using knows_ownership            = allocator_knows_ownership<Allocator>;
+      using uses_pretty_pointers       = negation<std::is_same<void*,pointer_rebind<void>>>;
 
-      template<typename T>
-      using typed_pointer = typename std::pointer_traits<pointer>::template rebind<T>;
-      template<typename T>
-      using const_typed_pointer = typename std::pointer_traits<const_pointer>::template rebind<const T>;
+    private:
 
-      // todo
-      using propagate_on_container_copy_assignment = std::false_type;
-      using propagate_on_container_move_assignment = std::false_type;
+      template<typename Pointer>
+      static constexpr bool is_typed_pointer = std::is_same<typename std::pointer_traits<Pointer>::template rebind<void>,
+                                                            pointer>::value;
 
       //-----------------------------------------------------------------------
       // Allocation
@@ -118,33 +141,6 @@ namespace bit {
                                    size_type align ) noexcept;
       /// \}
 
-      /// \{
-      /// \brief Attempts to allocate memory of at least \p size bytes,
-      ///        aligned to \p align boundary with an offset of \p offset bytes
-      ///
-      /// On failure, this function returns \p nullptr
-      ///
-      /// \param alloc the allocator to allocate from
-      /// \param hint pointer to a nearby memory location to allocate near
-      /// \param size the size of the allocation
-      /// \param align the alignment of the allocation
-      /// \param offset the offset of the allocation
-      /// \return the pointer to the allocated memory
-      template<typename U = Allocator,
-               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
-      static pointer try_allocate( Allocator& alloc,
-                                   size_type size,
-                                   size_type align,
-                                   size_type offset ) noexcept;
-      template<typename U = Allocator,
-               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
-      static pointer try_allocate( Allocator& alloc,
-                                   const_pointer hint,
-                                   size_type size,
-                                   size_type align,
-                                   size_type offset ) noexcept;
-      /// \}
-
       //-----------------------------------------------------------------------
 
       /// \{
@@ -167,36 +163,6 @@ namespace bit {
                                size_type size,
                                size_type align );
       /// \}
-
-      /// \{
-      /// \brief Allocates memory of at least \p size bytes, aligned to \p
-      ///        align boundary
-      ///
-      /// On failure, this function may throw or invoke the out_of_memory
-      /// handler before returning \p nullptr
-      ///
-      /// \param alloc the allocator to allocate from
-      /// \param hint pointer to a nearby memory location to allocate near
-      /// \param size the size of the allocation
-      /// \param align the alignment of the allocation
-      /// \param offset the offset of the allocation
-      /// \return the pointer to the allocated member
-      template<typename U = Allocator,
-               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
-      static pointer allocate( Allocator& alloc,
-                               size_type size,
-                               size_type align,
-                               size_type offset );
-      template<typename U = Allocator,
-               typename = std::enable_if<allocator_has_extended_allocate<U>::value>>
-      static pointer allocate( Allocator& alloc,
-                               const_pointer hint,
-                               size_type size,
-                               size_type align,
-                               size_type offset );
-      /// \}
-
-      //-----------------------------------------------------------------------
 
       /// \{
       /// \brief Expands the memory addres located at \p p to contain \p
@@ -245,14 +211,14 @@ namespace bit {
       //-----------------------------------------------------------------------
     public:
 
-      // Unfortunately, MSVC is unable to compile 'typed_allocator<T>' as a
+      // Unfortunately, MSVC is unable to compile 'pointer_rebind<T>' as a
       // return type, with the definition written out-of-line -- so the following
       // is expanded in place.
       //
-      // gcc/clang accept 'typed_pointer<T>' with its expansion:
-      // typename bit::memory::allocator_traits<Allocator>::template typed_pointer<T>
-      // MSVC does not, but curiously will except the ever-verbose expansion
-      // of what 'typed_pointer<T>' aliases.
+      // gcc/clang accept 'pointer_rebind<T>' with its expansion:
+      // typename bit::memory::allocator_traits<Allocator>::template pointer_rebind<T>
+      // MSVC does not, but curiously will accept the ever-verbose expansion
+      // of what 'pointer_rebind<T>' aliases.
 
       /// \brief Constructs an instance of \p T at address \p p with \p args
       ///
@@ -274,7 +240,7 @@ namespace bit {
       /// \param args the arguments to forward to T's constructor
       /// \return pointer to the constructed type
       template<typename T, typename...Args>
-      static typename std::pointer_traits<pointer>::template rebind<T>
+      static typename detail::allocator_pointer_rebind<Allocator,T>::type
         make( Allocator& alloc, Args&&...args );
 
       //-----------------------------------------------------------------------
@@ -328,10 +294,10 @@ namespace bit {
       ///       call to dispose
       ///
       /// \param alloc the allocater to use for deallocation
-      /// \param pointer to the type to destroy
-      template<typename T>
-      static void dispose( Allocator& alloc,
-                           typed_pointer<T> p );
+      /// \param p to the type to destroy
+      template<typename Pointer,
+               typename=std::enable_if_t<is_typed_pointer<Pointer>>>
+      static void dispose( Allocator& alloc, const Pointer& p );
 
       /// \brief Disposes of the given array of T
       ///
@@ -353,10 +319,9 @@ namespace bit {
       ///
       /// \param alloc the allocater to use for deallocation
       /// \param pointer to the type to destroy
-      template<typename T>
-      static void dispose_array( Allocator& alloc,
-                                 typed_pointer<T> p,
-                                 size_type n );
+      template<typename Pointer,
+               typename=std::enable_if_t<is_typed_pointer<Pointer>>>
+      static void dispose_array( Allocator& alloc, const Pointer& p, size_type n );
 
       //-----------------------------------------------------------------------
       // Observers
@@ -382,7 +347,7 @@ namespace bit {
       ///        pointer \p p
       ///
       /// \note This directly invokes \c alloc.owns(p) . It is undefined
-      ///       behaviour to invoke this if \c Allocator::owns is not
+      ///       behavior to invoke this if \c Allocator::owns is not
       ///       defined; branches should instead be taken by using
       ///       \ref knows_ownership
       ///
@@ -402,6 +367,40 @@ namespace bit {
       /// \param alloc the allocator to get the name of
       /// \return the name of the allocator
       static allocator_info info( const Allocator& alloc ) noexcept;
+
+      //-----------------------------------------------------------------------
+      // Conversion
+      //-----------------------------------------------------------------------
+    public:
+
+      /// \brief Converts a reference to an entry into a pointer used by this
+      ///        allocator
+      ///
+      /// This will attempt to call \c Allocator::pointer_to, if it exists, or
+      /// \c std::pointer_traits::pointer_to if it doesn't
+      ///
+      /// \param alloc the allocator to use
+      /// \param x the value
+      /// \return pointer to the entry
+      template<typename T>
+      static typename std::pointer_traits<pointer>::template rebind<T>
+        pointer_to( Allocator& alloc, T& x ) noexcept;
+
+      /// \brief Converts a pointer from this allocator into a reference
+      ///
+      /// This will attempt to call \c Allocator::to_address, if it exists,
+      /// \c *std::pointer_traits::to_address if it doesn't, and fall back to
+      /// recursively dereferencing with \c operator->() until it results in
+      /// a pointer otherwise.
+      ///
+      /// \param alloc the allocator to use
+      /// \param p the pointer
+      /// \return reference to the entry
+      template<typename Pointer,
+               typename=std::enable_if_t<is_typed_pointer<Pointer>>>
+      static typename std::pointer_traits<Pointer>::element_type*
+        to_raw_pointer( Allocator& alloc,
+                        const Pointer& p ) noexcept;
 
       //-----------------------------------------------------------------------
       // Capacity

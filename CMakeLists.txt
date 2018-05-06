@@ -93,6 +93,7 @@ set(headers
   # Traits
   include/bit/memory/traits/allocator_traits.hpp
   include/bit/memory/traits/block_allocator_traits.hpp
+  include/bit/memory/traits/extended_allocator_traits.hpp
 
   # Regions
   include/bit/memory/regions/aligned_heap_memory.hpp
@@ -186,6 +187,7 @@ set(inline_headers
   # Traits
   include/bit/memory/traits/detail/allocator_traits.inl
   include/bit/memory/traits/detail/block_allocator_traits.inl
+  include/bit/memory/traits/detail/extended_allocator_traits.inl
 
   # Regions
   include/bit/memory/regions/detail/virtual_memory.inl
