@@ -105,6 +105,11 @@ set(headers
   include/bit/memory/adapters/standard_allocator.hpp
 
   # Policies
+  # Growth Multipliers
+  include/bit/memory/policies/growth_multipliers/linear_growth.hpp
+  include/bit/memory/policies/growth_multipliers/no_growth.hpp
+  include/bit/memory/policies/growth_multipliers/power_two_growth.hpp
+  include/bit/memory/policies/growth_multipliers/quadratic_growth.hpp
   # Taggers
   include/bit/memory/policies/taggers/allocator_tagger.hpp
   include/bit/memory/policies/taggers/block_allocator_tagger.hpp
@@ -198,6 +203,11 @@ set(inline_headers
   include/bit/memory/adapters/detail/standard_allocator.inl
 
   # Policies
+  # Growth Multipliers
+  include/bit/memory/policies/growth_multipliers/detail/linear_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/no_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/power_two_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/quadratic_growth.inl
   # Taggers
   include/bit/memory/policies/taggers/detail/allocator_tagger.inl
   include/bit/memory/policies/taggers/detail/block_allocator_tagger.inl
