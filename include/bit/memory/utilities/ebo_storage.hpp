@@ -80,12 +80,6 @@ namespace bit {
     template<std::size_t Idx,typename...Types>
     std::tuple_element_t<Idx,const std::tuple<Types...>>&
       get( const ebo_storage<Types...>& ebo );
-    template<std::size_t Idx,typename...Types>
-    std::tuple_element_t<Idx,std::tuple<Types...>>&&
-      get( ebo_storage<Types...>&& ebo );
-    template<std::size_t Idx,typename...Types>
-    std::tuple_element_t<Idx,const std::tuple<Types...>>&&
-      get( const ebo_storage<Types...>&& ebo );
     /// \}
 
     //=========================================================================
@@ -154,8 +148,6 @@ namespace bit {
 
         T0& get( std::integral_constant<std::size_t,Idx> ) &;
         const T0& get( std::integral_constant<std::size_t,Idx> ) const &;
-        T0&& get( std::integral_constant<std::size_t,Idx> ) &&;
-        const T0&& get( std::integral_constant<std::size_t,Idx> ) const &&;
 
         //---------------------------------------------------------------------
         // Private Constructors
@@ -191,8 +183,6 @@ namespace bit {
 
         T0& get( std::integral_constant<std::size_t,Idx> ) &;
         const T0& get( std::integral_constant<std::size_t,Idx> ) const &;
-        T0&& get( std::integral_constant<std::size_t,Idx> ) &&;
-        const T0&& get( std::integral_constant<std::size_t,Idx> ) const &&;
 
         //---------------------------------------------------------------------
         // Private Constructors
@@ -236,8 +226,6 @@ namespace bit {
 
         T0& get( std::integral_constant<std::size_t,Idx> ) &;
         const T0& get( std::integral_constant<std::size_t,Idx> ) const &;
-        T0&& get( std::integral_constant<std::size_t,Idx> ) &&;
-        const T0&& get( std::integral_constant<std::size_t,Idx> ) const &&;
 
         //---------------------------------------------------------------------
         // Private Constructors
@@ -283,8 +271,6 @@ namespace bit {
 
         T0& get( std::integral_constant<std::size_t,Idx> ) &;
         const T0& get( std::integral_constant<std::size_t,Idx> ) const &;
-        T0&& get( std::integral_constant<std::size_t,Idx> ) &&;
-        const T0&& get( std::integral_constant<std::size_t,Idx> ) const &&;
 
         //---------------------------------------------------------------------
         // Private Constructors
@@ -369,14 +355,6 @@ namespace bit {
       template<std::size_t Idx, typename...Types>
       friend std::tuple_element_t<Idx,const std::tuple<Types...>>&
        get( const ebo_storage<Types...>& );
-
-      template<std::size_t Idx, typename...Types>
-      friend std::tuple_element_t<Idx,const std::tuple<Types...>>&&
-       get( ebo_storage<Types...>&& );
-
-      template<std::size_t Idx, typename...Types>
-      friend std::tuple_element_t<Idx,const std::tuple<Types...>>&&
-       get( const ebo_storage<Types...>&& );
     };
 
   } // namespace memory

@@ -19,20 +19,6 @@ inline std::tuple_element_t<Idx,const std::tuple<Types...>>&
   return ebo.get( std::integral_constant<std::size_t,Idx>{} );
 }
 
-template<std::size_t Idx,typename...Types>
-inline std::tuple_element_t<Idx,std::tuple<Types...>>&&
-  bit::memory::get( ebo_storage<Types...>&& ebo )
-{
-  return ebo.get( std::integral_constant<std::size_t,Idx>{} );
-}
-
-template<std::size_t Idx,typename...Types>
-inline std::tuple_element_t<Idx,const std::tuple<Types...>>&&
-  bit::memory::get( const ebo_storage<Types...>&& ebo )
-{
-  return ebo.get( std::integral_constant<std::size_t,Idx>{} );
-}
-
 //=============================================================================
 // ebo_storage_impl<Idx,T0,true,T1,Ts...>
 //=============================================================================
@@ -71,22 +57,6 @@ inline const T0& bit::memory::detail::ebo_storage_impl<Idx,T0,true,T1,Ts...>
   const &
 {
   return *this;
-}
-
-template<std::size_t Idx, typename T0, typename T1, typename...Ts>
-inline T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,true,T1,Ts...>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  &&
-{
-  return static_cast<T0&&>(*this);
-}
-
-template<std::size_t Idx, typename T0, typename T1, typename...Ts>
-inline const T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,true,T1,Ts...>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  const &&
-{
-  return static_cast<const T0&&>(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -142,22 +112,6 @@ inline const T0& bit::memory::detail::ebo_storage_impl<Idx,T0,true>
   return *this;
 }
 
-template<std::size_t Idx, typename T0>
-inline T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,true>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  &&
-{
-  return static_cast<T0&&>(*this);
-}
-
-template<std::size_t Idx, typename T0>
-inline const T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,true>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  const &&
-{
-  return static_cast<const T0&&>(*this);
-}
-
 //-----------------------------------------------------------------------------
 // Private Constructors
 //-----------------------------------------------------------------------------
@@ -211,22 +165,6 @@ inline const T0& bit::memory::detail::ebo_storage_impl<Idx,T0,false,T1,Ts...>
   return m_storage;
 }
 
-template<std::size_t Idx, typename T0, typename T1, typename...Ts>
-inline T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,false,T1,Ts...>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  &&
-{
-  return static_cast<T0&&>(m_storage);
-}
-
-template<std::size_t Idx, typename T0, typename T1, typename...Ts>
-inline const T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,false,T1,Ts...>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  const &&
-{
-  return static_cast<const T0&&>(m_storage);
-}
-
 //-----------------------------------------------------------------------------
 // Private Constructors
 //-----------------------------------------------------------------------------
@@ -277,22 +215,6 @@ inline const T0& bit::memory::detail::ebo_storage_impl<Idx,T0,false>
   const &
 {
   return m_storage;
-}
-
-template<std::size_t Idx, typename T0>
-inline T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,false>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  &&
-{
-  return static_cast<T0&&>(m_storage);
-}
-
-template<std::size_t Idx, typename T0>
-inline const T0&& bit::memory::detail::ebo_storage_impl<Idx,T0,false>
-  ::get( std::integral_constant<std::size_t,Idx> )
-  const &&
-{
-  return static_cast<const T0&&>(m_storage);
 }
 
 //-----------------------------------------------------------------------------
