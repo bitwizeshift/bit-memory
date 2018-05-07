@@ -34,15 +34,19 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include "detail/enum_types.hpp"             // block_align_t, block_size_t
 #include "detail/cached_block_allocator.hpp" // cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
-#include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
 #include "../utilities/allocator_info.hpp"    // allocator_info
+#include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
+#include "../utilities/ebo_storage.hpp"       // ebo_storage
 #include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../utilities/memory_block.hpp"      // memory_block
 #include "../utilities/owner.hpp"             // owner
 #include "../utilities/pointer_utilities.hpp" // is_power_of_two
+
+#include "../policies/growth_multipliers/no_growth.hpp"
 
 // regions
 #include "../regions/aligned_heap_memory.hpp" // aligned_malloc, aligned_free
@@ -53,82 +57,6 @@
 
 namespace bit {
   namespace memory {
-    namespace detail {
-
-      template<std::size_t Size, std::size_t Align>
-      struct aligned_block_allocator_base
-        : dynamic_size_type<0,Size>,
-          dynamic_size_type<1,Align>
-      {
-        using default_block_alignment = std::integral_constant<std::size_t,Align>;
-
-        aligned_block_allocator_base() noexcept = default;
-        aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
-        aligned_block_allocator_base( const aligned_block_allocator_base& ) noexcept = default;
-        aligned_block_allocator_base& operator=( aligned_block_allocator_base&& ) noexcept = default;
-        aligned_block_allocator_base& operator=( const aligned_block_allocator_base& ) noexcept = default;
-      };
-
-      //-----------------------------------------------------------------------
-
-      template<std::size_t Size>
-      struct aligned_block_allocator_base<Size,dynamic_size>
-        : dynamic_size_type<0,Size>,
-          dynamic_size_type<1,dynamic_size>
-      {
-
-        aligned_block_allocator_base( std::size_t align ) noexcept
-          : dynamic_size_type<1,dynamic_size>( align )
-        {
-
-        }
-        aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
-        aligned_block_allocator_base( const aligned_block_allocator_base& ) = delete;
-        aligned_block_allocator_base& operator=( aligned_block_allocator_base&& ) = delete;
-        aligned_block_allocator_base& operator=( const aligned_block_allocator_base& ) = delete;
-      };
-
-      //-----------------------------------------------------------------------
-
-      template<std::size_t Align>
-      struct aligned_block_allocator_base<dynamic_size,Align>
-        : dynamic_size_type<0,dynamic_size>,
-          dynamic_size_type<1,Align>
-      {
-        using default_block_alignment = std::integral_constant<std::size_t,Align>;
-
-        aligned_block_allocator_base( std::size_t size ) noexcept
-          : dynamic_size_type<0,dynamic_size>( size )
-        {
-
-        }
-        aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
-        aligned_block_allocator_base( const aligned_block_allocator_base& ) = delete;
-        aligned_block_allocator_base& operator=( aligned_block_allocator_base&& ) = delete;
-        aligned_block_allocator_base& operator=( const aligned_block_allocator_base& ) = delete;
-      };
-
-      //-----------------------------------------------------------------------
-
-      template<>
-      struct aligned_block_allocator_base<dynamic_size,dynamic_size>
-        : dynamic_size_type<0,dynamic_size>,
-          dynamic_size_type<1,dynamic_size>
-      {
-        aligned_block_allocator_base( std::size_t size, std::size_t align ) noexcept
-          : dynamic_size_type<0,dynamic_size>( size ),
-            dynamic_size_type<1,dynamic_size>( align )
-        {
-          assert( is_power_of_two(align) && "Alignment must be a power of two!" );
-        }
-
-        aligned_block_allocator_base( aligned_block_allocator_base&& ) noexcept = default;
-        aligned_block_allocator_base( const aligned_block_allocator_base& ) = delete;
-        aligned_block_allocator_base& operator=( aligned_block_allocator_base&& ) = delete;
-        aligned_block_allocator_base& operator=( const aligned_block_allocator_base& ) = delete;
-      };
-
-    } // namespace detail
 
     ///////////////////////////////////////////////////////////////////////////
     /// \brief An allocator that allocates over-aligned memory
@@ -147,15 +75,19 @@ namespace bit {
     /// \satisfies{BlockAllocator}
     /// \satisfies{Stateless}
     ///////////////////////////////////////////////////////////////////////////
-    template<std::size_t Size,std::size_t Align>
+    template<std::size_t DefaultBlockSize,
+             std::size_t BlockAlign,
+             typename GrowthMultiplier=no_growth_multiplier>
     class aligned_block_allocator
-        : private detail::aligned_block_allocator_base<Size,Align>
+        : ebo_storage<GrowthMultiplier>,
+          dynamic_size_type<0,DefaultBlockSize>,
+          dynamic_size_type<1,BlockAlign>
     {
-      using base_type = detail::aligned_block_allocator_base<Size,Align>;
-      using block_size_member  = dynamic_size_type<0,Size>;
-      using block_align_member = dynamic_size_type<1,Align>;
+      using base_type          = ebo_storage<GrowthMultiplier>;
+      using block_size_member  = dynamic_size_type<0,DefaultBlockSize>;
+      using block_align_member = dynamic_size_type<1,BlockAlign>;
 
-      static_assert( is_power_of_two(Align) || Align == dynamic_size,
+      static_assert( is_power_of_two(BlockAlign) || BlockAlign == dynamic_size,
                      "Alignment must be a power of two!" );
 
       //-----------------------------------------------------------------------
@@ -167,8 +99,49 @@ namespace bit {
       ///        blocks of the specified \p size
       aligned_block_allocator() = default;
 
-      // Inherit the constructors
-      using base_type::base_type;
+      /// \brief Constructs an aligned_block_allocator with the specified
+      ///        \p growth policy
+      ///
+      /// \param growth the growth multiplier policy
+      template<std::size_t USize=DefaultBlockSize,
+               std::size_t UAlign=BlockAlign,
+               typename=std::enable_if_t<(USize!=dynamic_block_size) &&
+                                         (UAlign!=dynamic_block_alignment)>>
+      explicit aligned_block_allocator( GrowthMultiplier growth );
+
+      /// \brief Constructs an aligned_block_allocator with the specified
+      ///        \p growth policy
+      ///
+      /// \param block_size the default block size
+      /// \param growth the growth multiplier policy
+      template<std::size_t USize=DefaultBlockSize,
+               typename=std::enable_if_t<USize==dynamic_block_size>>
+      explicit aligned_block_allocator( block_size_t block_size,
+                                        GrowthMultiplier growth = GrowthMultiplier{} );
+
+      /// \brief Constructs an aligned_block_allocator with the specified
+      ///        \p growth policy
+      ///
+      /// \param block_alignment the default block alignment
+      /// \param growth the growth multiplier policy
+      template<std::size_t UAlign=BlockAlign,
+               typename=std::enable_if_t<UAlign==dynamic_block_alignment>>
+      explicit aligned_block_allocator( block_alignment_t block_alignment,
+                                        GrowthMultiplier growth = GrowthMultiplier{}  );
+
+      /// \brief Constructs an aligned_block_allocator with the specified
+      ///        \p growth policy
+      ///
+      /// \param block_size the default block size
+      /// \param block_alignment the default block alignment
+      /// \param growth the growth multiplier policy
+      template<std::size_t USize=DefaultBlockSize,
+               std::size_t UAlign=BlockAlign,
+               typename=std::enable_if_t<(USize==dynamic_block_size) &&
+                                         (UAlign==dynamic_block_alignment)>>
+      aligned_block_allocator( block_size_t block_size,
+                               block_alignment_t block_alignment,
+                               GrowthMultiplier growth = GrowthMultiplier{}  );
 
       /// \brief Move-constructs an aligned_block_allocator from another allocator
       ///
@@ -237,31 +210,19 @@ namespace bit {
     ///
     /// \tparam Size The size of the block
     /// \tparam Align The alignment of block
-    template<std::size_t Size,std::size_t Align>
+    template<std::size_t DefaultBlockSize,std::size_t BlockAlign,typename GrowthMultiplier=no_growth_multiplier>
     using cached_aligned_block_allocator
-      = detail::cached_block_allocator<aligned_block_allocator<Size,Align>>;
-
-    using dynamic_aligned_block_allocator
-      = aligned_block_allocator<dynamic_size,dynamic_size>;
-
-    using cached_dynamic_aligned_block_allocator
-      = detail::cached_block_allocator<dynamic_aligned_block_allocator>;
+      = detail::cached_block_allocator<aligned_block_allocator<DefaultBlockSize,BlockAlign,GrowthMultiplier>>;
 
     //-------------------------------------------------------------------------
 
-    template<std::size_t Size,std::size_t Align>
+    template<std::size_t DefaultBlockSize,std::size_t BlockAlign,typename GrowthMultiplier=no_growth_multiplier>
     using named_aligned_block_allocator
-      = detail::named_block_allocator<aligned_block_allocator<Size,Align>>;
+      = detail::named_block_allocator<aligned_block_allocator<DefaultBlockSize,BlockAlign,GrowthMultiplier>>;
 
-    template<std::size_t Size,std::size_t Align>
+    template<std::size_t DefaultBlockSize,std::size_t BlockAlign,typename GrowthMultiplier=no_growth_multiplier>
     using named_cached_aligned_block_allocator
-      = detail::named_block_allocator<cached_aligned_block_allocator<Size,Align>>;
-
-    using named_dynamic_aligned_block_allocator
-      = detail::named_block_allocator<dynamic_aligned_block_allocator>;
-
-    using named_cached_dynamic_aligned_block_allocator
-      = detail::named_block_allocator<cached_dynamic_aligned_block_allocator>;
+      = detail::named_block_allocator<cached_aligned_block_allocator<DefaultBlockSize,BlockAlign,GrowthMultiplier>>;
 
   } // namespace memory
 } // namespace bit

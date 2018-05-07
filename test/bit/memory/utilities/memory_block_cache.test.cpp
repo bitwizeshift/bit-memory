@@ -84,7 +84,7 @@ TEST_CASE("memory_block_cache::request_block()")
   SECTION("Cache is non-empty")
   {
     static const auto block_size = 1024;
-    auto block_allocator = bit::memory::dynamic_new_block_allocator(block_size);
+    auto block_allocator = bit::memory::new_block_allocator<block_size>();
     auto block = block_allocator.allocate_block();
 
     auto p = block.data();

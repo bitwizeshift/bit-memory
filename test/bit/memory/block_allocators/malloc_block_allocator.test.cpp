@@ -21,11 +21,6 @@ using named_static_type        = bit::memory::named_malloc_block_allocator<64>;
 using cached_static_type       = bit::memory::cached_malloc_block_allocator<64>;
 using named_cached_static_type = bit::memory::named_cached_malloc_block_allocator<64>;
 
-using dynamic_type              = bit::memory::dynamic_malloc_block_allocator;
-using named_dynamic_type        = bit::memory::named_dynamic_malloc_block_allocator;
-using cached_dynamic_type       = bit::memory::cached_dynamic_malloc_block_allocator;
-using named_cached_dynamic_type = bit::memory::named_cached_dynamic_malloc_block_allocator;
-
 //=============================================================================
 
 static_assert( bit::memory::is_block_allocator<static_type>::value,
@@ -40,24 +35,14 @@ static_assert( bit::memory::is_block_allocator<cached_static_type>::value,
 static_assert( bit::memory::is_block_allocator<named_cached_static_type>::value,
                "named cached static malloc block allocator must be a block allocator" );
 
-//-----------------------------------------------------------------------------
-
-static_assert( bit::memory::is_block_allocator<dynamic_type>::value,
-               "dynamic malloc block allocator must be a block allocator" );
-
-static_assert( bit::memory::is_block_allocator<named_dynamic_type>::value,
-               "named dynamic malloc block allocator must be a block allocator");
-
-static_assert( bit::memory::is_block_allocator<cached_dynamic_type>::value,
-               "cached dynamic malloc block allocator must be a block allocator");
-
-static_assert( bit::memory::is_block_allocator<named_cached_dynamic_type>::value,
-               "named cached dynamic cached malloc block allocator must be a block allocator");
-
 //=============================================================================
+
+#ifndef _MSC_VER // MSVC fails to determine that this code is actually stateless
 
 static_assert( bit::memory::is_stateless<static_type>::value,
                "static malloc block allocator must be stateless" );
+
+#endif
 
 static_assert( !bit::memory::is_stateless<named_static_type>::value,
                "named static malloc block allocator cannot be stateless" );
@@ -67,20 +52,6 @@ static_assert( !bit::memory::is_stateless<cached_static_type>::value,
 
 static_assert( !bit::memory::is_stateless<named_cached_static_type>::value,
                "named cached static malloc block allocator cannot be stateless" );
-
-//-----------------------------------------------------------------------------
-
-static_assert( !bit::memory::is_stateless<dynamic_type>::value,
-               "dynamic malloc block allocator cannot be stateless" );
-
-static_assert( !bit::memory::is_stateless<named_dynamic_type>::value,
-               "named dynamic malloc block allocator cannot be stateless");
-
-static_assert( !bit::memory::is_stateless<cached_dynamic_type>::value,
-               "cached dynamic malloc block allocator cannot be stateless");
-
-static_assert( !bit::memory::is_stateless<named_cached_dynamic_type>::value,
-               "named cached dynamic cached malloc block allocator cannot be stateless");
 
 //=============================================================================
 // Unit Tests
