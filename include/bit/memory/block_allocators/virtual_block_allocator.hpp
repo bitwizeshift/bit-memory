@@ -35,11 +35,18 @@
 
 #include "detail/named_block_allocator.hpp" // detail::named_block_allocator
 
+#include "../regions/virtual_memory.hpp"
+
+#include "../utilities/ebo_storage.hpp"        // ebo_storage
+#include "../utilities/dynamic_size_type.hpp"  // dynamic_size, etc
 #include "../utilities/allocator_info.hpp"     // allocator_info
 #include "../utilities/memory_block_cache.hpp" // memory_block_cache
 #include "../utilities/owner.hpp"              // owner
 
+#include "../policies/growth_multipliers/no_growth.hpp" // no_growth
+
 #include <cstddef> // std::size_t
+#include <type_traits> // std::enable_if
 
 namespace bit {
   namespace memory {
@@ -53,8 +60,14 @@ namespace bit {
     ///
     /// \satisfies{BlockAllocator}
     ///////////////////////////////////////////////////////////////////////////
+    template<std::size_t Pages, typename GrowthMultiplier=no_growth_multiplier>
     class virtual_block_allocator
+      : ebo_storage<GrowthMultiplier>,
+        dynamic_size_type<0,Pages>
     {
+      using base_type    = ebo_storage<GrowthMultiplier>;
+      using pages_member = dynamic_size_type<0,Pages>;
+
       //-----------------------------------------------------------------------
       // Constructors
       //-----------------------------------------------------------------------
@@ -63,8 +76,20 @@ namespace bit {
       /// \brief Constructs a virtual_block_allocator that reserves the
       ///        specified number of \p pages up front
       ///
+      /// \param growth the growth multiplier
+      template<std::size_t UPages=Pages,
+               typename=std::enable_if_t<UPages!=dynamic_size>>
+      explicit virtual_block_allocator( GrowthMultiplier growth = GrowthMultiplier{} );
+
+      /// \brief Constructs a virtual_block_allocator that reserves the
+      ///        specified number of \p pages up front
+      ///
       /// \param pages the number of pages to reserve
-      explicit virtual_block_allocator( std::size_t pages );
+      /// \param growth the growth multiplier
+      template<std::size_t UPages=Pages,
+               typename=std::enable_if_t<UPages==dynamic_size>>
+      explicit virtual_block_allocator( std::size_t pages,
+                                        GrowthMultiplier growth = GrowthMultiplier{} );
 
       /// \brief Move-constructs a virtual_block_allocator from another one
       ///
@@ -127,7 +152,6 @@ namespace bit {
     private:
 
       void*              m_memory;      ///< The virtual memory to access from
-      const std::size_t  m_pages;       ///< The total number of pages
       std::ptrdiff_t     m_active_page; ///< The currently active page
       memory_block_cache m_cache;       ///< Cache of already committed pages
     };
@@ -136,9 +160,13 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    using named_virtual_block_allocator = detail::named_block_allocator<virtual_block_allocator>;
+    template<std::size_t Pages,
+             typename GrowthMultiplier=no_growth_multiplier>
+    using named_virtual_block_allocator = detail::named_block_allocator<virtual_block_allocator<Pages,GrowthMultiplier>>;
 
   } // namespace memory
 } // namespace bit
+
+#include "detail/virtual_block_allocator.inl"
 
 #endif /* BIT_MEMORY_BLOCK_ALLOCATORS_VIRTUAL_BLOCK_ALLOCATOR_HPP */

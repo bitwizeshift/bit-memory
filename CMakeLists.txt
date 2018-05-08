@@ -233,6 +233,7 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/policy_block_allocator.inl
   include/bit/memory/block_allocators/detail/stack_block_allocator.inl
   include/bit/memory/block_allocators/detail/static_block_allocator.inl
+  include/bit/memory/block_allocators/detail/virtual_block_allocator.inl
 
   # Block Allocator Storage
   include/bit/memory/block_allocator_storage/detail/referenced_block_allocator_storage.inl
@@ -297,10 +298,6 @@ set(source_files
   # Regions
   src/bit/memory/regions/aligned_heap_memory.cpp
   src/bit/memory/regions/virtual_memory.cpp
-
-  # Block Allocators
-  src/bit/memory/block_allocators/virtual_block_allocator.cpp
-  src/bit/memory/block_allocators/growing_virtual_block_allocator.cpp
 
   # memory-specific
   ${platform_source_files}

@@ -17,8 +17,8 @@
 // Static Requirements
 //=============================================================================
 
-using static_type       = bit::memory::virtual_block_allocator;
-using named_static_type = bit::memory::named_virtual_block_allocator;
+using static_type       = bit::memory::virtual_block_allocator<3u>;
+using named_static_type = bit::memory::named_virtual_block_allocator<3u>;
 
 //=============================================================================
 
@@ -40,7 +40,7 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
 {
   static constexpr auto blocks     = 3u;
   static const     auto block_size = bit::memory::virtual_memory_page_size();
-  auto block_allocator = bit::memory::virtual_block_allocator{blocks};
+  auto block_allocator = bit::memory::virtual_block_allocator<blocks>{};
 
   //---------------------------------------------------------------------------
 
