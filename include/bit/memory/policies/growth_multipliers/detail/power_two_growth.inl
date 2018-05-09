@@ -11,8 +11,8 @@
 
 inline bit::memory::power_two_growth::power_two_growth( std::size_t cap )
   noexcept
-  : m_current(1),
-    m_cap(cap)
+  : m_current(0),
+    m_cap(static_cast<std::uint8_t>(cap))
 {
 
 }
@@ -44,7 +44,7 @@ inline std::size_t bit::memory::power_two_growth::multiplier()
 
 inline bit::memory::uncapped_power_two_growth::uncapped_power_two_growth()
   noexcept
-  : m_current(1)
+  : m_current(0)
 {
 
 }

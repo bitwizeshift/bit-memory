@@ -131,10 +131,6 @@ set(headers
   include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/block_allocator_reference.hpp
-  include/bit/memory/block_allocators/growing_aligned_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_malloc_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_new_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_virtual_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
@@ -223,9 +219,6 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/aligned_block_allocator.inl
   include/bit/memory/block_allocators/detail/block_allocator_reference.inl
   include/bit/memory/block_allocators/detail/cached_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_aligned_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_malloc_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_new_block_allocator.inl
   include/bit/memory/block_allocators/detail/malloc_block_allocator.inl
   include/bit/memory/block_allocators/detail/named_block_allocator.inl
   include/bit/memory/block_allocators/detail/new_block_allocator.inl
