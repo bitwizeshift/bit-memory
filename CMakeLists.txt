@@ -105,6 +105,11 @@ set(headers
   include/bit/memory/adapters/standard_allocator.hpp
 
   # Policies
+  # Growth Multipliers
+  include/bit/memory/policies/growth_multipliers/linear_growth.hpp
+  include/bit/memory/policies/growth_multipliers/no_growth.hpp
+  include/bit/memory/policies/growth_multipliers/power_two_growth.hpp
+  include/bit/memory/policies/growth_multipliers/quadratic_growth.hpp
   # Taggers
   include/bit/memory/policies/taggers/allocator_tagger.hpp
   include/bit/memory/policies/taggers/block_allocator_tagger.hpp
@@ -126,10 +131,6 @@ set(headers
   include/bit/memory/block_allocators/detail/named_block_allocator.hpp
   include/bit/memory/block_allocators/aligned_block_allocator.hpp
   include/bit/memory/block_allocators/block_allocator_reference.hpp
-  include/bit/memory/block_allocators/growing_aligned_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_malloc_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_new_block_allocator.hpp
-  include/bit/memory/block_allocators/growing_virtual_block_allocator.hpp
   include/bit/memory/block_allocators/malloc_block_allocator.hpp
   include/bit/memory/block_allocators/new_block_allocator.hpp
   include/bit/memory/block_allocators/null_block_allocator.hpp
@@ -198,6 +199,11 @@ set(inline_headers
   include/bit/memory/adapters/detail/standard_allocator.inl
 
   # Policies
+  # Growth Multipliers
+  include/bit/memory/policies/growth_multipliers/detail/linear_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/no_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/power_two_growth.inl
+  include/bit/memory/policies/growth_multipliers/detail/quadratic_growth.inl
   # Taggers
   include/bit/memory/policies/taggers/detail/allocator_tagger.inl
   include/bit/memory/policies/taggers/detail/block_allocator_tagger.inl
@@ -213,9 +219,6 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/aligned_block_allocator.inl
   include/bit/memory/block_allocators/detail/block_allocator_reference.inl
   include/bit/memory/block_allocators/detail/cached_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_aligned_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_malloc_block_allocator.inl
-  include/bit/memory/block_allocators/detail/growing_new_block_allocator.inl
   include/bit/memory/block_allocators/detail/malloc_block_allocator.inl
   include/bit/memory/block_allocators/detail/named_block_allocator.inl
   include/bit/memory/block_allocators/detail/new_block_allocator.inl
@@ -223,6 +226,7 @@ set(inline_headers
   include/bit/memory/block_allocators/detail/policy_block_allocator.inl
   include/bit/memory/block_allocators/detail/stack_block_allocator.inl
   include/bit/memory/block_allocators/detail/static_block_allocator.inl
+  include/bit/memory/block_allocators/detail/virtual_block_allocator.inl
 
   # Block Allocator Storage
   include/bit/memory/block_allocator_storage/detail/referenced_block_allocator_storage.inl
@@ -287,10 +291,6 @@ set(source_files
   # Regions
   src/bit/memory/regions/aligned_heap_memory.cpp
   src/bit/memory/regions/virtual_memory.cpp
-
-  # Block Allocators
-  src/bit/memory/block_allocators/virtual_block_allocator.cpp
-  src/bit/memory/block_allocators/growing_virtual_block_allocator.cpp
 
   # memory-specific
   ${platform_source_files}

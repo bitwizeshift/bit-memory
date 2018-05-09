@@ -34,14 +34,18 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include "detail/enum_types.hpp"             // block_align_t, block_size_t
 #include "detail/cached_block_allocator.hpp" // detail::cached_block_allocator
 #include "detail/named_block_allocator.hpp"  // detail::named_block_allocator
 
+#include "../utilities/ebo_storage.hpp"       // ebo_storage
 #include "../utilities/dynamic_size_type.hpp" // dynamic_size, etc
 #include "../utilities/allocator_info.hpp"    // allocator_info
 #include "../utilities/macros.hpp"            // BIT_MEMORY_UNLIKELY
 #include "../utilities/memory_block.hpp"      // memory_block
 #include "../utilities/owner.hpp"             // owner
+
+#include "../policies/growth_multipliers/no_growth.hpp" // no_growth
 
 #include <cstddef>     // std::size_t, std::ptrdiff_t
 #include <cstdlib>     // std::malloc, std::free
@@ -49,48 +53,25 @@
 
 namespace bit {
   namespace memory {
-    namespace detail {
-      template<std::size_t Size>
-      struct malloc_block_allocator_base
-        : dynamic_size_type<0,Size>
-      {
-        malloc_block_allocator_base() noexcept = default;
-        malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
-        malloc_block_allocator_base( const malloc_block_allocator_base& ) noexcept = default;
-        malloc_block_allocator_base& operator=( malloc_block_allocator_base&& ) noexcept = default;
-        malloc_block_allocator_base& operator=( const malloc_block_allocator_base& ) noexcept = default;
-      };
-
-      template<>
-      struct malloc_block_allocator_base<dynamic_size>
-        : dynamic_size_type<0,dynamic_size>
-      {
-        explicit malloc_block_allocator_base( std::size_t size )
-          : dynamic_size_type<0,dynamic_size>(size)
-        {
-
-        }
-
-        malloc_block_allocator_base( malloc_block_allocator_base&& ) noexcept = default;
-        malloc_block_allocator_base( const malloc_block_allocator_base& ) = delete;
-        malloc_block_allocator_base& operator=( malloc_block_allocator_base&& ) = delete;
-        malloc_block_allocator_base& operator=( const malloc_block_allocator_base& ) = delete;
-      };
-    } // namespace detail
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief A block allocator that wraps around raw calls to std::malloc
     ///        and std::free
     ///
+    /// \tparam DefaultBlockSize
+    /// \tparam GrowthMultiplier
+    ///
     /// \satisfies{BlockAllocator}
     /// \satisfies{Stateless}
     //////////////////////////////////////////////////////////////////////////
-    template<std::size_t Size>
+    template<std::size_t DefaultBlockSize,
+             typename GrowthMultiplier=no_growth_multiplier>
     class malloc_block_allocator
-      : private detail::malloc_block_allocator_base<Size>
+      : ebo_storage<GrowthMultiplier>,
+        dynamic_size_type<0,DefaultBlockSize>
     {
-      using block_size_member = dynamic_size_type<0,Size>;
-      using base_type = detail::malloc_block_allocator_base<Size>;
+      using base_type         = ebo_storage<GrowthMultiplier>;
+      using block_size_member = dynamic_size_type<0,DefaultBlockSize>;
 
       //----------------------------------------------------------------------
       // Public Member Types
@@ -109,8 +90,28 @@ namespace bit {
       /// This is only enabled for non-dynamic new_block_allocators
       malloc_block_allocator() noexcept = default;
 
-      // Inherit the dynamic constructor
-      using base_type::base_type;
+      /// \brief Constructs a malloc_block_allocator with the specified
+      ///        \p growth policy
+      ///
+      /// \note This constructor only participates in overload resolution if
+      ///       the DefaultBlockSize is not \c dynamic_size
+      ///
+      /// \param growth the growth policy
+      template<std::size_t USize=DefaultBlockSize,
+               typename=std::enable_if_t<USize!=dynamic_size>>
+      explicit malloc_block_allocator( GrowthMultiplier growth );
+
+      /// \brief Constructs a malloc_block_allocator with the default
+      ///        \p block_size
+      ///
+      /// \note This constructor only participates in overload resolution if
+      ///       the DefaultBlockSize is \c dynamic_size
+      ///
+      /// \param block_size the default the block size
+      template<std::size_t USize=DefaultBlockSize,
+               typename=std::enable_if_t<USize==dynamic_size>>
+      explicit malloc_block_allocator( block_size_t block_size,
+                                       GrowthMultiplier growth = GrowthMultiplier{} );
 
       /// \brief Move-constructs a malloc_block_allocator from another allocator
       ///
@@ -174,31 +175,21 @@ namespace bit {
     // Utiltiies
     //-------------------------------------------------------------------------
 
-    using dynamic_malloc_block_allocator
-      = malloc_block_allocator<dynamic_size>;
-
-    template<std::size_t Size>
+    template<std::size_t DefaultBlockSize, typename GrowthMultiplier=no_growth_multiplier>
     using cached_malloc_block_allocator
-      = detail::cached_block_allocator<malloc_block_allocator<Size>>;
-
-    using cached_dynamic_malloc_block_allocator
-      = detail::cached_block_allocator<dynamic_malloc_block_allocator>;
+      = detail::cached_block_allocator<malloc_block_allocator<DefaultBlockSize,GrowthMultiplier>>;
 
     //-------------------------------------------------------------------------
 
-    template<std::size_t Size>
+    template<std::size_t DefaultBlockSize, typename GrowthMultiplier=no_growth_multiplier>
     using named_malloc_block_allocator
-      = detail::named_block_allocator<malloc_block_allocator<Size>>;
+      = detail::named_block_allocator<malloc_block_allocator<DefaultBlockSize,GrowthMultiplier>>;
 
-    template<std::size_t Size>
+    //-------------------------------------------------------------------------
+
+    template<std::size_t DefaultBlockSize, typename GrowthMultiplier=no_growth_multiplier>
     using named_cached_malloc_block_allocator
-      = detail::named_block_allocator<cached_malloc_block_allocator<Size>>;
-
-    using named_dynamic_malloc_block_allocator
-      = detail::named_block_allocator<dynamic_malloc_block_allocator>;
-
-    using named_cached_dynamic_malloc_block_allocator
-      = detail::named_block_allocator<cached_dynamic_malloc_block_allocator>;
+      = detail::named_block_allocator<cached_malloc_block_allocator<DefaultBlockSize,GrowthMultiplier>>;
 
   } // namespace memory
 } // namespace bit

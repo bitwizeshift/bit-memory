@@ -159,7 +159,9 @@ namespace bit {
     // Utilities
     //-------------------------------------------------------------------------
 
-    template<std::size_t BlockSize, std::size_t Blocks=1, std::size_t Align=alignof(std::max_align_t)>
+    template<std::size_t BlockSize,
+             std::size_t Blocks=1,
+             std::size_t Align=alignof(std::max_align_t)>
     using named_stack_block_allocator = detail::named_block_allocator<stack_block_allocator<BlockSize,Blocks,Align>>;
 
   } // namespace memory
