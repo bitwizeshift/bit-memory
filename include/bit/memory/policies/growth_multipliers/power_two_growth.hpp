@@ -44,7 +44,10 @@ namespace bit {
     //=========================================================================
 
     ///////////////////////////////////////////////////////////////////////////
+    /// \brief A growth multiplier that grows by repeatedly increasing the
+    ///        growth size by 2, growing up until a specified cap
     ///
+    /// \satisfies{GrowthMultiplier}
     ///////////////////////////////////////////////////////////////////////////
     class power_two_growth
     {
@@ -109,7 +112,10 @@ namespace bit {
     //=========================================================================
 
     ///////////////////////////////////////////////////////////////////////////
+    /// \brief A growth multiplier that grows by repeatedly increasing the
+    ///        growth size by 2
     ///
+    /// \satisfies{GrowthMultiplier}
     ///////////////////////////////////////////////////////////////////////////
     class uncapped_power_two_growth
     {
