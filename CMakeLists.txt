@@ -7,6 +7,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 include(AddHeaderSelfContainmentTest)
 include(MakeVersionHeader)
 include(CopyTargetProperties)
+include(GroupSourceTree)
 
 #-----------------------------------------------------------------------------
 # Project Setup
@@ -302,6 +303,19 @@ set(source_files
 
 add_library(memory ${source_files} ${headers} ${inline_headers})
 add_library(bit::memory ALIAS memory)
+group_source_tree("${CMAKE_CURRENT_LIST_DIR}" ${source_files} ${headers} ${inline_headers})
+
+# If this is built as a shared library, setup any Xcode framework properties
+get_target_property(type bit::memory TYPE)
+if(type STREQUAL "SHARED_LIBRARY")
+  set_target_properties(bit::memory
+    FRAMEWORK TRUE
+    FRAMEWORK_VERSION "A"
+    MACOSX_FRAMEWORK_IDENTIFIER bit.memory
+    PUBLIC_HEADER "${headers};${inline_headers}"
+    XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
+  )
+endif()
 
 # Add include directories
 target_include_directories(memory PUBLIC
