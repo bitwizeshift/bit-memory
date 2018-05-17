@@ -163,6 +163,8 @@ TEST_CASE("virtual_block_allocator" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -296,5 +298,7 @@ TEST_CASE("virtual_block_allocator<N,power_two_growth>" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }

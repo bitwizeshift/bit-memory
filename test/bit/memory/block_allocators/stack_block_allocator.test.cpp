@@ -153,5 +153,7 @@ TEST_CASE("stack_block_allocator<1024,1>" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
