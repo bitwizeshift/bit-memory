@@ -68,51 +68,39 @@ $(function() {
 : <a class="el" href="dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#aaf19cebc7e3f089427fcb9c99b2b9262">bit::memory::aligned_allocator</a>
 </li>
 <li>aligned_block_allocator()
-: <a class="el" href="d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a1abb862d9933dc9e6c93e7e6366af039">bit::memory::aligned_block_allocator&lt; Size, Align &gt;</a>
+: <a class="el" href="d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ab67132e880e6fbf74afb10ea516566cf">bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;</a>
 </li>
 <li>aligned_offset_allocator()
 : <a class="el" href="db/d1d/classbit_1_1memory_1_1aligned__offset__allocator.html#ab1fff96d2dafad40c8bc7e0b3c0613cd">bit::memory::aligned_offset_allocator</a>
 </li>
 <li>allocate()
-: <a class="el" href="dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#aa8920b8b1a555ed1b6551482137ac92d">bit::memory::aligned_allocator</a>
+: <a class="el" href="d3/db5/classbit_1_1memory_1_1allocator__reference.html#a5259939836a81949f02abff2e3d91ea7">bit::memory::allocator_reference</a>
 , <a class="el" href="dc/d0e/classbit_1_1memory_1_1allocator__traits.html#a4d371746449d38304a93a29a576adee9">bit::memory::allocator_traits&lt; Allocator &gt;</a>
-, <a class="el" href="db/d9d/classbit_1_1memory_1_1any__allocator.html#a36337eab76401c575733fbc912fd574a">bit::memory::any_allocator</a>
-, <a class="el" href="d1/df3/classbit_1_1memory_1_1malloc__allocator.html#a33994377e865bad118a1db089283834f">bit::memory::malloc_allocator</a>
-, <a class="el" href="db/da7/classbit_1_1memory_1_1min__aligned__allocator.html#a4f0473b131b57440dde20334275a59fa">bit::memory::min_aligned_allocator&lt; Allocator, MinAlign &gt;</a>
-, <a class="el" href="d5/d84/classbit_1_1memory_1_1new__allocator.html#a005a856d4f31a7aed3f2dc2f9dafd8ab">bit::memory::new_allocator</a>
-, <a class="el" href="de/d38/classbit_1_1memory_1_1std__allocator__adapter.html#ad84199a5464ae3c7c76e8e42af12bcf1">bit::memory::std_allocator_adapter&lt; T, Allocator &gt;</a>
+, <a class="el" href="d8/d6b/classbit_1_1memory_1_1extended__allocator__traits.html#a64335ab397058003fde7f8dbb84b1298">bit::memory::extended_allocator_traits&lt; Allocator &gt;</a>
+, <a class="el" href="d8/d4b/classbit_1_1memory_1_1standard__allocator.html#a41daf4df568023c5473847f26ce7521a">bit::memory::standard_allocator&lt; T, AllocatorStorage &gt;</a>
 </li>
 <li>allocate_block()
-: <a class="el" href="d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a112e81a2c315b07f623b6950f88438b8">bit::memory::aligned_block_allocator&lt; Size, Align &gt;</a>
-, <a class="el" href="d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#a9ffea797ff733506d10b954ed787e249">bit::memory::any_block_allocator</a>
+: <a class="el" href="d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a62c07f7d4e90e15de1d98c3182070b1d">bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;</a>
+, <a class="el" href="d0/d59/classbit_1_1memory_1_1block__allocator__reference.html#aba20306c506880e6e2c1e78c3de22a55">bit::memory::block_allocator_reference</a>
 , <a class="el" href="d1/dc7/classbit_1_1memory_1_1block__allocator__traits.html#addcf9529ddfdca6756c8bdbaefc6e85d">bit::memory::block_allocator_traits&lt; BlockAllocator &gt;</a>
-, <a class="el" href="d9/d9e/classbit_1_1memory_1_1growing__malloc__block__allocator.html#abb4bed1e0e130a1a32d58753018cd4ef">bit::memory::growing_malloc_block_allocator&lt; Size &gt;</a>
-, <a class="el" href="d1/dd6/classbit_1_1memory_1_1growing__new__block__allocator.html#aca7a609e8ace5e0a368a2e47aaa99228">bit::memory::growing_new_block_allocator&lt; Size &gt;</a>
-, <a class="el" href="d4/d9a/classbit_1_1memory_1_1growing__virtual__block__allocator.html#a272c3f67c8bb53e030f79e502bbdb995">bit::memory::growing_virtual_block_allocator</a>
-, <a class="el" href="d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#aa454d7345a459e8f7a9165ac531a9f3d">bit::memory::malloc_block_allocator&lt; Size &gt;</a>
-, <a class="el" href="de/de6/classbit_1_1memory_1_1new__block__allocator.html#abe716bd2568563eef79acca26b6363bf">bit::memory::new_block_allocator&lt; Size &gt;</a>
+, <a class="el" href="d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a6b0d871b5a5e9922329b81cf3ed9ae51">bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;</a>
+, <a class="el" href="de/de6/classbit_1_1memory_1_1new__block__allocator.html#a3ff83ab6f6192aeea2e522227f8072a5">bit::memory::new_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;</a>
 , <a class="el" href="d9/d8c/classbit_1_1memory_1_1null__block__allocator.html#a0b8daf6848c018fb929d92899d9bbbd2">bit::memory::null_block_allocator</a>
 , <a class="el" href="d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a77e7aba442ee1ecb98e01b89918fac4a">bit::memory::policy_block_allocator&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;</a>
 , <a class="el" href="d2/db7/classbit_1_1memory_1_1stack__block__allocator.html#a27c9c41ac6cb88775bcda4ffa9acdc3b">bit::memory::stack_block_allocator&lt; BlockSize, Blocks, Align &gt;</a>
 , <a class="el" href="d4/d30/classbit_1_1memory_1_1static__block__allocator.html#a0903408f7c5198460b307d0fb4ce7ae9">bit::memory::static_block_allocator&lt; BlockSize, Blocks, Align, Tag &gt;</a>
 , <a class="el" href="de/dda/classbit_1_1memory_1_1thread__local__block__allocator.html#a7f67432dee4e92195fca986dcc4efb7b">bit::memory::thread_local_block_allocator&lt; BlockSize, Blocks, Align, Tag &gt;</a>
-, <a class="el" href="dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a929b02a6765638838b1648ec2404555c">bit::memory::virtual_block_allocator</a>
+, <a class="el" href="dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a0008c8edb059de81dae5a6114384b5b2">bit::memory::virtual_block_allocator&lt; Pages, GrowthMultiplier &gt;</a>
 </li>
 <li>allocator_deleter()
-: <a class="el" href="d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a5382beeed2367d71bd2dbc0dd93017bb">bit::memory::allocator_deleter&lt; T, Allocator &gt;</a>
-, <a class="el" href="d9/d49/classbit_1_1memory_1_1allocator__deleter_3_01_t[]_00_01_allocator_01_4.html#aee5ecc07416ff96cedb485881c0b6041">bit::memory::allocator_deleter&lt; T[], Allocator &gt;</a>
+: <a class="el" href="d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#ae57970abf696158387486ba21f936f8e">bit::memory::allocator_deleter&lt; T, AllocatorStorage &gt;</a>
+, <a class="el" href="d2/d21/classbit_1_1memory_1_1allocator__deleter_3_01_t[]_00_01_allocator_storage_01_4.html#aeb9a73d74eb2aa2d2b968632aedebdb6">bit::memory::allocator_deleter&lt; T[], AllocatorStorage &gt;</a>
 </li>
 <li>allocator_info()
 : <a class="el" href="d4/d12/classbit_1_1memory_1_1allocator__info.html#aff76a12e393a96e41323214c253ecdef">bit::memory::allocator_info</a>
 </li>
 <li>allocator_reference()
-: <a class="el" href="d3/db5/classbit_1_1memory_1_1allocator__reference.html#ad91afac4b72b0b47916fe9b0d7190848">bit::memory::allocator_reference&lt; Allocator &gt;</a>
-</li>
-<li>any_allocator()
-: <a class="el" href="db/d9d/classbit_1_1memory_1_1any__allocator.html#aa347416b782807464640a92cbce2ae57">bit::memory::any_allocator</a>
-</li>
-<li>any_block_allocator()
-: <a class="el" href="d7/dc1/classbit_1_1memory_1_1any__block__allocator.html#af75d690d843c0e7da0b6cd5fd7635c3b">bit::memory::any_block_allocator</a>
+: <a class="el" href="d3/db5/classbit_1_1memory_1_1allocator__reference.html#aac148b3ce1c60894b8bdb0671541decc">bit::memory::allocator_reference</a>
 </li>
 <li>at()
 : <a class="el" href="d0/d8b/classbit_1_1memory_1_1virtual__memory.html#a4b2931630b8acb9ca6b138271e9206fb">bit::memory::virtual_memory</a>

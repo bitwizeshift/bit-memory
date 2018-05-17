@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['virtual_5fblock_5fallocator',['virtual_block_allocator',['../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html',1,'bit::memory']]],
-  ['virtual_5fmemory',['virtual_memory',['../d0/d8b/classbit_1_1memory_1_1virtual__memory.html',1,'bit::memory']]]
+  ['uncapped_5flinear_5fgrowth',['uncapped_linear_growth',['../d1/de7/classbit_1_1memory_1_1uncapped__linear__growth.html',1,'bit::memory']]],
+  ['uncapped_5fpower_5ftwo_5fgrowth',['uncapped_power_two_growth',['../dd/dbc/classbit_1_1memory_1_1uncapped__power__two__growth.html',1,'bit::memory']]],
+  ['uncapped_5fquadratic_5fgrowth',['uncapped_quadratic_growth',['../d7/daa/classbit_1_1memory_1_1uncapped__quadratic__growth.html',1,'bit::memory']]]
 ];

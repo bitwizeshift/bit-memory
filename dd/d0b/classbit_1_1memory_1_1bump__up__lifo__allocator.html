@@ -65,7 +65,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="../../df/d3f/classbit_1_1memory_1_1bump__up__lifo__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bit::memory::bump_up_lifo_allocator Class Reference<div class="ingroups"><a class="el" href="../../df/d4d/group___allocator.html">Allocator</a> &raquo; <a class="el" href="../../d4/d39/group___extended_allocator.html">ExtendedAllocator</a></div></div>  </div>
@@ -96,7 +95,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>bump_up_lifo_allocator</b> (const <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;other)=delete</td></tr>
 <tr class="separator:a8acf70709586e85b392e96305bb2a6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1e56947bb0011e4eaff06cd2852139b"><td class="memItemLeft" align="right" valign="top"><a id="ad1e56947bb0011e4eaff06cd2852139b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>bump_up_lifo_allocator</b> (<a class="el" href="../../d6/d1f/memory__block_8hpp.html#a9c085545b68c6f30934ffd70242ebd37">nullblock_t</a>)=delete</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>bump_up_lifo_allocator</b> (nullblock_t)=delete</td></tr>
 <tr class="separator:ad1e56947bb0011e4eaff06cd2852139b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fe9b7f8acc79523d694a6d9fae5a1bf"><td class="memItemLeft" align="right" valign="top"><a id="a1fe9b7f8acc79523d694a6d9fae5a1bf"></a>
 <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;)=delete</td></tr>
@@ -104,12 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a21fe723b106b2ceb34843ba2d8ff8e2b"><td class="memItemLeft" align="right" valign="top"><a id="a21fe723b106b2ceb34843ba2d8ff8e2b"></a>
 <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;&amp;other)=delete</td></tr>
 <tr class="separator:a21fe723b106b2ceb34843ba2d8ff8e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c49c04c645d3855e214e18c39cd7f2"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a82c49c04c645d3855e214e18c39cd7f2">try_allocate</a> (std::size_t size, std::size_t align, std::size_t offset=0) noexcept</td></tr>
-<tr class="memdesc:a82c49c04c645d3855e214e18c39cd7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to allocate memory of size <code>size</code>, aligned to the boundary <code>align</code>, offset by <code>offset</code>.  <a href="#a82c49c04c645d3855e214e18c39cd7f2">More...</a><br /></td></tr>
-<tr class="separator:a82c49c04c645d3855e214e18c39cd7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a529f1dbd7f16c2018c117a3a227f3ed3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a529f1dbd7f16c2018c117a3a227f3ed3">deallocate</a> (void *p, std::size_t size)</td></tr>
-<tr class="memdesc:a529f1dbd7f16c2018c117a3a227f3ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing for <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html" title="An allocator that allocates memory in contiguous memory by &#39;bumping&#39; the head pointer to higher memor...">bump_up_lifo_allocator</a>. Use deallocate_all.  <a href="#a529f1dbd7f16c2018c117a3a227f3ed3">More...</a><br /></td></tr>
-<tr class="separator:a529f1dbd7f16c2018c117a3a227f3ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54efb3e057c9b739ead81011809b9db6"><td class="memItemLeft" align="right" valign="top">owner&lt; void * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a54efb3e057c9b739ead81011809b9db6">try_allocate</a> (std::size_t size, std::size_t align, std::size_t offset=0) noexcept</td></tr>
+<tr class="memdesc:a54efb3e057c9b739ead81011809b9db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to allocate memory of size <code>size</code>, aligned to the boundary <code>align</code>, offset by <code>offset</code>.  <a href="#a54efb3e057c9b739ead81011809b9db6">More...</a><br /></td></tr>
+<tr class="separator:a54efb3e057c9b739ead81011809b9db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d94ec6632f73122d2915e139d7c7b3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a6d94ec6632f73122d2915e139d7c7b3c">deallocate</a> (owner&lt; void *&gt; p, std::size_t size)</td></tr>
+<tr class="memdesc:a6d94ec6632f73122d2915e139d7c7b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing for <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html" title="An allocator that allocates memory in contiguous memory by &#39;bumping&#39; the head pointer to higher memor...">bump_up_lifo_allocator</a>. Use deallocate_all.  <a href="#a6d94ec6632f73122d2915e139d7c7b3c">More...</a><br /></td></tr>
+<tr class="separator:a6d94ec6632f73122d2915e139d7c7b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09043244a3695b7a4f977dc879d49d12"><td class="memItemLeft" align="right" valign="top"><a id="a09043244a3695b7a4f977dc879d49d12"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a09043244a3695b7a4f977dc879d49d12">deallocate_all</a> () noexcept</td></tr>
 <tr class="memdesc:a09043244a3695b7a4f977dc879d49d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates everything from this allocator. <br /></td></tr>
@@ -117,12 +116,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memitem:a81229b1fdbdad0c5c3a955a63ded96ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#a81229b1fdbdad0c5c3a955a63ded96ef">owns</a> (const void *p) const noexcept</td></tr>
 <tr class="memdesc:a81229b1fdbdad0c5c3a955a63ded96ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html" title="An allocator that allocates memory in contiguous memory by &#39;bumping&#39; the head pointer to higher memor...">bump_up_lifo_allocator</a></code> contains the pointer <code>p</code>.  <a href="#a81229b1fdbdad0c5c3a955a63ded96ef">More...</a><br /></td></tr>
 <tr class="separator:a81229b1fdbdad0c5c3a955a63ded96ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:acb94b43f0fd6ead0c82f7e4e32f4479c"><td class="memItemLeft" align="right" valign="top"><a id="acb94b43f0fd6ead0c82f7e4e32f4479c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;, const <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html">bump_up_lifo_allocator</a> &amp;) noexcept</td></tr>
-<tr class="separator:acb94b43f0fd6ead0c82f7e4e32f4479c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af93382a006934e4b8e21a5d8c0402272"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html#af93382a006934e4b8e21a5d8c0402272">info</a> () const noexcept</td></tr>
+<tr class="memdesc:af93382a006934e4b8e21a5d8c0402272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#af93382a006934e4b8e21a5d8c0402272">More...</a><br /></td></tr>
+<tr class="separator:af93382a006934e4b8e21a5d8c0402272"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An allocator that allocates memory in contiguous memory by 'bumping' the head pointer to higher memory addresses. </p>
@@ -135,7 +131,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <dl class="section note"><dt>Note</dt><dd>The <a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html" title="An allocator that allocates memory in contiguous memory by &#39;bumping&#39; the head pointer to higher memor...">bump_up_lifo_allocator</a> requires an additional byte for restorying the bump pointer to the original location after deallocation. This can lead to a high-degree of fragmentation when allocating small-sized chunks of memory with high-allignment requirements.</dd></dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d4/d39/group___extended_allocator.html">ExtendedAllocator</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/dcc/bump__up__lifo__allocator_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../d1/dcc/bump__up__lifo__allocator_8hpp_source.html">bump_up_lifo_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/dcc/bump__up__lifo__allocator_8hpp_source.html#l00073">73</a> of file <a class="el" href="../../d1/dcc/bump__up__lifo__allocator_8hpp_source.html">bump_up_lifo_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4598c07c6cc9af19242e7df2102a87d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4598c07c6cc9af19242e7df2102a87d8">&#9670;&nbsp;</a></span>bump_up_lifo_allocator()</h2>
@@ -172,8 +168,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a529f1dbd7f16c2018c117a3a227f3ed3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a529f1dbd7f16c2018c117a3a227f3ed3">&#9670;&nbsp;</a></span>deallocate()</h2>
+<a id="a6d94ec6632f73122d2915e139d7c7b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d94ec6632f73122d2915e139d7c7b3c">&#9670;&nbsp;</a></span>deallocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +177,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
         <tr>
           <td class="memname">void bit::memory::bump_up_lifo_allocator::deallocate </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype">owner&lt; void *&gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -206,6 +202,35 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="af93382a006934e4b8e21a5d8c0402272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af93382a006934e4b8e21a5d8c0402272">&#9670;&nbsp;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> bit::memory::bump_up_lifo_allocator::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../dd/d0b/classbit_1_1memory_1_1bump__up__lifo__allocator.html" title="An allocator that allocates memory in contiguous memory by &#39;bumping&#39; the head pointer to higher memor...">bump_up_lifo_allocator</a>'. Use a named_bump_up_lifo_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
 
 </div>
 </div>
@@ -244,8 +269,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 
 </div>
 </div>
-<a id="a82c49c04c645d3855e214e18c39cd7f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82c49c04c645d3855e214e18c39cd7f2">&#9670;&nbsp;</a></span>try_allocate()</h2>
+<a id="a54efb3e057c9b739ead81011809b9db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54efb3e057c9b739ead81011809b9db6">&#9670;&nbsp;</a></span>try_allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +279,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void* bit::memory::bump_up_lifo_allocator::try_allocate </td>
+          <td class="memname">owner&lt;void*&gt; bit::memory::bump_up_lifo_allocator::try_allocate </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>size</em>, </td>

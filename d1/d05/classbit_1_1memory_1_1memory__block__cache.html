@@ -105,17 +105,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abb68ed01998d067902206a29c722081d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#abb68ed01998d067902206a29c722081d">contains</a> (const void *ptr) const noexcept</td></tr>
 <tr class="memdesc:abb68ed01998d067902206a29c722081d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates whether <code>ptr</code> exists within this <a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html" title="A cache containing an intrinsically linked list of memory_blocks. ">memory_block_cache</a>.  <a href="#abb68ed01998d067902206a29c722081d">More...</a><br /></td></tr>
 <tr class="separator:abb68ed01998d067902206a29c722081d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbe7773d031474474c89a93b6ce0dadf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#afbe7773d031474474c89a93b6ce0dadf">request_block</a> () noexcept</td></tr>
+<tr class="memitem:a6fd462480c07f7fa93f6be01a2382281"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a6fd462480c07f7fa93f6be01a2382281">peek</a> () const noexcept</td></tr>
+<tr class="memdesc:a6fd462480c07f7fa93f6be01a2382281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Views the front memory block of this cache.  <a href="#a6fd462480c07f7fa93f6be01a2382281">More...</a><br /></td></tr>
+<tr class="separator:a6fd462480c07f7fa93f6be01a2382281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe7773d031474474c89a93b6ce0dadf"><td class="memItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#afbe7773d031474474c89a93b6ce0dadf">request_block</a> () noexcept</td></tr>
 <tr class="memdesc:afbe7773d031474474c89a93b6ce0dadf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests a block from the current block cache.  <a href="#afbe7773d031474474c89a93b6ce0dadf">More...</a><br /></td></tr>
 <tr class="separator:afbe7773d031474474c89a93b6ce0dadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c52587ae17d0635edd74fcb48e172c8"><td class="memTemplParams" colspan="2">template&lt;typename BlockAllocator &gt; </td></tr>
-<tr class="memitem:a1c52587ae17d0635edd74fcb48e172c8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a1c52587ae17d0635edd74fcb48e172c8">request_block</a> (BlockAllocator &amp;alloc)</td></tr>
+<tr class="memitem:a1c52587ae17d0635edd74fcb48e172c8"><td class="memTemplItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a1c52587ae17d0635edd74fcb48e172c8">request_block</a> (BlockAllocator &amp;alloc)</td></tr>
 <tr class="memdesc:a1c52587ae17d0635edd74fcb48e172c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests a block from.  <a href="#a1c52587ae17d0635edd74fcb48e172c8">More...</a><br /></td></tr>
 <tr class="separator:a1c52587ae17d0635edd74fcb48e172c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3e70a352b1f5aa8007ce5978719c76d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#ae3e70a352b1f5aa8007ce5978719c76d">steal_block</a> (<a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html">memory_block_cache</a> &amp;other) noexcept</td></tr>
 <tr class="memdesc:ae3e70a352b1f5aa8007ce5978719c76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires an entry from another cache.  <a href="#ae3e70a352b1f5aa8007ce5978719c76d">More...</a><br /></td></tr>
 <tr class="separator:ae3e70a352b1f5aa8007ce5978719c76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a782d93eceb92d11e090499dcf2163cb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a782d93eceb92d11e090499dcf2163cb7">store_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
+<tr class="memitem:a782d93eceb92d11e090499dcf2163cb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a782d93eceb92d11e090499dcf2163cb7">store_block</a> (owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
 <tr class="memdesc:a782d93eceb92d11e090499dcf2163cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores an allocated block inside this <a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html" title="A cache containing an intrinsically linked list of memory_blocks. ">memory_block_cache</a>.  <a href="#a782d93eceb92d11e090499dcf2163cb7">More...</a><br /></td></tr>
 <tr class="separator:a782d93eceb92d11e090499dcf2163cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32e92284c4ca509b16cc05f1dbe568e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html#a32e92284c4ca509b16cc05f1dbe568e4">swap</a> (<a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html">memory_block_cache</a> &amp;other) noexcept</td></tr>
@@ -124,9 +127,10 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A cache containing an intrinsically linked list of memory_blocks. </p>
-<p>Blocks in this cache are not guaranteed to all be of the same size. Memory blocks may originate from different allocators, and represent different regions of memory &ndash; however this is not the recommended practice. </p>
+<p>Blocks in this cache are not guaranteed to all be of the same size. Memory blocks may originate from different allocators, and represent different regions of memory &ndash; however this is not the recommended practice.</p>
+<p>Every <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a> in the <a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html" title="A cache containing an intrinsically linked list of memory_blocks. ">memory_block_cache</a> must be aligned to at least <code>alignof(memory_block)</code> bytes &ndash; otherwise it is undefined behavior </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d7b/memory__block__cache_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../df/d7b/memory__block__cache_8hpp_source.html">memory_block_cache.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d7b/memory__block__cache_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../df/d7b/memory__block__cache_8hpp_source.html">memory_block_cache.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a277b83278bcb6b8fa5dfb0b6ac229203"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a277b83278bcb6b8fa5dfb0b6ac229203">&#9670;&nbsp;</a></span>memory_block_cache()</h2>
@@ -226,6 +230,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fd462480c07f7fa93f6be01a2382281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd462480c07f7fa93f6be01a2382281">&#9670;&nbsp;</a></span>peek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&amp; bit::memory::memory_block_cache::peek </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Views the front memory block of this cache. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>!empty()</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is undefined behaviour to invoke this function if the cache is empty</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the front cache entry </dd></dl>
+
+</div>
+</div>
 <a id="afbe7773d031474474c89a93b6ce0dadf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbe7773d031474474c89a93b6ce0dadf">&#9670;&nbsp;</a></span>request_block() <span class="overload">[1/2]</span></h2>
 
@@ -236,7 +270,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; bit::memory::memory_block_cache::request_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; bit::memory::memory_block_cache::request_block </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -264,7 +298,7 @@ Public Member Functions</h2></td></tr>
 template&lt;typename BlockAllocator &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; bit::memory::memory_block_cache::request_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; bit::memory::memory_block_cache::request_block </td>
           <td>(</td>
           <td class="paramtype">BlockAllocator &amp;&#160;</td>
           <td class="paramname"><em>alloc</em></td><td>)</td>
@@ -308,6 +342,7 @@ template&lt;typename BlockAllocator &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the number of memory_blocks in this cache. </p>
+<p>This function is lazily computed, and is written with <code>O(n)</code> complexity</p>
 <dl class="section return"><dt>Returns</dt><dd>the number of memory_blocks in this cache </dd></dl>
 
 </div>
@@ -386,7 +421,7 @@ template&lt;typename BlockAllocator &gt; </div>
         <tr>
           <td class="memname">void bit::memory::memory_block_cache::store_block </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
+          <td class="paramtype">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
           <td class="paramname"><em>block</em></td><td>)</td>
           <td></td>
         </tr>
@@ -399,6 +434,9 @@ template&lt;typename BlockAllocator &gt; </div>
 </div><div class="memdoc">
 
 <p>Stores an allocated block inside this <a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html" title="A cache containing an intrinsically linked list of memory_blocks. ">memory_block_cache</a>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>block.data()</code> points to memory that is aligned to at least <code>alignof(memory_block)</code> bytes.</dd>
+<dd>
+<code>block</code> points to a valid <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">block</td><td>the block to store </td></tr>

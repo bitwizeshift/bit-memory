@@ -85,14 +85,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc6/classbit_1_1memory_1_1null__allocator.html">bit::memory::null_allocator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An allocator that only ever serves nullptr.  <a href="../../de/dc6/classbit_1_1memory_1_1null__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator&lt; Size, Align &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An allocator that allocates over-aligned memory.  <a href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator&lt; Size &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that wraps around raw calls to std::malloc and std::free.  <a href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/de6/classbit_1_1memory_1_1new__block__allocator.html">bit::memory::new_block_allocator&lt; Size &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that uses ::operator new(...) to allocate memory blocks.  <a href="../../de/de6/classbit_1_1memory_1_1new__block__allocator.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/de6/classbit_1_1memory_1_1new__block__allocator.html">bit::memory::new_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that wraps around calls to new and delete.  <a href="../../de/de6/classbit_1_1memory_1_1new__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html">bit::memory::null_block_allocator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A block allocator that only distributes null blocks.  <a href="../../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html#details">More...</a><br /></td></tr>
@@ -103,31 +103,30 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dda/classbit_1_1memory_1_1thread__local__block__allocator.html">bit::memory::thread_local_block_allocator&lt; BlockSize, Blocks, Align, Tag &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a block allocator that distributes blocks of static memory that is local to the specific thread.  <a href="../../de/dda/classbit_1_1memory_1_1thread__local__block__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d41/classbit_1_1memory_1_1no__growth__multiplier.html">bit::memory::no_growth_multiplier</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A multiplier that doesn't actually grow.  <a href="../../d5/d41/classbit_1_1memory_1_1no__growth__multiplier.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>A structure that encompasses functionality, but contains no internal nor external state (i.e. no data members). </p>
-<p>Two instances of the same type must always compare equal, and constructing/ copying/moving instances must not affect or be affected by any external state.</p>
+<p>Two instances of the same type must always compare equal, and constructing/copying/moving instances must not affect or be affected by any external state.</p>
 <p>Semantically, a single instance should be identical in every respect to any duplicates; which may allow a composition of multiple of the same Stateless object to be compressed into a single instance (either EBO inheritance or data member).</p>
 <p><b>Requirements</b></p>
 <ul>
-<li>DefaultConstructible</li>
-<li>CopyConstructible</li>
-<li>MoveConstructible</li>
-<li>CopyAssignable</li>
-<li>MoveASsignable</li>
-<li>EqualityComparable</li>
+<li>Empty</li>
+<li>TriviallyDefaultConstructible</li>
+<li>TriviallyCopyConstructible</li>
+<li>TriviallyMoveConstructible</li>
+<li>TriviallyCopyAssignable</li>
+<li>TriviallyMoveASsignable</li>
 </ul>
-<p>Additionally, it must satisfy the followowing:</p>
+<p>Alternatively, the following state may be specified to override the determination of a concept.</p>
 <p><b>Provided</b></p>
 <ul>
 <li><code>S</code> - a Stateless type</li>
-<li><code>s</code> - an instance of type <code>S</code> </li>
+<li><code>s</code> - an instance of <code>S</code> </li>
 </ul>
 <p>the following expressions must be well-formed with the expected reproduceable side-effects:</p>
-<div class="fragment"><div class="line">S() == S()</div></div><!-- fragment --><p> returns true</p>
-<hr/>
-<div class="fragment"><div class="line">S() != S()</div></div><!-- fragment --><p> returns false</p>
-<hr/>
 <div class="fragment"><div class="line">S s1{};              <span class="comment">// default ctor</span></div><div class="line">S s2(s);             <span class="comment">// copy ctor</span></div><div class="line">S s3(std::move(s1)); <span class="comment">// move ctor</span></div><div class="line"></div><div class="line">s1 = s2;             <span class="comment">// copy assignment</span></div><div class="line">s2 = std::move(2);   <span class="comment">// move assignment</span></div><div class="line">\code</div><div class="line"></div><div class="line">\code</div><div class="line">S::is_stateless</div></div><!-- fragment --><p> Type must be std::true_type </p>
 </div><!-- contents -->
 <!-- start footer part -->

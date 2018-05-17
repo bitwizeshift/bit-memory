@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_5foverflow_5fhandler_5ft',['buffer_overflow_handler_t',['../df/d52/errors_8hpp.html#a0421e531060fafe1826e040bbd272277',1,'bit::memory']]]
+  ['max_5falignment',['max_alignment',['../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a357911c868e0b03bda7fdfe0f7aaff4f',1,'bit::memory::pool_allocator']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bit::memory: bit::memory::malloc_block_allocator&lt; Size &gt; Class Template Reference</title>
+<title>bit::memory: bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -65,9 +65,10 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="../../d1/d9b/classbit_1_1memory_1_1malloc__block__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::malloc_block_allocator&lt; Size &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> &#124; <a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a></div></div>  </div>
+<div class="title">bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> &#124; <a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -76,70 +77,96 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d6/db1/malloc__block__allocator_8hpp_source.html">malloc_block_allocator.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for bit::memory::malloc_block_allocator&lt; Size &gt;:</div>
+Inheritance diagram for bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.png" usemap="#bit::memory::malloc_5Fblock_5Fallocator_3C_20Size_20_3E_map" alt=""/>
-  <map id="bit::memory::malloc_5Fblock_5Fallocator_3C_20Size_20_3E_map" name="bit::memory::malloc_5Fblock_5Fallocator_3C_20Size_20_3E_map">
+  <img src="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.png" usemap="#bit::memory::malloc_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20GrowthMultiplier_20_3E_map" alt=""/>
+  <map id="bit::memory::malloc_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20GrowthMultiplier_20_3E_map" name="bit::memory::malloc_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20GrowthMultiplier_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; GrowthMultiplier &gt;" shape="rect" coords="0,0,430,24"/>
+<area href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html" alt="bit::memory::dynamic_size_type&lt; 0, DefaultBlockSize &gt;" shape="rect" coords="440,0,870,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4dae9103aec9b3ff6499674198a5cdfe"><td class="memItemLeft" align="right" valign="top"><a id="a4dae9103aec9b3ff6499674198a5cdfe"></a>
+<tr class="memitem:ac899aaa6c5ac7292a75a21b9d9c2f904"><td class="memItemLeft" align="right" valign="top"><a id="ac899aaa6c5ac7292a75a21b9d9c2f904"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>default_block_alignment</b> = std::integral_constant&lt; std::size_t, alignof(std::max_align_t)&gt;</td></tr>
-<tr class="separator:a4dae9103aec9b3ff6499674198a5cdfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ac899aaa6c5ac7292a75a21b9d9c2f904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a35b8bea412d3c59f3b163d6e433f2b35"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a35b8bea412d3c59f3b163d6e433f2b35">malloc_block_allocator</a> () noexcept=default</td></tr>
-<tr class="memdesc:a35b8bea412d3c59f3b163d6e433f2b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs this <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a>.  <a href="#a35b8bea412d3c59f3b163d6e433f2b35">More...</a><br /></td></tr>
-<tr class="separator:a35b8bea412d3c59f3b163d6e433f2b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8224f1b8e84f46b85d566ebf5e890aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#af8224f1b8e84f46b85d566ebf5e890aa">malloc_block_allocator</a> (<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&amp;other)=default</td></tr>
-<tr class="memdesc:af8224f1b8e84f46b85d566ebf5e890aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#af8224f1b8e84f46b85d566ebf5e890aa">More...</a><br /></td></tr>
-<tr class="separator:af8224f1b8e84f46b85d566ebf5e890aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d5a24414e16a31ec9f7937222720ed7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a4d5a24414e16a31ec9f7937222720ed7">malloc_block_allocator</a> (const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a4d5a24414e16a31ec9f7937222720ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#a4d5a24414e16a31ec9f7937222720ed7">More...</a><br /></td></tr>
-<tr class="separator:a4d5a24414e16a31ec9f7937222720ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d0e603df2fd05c09850fa18d8f9e711"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a0d0e603df2fd05c09850fa18d8f9e711">operator=</a> (<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&amp;other)=default</td></tr>
-<tr class="memdesc:a0d0e603df2fd05c09850fa18d8f9e711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#a0d0e603df2fd05c09850fa18d8f9e711">More...</a><br /></td></tr>
-<tr class="separator:a0d0e603df2fd05c09850fa18d8f9e711"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30df7d8d73f83a1a97b879634a0b50e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a30df7d8d73f83a1a97b879634a0b50e1">operator=</a> (const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a30df7d8d73f83a1a97b879634a0b50e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#a30df7d8d73f83a1a97b879634a0b50e1">More...</a><br /></td></tr>
-<tr class="separator:a30df7d8d73f83a1a97b879634a0b50e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa454d7345a459e8f7a9165ac531a9f3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#aa454d7345a459e8f7a9165ac531a9f3d">allocate_block</a> () noexcept</td></tr>
-<tr class="memdesc:aa454d7345a459e8f7a9165ac531a9f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a malloc'ed <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#aa454d7345a459e8f7a9165ac531a9f3d">More...</a><br /></td></tr>
-<tr class="separator:aa454d7345a459e8f7a9165ac531a9f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3f99039c11baccf5206f2e49962670"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a2c3f99039c11baccf5206f2e49962670">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
-<tr class="memdesc:a2c3f99039c11baccf5206f2e49962670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a malloc'ed <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a2c3f99039c11baccf5206f2e49962670">More...</a><br /></td></tr>
-<tr class="separator:a2c3f99039c11baccf5206f2e49962670"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdc329c706241673d133f2180bef010e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#acdc329c706241673d133f2180bef010e">next_block_size</a> () const noexcept</td></tr>
-<tr class="memdesc:acdc329c706241673d133f2180bef010e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#acdc329c706241673d133f2180bef010e">More...</a><br /></td></tr>
-<tr class="separator:acdc329c706241673d133f2180bef010e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad478f53bc813c4ee8d92092b9f680914"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#ad478f53bc813c4ee8d92092b9f680914">malloc_block_allocator</a> () noexcept=default</td></tr>
+<tr class="memdesc:ad478f53bc813c4ee8d92092b9f680914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs this <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a>.  <a href="#ad478f53bc813c4ee8d92092b9f680914">More...</a><br /></td></tr>
+<tr class="separator:ad478f53bc813c4ee8d92092b9f680914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eb7f35af52e01cfc2ce7998a1d0d61d"><td class="memTemplParams" colspan="2">template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize!=dynamic_size&gt;&gt; </td></tr>
+<tr class="memitem:a9eb7f35af52e01cfc2ce7998a1d0d61d"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a9eb7f35af52e01cfc2ce7998a1d0d61d">malloc_block_allocator</a> (GrowthMultiplier growth)</td></tr>
+<tr class="memdesc:a9eb7f35af52e01cfc2ce7998a1d0d61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> with the specified <code>growth</code> policy.  <a href="#a9eb7f35af52e01cfc2ce7998a1d0d61d">More...</a><br /></td></tr>
+<tr class="separator:a9eb7f35af52e01cfc2ce7998a1d0d61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f8a4e777c0de4460f66d2a06f985a50"><td class="memTemplParams" colspan="2">template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize==dynamic_size&gt;&gt; </td></tr>
+<tr class="memitem:a7f8a4e777c0de4460f66d2a06f985a50"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a7f8a4e777c0de4460f66d2a06f985a50">malloc_block_allocator</a> (block_size_t block_size, GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:a7f8a4e777c0de4460f66d2a06f985a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> with the default <code>block_size</code>.  <a href="#a7f8a4e777c0de4460f66d2a06f985a50">More...</a><br /></td></tr>
+<tr class="separator:a7f8a4e777c0de4460f66d2a06f985a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abae970e9d7c72a1f11fc9fb831e29c67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#abae970e9d7c72a1f11fc9fb831e29c67">malloc_block_allocator</a> (<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&amp;other)=default</td></tr>
+<tr class="memdesc:abae970e9d7c72a1f11fc9fb831e29c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#abae970e9d7c72a1f11fc9fb831e29c67">More...</a><br /></td></tr>
+<tr class="separator:abae970e9d7c72a1f11fc9fb831e29c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61070e58ba9a77072114bf0efca2a3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#af61070e58ba9a77072114bf0efca2a3d">malloc_block_allocator</a> (const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;other)=default</td></tr>
+<tr class="memdesc:af61070e58ba9a77072114bf0efca2a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#af61070e58ba9a77072114bf0efca2a3d">More...</a><br /></td></tr>
+<tr class="separator:af61070e58ba9a77072114bf0efca2a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e08dcf320cecdaa606ffe6997e38971"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a4e08dcf320cecdaa606ffe6997e38971">operator=</a> (<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&amp;other)=default</td></tr>
+<tr class="memdesc:a4e08dcf320cecdaa606ffe6997e38971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#a4e08dcf320cecdaa606ffe6997e38971">More...</a><br /></td></tr>
+<tr class="separator:a4e08dcf320cecdaa606ffe6997e38971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32107bd871984e24dac3dbef0eb37eb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a32107bd871984e24dac3dbef0eb37eb7">operator=</a> (const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> &amp;other)=default</td></tr>
+<tr class="memdesc:a32107bd871984e24dac3dbef0eb37eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> from another allocator.  <a href="#a32107bd871984e24dac3dbef0eb37eb7">More...</a><br /></td></tr>
+<tr class="separator:a32107bd871984e24dac3dbef0eb37eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b0d871b5a5e9922329b81cf3ed9ae51"><td class="memItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a6b0d871b5a5e9922329b81cf3ed9ae51">allocate_block</a> () noexcept</td></tr>
+<tr class="memdesc:a6b0d871b5a5e9922329b81cf3ed9ae51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a malloc'ed <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a6b0d871b5a5e9922329b81cf3ed9ae51">More...</a><br /></td></tr>
+<tr class="separator:a6b0d871b5a5e9922329b81cf3ed9ae51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48552705251dae1c3a31f0d1d836ccee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a48552705251dae1c3a31f0d1d836ccee">deallocate_block</a> (owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
+<tr class="memdesc:a48552705251dae1c3a31f0d1d836ccee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a malloc'ed <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a48552705251dae1c3a31f0d1d836ccee">More...</a><br /></td></tr>
+<tr class="separator:a48552705251dae1c3a31f0d1d836ccee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c3f50a0d1efea114305b00a996bfef"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a41c3f50a0d1efea114305b00a996bfef">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a41c3f50a0d1efea114305b00a996bfef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a41c3f50a0d1efea114305b00a996bfef">More...</a><br /></td></tr>
+<tr class="separator:a41c3f50a0d1efea114305b00a996bfef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545c3c1f9b1caaf027662f0d5942ef64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html#a545c3c1f9b1caaf027662f0d5942ef64">info</a> () const noexcept</td></tr>
+<tr class="memdesc:a545c3c1f9b1caaf027662f0d5942ef64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#a545c3c1f9b1caaf027662f0d5942ef64">More...</a><br /></td></tr>
+<tr class="separator:a545c3c1f9b1caaf027662f0d5942ef64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html#ac0fd8bf609b8f309137c4c26621c58dc">value</a> () const noexcept</td></tr>
+<tr class="memdesc:ac0fd8bf609b8f309137c4c26621c58dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value.  <a href="#ac0fd8bf609b8f309137c4c26621c58dc">More...</a><br /></td></tr>
+<tr class="separator:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;std::size_t Size&gt;<br />
-class bit::memory::malloc_block_allocator&lt; Size &gt;</h3>
+<div class="textblock"><h3>template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier = no_growth_multiplier&gt;<br />
+class bit::memory::malloc_block_allocator&lt; DefaultBlockSize, GrowthMultiplier &gt;</h3>
 
 <p>A block allocator that wraps around raw calls to std::malloc and std::free. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">DefaultBlockSize</td><td></td></tr>
+    <tr><td class="paramname">GrowthMultiplier</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></dd></dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/malloc__block__allocator_8hpp_source.html#l00068">68</a> of file <a class="el" href="../../d6/db1/malloc__block__allocator_8hpp_source.html">malloc_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/malloc__block__allocator_8hpp_source.html#l00069">69</a> of file <a class="el" href="../../d6/db1/malloc__block__allocator_8hpp_source.html">malloc_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a35b8bea412d3c59f3b163d6e433f2b35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35b8bea412d3c59f3b163d6e433f2b35">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[1/3]</span></h2>
+<a id="ad478f53bc813c4ee8d92092b9f680914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad478f53bc813c4ee8d92092b9f680914">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -157,21 +184,109 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="af8224f1b8e84f46b85d566ebf5e890aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8224f1b8e84f46b85d566ebf5e890aa">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[2/3]</span></h2>
+<a id="a9eb7f35af52e01cfc2ce7998a1d0d61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eb7f35af52e01cfc2ce7998a1d0d61d">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize!=dynamic_size&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; Size &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> with the specified <code>growth</code> policy. </p>
+<dl class="section note"><dt>Note</dt><dd>This constructor only participates in overload resolution if the DefaultBlockSize is not <code>dynamic_size</code> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">growth</td><td>the growth policy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f8a4e777c0de4460f66d2a06f985a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f8a4e777c0de4460f66d2a06f985a50">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize==dynamic_size&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype">block_size_t&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a> with the default <code>block_size</code>. </p>
+<dl class="section note"><dt>Note</dt><dd>This constructor only participates in overload resolution if the DefaultBlockSize is <code>dynamic_size</code> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block_size</td><td>the default the block size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abae970e9d7c72a1f11fc9fb831e29c67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae970e9d7c72a1f11fc9fb831e29c67">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -193,21 +308,21 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="a4d5a24414e16a31ec9f7937222720ed7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d5a24414e16a31ec9f7937222720ed7">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[3/3]</span></h2>
+<a id="af61070e58ba9a77072114bf0efca2a3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af61070e58ba9a77072114bf0efca2a3d">&#9670;&nbsp;</a></span>malloc_block_allocator() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; Size &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -230,19 +345,19 @@ template&lt;std::size_t Size&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa454d7345a459e8f7a9165ac531a9f3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa454d7345a459e8f7a9165ac531a9f3d">&#9670;&nbsp;</a></span>allocate_block()</h2>
+<a id="a6b0d871b5a5e9922329b81cf3ed9ae51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b0d871b5a5e9922329b81cf3ed9ae51">&#9670;&nbsp;</a></span>allocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::allocate_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::allocate_block </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -260,21 +375,21 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="a2c3f99039c11baccf5206f2e49962670"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c3f99039c11baccf5206f2e49962670">&#9670;&nbsp;</a></span>deallocate_block()</h2>
+<a id="a48552705251dae1c3a31f0d1d836ccee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48552705251dae1c3a31f0d1d836ccee">&#9670;&nbsp;</a></span>deallocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::deallocate_block </td>
+          <td class="memname">void <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::deallocate_block </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
+          <td class="paramtype">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
           <td class="paramname"><em>block</em></td><td>)</td>
           <td></td>
         </tr>
@@ -296,19 +411,50 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="acdc329c706241673d133f2180bef010e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdc329c706241673d133f2180bef010e">&#9670;&nbsp;</a></span>next_block_size()</h2>
+<a id="a545c3c1f9b1caaf027662f0d5942ef64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545c3c1f9b1caaf027662f0d5942ef64">&#9670;&nbsp;</a></span>info()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::next_block_size </td>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a>'. Use a named_malloc_block_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
+
+</div>
+</div>
+<a id="a41c3f50a0d1efea114305b00a996bfef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c3f50a0d1efea114305b00a996bfef">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::next_block_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -326,21 +472,21 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="a0d0e603df2fd05c09850fa18d8f9e711"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d0e603df2fd05c09850fa18d8f9e711">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a4e08dcf320cecdaa606ffe6997e38971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e08dcf320cecdaa606ffe6997e38971">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&amp; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&amp; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; Size &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -363,21 +509,21 @@ template&lt;std::size_t Size&gt; </div>
 
 </div>
 </div>
-<a id="a30df7d8d73f83a1a97b879634a0b50e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30df7d8d73f83a1a97b879634a0b50e1">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a32107bd871984e24dac3dbef0eb37eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32107bd871984e24dac3dbef0eb37eb7">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size&gt; </div>
+template&lt;std::size_t DefaultBlockSize, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&amp; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; Size &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&amp; <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">bit::memory::malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; Size &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html">malloc_block_allocator</a>&lt; DefaultBlockSize, GrowthMultiplier &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>

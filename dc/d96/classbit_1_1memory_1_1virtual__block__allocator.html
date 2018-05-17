@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bit::memory: bit::memory::virtual_block_allocator Class Reference</title>
+<title>bit::memory: bit::memory::virtual_block_allocator&lt; Pages, GrowthMultiplier &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -64,9 +64,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="../../d4/d55/classbit_1_1memory_1_1virtual__block__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::virtual_block_allocator Class Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></div></div>  </div>
+<div class="title">bit::memory::virtual_block_allocator&lt; Pages, GrowthMultiplier &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -74,59 +75,90 @@ $(function() {
  <a href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d0/dcc/virtual__block__allocator_8hpp_source.html">virtual_block_allocator.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for bit::memory::virtual_block_allocator&lt; Pages, GrowthMultiplier &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.png" usemap="#bit::memory::virtual_5Fblock_5Fallocator_3C_20Pages_2C_20GrowthMultiplier_20_3E_map" alt=""/>
+  <map id="bit::memory::virtual_5Fblock_5Fallocator_3C_20Pages_2C_20GrowthMultiplier_20_3E_map" name="bit::memory::virtual_5Fblock_5Fallocator_3C_20Pages_2C_20GrowthMultiplier_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; GrowthMultiplier &gt;" shape="rect" coords="0,0,369,24"/>
+<area href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html" alt="bit::memory::dynamic_size_type&lt; 0, Pages &gt;" shape="rect" coords="379,0,748,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d4d1954d0fbe3c36b8339f5ae6342d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a6d4d1954d0fbe3c36b8339f5ae6342d8">virtual_block_allocator</a> (std::size_t pages)</td></tr>
-<tr class="memdesc:a6d4d1954d0fbe3c36b8339f5ae6342d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> that reserves the specified number of <code>pages</code> up front.  <a href="#a6d4d1954d0fbe3c36b8339f5ae6342d8">More...</a><br /></td></tr>
-<tr class="separator:a6d4d1954d0fbe3c36b8339f5ae6342d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e525c7cbf95d55e6abf346589c6d4a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a5e525c7cbf95d55e6abf346589c6d4a5">virtual_block_allocator</a> (<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:a5e525c7cbf95d55e6abf346589c6d4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> from another one.  <a href="#a5e525c7cbf95d55e6abf346589c6d4a5">More...</a><br /></td></tr>
-<tr class="separator:a5e525c7cbf95d55e6abf346589c6d4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34a99bfc8101c3b067350b89aeae43bd"><td class="memItemLeft" align="right" valign="top"><a id="a34a99bfc8101c3b067350b89aeae43bd"></a>
+<tr class="memitem:a47450a20ccbb2098d380bc2acaa8b1ea"><td class="memTemplParams" colspan="2">template&lt;std::size_t UPages = Pages, typename  = std::enable_if_t&lt;UPages!=dynamic_size&gt;&gt; </td></tr>
+<tr class="memitem:a47450a20ccbb2098d380bc2acaa8b1ea"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a47450a20ccbb2098d380bc2acaa8b1ea">virtual_block_allocator</a> (GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:a47450a20ccbb2098d380bc2acaa8b1ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> that reserves the specified number of <code>pages</code> up front.  <a href="#a47450a20ccbb2098d380bc2acaa8b1ea">More...</a><br /></td></tr>
+<tr class="separator:a47450a20ccbb2098d380bc2acaa8b1ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b10606efabc67af15fdf44db63d14c"><td class="memTemplParams" colspan="2">template&lt;std::size_t UPages = Pages, typename  = std::enable_if_t&lt;UPages==dynamic_size&gt;&gt; </td></tr>
+<tr class="memitem:a37b10606efabc67af15fdf44db63d14c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a37b10606efabc67af15fdf44db63d14c">virtual_block_allocator</a> (std::size_t pages, GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:a37b10606efabc67af15fdf44db63d14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> that reserves the specified number of <code>pages</code> up front.  <a href="#a37b10606efabc67af15fdf44db63d14c">More...</a><br /></td></tr>
+<tr class="separator:a37b10606efabc67af15fdf44db63d14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94207b5b692e051171bf4952b7a7f1ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a94207b5b692e051171bf4952b7a7f1ac">virtual_block_allocator</a> (<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a94207b5b692e051171bf4952b7a7f1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> from another one.  <a href="#a94207b5b692e051171bf4952b7a7f1ac">More...</a><br /></td></tr>
+<tr class="separator:a94207b5b692e051171bf4952b7a7f1ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0df97b298bc4d7612e0fa7bc0c0cd47"><td class="memItemLeft" align="right" valign="top"><a id="ab0df97b298bc4d7612e0fa7bc0c0cd47"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>virtual_block_allocator</b> (const <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;other)=delete</td></tr>
-<tr class="separator:a34a99bfc8101c3b067350b89aeae43bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8c84b6bfad14ab93e31022710775423"><td class="memItemLeft" align="right" valign="top"><a id="af8c84b6bfad14ab93e31022710775423"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#af8c84b6bfad14ab93e31022710775423">~virtual_block_allocator</a> ()</td></tr>
-<tr class="memdesc:af8c84b6bfad14ab93e31022710775423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs this <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a>, decommitting any commit pages. <br /></td></tr>
-<tr class="separator:af8c84b6bfad14ab93e31022710775423"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f391c06d463236ec3b5da56ae0d0fe6"><td class="memItemLeft" align="right" valign="top"><a id="a6f391c06d463236ec3b5da56ae0d0fe6"></a>
+<tr class="separator:ab0df97b298bc4d7612e0fa7bc0c0cd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d117e7079d5e8ce0f6bae1c11825c31"><td class="memItemLeft" align="right" valign="top"><a id="a3d117e7079d5e8ce0f6bae1c11825c31"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a3d117e7079d5e8ce0f6bae1c11825c31">~virtual_block_allocator</a> ()</td></tr>
+<tr class="memdesc:a3d117e7079d5e8ce0f6bae1c11825c31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs this <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a>, decommitting any commit pages. <br /></td></tr>
+<tr class="separator:a3d117e7079d5e8ce0f6bae1c11825c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dcc766be4840c30a472ccce9101a1d2"><td class="memItemLeft" align="right" valign="top"><a id="a7dcc766be4840c30a472ccce9101a1d2"></a>
 <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&amp;other)=delete</td></tr>
-<tr class="separator:a6f391c06d463236ec3b5da56ae0d0fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e30ed1e5da8938ebf9587b464730f03"><td class="memItemLeft" align="right" valign="top"><a id="a9e30ed1e5da8938ebf9587b464730f03"></a>
+<tr class="separator:a7dcc766be4840c30a472ccce9101a1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe737e090051a265a133607024dcf749"><td class="memItemLeft" align="right" valign="top"><a id="abe737e090051a265a133607024dcf749"></a>
 <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;other)=delete</td></tr>
-<tr class="separator:a9e30ed1e5da8938ebf9587b464730f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a929b02a6765638838b1648ec2404555c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a929b02a6765638838b1648ec2404555c">allocate_block</a> () noexcept</td></tr>
-<tr class="memdesc:a929b02a6765638838b1648ec2404555c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a> of size block_size.  <a href="#a929b02a6765638838b1648ec2404555c">More...</a><br /></td></tr>
-<tr class="separator:a929b02a6765638838b1648ec2404555c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee9854f115ffdbe56056433825d49b22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#aee9854f115ffdbe56056433825d49b22">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
-<tr class="memdesc:aee9854f115ffdbe56056433825d49b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a given <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#aee9854f115ffdbe56056433825d49b22">More...</a><br /></td></tr>
-<tr class="separator:aee9854f115ffdbe56056433825d49b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaac1555299794bff696b4a0920f6636b"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#aaac1555299794bff696b4a0920f6636b">next_block_size</a> () const noexcept</td></tr>
-<tr class="memdesc:aaac1555299794bff696b4a0920f6636b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#aaac1555299794bff696b4a0920f6636b">More...</a><br /></td></tr>
-<tr class="separator:aaac1555299794bff696b4a0920f6636b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:abe737e090051a265a133607024dcf749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0008c8edb059de81dae5a6114384b5b2"><td class="memItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a0008c8edb059de81dae5a6114384b5b2">allocate_block</a> () noexcept</td></tr>
+<tr class="memdesc:a0008c8edb059de81dae5a6114384b5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a> of size block_size.  <a href="#a0008c8edb059de81dae5a6114384b5b2">More...</a><br /></td></tr>
+<tr class="separator:a0008c8edb059de81dae5a6114384b5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ee8097835fd86072f44f14b8963a65e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a3ee8097835fd86072f44f14b8963a65e">deallocate_block</a> (owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
+<tr class="memdesc:a3ee8097835fd86072f44f14b8963a65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a given <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a3ee8097835fd86072f44f14b8963a65e">More...</a><br /></td></tr>
+<tr class="separator:a3ee8097835fd86072f44f14b8963a65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a64335dca7d93b506aa34a5db597237"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a2a64335dca7d93b506aa34a5db597237">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a2a64335dca7d93b506aa34a5db597237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a2a64335dca7d93b506aa34a5db597237">More...</a><br /></td></tr>
+<tr class="separator:a2a64335dca7d93b506aa34a5db597237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ecd5c1ecdb8f6b575acc02f2d2bffd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html#a16ecd5c1ecdb8f6b575acc02f2d2bffd">info</a> () const noexcept</td></tr>
+<tr class="memdesc:a16ecd5c1ecdb8f6b575acc02f2d2bffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#a16ecd5c1ecdb8f6b575acc02f2d2bffd">More...</a><br /></td></tr>
+<tr class="separator:a16ecd5c1ecdb8f6b575acc02f2d2bffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html#ac0fd8bf609b8f309137c4c26621c58dc">value</a> () const noexcept</td></tr>
+<tr class="memdesc:ac0fd8bf609b8f309137c4c26621c58dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value.  <a href="#ac0fd8bf609b8f309137c4c26621c58dc">More...</a><br /></td></tr>
+<tr class="separator:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This block allocator is used for creating virtual memory blocks. </p>
+<div class="textblock"><h3>template&lt;std::size_t Pages, typename GrowthMultiplier = no_growth_multiplier&gt;<br />
+class bit::memory::virtual_block_allocator&lt; Pages, GrowthMultiplier &gt;</h3>
+
+<p>This block allocator is used for creating virtual memory blocks. </p>
 <p>This allocator reserves virtual memory pages up front, and commits them as they get requested. Any blocks that get deleted are simply cached for later use, rather than being decommitted each time.</p>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dcc/virtual__block__allocator_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d0/dcc/virtual__block__allocator_8hpp_source.html">virtual_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/virtual__block__allocator_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d0/dcc/virtual__block__allocator_8hpp_source.html">virtual_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6d4d1954d0fbe3c36b8339f5ae6342d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d4d1954d0fbe3c36b8339f5ae6342d8">&#9670;&nbsp;</a></span>virtual_block_allocator() <span class="overload">[1/2]</span></h2>
+<a id="a47450a20ccbb2098d380bc2acaa8b1ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47450a20ccbb2098d380bc2acaa8b1ea">&#9670;&nbsp;</a></span>virtual_block_allocator() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t UPages = Pages, typename  = std::enable_if_t&lt;UPages!=dynamic_size&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bit::memory::virtual_block_allocator::virtual_block_allocator </td>
+          <td class="memname"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>pages</em></td><td>)</td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -140,26 +172,77 @@ Public Member Functions</h2></td></tr>
 <p>Constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> that reserves the specified number of <code>pages</code> up front. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pages</td><td>the number of pages to reserve </td></tr>
+    <tr><td class="paramname">growth</td><td>the growth multiplier </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a5e525c7cbf95d55e6abf346589c6d4a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e525c7cbf95d55e6abf346589c6d4a5">&#9670;&nbsp;</a></span>virtual_block_allocator() <span class="overload">[2/2]</span></h2>
+<a id="a37b10606efabc67af15fdf44db63d14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37b10606efabc67af15fdf44db63d14c">&#9670;&nbsp;</a></span>virtual_block_allocator() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t UPages = Pages, typename  = std::enable_if_t&lt;UPages==dynamic_size&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bit::memory::virtual_block_allocator::virtual_block_allocator </td>
+          <td class="memname"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> &amp;&amp;&#160;</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>pages</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a> that reserves the specified number of <code>pages</code> up front. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pages</td><td>the number of pages to reserve </td></tr>
+    <tr><td class="paramname">growth</td><td>the growth multiplier </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a94207b5b692e051171bf4952b7a7f1ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94207b5b692e051171bf4952b7a7f1ac">&#9670;&nbsp;</a></span>virtual_block_allocator() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -182,17 +265,19 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a929b02a6765638838b1648ec2404555c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a929b02a6765638838b1648ec2404555c">&#9670;&nbsp;</a></span>allocate_block()</h2>
+<a id="a0008c8edb059de81dae5a6114384b5b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0008c8edb059de81dae5a6114384b5b2">&#9670;&nbsp;</a></span>allocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; bit::memory::virtual_block_allocator::allocate_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::allocate_block </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -210,19 +295,21 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aee9854f115ffdbe56056433825d49b22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee9854f115ffdbe56056433825d49b22">&#9670;&nbsp;</a></span>deallocate_block()</h2>
+<a id="a3ee8097835fd86072f44f14b8963a65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ee8097835fd86072f44f14b8963a65e">&#9670;&nbsp;</a></span>deallocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bit::memory::virtual_block_allocator::deallocate_block </td>
+          <td class="memname">void <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::deallocate_block </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
+          <td class="paramtype">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
           <td class="paramname"><em>block</em></td><td>)</td>
           <td></td>
         </tr>
@@ -244,17 +331,50 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aaac1555299794bff696b4a0920f6636b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaac1555299794bff696b4a0920f6636b">&#9670;&nbsp;</a></span>next_block_size()</h2>
+<a id="a16ecd5c1ecdb8f6b575acc02f2d2bffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ecd5c1ecdb8f6b575acc02f2d2bffd">&#9670;&nbsp;</a></span>info()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t bit::memory::virtual_block_allocator::next_block_size </td>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html" title="This block allocator is used for creating virtual memory blocks. ">virtual_block_allocator</a>'. Use a named_virtual_block_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
+
+</div>
+</div>
+<a id="a2a64335dca7d93b506aa34a5db597237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a64335dca7d93b506aa34a5db597237">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t Pages, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../dc/d96/classbit_1_1memory_1_1virtual__block__allocator.html">bit::memory::virtual_block_allocator</a>&lt; Pages, GrowthMultiplier &gt;::next_block_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

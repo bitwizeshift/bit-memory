@@ -65,7 +65,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="../../d3/d76/classbit_1_1memory_1_1pool__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bit::memory::pool_allocator Class Reference<div class="ingroups"><a class="el" href="../../df/d4d/group___allocator.html">Allocator</a> &raquo; <a class="el" href="../../d4/d39/group___extended_allocator.html">ExtendedAllocator</a></div></div>  </div>
@@ -99,30 +98,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a51d9667bcb1ddf8125ce8a0e5f14987c"><td class="memItemLeft" align="right" valign="top"><a id="a51d9667bcb1ddf8125ce8a0e5f14987c"></a>
 <a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html">pool_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html">pool_allocator</a> &amp;other)=delete</td></tr>
 <tr class="separator:a51d9667bcb1ddf8125ce8a0e5f14987c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0b0a952e8bc8852ceac9bf735dc47dc"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#aa0b0a952e8bc8852ceac9bf735dc47dc">try_allocate</a> (std::size_t size, std::size_t align, std::size_t offset=0) noexcept</td></tr>
-<tr class="memdesc:aa0b0a952e8bc8852ceac9bf735dc47dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to allocate <code>size</code> bytes with the alignment of <code>align</code>, offset by <code>offset</code>.  <a href="#aa0b0a952e8bc8852ceac9bf735dc47dc">More...</a><br /></td></tr>
-<tr class="separator:aa0b0a952e8bc8852ceac9bf735dc47dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a769686159a7e9d389c49e41db0a0c830"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a769686159a7e9d389c49e41db0a0c830">deallocate</a> (void *p, std::size_t size)</td></tr>
-<tr class="memdesc:a769686159a7e9d389c49e41db0a0c830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates memory previously allocated from a call to <code>try_allocate</code>.  <a href="#a769686159a7e9d389c49e41db0a0c830">More...</a><br /></td></tr>
-<tr class="separator:a769686159a7e9d389c49e41db0a0c830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33a64b1d2168deeaf7d2e2830c6d76c4"><td class="memItemLeft" align="right" valign="top">owner&lt; void * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a33a64b1d2168deeaf7d2e2830c6d76c4">try_allocate</a> (std::size_t size, std::size_t align, std::size_t offset=0) noexcept</td></tr>
+<tr class="memdesc:a33a64b1d2168deeaf7d2e2830c6d76c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to allocate <code>size</code> bytes with the alignment of <code>align</code>, offset by <code>offset</code>.  <a href="#a33a64b1d2168deeaf7d2e2830c6d76c4">More...</a><br /></td></tr>
+<tr class="separator:a33a64b1d2168deeaf7d2e2830c6d76c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af35822e6d0f163eaa618b14bd5daee1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#af35822e6d0f163eaa618b14bd5daee1b">deallocate</a> (owner&lt; void *&gt; p, std::size_t size)</td></tr>
+<tr class="memdesc:af35822e6d0f163eaa618b14bd5daee1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates memory previously allocated from a call to <code>try_allocate</code>.  <a href="#af35822e6d0f163eaa618b14bd5daee1b">More...</a><br /></td></tr>
+<tr class="separator:af35822e6d0f163eaa618b14bd5daee1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f0c7e3a3d3be12d5a1943bc9b21ad4"><td class="memItemLeft" align="right" valign="top"><a id="a38f0c7e3a3d3be12d5a1943bc9b21ad4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a38f0c7e3a3d3be12d5a1943bc9b21ad4">deallocate_all</a> ()</td></tr>
+<tr class="memdesc:a38f0c7e3a3d3be12d5a1943bc9b21ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates all memory in this <a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html" title="This allocator creates a pool of fixed-sized chunk entries for allocations. ">pool_allocator</a>. <br /></td></tr>
+<tr class="separator:a38f0c7e3a3d3be12d5a1943bc9b21ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a167386600ee21a0bb31ff0a41d82cd0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a167386600ee21a0bb31ff0a41d82cd0a">owns</a> (const void *p) const noexcept</td></tr>
 <tr class="memdesc:a167386600ee21a0bb31ff0a41d82cd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the pointer <code>p</code> is owned by this allocator.  <a href="#a167386600ee21a0bb31ff0a41d82cd0a">More...</a><br /></td></tr>
 <tr class="separator:a167386600ee21a0bb31ff0a41d82cd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c0b2d695caa5d073c3fe8556525da0e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a2c0b2d695caa5d073c3fe8556525da0e">max_size</a> () const noexcept</td></tr>
 <tr class="memdesc:a2c0b2d695caa5d073c3fe8556525da0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the max size that this allocator can allocate.  <a href="#a2c0b2d695caa5d073c3fe8556525da0e">More...</a><br /></td></tr>
 <tr class="separator:a2c0b2d695caa5d073c3fe8556525da0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ab5c3f7c346e3202ed09187557bcd27db"><td class="memItemLeft" align="right" valign="top"><a id="ab5c3f7c346e3202ed09187557bcd27db"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html">pool_allocator</a> &amp;, const <a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html">pool_allocator</a> &amp;) noexcept</td></tr>
-<tr class="separator:ab5c3f7c346e3202ed09187557bcd27db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a420c40aba561dd085d8c2c898be1e52b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html#a420c40aba561dd085d8c2c898be1e52b">info</a> () const noexcept</td></tr>
+<tr class="memdesc:a420c40aba561dd085d8c2c898be1e52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#a420c40aba561dd085d8c2c898be1e52b">More...</a><br /></td></tr>
+<tr class="separator:a420c40aba561dd085d8c2c898be1e52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This allocator creates a pool of fixed-sized chunk entries for allocations. </p>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d4/d39/group___extended_allocator.html">ExtendedAllocator</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html">pool_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html">pool_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a357911c868e0b03bda7fdfe0f7aaff4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a357911c868e0b03bda7fdfe0f7aaff4f">&#9670;&nbsp;</a></span>max_alignment</h2>
@@ -137,7 +137,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 </div><div class="memdoc">
 <p>The max alignment is limited to 128 bytes due to an internal requirement that it stores the offset information </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html">pool_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../d5/dd4/pool__allocator_8hpp_source.html">pool_allocator.hpp</a>.</p>
 
 </div>
 </div>
@@ -214,8 +214,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a769686159a7e9d389c49e41db0a0c830"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a769686159a7e9d389c49e41db0a0c830">&#9670;&nbsp;</a></span>deallocate()</h2>
+<a id="af35822e6d0f163eaa618b14bd5daee1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af35822e6d0f163eaa618b14bd5daee1b">&#9670;&nbsp;</a></span>deallocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +223,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
         <tr>
           <td class="memname">void bit::memory::pool_allocator::deallocate </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype">owner&lt; void *&gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -248,6 +248,35 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a420c40aba561dd085d8c2c898be1e52b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a420c40aba561dd085d8c2c898be1e52b">&#9670;&nbsp;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> bit::memory::pool_allocator::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../d2/de0/classbit_1_1memory_1_1pool__allocator.html" title="This allocator creates a pool of fixed-sized chunk entries for allocations. ">pool_allocator</a>'. Use a named_pool_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
 
 </div>
 </div>
@@ -308,8 +337,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 
 </div>
 </div>
-<a id="aa0b0a952e8bc8852ceac9bf735dc47dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0b0a952e8bc8852ceac9bf735dc47dc">&#9670;&nbsp;</a></span>try_allocate()</h2>
+<a id="a33a64b1d2168deeaf7d2e2830c6d76c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33a64b1d2168deeaf7d2e2830c6d76c4">&#9670;&nbsp;</a></span>try_allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +347,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void* bit::memory::pool_allocator::try_allocate </td>
+          <td class="memname">owner&lt;void*&gt; bit::memory::pool_allocator::try_allocate </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>size</em>, </td>

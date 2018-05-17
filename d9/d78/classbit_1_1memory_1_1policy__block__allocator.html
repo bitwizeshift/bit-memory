@@ -67,7 +67,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d7/d17/classbit_1_1memory_1_1policy__block__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::policy_block_allocator&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt; Class Template Reference</div>  </div>
+<div class="title">bit::memory::policy_block_allocator&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -81,6 +81,7 @@ Inheritance diagram for bit::memory::policy_block_allocator&lt; BlockAllocator, 
  <div class="center">
   <img src="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.png" usemap="#bit::memory::policy_5Fblock_5Fallocator_3C_20BlockAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BasicLockable_20_3E_map" alt=""/>
   <map id="bit::memory::policy_5Fblock_5Fallocator_3C_20BlockAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BasicLockable_20_3E_map" name="bit::memory::policy_5Fblock_5Fallocator_3C_20BlockAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BasicLockable_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;" shape="rect" coords="0,0,599,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -92,9 +93,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>lock_type</b> = Basi
 <tr class="memitem:abbf67dec65eaaeb6975d8ba046c8efcf"><td class="memItemLeft" align="right" valign="top"><a id="abbf67dec65eaaeb6975d8ba046c8efcf"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>tracker_type</b> = MemoryTracker</td></tr>
 <tr class="separator:abbf67dec65eaaeb6975d8ba046c8efcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63d2771afbc8b644e997f70c10eb0ca"><td class="memItemLeft" align="right" valign="top"><a id="ad63d2771afbc8b644e997f70c10eb0ca"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = std::integral_constant&lt; bool, is_stateless&lt; BlockAllocator &gt;::value &amp;&amp;std::is_empty&lt; MemoryTagger &gt;::value &amp;&amp;std::is_empty&lt; MemoryTracker &gt;::value &amp;&amp;std::is_empty&lt; BasicLockable &gt;::value &gt;</td></tr>
-<tr class="separator:ad63d2771afbc8b644e997f70c10eb0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,10 +100,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#aef3d8bf6d86d777cb3c7ccd380df5462">policy_block_allocator</a> ()=default</td></tr>
 <tr class="memdesc:aef3d8bf6d86d777cb3c7ccd380df5462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs the <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html" title="This block allocator uses policies to modify the behaviour of the underlying type. ">policy_block_allocator</a>. <br /></td></tr>
 <tr class="separator:aef3d8bf6d86d777cb3c7ccd380df5462"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f1806cc664aaaa5f83f02a6e5880acd"><td class="memTemplParams" colspan="2">template&lt;typename... Args, typename  = std::enable_if_t&lt;std::is_constructible&lt;BlockAllocator,Args...&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:a9f1806cc664aaaa5f83f02a6e5880acd"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a9f1806cc664aaaa5f83f02a6e5880acd">policy_block_allocator</a> (Args &amp;&amp;...args)</td></tr>
-<tr class="memdesc:a9f1806cc664aaaa5f83f02a6e5880acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the underlying block allocator by forwarding the arguments to it.  <a href="#a9f1806cc664aaaa5f83f02a6e5880acd">More...</a><br /></td></tr>
-<tr class="separator:a9f1806cc664aaaa5f83f02a6e5880acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a586b1323f34c8b8bc35f93928b28f5b0"><td class="memTemplParams" colspan="2">template&lt;typename Arg0 , typename... Args, typename  = std::enable_if_t&lt;                 std::is_constructible&lt;BlockAllocator,Arg0,Args...&gt;::value &amp;&amp;                 !std::is_same&lt;Arg0,std::decay_t&lt;policy_block_allocator&gt;&gt;::value&gt;&gt; </td></tr>
+<tr class="memitem:a586b1323f34c8b8bc35f93928b28f5b0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a586b1323f34c8b8bc35f93928b28f5b0">policy_block_allocator</a> (Arg0 &amp;&amp;arg0, Args &amp;&amp;...args)</td></tr>
+<tr class="memdesc:a586b1323f34c8b8bc35f93928b28f5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the underlying block allocator by forwarding the arguments to it.  <a href="#a586b1323f34c8b8bc35f93928b28f5b0">More...</a><br /></td></tr>
+<tr class="separator:a586b1323f34c8b8bc35f93928b28f5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf3b4b8b1490d45eddd88cf60c502132"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#adf3b4b8b1490d45eddd88cf60c502132">policy_block_allocator</a> (<a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">policy_block_allocator</a> &amp;&amp;other)=default</td></tr>
 <tr class="memdesc:adf3b4b8b1490d45eddd88cf60c502132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs this <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html" title="This block allocator uses policies to modify the behaviour of the underlying type. ">policy_block_allocator</a> from an existing one.  <a href="#adf3b4b8b1490d45eddd88cf60c502132">More...</a><br /></td></tr>
 <tr class="separator:adf3b4b8b1490d45eddd88cf60c502132"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,26 +120,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7d24a5417cb91e90df5dd826ab6223de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">policy_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a7d24a5417cb91e90df5dd826ab6223de">operator=</a> (const <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">policy_block_allocator</a> &amp;other)=default</td></tr>
 <tr class="memdesc:a7d24a5417cb91e90df5dd826ab6223de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns this <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html" title="This block allocator uses policies to modify the behaviour of the underlying type. ">policy_block_allocator</a> from an existing one.  <a href="#a7d24a5417cb91e90df5dd826ab6223de">More...</a><br /></td></tr>
 <tr class="separator:a7d24a5417cb91e90df5dd826ab6223de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77e7aba442ee1ecb98e01b89918fac4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a77e7aba442ee1ecb98e01b89918fac4a">allocate_block</a> ()</td></tr>
+<tr class="memitem:a77e7aba442ee1ecb98e01b89918fac4a"><td class="memItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a77e7aba442ee1ecb98e01b89918fac4a">allocate_block</a> ()</td></tr>
 <tr class="memdesc:a77e7aba442ee1ecb98e01b89918fac4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a memory block using the underliny allocator.  <a href="#a77e7aba442ee1ecb98e01b89918fac4a">More...</a><br /></td></tr>
 <tr class="separator:a77e7aba442ee1ecb98e01b89918fac4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3c98a391eb683da65dcc9ec3e489cde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#ab3c98a391eb683da65dcc9ec3e489cde">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block)</td></tr>
+<tr class="memitem:ab3c98a391eb683da65dcc9ec3e489cde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#ab3c98a391eb683da65dcc9ec3e489cde">deallocate_block</a> (owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block)</td></tr>
 <tr class="memdesc:ab3c98a391eb683da65dcc9ec3e489cde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates the specified memory block.  <a href="#ab3c98a391eb683da65dcc9ec3e489cde">More...</a><br /></td></tr>
 <tr class="separator:ab3c98a391eb683da65dcc9ec3e489cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a788320070a402d8740e4e63c8f9e081b"><td class="memItemLeft" align="right" valign="top">const tracker_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a788320070a402d8740e4e63c8f9e081b">tracker</a> () const noexcept</td></tr>
 <tr class="memdesc:a788320070a402d8740e4e63c8f9e081b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the tracker from the arena_allocator.  <a href="#a788320070a402d8740e4e63c8f9e081b">More...</a><br /></td></tr>
 <tr class="separator:a788320070a402d8740e4e63c8f9e081b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15eeaee8da7d7a4054a814e09da387a4"><td class="memTemplParams" colspan="2">template&lt;typename U  = BlockAllocator, typename  = std::enable_if_t&lt;block_allocator_has_info&lt;U&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:a15eeaee8da7d7a4054a814e09da387a4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a15eeaee8da7d7a4054a814e09da387a4">info</a> () const noexcept</td></tr>
-<tr class="memdesc:a15eeaee8da7d7a4054a814e09da387a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this current block allocator, or null otherwise.  <a href="#a15eeaee8da7d7a4054a814e09da387a4">More...</a><br /></td></tr>
-<tr class="separator:a15eeaee8da7d7a4054a814e09da387a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832953cc606e94cfe03ff2a425cc76d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a832953cc606e94cfe03ff2a425cc76d3">info</a> () const noexcept</td></tr>
+<tr class="memdesc:a832953cc606e94cfe03ff2a425cc76d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this current block allocator, or null otherwise.  <a href="#a832953cc606e94cfe03ff2a425cc76d3">More...</a><br /></td></tr>
+<tr class="separator:a832953cc606e94cfe03ff2a425cc76d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bbd81abd978178adff8ef1a50f3f5b2"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a8bbd81abd978178adff8ef1a50f3f5b2">next_block_size</a> () const noexcept</td></tr>
 <tr class="memdesc:a8bbd81abd978178adff8ef1a50f3f5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a8bbd81abd978178adff8ef1a50f3f5b2">More...</a><br /></td></tr>
 <tr class="separator:a8bbd81abd978178adff8ef1a50f3f5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca72580446a5741c3080eb3419034d1e"><td class="memTemplParams" colspan="2">template&lt;typename U  = BlockAllocator, typename  = std::enable_if_t&lt;block_allocator_has_next_block_alignment&lt;U&gt;::value&gt;&gt; </td></tr>
-<tr class="memitem:aca72580446a5741c3080eb3419034d1e"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#aca72580446a5741c3080eb3419034d1e">next_block_alignment</a> () const noexcept</td></tr>
-<tr class="memdesc:aca72580446a5741c3080eb3419034d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block alignment expected from this allocator.  <a href="#aca72580446a5741c3080eb3419034d1e">More...</a><br /></td></tr>
-<tr class="separator:aca72580446a5741c3080eb3419034d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename BlockAllocator, typename MemoryTagger, typename MemoryTracker, typename BasicLockable&gt;<br />
@@ -149,7 +142,8 @@ class bit::memory::policy_block_allocator&lt; BlockAllocator, MemoryTagger, Memo
 
 <p>This block allocator uses policies to modify the behaviour of the underlying type. </p>
 <p>This block allocator acts and behaves identically to the underlying BlockAllocator by proxying the same functions defined in the BlockAllocator concept.</p>
-<p>BlockAllocator</p>
+<dl class="section note"><dt>Note</dt><dd>Even if all policies satisfy the Stateless concept, this allocator will always be considered stateful since it delegates actions in its destructor &ndash; which may call a function that touches external state (which is thus no longer stateless).</dd></dl>
+<dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">BlockAllocator</td><td>The block allocator to use </td></tr>
@@ -161,24 +155,34 @@ class bit::memory::policy_block_allocator&lt; BlockAllocator, MemoryTagger, Memo
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d56/policy__block__allocator_8hpp_source.html#l00070">70</a> of file <a class="el" href="../../dc/d56/policy__block__allocator_8hpp_source.html">policy_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d56/policy__block__allocator_8hpp_source.html#l00101">101</a> of file <a class="el" href="../../dc/d56/policy__block__allocator_8hpp_source.html">policy_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9f1806cc664aaaa5f83f02a6e5880acd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f1806cc664aaaa5f83f02a6e5880acd">&#9670;&nbsp;</a></span>policy_block_allocator() <span class="overload">[1/3]</span></h2>
+<a id="a586b1323f34c8b8bc35f93928b28f5b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a586b1323f34c8b8bc35f93928b28f5b0">&#9670;&nbsp;</a></span>policy_block_allocator() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTracker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
-template&lt;typename... Args, typename  = std::enable_if_t&lt;std::is_constructible&lt;BlockAllocator,Args...&gt;::value&gt;&gt; </div>
+template&lt;typename Arg0 , typename... Args, typename  = std::enable_if_t&lt;                 std::is_constructible&lt;BlockAllocator,Arg0,Args...&gt;::value &amp;&amp;                 !std::is_same&lt;Arg0,std::decay_t&lt;policy_block_allocator&gt;&gt;::value&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">bit::memory::policy_block_allocator</a>&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;::<a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">policy_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
+          <td class="paramtype">Arg0 &amp;&amp;&#160;</td>
+          <td class="paramname"><em>arg0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,7 +281,7 @@ template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTra
 template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTracker , typename BasicLockable &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">bit::memory::policy_block_allocator</a>&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;::allocate_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">bit::memory::policy_block_allocator</a>&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;::allocate_block </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -301,7 +305,7 @@ template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTra
         <tr>
           <td class="memname">void <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">bit::memory::policy_block_allocator</a>&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;::deallocate_block </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
+          <td class="paramtype">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
           <td class="paramname"><em>block</em></td><td>)</td>
           <td></td>
         </tr>
@@ -318,15 +322,13 @@ template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTra
 
 </div>
 </div>
-<a id="a15eeaee8da7d7a4054a814e09da387a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15eeaee8da7d7a4054a814e09da387a4">&#9670;&nbsp;</a></span>info()</h2>
+<a id="a832953cc606e94cfe03ff2a425cc76d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832953cc606e94cfe03ff2a425cc76d3">&#9670;&nbsp;</a></span>info()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTracker , typename BasicLockable &gt; </div>
-<div class="memtemplate">
-template&lt;typename U  = BlockAllocator, typename  = std::enable_if_t&lt;block_allocator_has_info&lt;U&gt;::value&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -346,41 +348,8 @@ template&lt;typename U  = BlockAllocator, typename  = std::enable_if_t&lt;block_
 </div><div class="memdoc">
 
 <p>Gets the info about this current block allocator, or null otherwise. </p>
-<dl class="section note"><dt>Note</dt><dd>This is only enabled if the underlying BlockAllocator supports <code><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a15eeaee8da7d7a4054a814e09da387a4" title="Gets the info about this current block allocator, or null otherwise. ">info()</a></code> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is only enabled if the underlying BlockAllocator supports <code><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#a832953cc606e94cfe03ff2a425cc76d3" title="Gets the info about this current block allocator, or null otherwise. ">info()</a></code> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the allocator info </dd></dl>
-
-</div>
-</div>
-<a id="aca72580446a5741c3080eb3419034d1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca72580446a5741c3080eb3419034d1e">&#9670;&nbsp;</a></span>next_block_alignment()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename BlockAllocator , typename MemoryTagger , typename MemoryTracker , typename BasicLockable &gt; </div>
-<div class="memtemplate">
-template&lt;typename U  = BlockAllocator, typename  = std::enable_if_t&lt;block_allocator_has_next_block_alignment&lt;U&gt;::value&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html">bit::memory::policy_block_allocator</a>&lt; BlockAllocator, MemoryTagger, MemoryTracker, BasicLockable &gt;::next_block_alignment </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Queries the next block alignment expected from this allocator. </p>
-<dl class="section note"><dt>Note</dt><dd>This is only enabled if the underlying BlockAllocator supports <code><a class="el" href="../../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html#aca72580446a5741c3080eb3419034d1e" title="Queries the next block alignment expected from this allocator. ">next_block_alignment()</a></code> </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>the next block alignment </dd></dl>
 
 </div>
 </div>

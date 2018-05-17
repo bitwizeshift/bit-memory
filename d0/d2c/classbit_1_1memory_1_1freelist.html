@@ -104,6 +104,10 @@ constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <tr class="memitem:acff6aee20d74e82560e690c30a0fc4f1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2c/classbit_1_1memory_1_1freelist.html#acff6aee20d74e82560e690c30a0fc4f1">size</a> () const noexcept</td></tr>
 <tr class="memdesc:acff6aee20d74e82560e690c30a0fc4f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of entries in this freelist.  <a href="#acff6aee20d74e82560e690c30a0fc4f1">More...</a><br /></td></tr>
 <tr class="separator:acff6aee20d74e82560e690c30a0fc4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affe65379e7f7ea4af6706c0e3a1ad36f"><td class="memItemLeft" align="right" valign="top"><a id="affe65379e7f7ea4af6706c0e3a1ad36f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2c/classbit_1_1memory_1_1freelist.html#affe65379e7f7ea4af6706c0e3a1ad36f">clear</a> ()</td></tr>
+<tr class="memdesc:affe65379e7f7ea4af6706c0e3a1ad36f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empties the freelist cache. <br /></td></tr>
+<tr class="separator:affe65379e7f7ea4af6706c0e3a1ad36f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a715e3f6902b4a2ce3bfe12db84f7f0"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2c/classbit_1_1memory_1_1freelist.html#a2a715e3f6902b4a2ce3bfe12db84f7f0">request</a> () noexcept</td></tr>
 <tr class="memdesc:a2a715e3f6902b4a2ce3bfe12db84f7f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests raw memory from the freelist, if any exists.  <a href="#a2a715e3f6902b4a2ce3bfe12db84f7f0">More...</a><br /></td></tr>
 <tr class="separator:a2a715e3f6902b4a2ce3bfe12db84f7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,7 +129,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <div class="textblock"><p>A simple freelist that uses intrusive pointers inside raw memory. </p>
 <p>This is dissimilar from the <a class="el" href="../../d1/d05/classbit_1_1memory_1_1memory__block__cache.html" title="A cache containing an intrinsically linked list of memory_blocks. ">memory_block_cache</a> in that it does not store each block sie in the freelist; it only knows of the pointers. The semantics, ownership, and valdity of the pointers must all be managed from outside </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da3/freelist_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d1/da3/freelist_8hpp_source.html">freelist.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da3/freelist_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d1/da3/freelist_8hpp_source.html">freelist.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af9d32cc520aae9f2f3bc1774e2bc59bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af9d32cc520aae9f2f3bc1774e2bc59bf">&#9670;&nbsp;</a></span>empty()</h2>

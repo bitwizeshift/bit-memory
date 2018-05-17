@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bit::memory: bit::memory::aligned_block_allocator&lt; Size, Align &gt; Class Template Reference</title>
+<title>bit::memory: bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -64,9 +64,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="../../d7/d7f/classbit_1_1memory_1_1aligned__block__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::aligned_block_allocator&lt; Size, Align &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> &#124; <a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a></div></div>  </div>
+<div class="title">bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a> &#124; <a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -75,47 +76,79 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for bit::memory::aligned_block_allocator&lt; Size, Align &gt;:</div>
+Inheritance diagram for bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.png" usemap="#bit::memory::aligned_5Fblock_5Fallocator_3C_20Size_2C_20Align_20_3E_map" alt=""/>
-  <map id="bit::memory::aligned_5Fblock_5Fallocator_3C_20Size_2C_20Align_20_3E_map" name="bit::memory::aligned_5Fblock_5Fallocator_3C_20Size_2C_20Align_20_3E_map">
+  <img src="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.png" usemap="#bit::memory::aligned_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20BlockAlign_2C_20GrowthMultiplier_20_3E_map" alt=""/>
+  <map id="bit::memory::aligned_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20BlockAlign_2C_20GrowthMultiplier_20_3E_map" name="bit::memory::aligned_5Fblock_5Fallocator_3C_20DefaultBlockSize_2C_20BlockAlign_2C_20GrowthMultiplier_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; GrowthMultiplier &gt;" shape="rect" coords="0,0,504,24"/>
+<area href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html" alt="bit::memory::dynamic_size_type&lt; 0, DefaultBlockSize &gt;" shape="rect" coords="514,0,1018,24"/>
+<area href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html" alt="bit::memory::dynamic_size_type&lt; 1, BlockAlign &gt;" shape="rect" coords="1028,0,1532,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1abb862d9933dc9e6c93e7e6366af039"><td class="memItemLeft" align="right" valign="top"><a id="a1abb862d9933dc9e6c93e7e6366af039"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a1abb862d9933dc9e6c93e7e6366af039">aligned_block_allocator</a> ()=default</td></tr>
-<tr class="memdesc:a1abb862d9933dc9e6c93e7e6366af039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> that will distribute blocks of the specified <code>size</code>. <br /></td></tr>
-<tr class="separator:a1abb862d9933dc9e6c93e7e6366af039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a147f897c9d17182e43080e62fc27affc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a147f897c9d17182e43080e62fc27affc">aligned_block_allocator</a> (<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&amp;other)=default</td></tr>
-<tr class="memdesc:a147f897c9d17182e43080e62fc27affc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#a147f897c9d17182e43080e62fc27affc">More...</a><br /></td></tr>
-<tr class="separator:a147f897c9d17182e43080e62fc27affc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47482a677dceba00e9f8903c062b7583"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a47482a677dceba00e9f8903c062b7583">aligned_block_allocator</a> (const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a47482a677dceba00e9f8903c062b7583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#a47482a677dceba00e9f8903c062b7583">More...</a><br /></td></tr>
-<tr class="separator:a47482a677dceba00e9f8903c062b7583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1322b0597f83bb5a72c5da40318eb25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#aa1322b0597f83bb5a72c5da40318eb25">operator=</a> (<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&amp;other)=default</td></tr>
-<tr class="memdesc:aa1322b0597f83bb5a72c5da40318eb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#aa1322b0597f83bb5a72c5da40318eb25">More...</a><br /></td></tr>
-<tr class="separator:aa1322b0597f83bb5a72c5da40318eb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38cc795dc96fc7a92c05deb3f795ad8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a38cc795dc96fc7a92c05deb3f795ad8f">operator=</a> (const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;other)=default</td></tr>
-<tr class="memdesc:a38cc795dc96fc7a92c05deb3f795ad8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#a38cc795dc96fc7a92c05deb3f795ad8f">More...</a><br /></td></tr>
-<tr class="separator:a38cc795dc96fc7a92c05deb3f795ad8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a112e81a2c315b07f623b6950f88438b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a112e81a2c315b07f623b6950f88438b8">allocate_block</a> () noexcept</td></tr>
-<tr class="memdesc:a112e81a2c315b07f623b6950f88438b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a> of size block_size with alignment <code>Align</code>.  <a href="#a112e81a2c315b07f623b6950f88438b8">More...</a><br /></td></tr>
-<tr class="separator:a112e81a2c315b07f623b6950f88438b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fbef20968a6b3b7f09ea36dfff46f7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a2fbef20968a6b3b7f09ea36dfff46f7e">deallocate_block</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
-<tr class="memdesc:a2fbef20968a6b3b7f09ea36dfff46f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a given <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#a2fbef20968a6b3b7f09ea36dfff46f7e">More...</a><br /></td></tr>
-<tr class="separator:a2fbef20968a6b3b7f09ea36dfff46f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3def9020b44c531e5d90d769bf7aaab0"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a3def9020b44c531e5d90d769bf7aaab0">next_block_size</a> () const noexcept</td></tr>
-<tr class="memdesc:a3def9020b44c531e5d90d769bf7aaab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a3def9020b44c531e5d90d769bf7aaab0">More...</a><br /></td></tr>
-<tr class="separator:a3def9020b44c531e5d90d769bf7aaab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07e70cf854ad5ac2ae4e17ef1ae36ca"><td class="memItemLeft" align="right" valign="top"><a id="ad07e70cf854ad5ac2ae4e17ef1ae36ca"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ad07e70cf854ad5ac2ae4e17ef1ae36ca">aligned_block_allocator</a> ()=default</td></tr>
+<tr class="memdesc:ad07e70cf854ad5ac2ae4e17ef1ae36ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> that will distribute blocks of the specified <code>size</code>. <br /></td></tr>
+<tr class="separator:ad07e70cf854ad5ac2ae4e17ef1ae36ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a042e413c566979813ab6a58519b662e9"><td class="memTemplParams" colspan="2">template&lt;std::size_t USize = DefaultBlockSize, std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;(USize!=dynamic_block_size) &amp;&amp;                                         (UAlign!=dynamic_block_alignment)&gt;&gt; </td></tr>
+<tr class="memitem:a042e413c566979813ab6a58519b662e9"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a042e413c566979813ab6a58519b662e9">aligned_block_allocator</a> (GrowthMultiplier growth)</td></tr>
+<tr class="memdesc:a042e413c566979813ab6a58519b662e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy.  <a href="#a042e413c566979813ab6a58519b662e9">More...</a><br /></td></tr>
+<tr class="separator:a042e413c566979813ab6a58519b662e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6fbca756d2bb7287361961a794b21a"><td class="memTemplParams" colspan="2">template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize==dynamic_block_size&gt;&gt; </td></tr>
+<tr class="memitem:aeb6fbca756d2bb7287361961a794b21a"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#aeb6fbca756d2bb7287361961a794b21a">aligned_block_allocator</a> (block_size_t block_size, GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:aeb6fbca756d2bb7287361961a794b21a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy.  <a href="#aeb6fbca756d2bb7287361961a794b21a">More...</a><br /></td></tr>
+<tr class="separator:aeb6fbca756d2bb7287361961a794b21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab67132e880e6fbf74afb10ea516566cf"><td class="memTemplParams" colspan="2">template&lt;std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;UAlign==dynamic_block_alignment&gt;&gt; </td></tr>
+<tr class="memitem:ab67132e880e6fbf74afb10ea516566cf"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ab67132e880e6fbf74afb10ea516566cf">aligned_block_allocator</a> (block_alignment_t block_alignment, GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:ab67132e880e6fbf74afb10ea516566cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy.  <a href="#ab67132e880e6fbf74afb10ea516566cf">More...</a><br /></td></tr>
+<tr class="separator:ab67132e880e6fbf74afb10ea516566cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0c818d209c938d75b62c4f44acb395"><td class="memTemplParams" colspan="2">template&lt;std::size_t USize = DefaultBlockSize, std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;(USize==dynamic_block_size) &amp;&amp;                                         (UAlign==dynamic_block_alignment)&gt;&gt; </td></tr>
+<tr class="memitem:a6f0c818d209c938d75b62c4f44acb395"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a6f0c818d209c938d75b62c4f44acb395">aligned_block_allocator</a> (block_size_t block_size, block_alignment_t block_alignment, GrowthMultiplier growth=GrowthMultiplier{})</td></tr>
+<tr class="memdesc:a6f0c818d209c938d75b62c4f44acb395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy.  <a href="#a6f0c818d209c938d75b62c4f44acb395">More...</a><br /></td></tr>
+<tr class="separator:a6f0c818d209c938d75b62c4f44acb395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5843c82158bc6ec0d7d654a1c0bd446a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a5843c82158bc6ec0d7d654a1c0bd446a">aligned_block_allocator</a> (<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&amp;other)=default</td></tr>
+<tr class="memdesc:a5843c82158bc6ec0d7d654a1c0bd446a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#a5843c82158bc6ec0d7d654a1c0bd446a">More...</a><br /></td></tr>
+<tr class="separator:a5843c82158bc6ec0d7d654a1c0bd446a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5635acec0a4202bc972678408988bf15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a5635acec0a4202bc972678408988bf15">aligned_block_allocator</a> (const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;other)=default</td></tr>
+<tr class="memdesc:a5635acec0a4202bc972678408988bf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#a5635acec0a4202bc972678408988bf15">More...</a><br /></td></tr>
+<tr class="separator:a5635acec0a4202bc972678408988bf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c8a1c33ce8f581f9f8ae1670955b21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ad4c8a1c33ce8f581f9f8ae1670955b21">operator=</a> (<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&amp;other)=default</td></tr>
+<tr class="memdesc:ad4c8a1c33ce8f581f9f8ae1670955b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#ad4c8a1c33ce8f581f9f8ae1670955b21">More...</a><br /></td></tr>
+<tr class="separator:ad4c8a1c33ce8f581f9f8ae1670955b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab594c770745066e889c4e5c03bb6c23f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ab594c770745066e889c4e5c03bb6c23f">operator=</a> (const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> &amp;other)=default</td></tr>
+<tr class="memdesc:ab594c770745066e889c4e5c03bb6c23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> from another allocator.  <a href="#ab594c770745066e889c4e5c03bb6c23f">More...</a><br /></td></tr>
+<tr class="separator:ab594c770745066e889c4e5c03bb6c23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62c07f7d4e90e15de1d98c3182070b1d"><td class="memItemLeft" align="right" valign="top">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a62c07f7d4e90e15de1d98c3182070b1d">allocate_block</a> () noexcept</td></tr>
+<tr class="memdesc:a62c07f7d4e90e15de1d98c3182070b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a> of size block_size with alignment <code>Align</code>.  <a href="#a62c07f7d4e90e15de1d98c3182070b1d">More...</a><br /></td></tr>
+<tr class="separator:a62c07f7d4e90e15de1d98c3182070b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9fcca1980a249ce719c45eaca4dc3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#acf9fcca1980a249ce719c45eaca4dc3b">deallocate_block</a> (owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt; block) noexcept</td></tr>
+<tr class="memdesc:acf9fcca1980a249ce719c45eaca4dc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a given <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html" title="Wrapper around a block of memory, containing both the size and the address of the memory block...">memory_block</a>.  <a href="#acf9fcca1980a249ce719c45eaca4dc3b">More...</a><br /></td></tr>
+<tr class="separator:acf9fcca1980a249ce719c45eaca4dc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09ea5ec818e425ead0a563cc1ad89d53"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#a09ea5ec818e425ead0a563cc1ad89d53">next_block_size</a> () const noexcept</td></tr>
+<tr class="memdesc:a09ea5ec818e425ead0a563cc1ad89d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the next block size expected from this allocator.  <a href="#a09ea5ec818e425ead0a563cc1ad89d53">More...</a><br /></td></tr>
+<tr class="separator:a09ea5ec818e425ead0a563cc1ad89d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dad9b20742396958be27ae01ca74f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html#ab8dad9b20742396958be27ae01ca74f6">info</a> () const noexcept</td></tr>
+<tr class="memdesc:ab8dad9b20742396958be27ae01ca74f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#ab8dad9b20742396958be27ae01ca74f6">More...</a><br /></td></tr>
+<tr class="separator:ab8dad9b20742396958be27ae01ca74f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html#ac0fd8bf609b8f309137c4c26621c58dc">value</a> () const noexcept</td></tr>
+<tr class="memdesc:ac0fd8bf609b8f309137c4c26621c58dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value.  <a href="#ac0fd8bf609b8f309137c4c26621c58dc">More...</a><br /></td></tr>
+<tr class="separator:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de6/classbit_1_1memory_1_1dynamic__size__type.html#ac0fd8bf609b8f309137c4c26621c58dc">value</a> () const noexcept</td></tr>
+<tr class="memdesc:ac0fd8bf609b8f309137c4c26621c58dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value.  <a href="#ac0fd8bf609b8f309137c4c26621c58dc">More...</a><br /></td></tr>
+<tr class="separator:ac0fd8bf609b8f309137c4c26621c58dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;std::size_t Size, std::size_t Align&gt;<br />
-class bit::memory::aligned_block_allocator&lt; Size, Align &gt;</h3>
+<div class="textblock"><h3>template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier = no_growth_multiplier&gt;<br />
+class bit::memory::aligned_block_allocator&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;</h3>
 
 <p>An allocator that allocates over-aligned memory. </p>
+<dl class="section note"><dt>Note</dt><dd>This allocator should only be used for over-aligned memory blocks where required. It does not make sense to be used if the required alignment of each block is less than or equal to <code>alignof(std::max_align_t)</code> &ndash; as this fundamental alignment is required of both the '<a class="el" href="../../de/de6/classbit_1_1memory_1_1new__block__allocator.html" title="A block allocator that wraps around calls to new and delete. ">new_block_allocator</a>' and '<a class="el" href="../../d0/d23/classbit_1_1memory_1_1malloc__block__allocator.html" title="A block allocator that wraps around raw calls to std::malloc and std::free. ">malloc_block_allocator</a>' without requiring any additional overhead</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Size</td><td>The size of the block </td></tr>
@@ -126,23 +159,207 @@ class bit::memory::aligned_block_allocator&lt; Size, Align &gt;</h3>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d0/d17/group___block_allocator.html">BlockAllocator</a></dd></dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d1/db1/aligned__block__allocator_8hpp_source.html">aligned_block_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a147f897c9d17182e43080e62fc27affc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a147f897c9d17182e43080e62fc27affc">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[1/2]</span></h2>
+<a id="a042e413c566979813ab6a58519b662e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a042e413c566979813ab6a58519b662e9">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t USize = DefaultBlockSize, std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;(USize!=dynamic_block_size) &amp;&amp;                                         (UAlign!=dynamic_block_alignment)&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; Size, Align &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">growth</td><td>the growth multiplier policy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeb6fbca756d2bb7287361961a794b21a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb6fbca756d2bb7287361961a794b21a">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t USize = DefaultBlockSize, typename  = std::enable_if_t&lt;USize==dynamic_block_size&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype">block_size_t&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block_size</td><td>the default block size </td></tr>
+    <tr><td class="paramname">growth</td><td>the growth multiplier policy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab67132e880e6fbf74afb10ea516566cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab67132e880e6fbf74afb10ea516566cf">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;UAlign==dynamic_block_alignment&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype">block_alignment_t&#160;</td>
+          <td class="paramname"><em>block_alignment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block_alignment</td><td>the default block alignment </td></tr>
+    <tr><td class="paramname">growth</td><td>the growth multiplier policy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6f0c818d209c938d75b62c4f44acb395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0c818d209c938d75b62c4f44acb395">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t USize = DefaultBlockSize, std::size_t UAlign = BlockAlign, typename  = std::enable_if_t&lt;(USize==dynamic_block_size) &amp;&amp;                                         (UAlign==dynamic_block_alignment)&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype">block_size_t&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">block_alignment_t&#160;</td>
+          <td class="paramname"><em>block_alignment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GrowthMultiplier&#160;</td>
+          <td class="paramname"><em>growth</em> = <code>GrowthMultiplier{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs an <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a> with the specified <code>growth</code> policy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block_size</td><td>the default block size </td></tr>
+    <tr><td class="paramname">block_alignment</td><td>the default block alignment </td></tr>
+    <tr><td class="paramname">growth</td><td>the growth multiplier policy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5843c82158bc6ec0d7d654a1c0bd446a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5843c82158bc6ec0d7d654a1c0bd446a">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -164,21 +381,21 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 
 </div>
 </div>
-<a id="a47482a677dceba00e9f8903c062b7583"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47482a677dceba00e9f8903c062b7583">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[2/2]</span></h2>
+<a id="a5635acec0a4202bc972678408988bf15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5635acec0a4202bc972678408988bf15">&#9670;&nbsp;</a></span>aligned_block_allocator() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; Size, Align &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -201,19 +418,19 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a112e81a2c315b07f623b6950f88438b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a112e81a2c315b07f623b6950f88438b8">&#9670;&nbsp;</a></span>allocate_block()</h2>
+<a id="a62c07f7d4e90e15de1d98c3182070b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62c07f7d4e90e15de1d98c3182070b1d">&#9670;&nbsp;</a></span>allocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::allocate_block </td>
+          <td class="memname">owner&lt;<a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a>&gt; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::allocate_block </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -231,21 +448,21 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 
 </div>
 </div>
-<a id="a2fbef20968a6b3b7f09ea36dfff46f7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fbef20968a6b3b7f09ea36dfff46f7e">&#9670;&nbsp;</a></span>deallocate_block()</h2>
+<a id="acf9fcca1980a249ce719c45eaca4dc3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf9fcca1980a249ce719c45eaca4dc3b">&#9670;&nbsp;</a></span>deallocate_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::deallocate_block </td>
+          <td class="memname">void <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::deallocate_block </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
+          <td class="paramtype">owner&lt; <a class="el" href="../../d7/da9/classbit_1_1memory_1_1memory__block.html">memory_block</a> &gt;&#160;</td>
           <td class="paramname"><em>block</em></td><td>)</td>
           <td></td>
         </tr>
@@ -267,19 +484,50 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 
 </div>
 </div>
-<a id="a3def9020b44c531e5d90d769bf7aaab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3def9020b44c531e5d90d769bf7aaab0">&#9670;&nbsp;</a></span>next_block_size()</h2>
+<a id="ab8dad9b20742396958be27ae01ca74f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dad9b20742396958be27ae01ca74f6">&#9670;&nbsp;</a></span>info()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::next_block_size </td>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html" title="An allocator that allocates over-aligned memory. ">aligned_block_allocator</a>'. Use a named_aligned_block_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
+
+</div>
+</div>
+<a id="a09ea5ec818e425ead0a563cc1ad89d53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09ea5ec818e425ead0a563cc1ad89d53">&#9670;&nbsp;</a></span>next_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::next_block_size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -297,21 +545,21 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 
 </div>
 </div>
-<a id="aa1322b0597f83bb5a72c5da40318eb25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1322b0597f83bb5a72c5da40318eb25">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="ad4c8a1c33ce8f581f9f8ae1670955b21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c8a1c33ce8f581f9f8ae1670955b21">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&amp; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&amp; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; Size, Align &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -334,21 +582,21 @@ template&lt;std::size_t Size, std::size_t Align&gt; </div>
 
 </div>
 </div>
-<a id="a38cc795dc96fc7a92c05deb3f795ad8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38cc795dc96fc7a92c05deb3f795ad8f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="ab594c770745066e889c4e5c03bb6c23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab594c770745066e889c4e5c03bb6c23f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t Size, std::size_t Align&gt; </div>
+template&lt;std::size_t DefaultBlockSize, std::size_t BlockAlign, typename GrowthMultiplier  = no_growth_multiplier&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&amp; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; Size, Align &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&amp; <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">bit::memory::aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; Size, Align &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d2/d76/classbit_1_1memory_1_1aligned__block__allocator.html">aligned_block_allocator</a>&lt; DefaultBlockSize, BlockAlign, GrowthMultiplier &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>

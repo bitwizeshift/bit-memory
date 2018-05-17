@@ -65,7 +65,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="../../dd/d97/classbit_1_1memory_1_1policy__allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bit::memory::policy_allocator&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt; Class Template Reference<div class="ingroups"><a class="el" href="../../df/d4d/group___allocator.html">Allocator</a></div></div>  </div>
@@ -82,6 +81,7 @@ Inheritance diagram for bit::memory::policy_allocator&lt; ExtendedAllocator, Mem
  <div class="center">
   <img src="../../dc/d69/classbit_1_1memory_1_1policy__allocator.png" usemap="#bit::memory::policy_5Fallocator_3C_20ExtendedAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BoundsChecker_2C_20BasicLockable_20_3E_map" alt=""/>
   <map id="bit::memory::policy_5Fallocator_3C_20ExtendedAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BoundsChecker_2C_20BasicLockable_20_3E_map" name="bit::memory::policy_5Fallocator_3C_20ExtendedAllocator_2C_20MemoryTagger_2C_20MemoryTracker_2C_20BoundsChecker_2C_20BasicLockable_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt;" shape="rect" coords="0,0,682,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -93,9 +93,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>default_alignment</b
 <tr class="memitem:af66929d738cf090261a12850d8a6fb0e"><td class="memItemLeft" align="right" valign="top"><a id="af66929d738cf090261a12850d8a6fb0e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>max_alignment</b> = <a class="el" href="../../d4/de2/structbit_1_1memory_1_1allocator__max__alignment.html">allocator_max_alignment</a>&lt; ExtendedAllocator &gt;</td></tr>
 <tr class="separator:af66929d738cf090261a12850d8a6fb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae13d2f7986ffad7e23dc50fc37bc1323"><td class="memItemLeft" align="right" valign="top"><a id="ae13d2f7986ffad7e23dc50fc37bc1323"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = std::integral_constant&lt; bool, is_stateless&lt; ExtendedAllocator &gt;::value &amp;&amp;std::is_empty&lt; MemoryTagger &gt;::value &amp;&amp;std::is_empty&lt; MemoryTracker &gt;::value &amp;&amp;std::is_empty&lt; BoundsChecker &gt;::value &amp;&amp;std::is_empty&lt; BasicLockable &gt;::value &gt;</td></tr>
-<tr class="separator:ae13d2f7986ffad7e23dc50fc37bc1323"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4596e086fa87b245a0c81dbd20751a2"><td class="memItemLeft" align="right" valign="top"><a id="ac4596e086fa87b245a0c81dbd20751a2"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>lock_type</b> = BasicLockable</td></tr>
 <tr class="separator:ac4596e086fa87b245a0c81dbd20751a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,13 +151,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a32e96cb9fb4dda11be07a947fa2930b5"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html#a32e96cb9fb4dda11be07a947fa2930b5">min_size</a> () const noexcept</td></tr>
 <tr class="memdesc:a32e96cb9fb4dda11be07a947fa2930b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the minimum size allocateable from this allocator.  <a href="#a32e96cb9fb4dda11be07a947fa2930b5">More...</a><br /></td></tr>
 <tr class="separator:a32e96cb9fb4dda11be07a947fa2930b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a47c016d1e62b59ed04fd85dcf10d9d77"><td class="memTemplParams" colspan="2"><a id="a47c016d1e62b59ed04fd85dcf10d9d77"></a>
-template&lt;typename Allocator , typename Tagger , typename Tracker , typename Checker , typename Lock &gt; </td></tr>
-<tr class="memitem:a47c016d1e62b59ed04fd85dcf10d9d77"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">policy_allocator</a>&lt; Allocator, Tagger, Tracker, Checker, Lock &gt; &amp;lhs, const <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">policy_allocator</a>&lt; Allocator, Tagger, Tracker, Checker, Lock &gt; &amp;rhs) noexcept</td></tr>
-<tr class="separator:a47c016d1e62b59ed04fd85dcf10d9d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt;<br />
@@ -181,7 +171,7 @@ class bit::memory::policy_allocator&lt; ExtendedAllocator, MemoryTagger, MemoryT
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/daf/policy__allocator_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d8/daf/policy__allocator_8hpp_source.html">policy_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/daf/policy__allocator_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d8/daf/policy__allocator_8hpp_source.html">policy_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a35b2c6cc6516b950344dce6e3112bbfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35b2c6cc6516b950344dce6e3112bbfc">&#9670;&nbsp;</a></span>policy_allocator() <span class="overload">[1/3]</span></h2>
@@ -189,7 +179,7 @@ class bit::memory::policy_allocator&lt; ExtendedAllocator, MemoryTagger, MemoryT
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename... Args, typename  = std::enable_if_t&lt;std::is_constructible&lt;ExtendedAllocator,Args...&gt;::value&gt;&gt; </div>
       <table class="memname">
@@ -219,7 +209,7 @@ template&lt;typename... Args, typename  = std::enable_if_t&lt;std::is_constructi
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -256,7 +246,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -294,7 +284,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void <a class="el" href="../../dc/d69/classbit_1_1memory_1_1policy__allocator.html">bit::memory::policy_allocator</a>&lt; ExtendedAllocator, MemoryTagger, MemoryTracker, BoundsChecker, BasicLockable &gt;::deallocate </td>
@@ -333,7 +323,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_can_truncate_deallocations&lt;U&gt;::value&gt;&gt; </div>
       <table class="memname">
@@ -357,7 +347,7 @@ template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;all
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_info&lt;U&gt;::value&gt;&gt; </div>
 <table class="mlabels">
@@ -390,7 +380,7 @@ template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;all
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_max_size&lt;U&gt;::value&gt;&gt; </div>
 <table class="mlabels">
@@ -429,7 +419,7 @@ template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;all
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_has_min_size&lt;U&gt;::value&gt;&gt; </div>
 <table class="mlabels">
@@ -468,7 +458,7 @@ template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;all
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -505,7 +495,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -542,7 +532,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <div class="memtemplate">
 template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;allocator_knows_ownership&lt;U&gt;::value&gt;&gt; </div>
 <table class="mlabels">
@@ -582,7 +572,7 @@ template&lt;typename U  = ExtendedAllocator, typename  = std::enable_if_t&lt;all
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -612,7 +602,7 @@ template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTr
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ExtendedAllocator, typename MemoryTagger, typename MemoryTracker, typename BoundsChecker, typename BasicLockable&gt; </div>
+template&lt;typename ExtendedAllocator , typename MemoryTagger , typename MemoryTracker , typename BoundsChecker , typename BasicLockable &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

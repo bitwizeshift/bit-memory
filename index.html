@@ -76,8 +76,8 @@ $(function() {
 <p>This library defines a variety of <code>BlockAllocator</code>s and <code>Allocator</code>s &ndash; and is extendable through user-defined custom types that conform to the concepts defined here.</p>
 <h2>Differences from Standard Allocators</h2>
 <p>The <code>Allocator</code> concept in this library differs from the C++ standard's allocators in a few ways</p>
-<h3>1. Allocators are heterogenious</h3>
-<p>The C++ Standard Library's <code>Allocator</code> concept defines every <code>Allocator</code> to be homogenous in its allocations; always allocating a specific type <code>T</code>, and only converting to different allocators using <code>rebind</code>. This offers some level of optimizations, since all allocations are of fixed size; but also can cause large amounts of code duplication due to the requirement of templates to produce different instances of the same type, all based on type <code>T</code>.</p>
+<h3>1. Allocators are heterogeneous</h3>
+<p>The C++ Standard Library's <code>Allocator</code> concept defines every <code>Allocator</code> to be homogeneous in its allocations; always allocating a specific type <code>T</code>, and only converting to different allocators using <code>rebind</code>. This offers some level of optimizations, since all allocations are of fixed size; but also can cause large amounts of code duplication due to the requirement of templates to produce different instances of the same type, all based on type <code>T</code>.</p>
 <p>As a result, this library uses the SGI and HP approach of only allocating by <code>void*</code>, rather than by a given type. A wrapper type called <code>std_allocator_wrapper</code> exists to wrap the given allocator in a manner that works with C++ standard containers.</p>
 <h3>2. Allocators support alignment</h3>
 <p>Since the C++ Standard Library's <code>Allocator</code> only cares about the type <code>T</code> being allocated, there is no generalized support for over-aligning types.</p>
@@ -87,16 +87,20 @@ $(function() {
 <p>This allows for greater composition with other allocators, since an allocator that fails to allocate can be queried without requiring <code>try</code>/<code>catch</code> statements (e.g. for fallback allocators)</p>
 <p>The optional <code>allocate</code> function <em>may</em> throw. If this is not defined, then <code>allocator_traits&lt;Allocator&gt;::allocate(...)</code> defines a custom one that &ndash; on failure &ndash; calls a global out-of-memory handler.</p>
 <h3>4. Allocator info</h3>
-<p>The Allocator concept in this library optionally supports a member function named <code>infO()</code> that returns an <code>allocator_info</code> object. This object is used for <em>naming</em> the allocator so that it can be uniquely identified in case an error handler is called.</p>
-<h2>Building</h2>
+<p>The Allocator concept in this library optionally supports a member function named <code>info()</code> that returns an <code>allocator_info</code> object. This object is used for <em>naming</em> the allocator so that it can be uniquely identified in case an error handler is called.</p>
+<h2>Using <code>bit::memory</code></h2>
+<h3>Building &amp; Installing</h3>
 <p>Building <code>bit::memory</code> is simple, and only requires a CMake version greater than 3.1, and a compatible compiler.</p>
 <p>Fist, make a directory to build the library in, then build with CMake</p>
 <div class="fragment"><div class="line">mkdir build</div><div class="line">cd build</div><div class="line"></div><div class="line">cmake . -DBIT_MEMORY_BUILD_UNIT_TESTS=Off -DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off  # ... any additional toolchain parameters ...</div><div class="line">cmake --build .</div></div><!-- fragment --><p>Omitting the <code>-DBIT_MEMORY_BUILD_UNIT_TESTS=Off</code> will build unit tests; likewise <code>DBIT_MEMORY_BUILD_INDEPENDENCE_TESTS=Off</code> will build header-independence checks (building each header independently to ensure there are no header-order based transitive dependencies).</p>
 <p>To install, run:</p>
 <div class="fragment"><div class="line">cmake --build . --target install</div></div><!-- fragment --><p>To change the output directory of the installation, you can export <code>BIT_HOME</code> to install to a specific directory</p>
 <div class="fragment"><div class="line">export BIT_HOME=/etc/bit</div><div class="line">cmake --build . --target install</div></div><!-- fragment --><p>will install into <code>/etc/bit/</code>.</p>
-<h2><a class="anchor" id="tested-compilers"></a> Tested Compilers</h2>
-<p>The following compilers are currently being tested through continuous integration with <a href="https://travis-ci.org/bitwizeshift/bit-memory">Travis</a>.</p>
+<h3>Through a <code>cmake</code> subdirectory</h3>
+<p>Clone/copy/subtree the contents of this repository to a subdirectory, and <code>add_subdirectory</code> the directory containing <code>bit::memory</code>.</p>
+<p>To add a dependency to the library, just add <code>target_link_libraries(&lt;your target&gt; [PUBLIC|INTERFACE|PRIVATE] bit::memory)</code></p>
+<h2><a class="anchor" id="tested-compilers"></a>Tested Compilers</h2>
+<p>The following compilers are currently being tested through continuous integration with <a href="https://travis-ci.org/bitwizeshift/bit-memory">Travis</a> and <a href="https://ci.appveyor.com/project/bitwizeshift/bit-memory/">AppVeyor</a></p>
 <p>Note that <code>bit-memory</code> only works on compiler that provide proper conformance for c++14</p>
 <table class="doxtable">
 <tr>
@@ -104,10 +108,40 @@ $(function() {
 <tr>
 <td>g++ 6.3.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
 <tr>
+<td>g++ 7.2.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
+<td>clang++ 3.9.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
+<td>clang++ 4.0.1 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
+<td>clang++ 5.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
+<td>g++ 7.2.0 </td><td>Ubuntu 14.04.3 TLS </td></tr>
+<tr>
 <td>clang xcode 7.3 </td><td>Darwin Kernel 15.6.0 (OSX 10.11.6) </td></tr>
 <tr>
-<td>Visual Studio 15 2017 </td><td>Windows Server 2012 R2 (x64) </td></tr>
+<td>clang xcode 8.0 </td><td>Darwin Kernel 15.6.0 (OSX 10.11.6) </td></tr>
+<tr>
+<td>clang xcode 8.1 </td><td>Darwin Kernel 16.1.0 (OSX 10.12.1) </td></tr>
+<tr>
+<td>clang xcode 8.2 </td><td>Darwin Kernel 16.1.0 (OSX 10.12.1) </td></tr>
+<tr>
+<td>clang xcode 8.3 </td><td>Darwin Kernel 16.6.0 (OSX 10.12.5) </td></tr>
+<tr>
+<td>clang xcode 9.0 </td><td>Darwin Kernel 16.7.0 (OSX 10.12.6) </td></tr>
+<tr>
+<td>Visual Studio 2017 </td><td>Windows Server 2016 (x64) </td></tr>
 </table>
+<p><b>Note:</b> Unfortunately, support for Visual Studio 2015 had to be dropped due to issues properly performing SFINAE with some non-owning type-erased classes (<code>any_allocator</code> and <code>any_block_allocator</code>). It has just not been worth the hassle to attempt to support a non-standards-conforming compiler. Fortunately, Visual Studios 2017 is still supported, and will continue to be.</p>
+<h2><a class="anchor" id="license"></a>License</h2>
+<div class="image">
+<img src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png" align="right"/>
+</div>
+<p>The class is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>:</p>
+<p>Copyright &copy; 2018 Matthew Rodusek</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

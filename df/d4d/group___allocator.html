@@ -80,10 +80,10 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html">bit::memory::aligned_allocator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This stateless allocator performs all of its allocation calls using aligned memory invocations.  <a href="../../dc/dcf/classbit_1_1memory_1_1aligned__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d9d/classbit_1_1memory_1_1any__allocator.html">bit::memory::any_allocator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A non-owning allocator type that type-erases an underlying allocator.  <a href="../../db/d9d/classbit_1_1memory_1_1any__allocator.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/db5/classbit_1_1memory_1_1allocator__reference.html">bit::memory::allocator_reference</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A non-owning allocator type that type-erases an underlying allocator.  <a href="../../d3/db5/classbit_1_1memory_1_1allocator__reference.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbf/classbit_1_1memory_1_1fallback__allocator.html">bit::memory::fallback_allocator&lt; Allocators &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dbf/classbit_1_1memory_1_1fallback__allocator.html">bit::memory::fallback_allocator&lt; AllocatorStorages &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This allocator acts as an aggregate that can fall back to other allocators on failure.  <a href="../../df/dbf/classbit_1_1memory_1_1fallback__allocator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html">bit::memory::malloc_allocator</a></td></tr>
@@ -115,10 +115,6 @@ Classes</h2></td></tr>
 <hr/>
 <div class="fragment"><div class="line">a.deallocate( v, s )</div></div><!-- fragment --><p> Deallocates the memory pointer to by <code>v</code> with the allocation size <code>s</code>. The size must match the original size requested by <code>a.try_allocate</code>, otherwise it is undefined behaviour. Any use of <code>v</code> after a call to <code>a.deallocate</code> is undefined behaviour.</p>
 <hr/>
-<div class="fragment"><div class="line">a1 == a2</div></div><!-- fragment --><p>returns true only if the storage allocated by the allocator a1 can be deallocated through a2. Establishes reflexive, symmetric, and transitive relationship. Does not throw exceptions.</p>
-<hr/>
-<div class="fragment"><div class="line">a1 != a2</div></div><!-- fragment --><p>same as !(a1==a2)</p>
-<hr/>
 <p><b>Optionally</b></p>
 <div class="fragment"><div class="line">v = a.allocate( s, n )</div></div><!-- fragment --><p> <code>a</code> allocates at least <code>s</code> bytes aligned to the boundary <code>n</code>.</p>
 <p>The behaviour of this function is implementation-defined on failure (may throw, may invoke out-of-memory handler, etc).</p>
@@ -128,7 +124,7 @@ Classes</h2></td></tr>
 <p>Default asserts.</p>
 <hr/>
 <div class="fragment"><div class="line">a.info()</div></div><!-- fragment --><p> <code>a</code> returns an <a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html" title="This type is used to hold the generic information for a given allocator. ">allocator_info</a> object describing the allocator</p>
-<p>Default returns "unknown allocator"</p>
+<p>The default value is implementation-defined, but should somehow identify the allocator</p>
 <hr/>
 <div class="fragment"><div class="line"><span class="keywordtype">bool</span> b = a.owns( p );</div></div><!-- fragment --><p><code>a</code> checks whether it owns the pointer <code>p</code>, returning the result.</p>
 <hr/>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bit::memory: bit::memory::allocator_deleter&lt; T, Allocator &gt; Class Template Reference</title>
+<title>bit::memory: bit::memory::allocator_deleter&lt; T, AllocatorStorage &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -67,65 +67,68 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d1/d60/classbit_1_1memory_1_1allocator__deleter-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bit::memory::allocator_deleter&lt; T, Allocator &gt; Class Template Reference</div>  </div>
+<div class="title">bit::memory::allocator_deleter&lt; T, AllocatorStorage &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A deallocator for custom allocators in the library.  
+<p>A deleter for custom allocators in the library.  
  <a href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d8/da3/allocator__deleter_8hpp_source.html">allocator_deleter.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for bit::memory::allocator_deleter&lt; T, Allocator &gt;:</div>
+Inheritance diagram for bit::memory::allocator_deleter&lt; T, AllocatorStorage &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.png" usemap="#bit::memory::allocator_5Fdeleter_3C_20T_2C_20Allocator_20_3E_map" alt=""/>
-  <map id="bit::memory::allocator_5Fdeleter_3C_20T_2C_20Allocator_20_3E_map" name="bit::memory::allocator_5Fdeleter_3C_20T_2C_20Allocator_20_3E_map">
+  <img src="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.png" usemap="#bit::memory::allocator_5Fdeleter_3C_20T_2C_20AllocatorStorage_20_3E_map" alt=""/>
+  <map id="bit::memory::allocator_5Fdeleter_3C_20T_2C_20AllocatorStorage_20_3E_map" name="bit::memory::allocator_5Fdeleter_3C_20T_2C_20AllocatorStorage_20_3E_map">
+<area href="../../d8/d07/classbit_1_1memory_1_1ebo__storage.html" alt="bit::memory::ebo_storage&lt; AllocatorStorage &gt;" shape="rect" coords="0,0,311,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a98355cb6d034ddd2c1c58723bc773fd0"><td class="memItemLeft" align="right" valign="top"><a id="a98355cb6d034ddd2c1c58723bc773fd0"></a>
+<tr class="memitem:a9ba58f45b37ad1db6829627a965421ca"><td class="memItemLeft" align="right" valign="top"><a id="a9ba58f45b37ad1db6829627a965421ca"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>void_pointer</b> = typename alloc_traits::pointer</td></tr>
-<tr class="separator:a98355cb6d034ddd2c1c58723bc773fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca06819b917e9001f6fd520cc3e3295e"><td class="memItemLeft" align="right" valign="top"><a id="aca06819b917e9001f6fd520cc3e3295e"></a>
+<tr class="separator:a9ba58f45b37ad1db6829627a965421ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae45c9f607ac057b947f1bc8ee73bff8d"><td class="memItemLeft" align="right" valign="top"><a id="ae45c9f607ac057b947f1bc8ee73bff8d"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>pointer</b> = typename pointer_traits::template rebind&lt; T &gt;</td></tr>
-<tr class="separator:aca06819b917e9001f6fd520cc3e3295e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ef243ff512fde209025e0f9234cb0b0"><td class="memItemLeft" align="right" valign="top"><a id="a2ef243ff512fde209025e0f9234cb0b0"></a>
+<tr class="separator:ae45c9f607ac057b947f1bc8ee73bff8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e295cd02bdd634a60d00e4efcb25539"><td class="memItemLeft" align="right" valign="top"><a id="a8e295cd02bdd634a60d00e4efcb25539"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>size_type</b> = typename alloc_traits::size_type</td></tr>
-<tr class="separator:a2ef243ff512fde209025e0f9234cb0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae183d5acb184008ac14e0d47961a260d"><td class="memItemLeft" align="right" valign="top"><a id="ae183d5acb184008ac14e0d47961a260d"></a>
+<tr class="separator:a8e295cd02bdd634a60d00e4efcb25539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfdf14d3a78f698cf7eca609c901178"><td class="memItemLeft" align="right" valign="top"><a id="aecfdf14d3a78f698cf7eca609c901178"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>difference_type</b> = typename alloc_traits::difference_type</td></tr>
-<tr class="separator:ae183d5acb184008ac14e0d47961a260d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aecfdf14d3a78f698cf7eca609c901178"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8ea0f347c9748deef9d9e75990d978ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a8ea0f347c9748deef9d9e75990d978ac">allocator_deleter</a> (Allocator &amp;alloc)</td></tr>
-<tr class="memdesc:a8ea0f347c9748deef9d9e75990d978ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> that references the specified allocator.  <a href="#a8ea0f347c9748deef9d9e75990d978ac">More...</a><br /></td></tr>
-<tr class="separator:a8ea0f347c9748deef9d9e75990d978ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5382beeed2367d71bd2dbc0dd93017bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a5382beeed2367d71bd2dbc0dd93017bb">allocator_deleter</a> (<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&amp;other) noexcept=default</td></tr>
-<tr class="memdesc:a5382beeed2367d71bd2dbc0dd93017bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#a5382beeed2367d71bd2dbc0dd93017bb">More...</a><br /></td></tr>
-<tr class="separator:a5382beeed2367d71bd2dbc0dd93017bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f84e9490fd3ac166d2310ecbfbee1e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a9f84e9490fd3ac166d2310ecbfbee1e6">allocator_deleter</a> (const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;other) noexcept=default</td></tr>
-<tr class="memdesc:a9f84e9490fd3ac166d2310ecbfbee1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs the <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#a9f84e9490fd3ac166d2310ecbfbee1e6">More...</a><br /></td></tr>
-<tr class="separator:a9f84e9490fd3ac166d2310ecbfbee1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4fbb537cb20bbefcea43cd1639e534f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#ac4fbb537cb20bbefcea43cd1639e534f">operator=</a> (<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&amp;other) noexcept=default</td></tr>
-<tr class="memdesc:ac4fbb537cb20bbefcea43cd1639e534f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#ac4fbb537cb20bbefcea43cd1639e534f">More...</a><br /></td></tr>
-<tr class="separator:ac4fbb537cb20bbefcea43cd1639e534f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94d0727b6f42ce350daa08ebf42bf533"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a94d0727b6f42ce350daa08ebf42bf533">operator=</a> (const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;other) noexcept=default</td></tr>
-<tr class="memdesc:a94d0727b6f42ce350daa08ebf42bf533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#a94d0727b6f42ce350daa08ebf42bf533">More...</a><br /></td></tr>
-<tr class="separator:a94d0727b6f42ce350daa08ebf42bf533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d2eb4f308eabd069e300f8dab3a18ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a2d2eb4f308eabd069e300f8dab3a18ec">operator()</a> (pointer p)</td></tr>
-<tr class="memdesc:a2d2eb4f308eabd069e300f8dab3a18ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the underlying pointer <code>p</code>.  <a href="#a2d2eb4f308eabd069e300f8dab3a18ec">More...</a><br /></td></tr>
-<tr class="separator:a2d2eb4f308eabd069e300f8dab3a18ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc8d8c4bfc29d220887807ef3f20d09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a6dc8d8c4bfc29d220887807ef3f20d09">allocator_deleter</a> (AllocatorStorage storage)</td></tr>
+<tr class="memdesc:a6dc8d8c4bfc29d220887807ef3f20d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> that uses the referenced allocator for deletion.  <a href="#a6dc8d8c4bfc29d220887807ef3f20d09">More...</a><br /></td></tr>
+<tr class="separator:a6dc8d8c4bfc29d220887807ef3f20d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57970abf696158387486ba21f936f8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#ae57970abf696158387486ba21f936f8e">allocator_deleter</a> (<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memdesc:ae57970abf696158387486ba21f936f8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#ae57970abf696158387486ba21f936f8e">More...</a><br /></td></tr>
+<tr class="separator:ae57970abf696158387486ba21f936f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a268de7b5be96d1aac5a9929608ece530"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a268de7b5be96d1aac5a9929608ece530">allocator_deleter</a> (const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;other) noexcept=default</td></tr>
+<tr class="memdesc:a268de7b5be96d1aac5a9929608ece530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-constructs the <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#a268de7b5be96d1aac5a9929608ece530">More...</a><br /></td></tr>
+<tr class="separator:a268de7b5be96d1aac5a9929608ece530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b1b6f1d0465e20e754764e2aaecad8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a45b1b6f1d0465e20e754764e2aaecad8">operator=</a> (<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memdesc:a45b1b6f1d0465e20e754764e2aaecad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#a45b1b6f1d0465e20e754764e2aaecad8">More...</a><br /></td></tr>
+<tr class="separator:a45b1b6f1d0465e20e754764e2aaecad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3599f31ac695391ec60f12882cfe0c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#ab3599f31ac695391ec60f12882cfe0c2">operator=</a> (const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> &amp;other) noexcept=default</td></tr>
+<tr class="memdesc:ab3599f31ac695391ec60f12882cfe0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one.  <a href="#ab3599f31ac695391ec60f12882cfe0c2">More...</a><br /></td></tr>
+<tr class="separator:ab3599f31ac695391ec60f12882cfe0c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4153f84eb8bca3e7f002419522ec9d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#ad4153f84eb8bca3e7f002419522ec9d7">operator()</a> (pointer p)</td></tr>
+<tr class="memdesc:ad4153f84eb8bca3e7f002419522ec9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the underlying pointer <code>p</code>.  <a href="#ad4153f84eb8bca3e7f002419522ec9d7">More...</a><br /></td></tr>
+<tr class="separator:ad4153f84eb8bca3e7f002419522ec9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Allocator&gt;<br />
-class bit::memory::allocator_deleter&lt; T, Allocator &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename AllocatorStorage&gt;<br />
+class bit::memory::allocator_deleter&lt; T, AllocatorStorage &gt;</h3>
 
-<p>A deallocator for custom allocators in the library. </p>
+<p>A deleter for custom allocators in the library. </p>
 <p>For any stateless allocator, this leverages EBO to avoid the need for storage.</p>
+<dl class="section note"><dt>Note</dt><dd>Unlike std::default_delete, this deleter does not have a converting constructor that allows for '<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a6dc8d8c4bfc29d220887807ef3f20d09" title="Constructs an allocator_deleter that uses the referenced allocator for deletion. ">allocator_deleter&lt;Derived,...&gt;</a> -&gt; <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html#a6dc8d8c4bfc29d220887807ef3f20d09" title="Constructs an allocator_deleter that uses the referenced allocator for deletion. ">allocator_deleter&lt;Base,...&gt;</a>' since the size of the deallocation is computed based on the size of <code>T</code>. To support polymorphism with deleters, see <a class="el" href="../../de/de9/classbit_1_1memory_1_1polymorphic__allocator__deleter.html">polymorphic_allocator_deleter</a> which always incurs the size cost.</dd></dl>
+<dl class="section user"><dt>Satisfies</dt><dd>Deleter</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>the type being deallocated </td></tr>
@@ -134,24 +137,24 @@ class bit::memory::allocator_deleter&lt; T, Allocator &gt;</h3>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/da3/allocator__deleter_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d8/da3/allocator__deleter_8hpp_source.html">allocator_deleter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/da3/allocator__deleter_8hpp_source.html#l00073">73</a> of file <a class="el" href="../../d8/da3/allocator__deleter_8hpp_source.html">allocator_deleter.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8ea0f347c9748deef9d9e75990d978ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ea0f347c9748deef9d9e75990d978ac">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[1/3]</span></h2>
+<a id="a6dc8d8c4bfc29d220887807ef3f20d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc8d8c4bfc29d220887807ef3f20d09">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
+          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
           <td>(</td>
-          <td class="paramtype">Allocator &amp;&#160;</td>
-          <td class="paramname"><em>alloc</em></td><td>)</td>
+          <td class="paramtype">AllocatorStorage&#160;</td>
+          <td class="paramname"><em>storage</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -162,31 +165,31 @@ template&lt;typename T , typename Allocator &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> that references the specified allocator. </p>
+<p>Constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> that uses the referenced allocator for deletion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">alloc</td><td>the allocator to reference </td></tr>
+    <tr><td class="paramname">storage</td><td>the allocator storage </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a5382beeed2367d71bd2dbc0dd93017bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5382beeed2367d71bd2dbc0dd93017bb">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[2/3]</span></h2>
+<a id="ae57970abf696158387486ba21f936f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57970abf696158387486ba21f936f8e">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
+          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, Allocator &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, AllocatorStorage &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -198,7 +201,7 @@ template&lt;typename T , typename Allocator &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Move-constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
+<p>Move-constructs an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>the other allocator_delete to move </td></tr>
@@ -208,21 +211,21 @@ template&lt;typename T , typename Allocator &gt; </div>
 
 </div>
 </div>
-<a id="a9f84e9490fd3ac166d2310ecbfbee1e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f84e9490fd3ac166d2310ecbfbee1e6">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[3/3]</span></h2>
+<a id="a268de7b5be96d1aac5a9929608ece530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a268de7b5be96d1aac5a9929608ece530">&#9670;&nbsp;</a></span>allocator_deleter() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
+          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::<a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, Allocator &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, AllocatorStorage &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -234,7 +237,7 @@ template&lt;typename T , typename Allocator &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Copy-constructs the <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
+<p>Copy-constructs the <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>the other allocator deleter to copy </td></tr>
@@ -245,16 +248,16 @@ template&lt;typename T , typename Allocator &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2d2eb4f308eabd069e300f8dab3a18ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d2eb4f308eabd069e300f8dab3a18ec">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="ad4153f84eb8bca3e7f002419522ec9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4153f84eb8bca3e7f002419522ec9d7">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::operator() </td>
+          <td class="memname">void <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype">pointer&#160;</td>
           <td class="paramname"><em>p</em></td><td>)</td>
@@ -273,21 +276,21 @@ template&lt;typename T , typename Allocator &gt; </div>
 
 </div>
 </div>
-<a id="ac4fbb537cb20bbefcea43cd1639e534f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4fbb537cb20bbefcea43cd1639e534f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a45b1b6f1d0465e20e754764e2aaecad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b1b6f1d0465e20e754764e2aaecad8">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&amp; <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&amp; <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, Allocator &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, AllocatorStorage &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -299,10 +302,10 @@ template&lt;typename T , typename Allocator &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Move-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
+<p>Move-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>the other <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> to move </td></tr>
+    <tr><td class="paramname">other</td><td>the other <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> to move </td></tr>
   </table>
   </dd>
 </dl>
@@ -310,21 +313,21 @@ template&lt;typename T , typename Allocator &gt; </div>
 
 </div>
 </div>
-<a id="a94d0727b6f42ce350daa08ebf42bf533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94d0727b6f42ce350daa08ebf42bf533">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="ab3599f31ac695391ec60f12882cfe0c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3599f31ac695391ec60f12882cfe0c2">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename Allocator &gt; </div>
+template&lt;typename T , typename AllocatorStorage &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&amp; <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, Allocator &gt;::operator= </td>
+          <td class="memname"><a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&amp; <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">bit::memory::allocator_deleter</a>&lt; T, AllocatorStorage &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, Allocator &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html">allocator_deleter</a>&lt; T, AllocatorStorage &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -336,10 +339,10 @@ template&lt;typename T , typename Allocator &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Copy-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
+<p>Copy-assigns an <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> from an existing one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>the other <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deallocator for custom allocators in the library. ">allocator_deleter</a> to copy </td></tr>
+    <tr><td class="paramname">other</td><td>the other <a class="el" href="../../d1/d7f/classbit_1_1memory_1_1allocator__deleter.html" title="A deleter for custom allocators in the library. ">allocator_deleter</a> to copy </td></tr>
   </table>
   </dd>
 </dl>

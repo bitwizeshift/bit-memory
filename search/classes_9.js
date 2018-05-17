@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['new_5fallocator',['new_allocator',['../d5/d84/classbit_1_1memory_1_1new__allocator.html',1,'bit::memory']]],
-  ['new_5fblock_5fallocator',['new_block_allocator',['../de/de6/classbit_1_1memory_1_1new__block__allocator.html',1,'bit::memory']]],
-  ['not_5fnull',['not_null',['../da/dd2/classbit_1_1memory_1_1not__null.html',1,'bit::memory']]],
-  ['null_5fallocator',['null_allocator',['../de/dc6/classbit_1_1memory_1_1null__allocator.html',1,'bit::memory']]],
-  ['null_5fblock_5fallocator',['null_block_allocator',['../d9/d8c/classbit_1_1memory_1_1null__block__allocator.html',1,'bit::memory']]],
-  ['null_5fbounds_5fchecker',['null_bounds_checker',['../d2/d6b/classbit_1_1memory_1_1null__bounds__checker.html',1,'bit::memory']]],
-  ['null_5flock',['null_lock',['../d3/d93/classbit_1_1memory_1_1null__lock.html',1,'bit::memory']]],
-  ['null_5ftagger',['null_tagger',['../de/d73/classbit_1_1memory_1_1null__tagger.html',1,'bit::memory']]],
-  ['null_5ftracker',['null_tracker',['../d6/d65/structbit_1_1memory_1_1null__tracker.html',1,'bit::memory']]]
+  ['policy_5fallocator',['policy_allocator',['../dc/d69/classbit_1_1memory_1_1policy__allocator.html',1,'bit::memory']]],
+  ['policy_5fblock_5fallocator',['policy_block_allocator',['../d9/d78/classbit_1_1memory_1_1policy__block__allocator.html',1,'bit::memory']]],
+  ['polymorphic_5fallocator_5fdeleter',['polymorphic_allocator_deleter',['../de/de9/classbit_1_1memory_1_1polymorphic__allocator__deleter.html',1,'bit::memory']]],
+  ['polymorphic_5fallocator_5fdeleter_3c_20t_5b_5d_2c_20allocatorstorage_20_3e',['polymorphic_allocator_deleter&lt; T[], AllocatorStorage &gt;',['../d1/d48/classbit_1_1memory_1_1polymorphic__allocator__deleter_3_01_t[]_00_01_allocator_storage_01_4.html',1,'bit::memory']]],
+  ['pool_5fallocator',['pool_allocator',['../d2/de0/classbit_1_1memory_1_1pool__allocator.html',1,'bit::memory']]],
+  ['power_5ftwo_5fgrowth',['power_two_growth',['../df/df5/classbit_1_1memory_1_1power__two__growth.html',1,'bit::memory']]]
 ];

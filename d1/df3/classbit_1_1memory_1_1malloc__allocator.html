@@ -78,9 +78,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a2cad9fae443a8ade75971e317df28d78"><td class="memItemLeft" align="right" valign="top"><a id="a2cad9fae443a8ade75971e317df28d78"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>is_stateless</b> = std::true_type</td></tr>
-<tr class="separator:a2cad9fae443a8ade75971e317df28d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a06511b499928b31d93bd2b70c9ae3a"><td class="memItemLeft" align="right" valign="top"><a id="a4a06511b499928b31d93bd2b70c9ae3a"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>default_alignment</b> = std::integral_constant&lt; std::size_t, alignof(std::max_align_t)&gt;</td></tr>
 <tr class="separator:a4a06511b499928b31d93bd2b70c9ae3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,15 +100,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0bacf2894a730907da5d888eed3e1e94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html">malloc_allocator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#a0bacf2894a730907da5d888eed3e1e94">operator=</a> (const <a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html">malloc_allocator</a> &amp;other) noexcept=default</td></tr>
 <tr class="memdesc:a0bacf2894a730907da5d888eed3e1e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns a <a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html" title="This stateless allocator performs all of its allocation calls using raw calls to &#39;malloc&#39;, and frees memory with &#39;free&#39;. ">malloc_allocator</a> from another allocator.  <a href="#a0bacf2894a730907da5d888eed3e1e94">More...</a><br /></td></tr>
 <tr class="separator:a0bacf2894a730907da5d888eed3e1e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33994377e865bad118a1db089283834f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; void * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#a33994377e865bad118a1db089283834f">allocate</a> (std::size_t size, std::size_t align)</td></tr>
-<tr class="memdesc:a33994377e865bad118a1db089283834f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory of size <code>size</code>.  <a href="#a33994377e865bad118a1db089283834f">More...</a><br /></td></tr>
-<tr class="separator:a33994377e865bad118a1db089283834f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40ddb994564d820a69243dd8b819831"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; void * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#af40ddb994564d820a69243dd8b819831">try_allocate</a> (std::size_t size, std::size_t align) noexcept</td></tr>
+<tr class="memitem:af40ddb994564d820a69243dd8b819831"><td class="memItemLeft" align="right" valign="top">owner&lt; void * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#af40ddb994564d820a69243dd8b819831">try_allocate</a> (std::size_t size, std::size_t align) noexcept</td></tr>
 <tr class="memdesc:af40ddb994564d820a69243dd8b819831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to allocate memory of size <code>size</code>, returning nullptr on failure.  <a href="#af40ddb994564d820a69243dd8b819831">More...</a><br /></td></tr>
 <tr class="separator:af40ddb994564d820a69243dd8b819831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af122f3577749888aa8b01518f6acc9a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#af122f3577749888aa8b01518f6acc9a6">deallocate</a> (<a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; void *&gt; p, std::size_t size)</td></tr>
+<tr class="memitem:af122f3577749888aa8b01518f6acc9a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#af122f3577749888aa8b01518f6acc9a6">deallocate</a> (owner&lt; void *&gt; p, std::size_t size)</td></tr>
 <tr class="memdesc:af122f3577749888aa8b01518f6acc9a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates a pointer <code>p</code> with the allocation size of <code>size</code>.  <a href="#af122f3577749888aa8b01518f6acc9a6">More...</a><br /></td></tr>
 <tr class="separator:af122f3577749888aa8b01518f6acc9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f6265081b810c363bee03b658888ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html#ab5f6265081b810c363bee03b658888ec">info</a> () const noexcept</td></tr>
+<tr class="memdesc:ab5f6265081b810c363bee03b658888ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info about this allocator.  <a href="#ab5f6265081b810c363bee03b658888ec">More...</a><br /></td></tr>
+<tr class="separator:ab5f6265081b810c363bee03b658888ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This stateless allocator performs all of its allocation calls using raw calls to 'malloc', and frees memory with 'free'. </p>
@@ -119,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../df/d4d/group___allocator.html">Allocator</a></dd></dl>
 <dl class="section user"><dt>Satisfies</dt><dd><a class="el" href="../../d5/d1f/group___stateless.html">Stateless</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d59/malloc__allocator_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../df/d59/malloc__allocator_8hpp_source.html">malloc_allocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d59/malloc__allocator_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../df/d59/malloc__allocator_8hpp_source.html">malloc_allocator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aae264f7a42a3017dece77aa4e83d51d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae264f7a42a3017dece77aa4e83d51d9">&#9670;&nbsp;</a></span>malloc_allocator() <span class="overload">[1/2]</span></h2>
@@ -190,45 +187,6 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a33994377e865bad118a1db089283834f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33994377e865bad118a1db089283834f">&#9670;&nbsp;</a></span>allocate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;void*&gt; bit::memory::malloc_allocator::allocate </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>align</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates memory of size <code>size</code>. </p>
-<p>The alignment is ignored for calls to this allocator. The alignment is always guaranteed to be at least <code>alignof(std::max_align_t)</code> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>the size of this allocation </td></tr>
-    <tr><td class="paramname">align</td><td>the requested alignment (ignored) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the allocated pointer </dd></dl>
-
-</div>
-</div>
 <a id="af122f3577749888aa8b01518f6acc9a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af122f3577749888aa8b01518f6acc9a6">&#9670;&nbsp;</a></span>deallocate()</h2>
 
@@ -238,7 +196,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void bit::memory::malloc_allocator::deallocate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt; void *&gt;&#160;</td>
+          <td class="paramtype">owner&lt; void *&gt;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
@@ -263,6 +221,35 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab5f6265081b810c363bee03b658888ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f6265081b810c363bee03b658888ec">&#9670;&nbsp;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d12/classbit_1_1memory_1_1allocator__info.html">allocator_info</a> bit::memory::malloc_allocator::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the info about this allocator. </p>
+<p>This defaults to '<a class="el" href="../../d1/df3/classbit_1_1memory_1_1malloc__allocator.html" title="This stateless allocator performs all of its allocation calls using raw calls to &#39;malloc&#39;, and frees memory with &#39;free&#39;. ">malloc_allocator</a>'. Use a named_malloc_allocator to override this</p>
+<dl class="section return"><dt>Returns</dt><dd>the info for this allocator </dd></dl>
 
 </div>
 </div>
@@ -346,7 +333,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/dc0/owner_8hpp.html#ae720b6427cb59268fb1bf4fe5c22a59b">owner</a>&lt;void*&gt; bit::memory::malloc_allocator::try_allocate </td>
+          <td class="memname">owner&lt;void*&gt; bit::memory::malloc_allocator::try_allocate </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
           <td class="paramname"><em>size</em>, </td>
