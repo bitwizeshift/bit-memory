@@ -39,6 +39,7 @@ endif()
 
 
 add_executable(bit_memory_test ${source_files})
+group_source_tree("${CMAKE_CURRENT_LIST_DIR}" ${source_files})
 
 target_link_libraries(bit_memory_test PRIVATE "bit::memory" "philsquared::Catch")
 
