@@ -45,14 +45,14 @@ namespace {
 // Allocation / Deallocation
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::allocate_block()")
+TEST_CASE("block_allocator_reference::allocate_block()")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
+  auto block_allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Allocates memory using the underlying allocator")
   {
-    allocator.allocate_block();
+    block_allocator.allocate_block();
 
     REQUIRE( underlying_allocator.did_allocate );
   }
@@ -60,14 +60,14 @@ TEST_CASE("any_block_allocator::allocate_block()")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
+TEST_CASE("block_allocator_reference::deallocate_block( bit::memory::memory_block )")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
+  auto block_allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Deallocates memory using the underlying allocator")
   {
-    allocator.deallocate_block(bit::memory::nullblock);
+    block_allocator.deallocate_block(bit::memory::nullblock);
 
     REQUIRE( underlying_allocator.did_deallocate );
   }
@@ -75,14 +75,14 @@ TEST_CASE("any_block_allocator::deallocate_block( bit::memory::memory_block )")
 
 //-----------------------------------------------------------------------------
 
-TEST_CASE("any_block_allocator::info()")
+TEST_CASE("block_allocator_reference::info()")
 {
   auto underlying_allocator = test_block_allocator{};
-  auto allocator = bit::memory::block_allocator_reference{underlying_allocator};
+  auto block_allocator = bit::memory::block_allocator_reference{underlying_allocator};
 
   SECTION("Accesses the underlying allocator info")
   {
-    auto info = allocator.info();
+    auto info = block_allocator.info();
 
     REQUIRE( info.address() == &underlying_allocator );
   }

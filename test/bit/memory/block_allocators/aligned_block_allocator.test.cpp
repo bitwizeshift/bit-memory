@@ -118,6 +118,8 @@ TEST_CASE("aligned_block_allocator<block_size,align>" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -208,6 +210,8 @@ TEST_CASE("cached_aligned_block_allocator<block_size,align>" "[resource manageme
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -348,6 +352,8 @@ TEST_CASE("aligned_block_allocator<block_size,align,power_two_growth>" "[resourc
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -441,5 +447,7 @@ TEST_CASE("cached_aligned_block_allocator<block_size,align,power_two_growth>" "[
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }

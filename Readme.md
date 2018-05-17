@@ -115,6 +115,7 @@ Note that `bit-memory` only works on compiler that provide proper conformance fo
 | g++ 7.2.0             | Ubuntu 14.04.3 TLS                 |
 | clang++ 3.9.0         | Ubuntu 14.04.3 TLS                 |
 | clang++ 4.0.1         | Ubuntu 14.04.3 TLS                 |
+| clang++ 5.0           | Ubuntu 14.04.3 TLS                 |
 | g++ 7.2.0             | Ubuntu 14.04.3 TLS                 |
 | clang xcode 7.3       | Darwin Kernel 15.6.0 (OSX 10.11.6) |
 | clang xcode 8.0       | Darwin Kernel 15.6.0 (OSX 10.11.6) |

@@ -107,6 +107,8 @@ TEST_CASE("malloc_block_allocator<1024>" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -187,6 +189,8 @@ TEST_CASE("cached_malloc_block_allocator<1024>" "[resource management]")
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -302,6 +306,8 @@ TEST_CASE("malloc_block_allocator<block_size,power_of_two_growth>" "[resource ma
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }
 
@@ -386,5 +392,7 @@ TEST_CASE("cached_malloc_block_allocator<block_size,power_two_growth>" "[resourc
     for( ; start != end; ++start ) sum += *start;
 
     REQUIRE( sum == block.size() );
+
+    block_allocator.deallocate_block( block );
   }
 }

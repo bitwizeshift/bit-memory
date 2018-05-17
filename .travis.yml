@@ -24,21 +24,74 @@ branches:
 matrix:
   include:
 
-    #############
-    # Linux gcc #
-    #############
+    ########################
+    # Linux gcc unit tests #
+    ########################
 
+    # Linux gcc-6 Unit Tests
     - os: linux
       compiler: gcc
-      env: COMPILER=g++-6 CONFIGURATION=Release
+      env:
+        - TEST="g++-6 Unit Tests"
+        - COMPILER=g++-6
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
 
+    # Linux gcc-7 Unit Tests
     - os: linux
       compiler: gcc
-      env: COMPILER=g++-7 CONFIGURATION=Release
+      env:
+        - TEST="g++-7 Unit Tests"
+        - COMPILER=g++-7
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-7']
+
+    ########################
+    # Linux gcc sanitizers #
+    ########################
+
+    # gcc-7 address sanitizer
+    - os: linux
+      compiler: gcc
+      env:
+        - TEST="g++-7 Address Sanitizer"
+        - COMPILER=g++-7
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_ASAN=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-7']
+
+    # gcc-7 undefined behavior sanitizer
+    - os: linux
+      compiler: gcc
+      env:
+        - TEST="g++-7 Undefined Behavior Sanitizer"
+        - COMPILER=g++-7
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_UBSAN=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-7']
+
+    # gcc-7 thread sanitizer
+    - os: linux
+      compiler: gcc
+      env:
+        - TEST="g++-7 Thread Sanitizer"
+        - COMPILER=g++-7
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_TSAN=On"
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
@@ -48,65 +101,151 @@ matrix:
     # Linux clang #
     ###############
 
+    # Linux clang-3.9 Unit Tests
     - os: linux
       compiler: clang
-      env: COMPILER=clang++-3.9 CONFIGURATION=Release
+      env:
+        - TEST="clang++-3.9 Unit Tests"
+        - COMPILER=clang++-3.9
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6', 'clang-3.9']
+          packages: ['g++-7', 'clang-3.9']
 
+    # Linux clang-4.0 Unit Tests
     - os: linux
       compiler: clang
-      env: COMPILER=clang++-4.0 CONFIGURATION=Release
+      env:
+        - TEST="clang++-4.0 Unit Tests"
+        - COMPILER=clang++-4.0
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
-          packages: ['g++-6', 'clang-4.0']
+          packages: ['g++-7', 'clang-4.0']
 
-    # clang++-5.0 is commented out since travis is failing to acquire llvm-5.0 packages
+    # Linux clang-5.0 Unit Tests
+    - os: linux
+      compiler: clang
+      env:
+        - TEST="clang++-5.0 Unit Tests"
+        - COMPILER=clang++-5.0
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-7', 'clang-5.0']
 
-    # - os: linux
-    #   compiler: clang
-    #   env: COMPILER=clang++-5.0 CONFIGURATION=Release
-    #   addons:
-    #     apt:
-    #       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-    #       packages: ['g++-6', 'clang-5.0']
+    ##########################
+    # Linux clang sanitizers #
+    ##########################
+
+    # clang-5.0 address sanitizer
+    - os: linux
+      compiler: clang
+      env:
+        - TEST="clang++-5.0 Address Sanitizer"
+        - COMPILER=clang++-5.0
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_ASAN=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-7', 'clang-5.0']
+
+    # clang-5.0 undefined behavior sanitizer
+    - os: linux
+      compiler: clang
+      env:
+        - TEST="clang++-5.0 Undefined Behavior Sanitizer"
+        - COMPILER=clang++-5.0
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_UBSAN=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-7', 'clang-5.0']
+
+    # clang-5.0 thread sanitizer
+    - os: linux
+      compiler: clang
+      env:
+        - TEST="clang++-5.0 Thread Sanitizer"
+        - COMPILER=clang++-5.0
+        - CONFIGURATION=Debug
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_TSAN=On"
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-7', 'clang-5.0']
 
     #############
     # OSX clang #
     #############
 
+    # xcode7.3 clang unit test
     - os: osx
       osx_image: xcode7.3
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode7.3 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
+    # xcode8 clang unit test
     - os: osx
       osx_image: xcode8
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode8 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
+    # xcode8.1 clang unit test
     - os: osx
       osx_image: xcode8.1
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode8.1 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
+    # xcode8.2 clang unit test
     - os: osx
       osx_image: xcode8.2
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode8.2 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
+    # xcode8.3 clang unit test
     - os: osx
       osx_image: xcode8.3
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode8.3 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
+    # xcode9 clang unit test
     - os: osx
       osx_image: xcode9
       compiler: clang
-      env: COMPILER=clang++ CONFIGURATION=Release
+      env:
+        - TEST="xcode9 Unit Tests"
+        - COMPILER=clang++
+        - CONFIGURATION=Release
+        - CMAKE_ARGS="-DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On"
 
 ######################
 # Installation Steps #
@@ -120,41 +259,42 @@ install:
   - export CATCH_DIR=$(pwd)/catch/include
 
   # Install cmake 3.9.4 for Linux
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz
-      tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz
-      export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake
-    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget --no-check-certificate https://www.cmake.org/files/v3.9/cmake-3.9.4-Linux-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tar -xzf cmake-3.9.4-Linux-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Linux-x86_64/bin/cmake; fi
 
   # Install cmake 3.9.4 for MacOS
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz
-      tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64
-      export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake
-    fi
-
-  # make sure CXX is correctly set
-  - if [[ "${COMPILER}" != "" ]]; then export CXX=${COMPILER}; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget --no-check-certificate https://cmake.org/files/v3.9/cmake-3.9.4-Darwin-x86_64.tar.gz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake; fi
 
   - cd bit-memory/
 
-##############
-# Build Step #
-##############
-script:
-  # show OS/compiler/cmake version (MacOS uses sw_vers)
+##################
+# Pre-build step #
+##################
+before_script:
+  # Output information
+  - echo $TEST
   - uname -a
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sw_vers; fi
   - $CXX --version
   - $CMAKE --version
 
   # Build
-  - mkdir build/ && cd build/
+  - mkdir build/
+  - cd build/
   - export CTEST_OUTPUT_ON_FAILURE=1
-  - $CMAKE .. -DCMAKE_BUILD_TYPE=$CONFIGURATION -DCMAKE_INCLUDE_PATH=$CATCH_DIR -DBIT_MEMORY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=On -DBIT_MEMORY_COMPILE_UNIT_TESTS=On
-  - $CMAKE --build . --config $CONFIGURATION
 
-  # Run
+  # CMake arguments
+  - CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_BUILD_TYPE=$CONFIGURATION"
+  - CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_INCLUDE_PATH=$CATCH_DIR"
+  - CMAKE_ARGS="$CMAKE_ARGS -DBIT_MEMORY_COMPILE_UNIT_TESTS=On"
+  - CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_CXX_COMPILER=$COMPILER"
+
+######################
+# Default Build Step #
+######################
+script:
+  - $CMAKE .. $CMAKE_ARGS
+  - $CMAKE --build . --config $CONFIGURATION
   - $CMAKE --build . --target test --config $CONFIGURATION

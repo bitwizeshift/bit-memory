@@ -61,8 +61,12 @@ TEST_CASE("memory_block_cache::store_block( owner<memory_block> )")
       auto block = block_cache.request_block();
 
       REQUIRE( block.data() == p1 );
+
+      block_cache.store_block( std::move(block) );
     }
   }
+
+  block_allocator.deallocate_block( block_cache.request_block() );
 }
 
 //----------------------------------------------------------------------------
@@ -97,7 +101,11 @@ TEST_CASE("memory_block_cache::request_block()")
       block = block_cache.request_block();
 
       REQUIRE( block.data() == p );
+
+      block_cache.store_block( std::move(block) );
     }
+
+    block_allocator.deallocate_block( block_cache.request_block() );
   }
 }
 
@@ -106,9 +114,6 @@ TEST_CASE("memory_block_cache::request_block( BlockAllocator& )")
   auto block_cache = bit::memory::memory_block_cache();
 
   auto block_allocator = bit::memory::new_block_allocator<1024>();
-  auto block = block_allocator.allocate_block();
-
-  auto p = block.data();
 
   SECTION("Cache is empty")
   {
@@ -117,18 +122,26 @@ TEST_CASE("memory_block_cache::request_block( BlockAllocator& )")
       auto new_block = block_cache.request_block( block_allocator );
 
       REQUIRE( (new_block != bit::memory::nullblock) );
+
+      block_allocator.deallocate_block( std::move(new_block) );
     }
   }
 
   SECTION("Cache is non-empty")
   {
+    auto block = block_allocator.allocate_block();
+    auto p = block.data();
     block_cache.store_block( std::move(block) );
 
     SECTION("Request returns previously cached block")
     {
-      block = block_cache.request_block();
+      auto block = block_cache.request_block();
 
       REQUIRE( block.data() == p );
+
+      block_cache.store_block( std::move(block) );
     }
+
+    block_allocator.deallocate_block( block_cache.request_block() );
   }
 }
