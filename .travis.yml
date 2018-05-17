@@ -268,7 +268,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar -xzf cmake-3.9.4-Darwin-x86_64.tar.gz && ls && ls cmake-3.9.4-Darwin-x86_64; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CMAKE=$TRAVIS_BUILD_DIR/../cmake-3.9.4-Darwin-x86_64/CMake.app/Contents/bin/cmake; fi
 
-  - cd bit-stl/
+  - cd bit-memory/
 
 ##################
 # Pre-build step #
